@@ -8,7 +8,7 @@
   <tabs>
     <Tab text="Registrar producto">
       <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="484.0" prefWidth="666.0" style="-fx-background-image: url(src/main/java/resorces/imagenes/wood_background.png); -fx-background-repeat: repeat; -fx-background-size: cover; -fx-background-position: center;">
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="484.0" prefWidth="666.0" style="-fx-background-color: #9e5e2b;">
                <children>
                   <Pane layoutX="200.0" layoutY="22.0" prefHeight="469.0" prefWidth="361.0" style="-fx-background-color: #f3dbb3; -fx-border-color: #e7ca9c; -fx-border-width: 4;">
                      <children>
@@ -17,7 +17,7 @@
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <TextField layoutX="100.0" layoutY="180.0" />
+                        <TextField layoutX="100.0" layoutY="180.0" style="-fx-background-color: #;" />
                         <TextField layoutX="100.0" layoutY="116.0" />
                         <TextField layoutX="100.0" layoutY="243.0" />
                         <TextField layoutX="100.0" layoutY="304.0" />
