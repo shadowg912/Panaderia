@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="775.0" prefWidth="1000.0" style="-fx-background-color: #f3e9df;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+    <VBox spacing="15" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="20">
+
+        <!-- TITULO -->
+        <Label style="-fx-font-size: 26px;                       -fx-font-weight: bold;                       -fx-text-fill: #3b2b1c;" text="Ver facturas" />
+
+        <!-- PANEL FILTROS -->
+        <GridPane hgap="15" style="-fx-background-color: #f3e9df; -fx-border-color: #3b2b1c; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 15;" vgap="12">
+
+            <Label style="-fx-text-fill: #3b2b1c;" text="Cliente:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+            <TextField style="-fx-border-color: #3b2b1c;" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+            <Label style="-fx-text-fill: #3b2b1c;" text="Fecha Desde:" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+            <DatePicker style="-fx-border-color: #3b2b1c;" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+
+            <Label style="-fx-text-fill: #3b2b1c;" text="Fecha Hasta:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <DatePicker style="-fx-border-color: #3b2b1c;" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+
+            <Label style="-fx-text-fill: #3b2b1c;" text="Estado:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+            <ComboBox style="-fx-border-color: #3b2b1c;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+         <columnConstraints>
+            <ColumnConstraints />
+            <ColumnConstraints />
+            <ColumnConstraints />
+            <ColumnConstraints />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints />
+            <RowConstraints />
+         </rowConstraints>
+
+        </GridPane>
+
+        <!-- TABLA FACTURAS -->
+        <TableView style="-fx-border-color: #3b2b1c; -fx-background-color: #f3e9df;" VBox.vgrow="ALWAYS">
+
+            <columns>
+                <TableColumn prefWidth="162.0" text="No. Factura" />
+                <TableColumn prefWidth="178.0" text="Cliente" />
+                <TableColumn prefWidth="120" text="Fecha" />
+                <TableColumn prefWidth="141.0" text="Condición" />
+                <TableColumn prefWidth="175.0" text="Estado" />
+                <TableColumn prefWidth="182.0" text="Total" />
+            </columns>
+
+        </TableView>
+
+        <!-- BOTONES ACCIONES -->
+        <HBox alignment="CENTER_RIGHT" spacing="20">
+
+            <Button style="-fx-background-color: #b2946f;                            -fx-text-fill: #fff5e8;" text="Ver Detalle" />
+
+            <Button style="-fx-background-color: #b2946f;                            -fx-text-fill: #fff5e8;" text="Descargar PDF" />
+
+            <Button style="-fx-background-color: #b2946f;                            -fx-text-fill: #fff5e8;" text="Imprimir" />
+
+        </HBox>
+
+    </VBox>
+</AnchorPane>
