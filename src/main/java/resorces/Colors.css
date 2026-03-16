@@ -1,17 +1,23 @@
-/*Background*/
-#624a2d
-/*hover color*/
-#e2d2c2
-/*froms panels color*/
-#927D4E
-/*Normal text color*/
-#CA9A4E
-/*borders color*/
-#CA9A4E
-/*Button color*/
-#b2946f
-/*Button text color*/
-#fff5e8
+/* Background - Azul Medianoche Profundo */
+#0f172a
+
+/* Hover color - Celeste Glacial (Brillo suave) */
+#38bdf8
+
+/* Forms / Panels color - Gris Azulado Oscuro */
+#1e293b
+
+/* Normal text color - Blanco Azur (Legibilidad máxima) */
+#f1f5f9
+
+/* Borders color - Gris Slate Intermedio */
+#334155
+
+/* Button color - Azul Índigo Vibrante */
+#6366f1
+
+/* Button text color - Blanco Puro */
+#fff3eb
 
 
 
@@ -24,7 +30,8 @@
 
 /*opcion 2 paleta noche oscura*/
 #24130a
+#fff3eb/*text colot*/
 #7e491f
 #a4875a
 #1a203c
-#070707
+#3a3a3a
