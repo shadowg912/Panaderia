@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="720" prefWidth="1280" style="-fx-background-color: #f3e9df;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+
+    <top>
+        <VBox style="-fx-background-color: #f3dbb3; -fx-padding: 12;">
+            <children>
+                <HBox spacing="16">
+                    <children>
+                        <ImageView fitHeight="60" fitWidth="60" preserveRatio="true">
+                            <image>
+                                <Image url="@../assets/logo_panaderia.png" />
+                            </image>
+                        </ImageView>
+                        <VBox>
+                            <children>
+                                <Label style="-fx-font-size: 24px; -fx-text-fill: #3b2b1c; -fx-font-weight: bold;" text="Nueva Orden de Venta" />
+                                <Label style="-fx-font-size: 14px; -fx-text-fill: #3b2b1c;" text="Cliente: [Nombre del cliente seleccionado]" />
+                            </children>
+                        </VBox>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </top>
+
+    <center>
+        <SplitPane dividerPositions="0.4" prefHeight="600">
+            <items>
+                <!-- Panel izquierdo: Búsqueda de productos -->
+                <VBox spacing="16" style="-fx-padding: 20; -fx-background-color: #f3e9df;">
+                    <children>
+                        <Label style="-fx-font-size: 18px; -fx-text-fill: #3b2b1c;" text="Buscar Producto" />
+
+                        <HBox spacing="8">
+                            <children>
+                                <TextField promptText="Código o nombre..." style="-fx-background-color: white; -fx-border-color: #3b2b1c; -fx-border-width: 1; -fx-padding: 8;" />
+                                <Button style="-fx-background-color: #b2946f; -fx-text-fill: #fff5e8; -fx-padding: 8 16;" text="Buscar" />
+                            </children>
+                        </HBox>
+
+                        <TableView prefHeight="300" prefWidth="490.0" style="-fx-border-color: #3b2b1c; -fx-border-width: 1;">
+                            <columns>
+                                <TableColumn prefWidth="103.0" text="Código" />
+                                <TableColumn prefWidth="246.0" text="Producto" />
+                                <TableColumn prefWidth="141.0" text="Precio (RD$)" />
+                                <TableColumn prefWidth="80" text="Stock" />
+                                <TableColumn prefWidth="80" text="Acción" />
+                            </columns>
+                        </TableView>
+                    </children>
+                </VBox>
+
+                <!-- Panel derecho: Carrito / Resumen -->
+                <VBox spacing="20" style="-fx-padding: 20; -fx-background-color: #f3dbb3;">
+                    <children>
+                        <Label style="-fx-font-size: 18px; -fx-text-fill: #3b2b1c;" text="Productos Seleccionados" />
+
+                        <TableView prefHeight="250" style="-fx-border-color: #3b2b1c; -fx-border-width: 1;">
+                            <columns>
+                                <TableColumn prefWidth="200" text="Producto" />
+                                <TableColumn prefWidth="80" text="Cant." />
+                                <TableColumn prefWidth="100" text="P.U. (RD$)" />
+                                <TableColumn prefWidth="100" text="Total (RD$)" />
+                                <TableColumn prefWidth="80" text="Eliminar" />
+                            </columns>
+                        </TableView>
+
+                        <!-- Resumen fiscal -->
+                        <VBox spacing="8" style="-fx-background-color: white; -fx-padding: 16; -fx-border-color: #3b2b1c; -fx-border-width: 1;">
+                            <children>
+                                <HBox spacing="16">
+                                    <children>
+                                        <Label style="-fx-text-fill: #3b2b1c;" text="Subtotal:" />
+                                        <Label style="-fx-text-fill: #3b2b1c; -fx-font-weight: bold;" text="RD$ 1,250.00" HBox.hgrow="ALWAYS" />
+                                    </children>
+                                </HBox>
+                                <HBox spacing="16">
+                                    <children>
+                                        <Label style="-fx-text-fill: #3b2b1c;" text="ITBIS(18%)" />
+                                        <Label style="-fx-text-fill: #3b2b1c; -fx-font-weight: bold;" text="RD$ 225.00" HBox.hgrow="ALWAYS" />
+                                    </children>
+                                </HBox>
+                                <HBox spacing="16" style="-fx-border-top: 1px solid #3b2b1c; -fx-padding-top: 8;">
+                                    <children>
+                                        <Label style="-fx-text-fill: #3b2b1c; -fx-font-size: 16px; -fx-font-weight: bold;" text="Total:" />
+                                        <Label style="-fx-text-fill: #3b2b1c; -fx-font-size: 16px; -fx-font-weight: bold;" text="RD$ 1,475.00" HBox.hgrow="ALWAYS" />
+                                    </children>
+                                </HBox>
+                            </children>
+                        </VBox>
+
+                        <!-- Botones -->
+                        <HBox alignment="CENTER" spacing="16">
+                            <children>
+                                <Button style="-fx-background-color: #e2d2c2; -fx-text-fill: #3b2b1c; -fx-padding: 12 28; -fx-font-size: 16;" text="Cancelar Orden" />
+                                <Button style="-fx-background-color: #b2946f; -fx-text-fill: #fff5e8; -fx-padding: 12 28; -fx-font-size: 16;" text="Confirmar Orden" />
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+            </items>
+        </SplitPane>
+    </center>
+
+    <bottom>
+        <HBox alignment="CENTER" style="-fx-background-color: #f3dbb3; -fx-padding: 12;" />
+    </bottom>
+</BorderPane>

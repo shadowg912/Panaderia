@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="720" prefWidth="1280" style="-fx-background-color: #f3e9df;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+
+    <!-- Fondo decorativo (panes de pan) -->
+    <children>
+        <Pane style="-fx-background-color: #f3e9df;">
+            <children>
+                <!-- Elementos decorativos sutiles (panes) -->
+                <Label layoutX="100" layoutY="80" style="-fx-font-size: 48px; -fx-opacity: 0.15;" text="🍞" />
+                <Label layoutX="1100" layoutY="550" style="-fx-font-size: 36px; -fx-opacity: 0.15;" text="🥐" />
+                <Label layoutX="200" layoutY="600" style="-fx-font-size: 42px; -fx-opacity: 0.1;" text="🥖" />
+                <Label layoutX="950" layoutY="150" style="-fx-font-size: 32px; -fx-opacity: 0.12;" text="🥮" />
+            </children>
+        </Pane>
+    </children>
+
+    <!-- Panel de login centrado -->
+    <center>
+        <StackPane>
+            <VBox alignment="CENTER" maxWidth="480" prefHeight="633.0" prefWidth="479.0" spacing="24" style="-fx-background-color: #f3dbb3;                          -fx-border-color: #3b2b1c;                          -fx-border-width: 2;                          -fx-border-radius: 8;                          -fx-background-radius: 8;                          -fx-padding: 48px;">
+                <children>
+
+                    <VBox alignment="CENTER" spacing="16">
+                        <children>
+                            <Label style="-fx-font-size: 28px;                                           -fx-text-fill: #3b2b1c;                                           -fx-font-weight: bold;" text="Panadería " />
+                            <Label style="-fx-font-size: 16px;                                           -fx-text-fill: #3b2b1c;                                           -fx-font-style: italic;" text="Sistema Integral de Gestión" />
+                        </children>
+                    </VBox>
+
+                    <!-- Formulario de login -->
+                    <VBox spacing="16" style="-fx-padding: 16 0;">
+                        <children>
+                            <!-- Campo Usuario -->
+                            <VBox spacing="6">
+                                <children>
+                                    <Label style="-fx-font-size: 14px;                                                   -fx-text-fill: #3b2b1c;                                                   -fx-font-weight: bold;" text="Usuario" />
+                                    <TextField promptText="Ingrese su nombre de usuario" style="-fx-background-color: white; -fx-border-color: #3b2b1c; -fx-border-width: 1.5; -fx-padding: 12; -fx-font-size: 16px; -fx-border-radius: 6px;" />
+                                </children>
+                            </VBox>
+
+                            <!-- Campo Contraseña -->
+                            <VBox spacing="6">
+                                <children>
+                                    <Label style="-fx-font-size: 14px;                                                   -fx-text-fill: #3b2b1c;                                                   -fx-font-weight: bold;" text="Contraseña" />
+                                    <PasswordField promptText="Ingrese su contraseña" style="-fx-background-color: white; -fx-border-color: #3b2b1c; -fx-border-width: 1.5; -fx-padding: 12; -fx-font-size: 16px; -fx-border-radius: 6px;" />
+                                </children>
+                            </VBox>
+
+                            <!-- Selector de Rol (crítico para ERP) -->
+                            <VBox spacing="6" />
+
+                            <!-- Recordar sesión -->
+                            <HBox alignment="CENTER_LEFT">
+                                <children>
+                                    <CheckBox style="-fx-text-fill: #3b2b1c;                                                      -fx-font-size: 14px;" text="Recordar sesión" />
+                                </children>
+                            </HBox>
+
+                            <!-- Botón de acceso -->
+                            <Button style="-fx-background-color: #b2946f;                                            -fx-text-fill: #fff5e8;                                            -fx-font-size: 18px;                                            -fx-font-weight: bold;                                            -fx-padding: 14 48;                                            -fx-border-radius: 4;                                            -fx-background-radius: 4;" styleClass="login-button" text="Iniciar Sesión">
+                                <effect>
+                                    <DropShadow blurType="GAUSSIAN" radius="8" />
+                                </effect>
+                            </Button>
+
+                            <!-- Enlace recuperación -->
+                            <HBox alignment="CENTER">
+                                <children>
+                                    <Label style="-fx-text-fill: #3b2b1c;                                                   -fx-font-size: 14px;                                                   -fx-underline: true;                                                   -fx-cursor: hand;" text="¿Olvidó su contraseña?" />
+                                </children>
+                            </HBox>
+                        </children>
+                    </VBox>
+
+                    <!-- Separador visual -->
+                    <Separator style="-fx-background-color: #3b2b1c;" />
+
+                    <!-- Información de seguridad -->
+                    <VBox alignment="CENTER" spacing="8">
+                        <children>
+                            <Label style="-fx-text-fill: #3b2b1c;                                           -fx-font-size: 13px;" text="🔒 Conexión segura con servidor local" />
+                            <Label style="-fx-text-fill: #3b2b1c;                                           -fx-font-size: 12px;                                           -fx-font-style: italic;" text="Último acceso: 15/02/2026 18:45 - Vendedor (Juan Pérez)" />
+                        </children>
+                    </VBox>
+                </children>
+            </VBox>
+        </StackPane>
+    </center>
+
+    <!-- Footer institucional -->
+    <bottom>
+        <VBox style="-fx-background-color: #f3dbb3;                     -fx-padding: 16 0;                     -fx-border-top-color: #3b2b1c;                     -fx-border-top-width: 1;">
+            <children>
+                <HBox alignment="CENTER" style="-fx-padding-top: 8;" />
+            </children>
+        </VBox>
+    </bottom>
+</BorderPane>

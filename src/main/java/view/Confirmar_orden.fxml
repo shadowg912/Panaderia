@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="720" prefWidth="1280" style="-fx-background-color: #f3e9df;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+
+    <top>
+        <VBox style="-fx-background-color: #f3dbb3; -fx-padding: 12;">
+            <children>
+                <HBox spacing="16">
+                    <children>
+                        <Label style="-fx-font-size: 24px; -fx-text-fill: #3b2b1c; -fx-font-weight: bold;" text="Confirmar Orden de Venta" />
+                    </children>
+                </HBox>
+                <Label style="-fx-font-size: 14px; -fx-text-fill: #3b2b1c;" text="Cliente: [Nombre del cliente] | Dirección: [Dirección formateada]" />
+            </children>
+        </VBox>
+    </top>
+
+    <center>
+        <VBox alignment="CENTER" spacing="24" style="-fx-padding: 32;">
+            <children>
+                <!-- Resumen completo -->
+                <VBox spacing="16" style="-fx-background-color: white; -fx-padding: 20; -fx-border-color: #3b2b1c; -fx-border-width: 1;">
+                    <children>
+                        <Label style="-fx-font-size: 18px; -fx-text-fill: #3b2b1c; -fx-font-weight: bold;" text="Detalles de la Orden" />
+
+                        <!-- Productos -->
+                        <TableView prefHeight="200" style="-fx-border-color: #3b2b1c; -fx-border-width: 1;">
+                            <columns>
+                                <TableColumn prefWidth="300" text="Producto" />
+                                <TableColumn prefWidth="80" text="Cant." />
+                                <TableColumn prefWidth="100" text="P.U." />
+                                <TableColumn prefWidth="100" text="Total" />
+                            </columns>
+                        </TableView>
+
+                        <!-- Totales -->
+                        <VBox spacing="6">
+                            <children>
+                                <HBox spacing="16">
+                                    <children>
+                                        <Label style="-fx-text-fill: #3b2b1c;" text="Subtotal:" />
+                                        <Label style="-fx-text-fill: #3b2b1c; -fx-font-weight: bold;" text="RD$ 1,250.00" HBox.hgrow="ALWAYS" />
+                                    </children>
+                                </HBox>
+                                <HBox spacing="16">
+                                    <children>
+                                        <Label style="-fx-text-fill: #3b2b1c;" text="IVA (18%):" />
+                                        <Label style="-fx-text-fill: #3b2b1c; -fx-font-weight: bold;" text="RD$ 225.00" HBox.hgrow="ALWAYS" />
+                                    </children>
+                                </HBox>
+                                <HBox spacing="16">
+                                    <children>
+                                        <Label style="-fx-text-fill: #3b2b1c;" text="Envío:" />
+                                        <Label style="-fx-text-fill: #3b2b1c; -fx-font-weight: bold;" text="RD$ 150.00" HBox.hgrow="ALWAYS" />
+                                    </children>
+                                </HBox>
+                                <HBox spacing="16" style="-fx-border-top: 2px solid #3b2b1c; -fx-padding-top: 8;">
+                                    <children>
+                                        <Label style="-fx-text-fill: #3b2b1c; -fx-font-size: 18px; -fx-font-weight: bold;" text="TOTAL FINAL:" />
+                                        <Label style="-fx-text-fill: #3b2b1c; -fx-font-size: 18px; -fx-font-weight: bold;" text="RD$ 1,625.00" HBox.hgrow="ALWAYS" />
+                                    </children>
+                                </HBox>
+                            </children>
+                        </VBox>
+                    </children>
+                </VBox>
+
+                <!-- Botones de confirmación -->
+                <HBox alignment="CENTER" spacing="20">
+                    <children>
+                        <Button style="-fx-background-color: #e2d2c2; -fx-text-fill: #3b2b1c; -fx-padding: 14 32; -fx-font-size: 16;" text="Editar Orden" />
+                        <Button style="-fx-background-color: #e2d2c2; -fx-text-fill: #3b2b1c; -fx-padding: 14 32; -fx-font-size: 16;" text="Cancelar Orden" />
+                        <Button style="-fx-background-color: #b2946f; -fx-text-fill: #fff5e8; -fx-padding: 14 32; -fx-font-size: 16;" text="Emitir Orden" />
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </center>
+
+    <bottom>
+        <HBox alignment="CENTER" style="-fx-background-color: #f3dbb3; -fx-padding: 12;">
+            <children>
+                <Label style="-fx-text-fill: #3b2b1c; -fx-font-size: 12;" text="Orden de Venta – Paso 4/4" />
+            </children>
+        </HBox>
+    </bottom>
+</BorderPane>
