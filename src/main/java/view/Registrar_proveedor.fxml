@@ -5,6 +5,7 @@
 <?import javafx.geometry.*?>
 
 <AnchorPane prefHeight="520.0" prefWidth="720.0"
+            style="-fx-background-color: #24130a;"
             xmlns="http://javafx.com/javafx/17.0.12"
             xmlns:fx="http://javafx.com/fxml/1">
 
@@ -13,72 +14,99 @@
         <VBox prefWidth="720" prefHeight="520"
               alignment="TOP_CENTER"
               spacing="20"
-              style="-fx-background-color: #CDB08E;">
+              style="-fx-background-color: #24130a;">
 
             <padding>
-                <Insets top="25" left="25" right="25" bottom="25"/>
+                <Insets top="30" left="30" right="30" bottom="30"/>
             </padding>
 
             <!-- Título -->
-            <Label text="Registro de Proveedor de Panadería"
-                   style="-fx-font-size: 26px;
+            <Label text="Panadería"
+                   style="-fx-font-size: 30px;
                           -fx-font-weight: bold;
-                          -fx-text-fill: #11100B;" />
+                          -fx-text-fill: #fff3eb;" />
+
+            <Label text="Registro de Proveedor"
+                   style="-fx-font-size: 16px;
+                          -fx-text-fill: #fff3eb;
+                          -fx-font-style: italic;" />
 
             <!-- Panel formulario -->
             <GridPane alignment="CENTER"
-                      hgap="15" vgap="15"
-                      style="-fx-background-color: #BFB6A6;
-                             -fx-background-radius: 12;
-                             -fx-padding: 25;">
+                      hgap="15" vgap="18"
+                      style="-fx-background-color: #1a203c;
+                             -fx-background-radius: 20;
+                             -fx-padding: 35;">
 
                 <!-- Nombre -->
                 <Label text="Nombre del proveedor:"
+                       style="-fx-text-fill: #fff3eb;"
                        GridPane.rowIndex="0" GridPane.columnIndex="0"/>
 
                 <TextField promptText="Ej: Harinas del Norte"
                            GridPane.rowIndex="0" GridPane.columnIndex="1"
-                           style="-fx-background-color: #AAAAA4;" />
+                           style="-fx-background-color: #3a3a3a;
+                                  -fx-text-fill: #fff3eb;
+                                  -fx-prompt-text-fill: #a4875a;
+                                  -fx-background-radius: 12;" />
 
                 <!-- Contacto -->
                 <Label text="Persona de contacto:"
+                       style="-fx-text-fill: #fff3eb;"
                        GridPane.rowIndex="1" GridPane.columnIndex="0"/>
 
                 <TextField promptText="Ej: Juan Pérez"
                            GridPane.rowIndex="1" GridPane.columnIndex="1"
-                           style="-fx-background-color: #AAAAA4;" />
+                           style="-fx-background-color: #3a3a3a;
+                                  -fx-text-fill: #fff3eb;
+                                  -fx-prompt-text-fill: #a4875a;
+                                  -fx-background-radius: 12;" />
 
                 <!-- Teléfono -->
                 <Label text="Teléfono:"
+                       style="-fx-text-fill: #fff3eb;"
                        GridPane.rowIndex="2" GridPane.columnIndex="0"/>
 
                 <TextField promptText="809-000-0000"
                            GridPane.rowIndex="2" GridPane.columnIndex="1"
-                           style="-fx-background-color: #AAAAA4;" />
+                           style="-fx-background-color: #3a3a3a;
+                                  -fx-text-fill: #fff3eb;
+                                  -fx-prompt-text-fill: #a4875a;
+                                  -fx-background-radius: 12;" />
 
                 <!-- Correo -->
                 <Label text="Correo electrónico:"
+                       style="-fx-text-fill: #fff3eb;"
                        GridPane.rowIndex="3" GridPane.columnIndex="0"/>
 
                 <TextField promptText="correo@email.com"
                            GridPane.rowIndex="3" GridPane.columnIndex="1"
-                           style="-fx-background-color: #AAAAA4;" />
+                           style="-fx-background-color: #3a3a3a;
+                                  -fx-text-fill: #fff3eb;
+                                  -fx-prompt-text-fill: #a4875a;
+                                  -fx-background-radius: 12;" />
 
                 <!-- Dirección -->
                 <Label text="Dirección:"
+                       style="-fx-text-fill: #fff3eb;"
                        GridPane.rowIndex="4" GridPane.columnIndex="0"/>
 
                 <TextField promptText="Santiago, RD"
                            GridPane.rowIndex="4" GridPane.columnIndex="1"
-                           style="-fx-background-color: #AAAAA4;" />
+                           style="-fx-background-color: #3a3a3a;
+                                  -fx-text-fill: #fff3eb;
+                                  -fx-prompt-text-fill: #a4875a;
+                                  -fx-background-radius: 12;" />
 
-                <!-- Tipo de productos -->
+                <!-- Tipo -->
                 <Label text="Tipo de productos:"
+                       style="-fx-text-fill: #fff3eb;"
                        GridPane.rowIndex="5" GridPane.columnIndex="0"/>
 
                 <ComboBox promptText="Seleccione..."
                           GridPane.rowIndex="5" GridPane.columnIndex="1"
-                          style="-fx-background-color: #AAAAA4;" />
+                          style="-fx-background-color: #3a3a3a;
+                                 -fx-background-radius: 12;" />
 
             </GridPane>
 
@@ -86,18 +114,20 @@
             <HBox spacing="20" alignment="CENTER">
 
                 <Button text="Guardar"
-                        prefWidth="120"
-                        style="-fx-background-color: #4A4944;
-                               -fx-text-fill: white;
+                        prefWidth="140"
+                        style="-fx-background-color: #7e491f;
+                               -fx-text-fill: #fff3eb;
+                               -fx-font-size: 16px;
                                -fx-font-weight: bold;
-                               -fx-background-radius: 8;" />
+                               -fx-background-radius: 16;" />
 
                 <Button text="Cancelar"
-                        prefWidth="120"
-                        style="-fx-background-color: #4A4944;
-                               -fx-text-fill: white;
+                        prefWidth="140"
+                        style="-fx-background-color: #a4875a;
+                               -fx-text-fill: #24130a;
+                               -fx-font-size: 16px;
                                -fx-font-weight: bold;
-                               -fx-background-radius: 8;" />
+                               -fx-background-radius: 16;" />
 
             </HBox>
 
