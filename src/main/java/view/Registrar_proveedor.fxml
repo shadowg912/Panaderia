@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<AnchorPane prefHeight="520.0" prefWidth="720.0"
+            xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1">
+
+    <children>
+
+        <VBox prefWidth="720" prefHeight="520"
+              alignment="TOP_CENTER"
+              spacing="20"
+              style="-fx-background-color: #CDB08E;">
+
+            <padding>
+                <Insets top="25" left="25" right="25" bottom="25"/>
+            </padding>
+
+            <!-- Título -->
+            <Label text="Registro de Proveedor de Panadería"
+                   style="-fx-font-size: 26px;
+                          -fx-font-weight: bold;
+                          -fx-text-fill: #11100B;" />
+
+            <!-- Panel formulario -->
+            <GridPane alignment="CENTER"
+                      hgap="15" vgap="15"
+                      style="-fx-background-color: #BFB6A6;
+                             -fx-background-radius: 12;
+                             -fx-padding: 25;">
+
+                <!-- Nombre -->
+                <Label text="Nombre del proveedor:"
+                       GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+
+                <TextField promptText="Ej: Harinas del Norte"
+                           GridPane.rowIndex="0" GridPane.columnIndex="1"
+                           style="-fx-background-color: #AAAAA4;" />
+
+                <!-- Contacto -->
+                <Label text="Persona de contacto:"
+                       GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+
+                <TextField promptText="Ej: Juan Pérez"
+                           GridPane.rowIndex="1" GridPane.columnIndex="1"
+                           style="-fx-background-color: #AAAAA4;" />
+
+                <!-- Teléfono -->
+                <Label text="Teléfono:"
+                       GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+
+                <TextField promptText="809-000-0000"
+                           GridPane.rowIndex="2" GridPane.columnIndex="1"
+                           style="-fx-background-color: #AAAAA4;" />
+
+                <!-- Correo -->
+                <Label text="Correo electrónico:"
+                       GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+
+                <TextField promptText="correo@email.com"
+                           GridPane.rowIndex="3" GridPane.columnIndex="1"
+                           style="-fx-background-color: #AAAAA4;" />
+
+                <!-- Dirección -->
+                <Label text="Dirección:"
+                       GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+
+                <TextField promptText="Santiago, RD"
+                           GridPane.rowIndex="4" GridPane.columnIndex="1"
+                           style="-fx-background-color: #AAAAA4;" />
+
+                <!-- Tipo de productos -->
+                <Label text="Tipo de productos:"
+                       GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+
+                <ComboBox promptText="Seleccione..."
+                          GridPane.rowIndex="5" GridPane.columnIndex="1"
+                          style="-fx-background-color: #AAAAA4;" />
+
+            </GridPane>
+
+            <!-- Botones -->
+            <HBox spacing="20" alignment="CENTER">
+
+                <Button text="Guardar"
+                        prefWidth="120"
+                        style="-fx-background-color: #4A4944;
+                               -fx-text-fill: white;
+                               -fx-font-weight: bold;
+                               -fx-background-radius: 8;" />
+
+                <Button text="Cancelar"
+                        prefWidth="120"
+                        style="-fx-background-color: #4A4944;
+                               -fx-text-fill: white;
+                               -fx-font-weight: bold;
+                               -fx-background-radius: 8;" />
+
+            </HBox>
+
+        </VBox>
+
+    </children>
+
+</AnchorPane>
