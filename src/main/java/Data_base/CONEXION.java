@@ -1,0 +1,31 @@
+package Data_base;
+
+import javax.swing.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+public class CONEXION {
+    Connection connection = null;
+
+
+    String usuario = "Esteban";
+    String contrasena = "J3sk0912";
+    String db = "PANADERIA";
+    String ip = "localhost";
+    String puerto = "1433";
+
+    String cadena = "jdbc:sqlserver//" + ip + "," + puerto + "/" + db;
+
+    public Connection establecerconexio() {
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+
+            String cadena = "jdbc:sqlserver://" + ip + ":" + puerto + ";" + "databaseName=" + db + ";" + "encrypt=true" + ";" + "trustServerCertificate=true";
+            connection = DriverManager.getConnection(cadena, usuario, contrasena);
+            System.out.printf("todo bien");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "te jodiste manito, algo esta mal, no se que, pero esta mal" + e.toString());
+        }
+        return connection;
+    }
+}

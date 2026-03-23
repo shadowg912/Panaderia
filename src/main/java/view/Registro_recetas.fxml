@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane prefHeight="720" prefWidth="1280"
+            style="-fx-background-color: #0f172a;"
+            xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1">
+
+    <top>
+        <VBox style="-fx-background-color: #1e293b;
+                     -fx-padding: 16 24;
+                     -fx-border-color: #334155;
+                     -fx-border-width: 0 0 1 0;">
+            <children>
+                <Label style="-fx-font-size: 10px;
+                              -fx-font-weight: bold;
+                              -fx-text-fill: #38bdf8;
+                              -fx-letter-spacing: 2;"
+                       text="PANADERÍA — PRODUCCIÓN" />
+                <Label style="-fx-font-size: 22px;
+                              -fx-font-weight: bold;
+                              -fx-text-fill: #f1f5f9;"
+                       text="Registro de Nueva Receta" />
+                <Label style="-fx-font-size: 13px;
+                              -fx-text-fill: #38bdf8;"
+                       text="Configure los ingredientes y pasos de elaboración" />
+            </children>
+        </VBox>
+    </top>
+
+    <center>
+        <ScrollPane fitToWidth="true"
+                    style="-fx-background-color: #0f172a;
+                           -fx-background: #0f172a;
+                           -fx-border-color: transparent;">
+            <content>
+                <VBox spacing="32" style="-fx-padding: 40;">
+
+                    <VBox spacing="20">
+                        <Label style="-fx-text-fill: #38bdf8; -fx-font-weight: bold; -fx-font-size: 14px;" text="INFORMACIÓN GENERAL" />
+                        <GridPane hgap="24" vgap="20">
+                            <columnConstraints>
+                                <ColumnConstraints percentWidth="50" />
+                                <ColumnConstraints percentWidth="50" />
+                            </columnConstraints>
+
+                            <VBox spacing="8" GridPane.columnIndex="0">
+                                <Label style="-fx-text-fill: #f1f5f9;" text="Nombre de la Receta" />
+                                <TextField promptText="Ej. Pan de Agua"
+                                           style="-fx-background-color: #1e293b; -fx-text-fill: #f1f5f9; -fx-border-color: #334155; -fx-border-radius: 6; -fx-padding: 10;" />
+                            </VBox>
+
+                            <VBox spacing="8" GridPane.columnIndex="1">
+                                <Label style="-fx-text-fill: #f1f5f9;" text="Categoría" />
+                                <ComboBox maxWidth="Infinity" promptText="Seleccionar tipo..."
+                                          style="-fx-background-color: #1e293b; -fx-border-color: #334155; -fx-border-radius: 6; -fx-padding: 5;" />
+                            </VBox>
+
+                            <VBox spacing="8" GridPane.rowIndex="1" GridPane.columnIndex="0">
+                                <Label style="-fx-text-fill: #f1f5f9;" text="Rendimiento (Cantidad)" />
+                                <TextField promptText="Ej. 50 unidades"
+                                           style="-fx-background-color: #1e293b; -fx-text-fill: #f1f5f9; -fx-border-color: #334155; -fx-border-radius: 6; -fx-padding: 10;" />
+                            </VBox>
+
+                            <VBox spacing="8" GridPane.rowIndex="1" GridPane.columnIndex="1">
+                                <Label style="-fx-text-fill: #f1f5f9;" text="Tiempo de Elaboración (min)" />
+                                <TextField promptText="Ej. 120"
+                                           style="-fx-background-color: #1e293b; -fx-text-fill: #f1f5f9; -fx-border-color: #334155; -fx-border-radius: 6; -fx-padding: 10;" />
+                            </VBox>
+                        </GridPane>
+                    </VBox>
+
+                    <VBox spacing="16">
+                        <HBox alignment="CENTER_LEFT" spacing="12">
+                            <Label style="-fx-text-fill: #38bdf8; -fx-font-weight: bold; -fx-font-size: 14px;" text="INGREDIENTES" />
+                            <Region HBox.hgrow="ALWAYS" />
+                            <Button text="+ Añadir Ingrediente"
+                                    style="-fx-background-color: transparent; -fx-text-fill: #38bdf8; -fx-border-color: #38bdf8; -fx-border-radius: 4; -fx-font-size: 12px;" />
+                        </HBox>
+
+                        <TableView prefHeight="200"
+                                   style="-fx-background-color: #1e293b; -fx-border-color: #334155; -fx-border-radius: 8;">
+                            <columns>
+                                <TableColumn prefWidth="350" text="Ingrediente / Materia Prima" />
+                                <TableColumn prefWidth="150" text="Cantidad" />
+                                <TableColumn prefWidth="150" text="Unidad" />
+                                <TableColumn prefWidth="150" text="Costo Est." />
+                            </columns>
+                        </TableView>
+                    </VBox>
+
+                    <VBox spacing="8">
+                        <Label style="-fx-text-fill: #38bdf8; -fx-font-weight: bold; -fx-font-size: 14px;" text="INSTRUCCIONES DE PREPARACIÓN" />
+                        <TextArea prefHeight="120" promptText="Escriba los pasos detallados aquí..."
+                                  style="-fx-control-inner-background: #1e293b;
+                                         -fx-text-fill: #f1f5f9;
+                                         -fx-border-color: #334155;
+                                         -fx-border-radius: 6;
+                                         -fx-background-color: #1e293b;" />
+                    </VBox>
+
+                    <HBox alignment="CENTER_RIGHT" spacing="20" style="-fx-padding: 20 0 0 0;">
+                        <Button text="Limpiar Formulario"
+                                style="-fx-background-color: #1e293b;
+                                       -fx-text-fill: #f1f5f9;
+                                       -fx-font-size: 14px;
+                                       -fx-border-color: #334155;
+                                       -fx-border-width: 1;
+                                       -fx-border-radius: 8;
+                                       -fx-background-radius: 8;
+                                       -fx-padding: 11 28;" />
+                        <Button text="Cancelar"
+                                style="-fx-background-color: #1e293b;
+                                       -fx-text-fill: #f1f5f9;
+                                       -fx-font-size: 14px;
+                                       -fx-border-color: #334155;
+                                       -fx-border-width: 1;
+                                       -fx-border-radius: 8;
+                                       -fx-background-radius: 8;
+                                       -fx-padding: 11 28;" />
+                        <Button text="Guardar Receta"
+                                style="-fx-background-color: #6366f1;
+                                       -fx-text-fill: #fff3eb;
+                                       -fx-font-size: 14px;
+                                       -fx-font-weight: bold;
+                                       -fx-background-radius: 8;
+                                       -fx-padding: 11 28;" />
+                    </HBox>
+                </VBox>
+            </content>
+        </ScrollPane>
+    </center>
+
+    <bottom>
+        <HBox alignment="CENTER"
+              style="-fx-background-color: #1e293b;
+                     -fx-padding: 12;
+                     -fx-border-color: #334155;
+                     -fx-border-width: 1 0 0 0;" />
+    </bottom>
+
+</BorderPane>

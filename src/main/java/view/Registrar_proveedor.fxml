@@ -1,138 +1,43 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.*?>
-
-<AnchorPane prefHeight="520.0" prefWidth="720.0"
-            style="-fx-background-color: #24130a;"
-            xmlns="http://javafx.com/javafx/17.0.12"
-            xmlns:fx="http://javafx.com/fxml/1">
-
+<AnchorPane prefHeight="560.0" prefWidth="740.0" style="-fx-background-color: #0f172a;">
     <children>
-
-        <VBox prefWidth="720" prefHeight="520"
-              alignment="TOP_CENTER"
-              spacing="20"
-              style="-fx-background-color: #24130a;">
-
+        <VBox prefWidth="740" prefHeight="560" alignment="TOP_CENTER" spacing="20" style="-fx-background-color: #0f172a;">
             <padding>
-                <Insets top="30" left="30" right="30" bottom="30"/>
+                <Insets top="30" left="40" right="40" bottom="30"/>
             </padding>
-
-            <!-- Título -->
-            <Label text="Panadería"
-                   style="-fx-font-size: 30px;
-                          -fx-font-weight: bold;
-                          -fx-text-fill: #fff3eb;" />
-
-            <Label text="Registro de Proveedor"
-                   style="-fx-font-size: 16px;
-                          -fx-text-fill: #fff3eb;
-                          -fx-font-style: italic;" />
-
+            <!-- Encabezado -->
+            <VBox alignment="CENTER_LEFT" spacing="4" style="-fx-background-color: #1e293b; -fx-padding: 18 24; -fx-border-color: #334155; -fx-border-width: 0 0 2 0;">
+                <Label text="PANADERÍA" style="-fx-font-size: 10px; -fx-font-weight: bold; -fx-text-fill: #38bdf8; -fx-letter-spacing: 3;"/>
+                <Label text="Registro de Proveedor" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #f1f5f9;"/>
+            </VBox>
             <!-- Panel formulario -->
-            <GridPane alignment="CENTER"
-                      hgap="15" vgap="18"
-                      style="-fx-background-color: #1a203c;
-                             -fx-background-radius: 20;
-                             -fx-padding: 35;">
-
+            <GridPane alignment="CENTER" hgap="20" vgap="16" style="-fx-background-color: #1e293b; -fx-background-radius: 12; -fx-border-color: #334155; -fx-border-width: 1; -fx-border-radius: 12; -fx-padding: 28 32;">
                 <!-- Nombre -->
-                <Label text="Nombre del proveedor:"
-                       style="-fx-text-fill: #fff3eb;"
-                       GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-
-                <TextField promptText="Ej: Harinas del Norte"
-                           GridPane.rowIndex="0" GridPane.columnIndex="1"
-                           style="-fx-background-color: #3a3a3a;
-                                  -fx-text-fill: #fff3eb;
-                                  -fx-prompt-text-fill: #a4875a;
-                                  -fx-background-radius: 12;" />
-
+                <Label text="Nombre del proveedor" style="-fx-text-fill: #f1f5f9; -fx-font-size: 13px;" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <TextField promptText="Ej: Harinas del Norte" GridPane.rowIndex="0" GridPane.columnIndex="1" prefWidth="280" style="-fx-background-color: #0f172a; -fx-text-fill: #f1f5f9; -fx-prompt-text-fill: #334155; -fx-border-color: #334155; -fx-border-width: 1; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 8;"/>
                 <!-- Contacto -->
-                <Label text="Persona de contacto:"
-                       style="-fx-text-fill: #fff3eb;"
-                       GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-
-                <TextField promptText="Ej: Juan Pérez"
-                           GridPane.rowIndex="1" GridPane.columnIndex="1"
-                           style="-fx-background-color: #3a3a3a;
-                                  -fx-text-fill: #fff3eb;
-                                  -fx-prompt-text-fill: #a4875a;
-                                  -fx-background-radius: 12;" />
-
+                <Label text="Persona de contacto" style="-fx-text-fill: #f1f5f9; -fx-font-size: 13px;" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <TextField promptText="Ej: Juan Pérez" GridPane.rowIndex="1" GridPane.columnIndex="1" style="-fx-background-color: #0f172a; -fx-text-fill: #f1f5f9; -fx-prompt-text-fill: #334155; -fx-border-color: #334155; -fx-border-width: 1; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 8;"/>
                 <!-- Teléfono -->
-                <Label text="Teléfono:"
-                       style="-fx-text-fill: #fff3eb;"
-                       GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-
-                <TextField promptText="809-000-0000"
-                           GridPane.rowIndex="2" GridPane.columnIndex="1"
-                           style="-fx-background-color: #3a3a3a;
-                                  -fx-text-fill: #fff3eb;
-                                  -fx-prompt-text-fill: #a4875a;
-                                  -fx-background-radius: 12;" />
-
+                <Label text="Teléfono" style="-fx-text-fill: #f1f5f9; -fx-font-size: 13px;" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <TextField promptText="809-000-0000" GridPane.rowIndex="2" GridPane.columnIndex="1" style="-fx-background-color: #0f172a; -fx-text-fill: #f1f5f9; -fx-prompt-text-fill: #334155; -fx-border-color: #334155; -fx-border-width: 1; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 8;"/>
                 <!-- Correo -->
-                <Label text="Correo electrónico:"
-                       style="-fx-text-fill: #fff3eb;"
-                       GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-
-                <TextField promptText="correo@email.com"
-                           GridPane.rowIndex="3" GridPane.columnIndex="1"
-                           style="-fx-background-color: #3a3a3a;
-                                  -fx-text-fill: #fff3eb;
-                                  -fx-prompt-text-fill: #a4875a;
-                                  -fx-background-radius: 12;" />
-
+                <Label text="Correo electrónico" style="-fx-text-fill: #f1f5f9; -fx-font-size: 13px;" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                <TextField promptText="correo@email.com" GridPane.rowIndex="3" GridPane.columnIndex="1" style="-fx-background-color: #0f172a; -fx-text-fill: #f1f5f9; -fx-prompt-text-fill: #334155; -fx-border-color: #334155; -fx-border-width: 1; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 8;"/>
                 <!-- Dirección -->
-                <Label text="Dirección:"
-                       style="-fx-text-fill: #fff3eb;"
-                       GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-
-                <TextField promptText="Santiago, RD"
-                           GridPane.rowIndex="4" GridPane.columnIndex="1"
-                           style="-fx-background-color: #3a3a3a;
-                                  -fx-text-fill: #fff3eb;
-                                  -fx-prompt-text-fill: #a4875a;
-                                  -fx-background-radius: 12;" />
-
+                <Label text="Dirección" style="-fx-text-fill: #f1f5f9; -fx-font-size: 13px;" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                <TextField promptText="Santiago, RD" GridPane.rowIndex="4" GridPane.columnIndex="1" style="-fx-background-color: #0f172a; -fx-text-fill: #f1f5f9; -fx-prompt-text-fill: #334155; -fx-border-color: #334155; -fx-border-width: 1; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 8;"/>
                 <!-- Tipo -->
-                <Label text="Tipo de productos:"
-                       style="-fx-text-fill: #fff3eb;"
-                       GridPane.rowIndex="5" GridPane.columnIndex="0"/>
-
-                <ComboBox promptText="Seleccione..."
-                          GridPane.rowIndex="5" GridPane.columnIndex="1"
-                          style="-fx-background-color: #3a3a3a;
-                                 -fx-background-radius: 12;" />
-
+                <Label text="Tipo de productos" style="-fx-text-fill: #f1f5f9; -fx-font-size: 13px;" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+                <ComboBox promptText="Seleccione..." GridPane.rowIndex="5" GridPane.columnIndex="1" maxWidth="Infinity" style="-fx-background-color: #0f172a; -fx-border-color: #334155; -fx-border-width: 1; -fx-border-radius: 6; -fx-background-radius: 6;"/>
             </GridPane>
-
             <!-- Botones -->
-            <HBox spacing="20" alignment="CENTER">
-
-                <Button text="Guardar"
-                        prefWidth="140"
-                        style="-fx-background-color: #7e491f;
-                               -fx-text-fill: #fff3eb;
-                               -fx-font-size: 16px;
-                               -fx-font-weight: bold;
-                               -fx-background-radius: 16;" />
-
-                <Button text="Cancelar"
-                        prefWidth="140"
-                        style="-fx-background-color: #a4875a;
-                               -fx-text-fill: #24130a;
-                               -fx-font-size: 16px;
-                               -fx-font-weight: bold;
-                               -fx-background-radius: 16;" />
-
+            <HBox spacing="16" alignment="CENTER_RIGHT">
+                <Button text="Cancelar" prefWidth="130" style="-fx-background-color: #1e293b; -fx-text-fill: #f1f5f9; -fx-font-size: 14px; -fx-border-color: #334155; -fx-border-width: 1; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 10 0;"/>
+                <Button text="Guardar Proveedor" prefWidth="180" style="-fx-background-color: #6366f1; -fx-text-fill: #fff3eb; -fx-font-size: 14px; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 10 0;"/>
             </HBox>
-
         </VBox>
-
     </children>
-
 </AnchorPane>

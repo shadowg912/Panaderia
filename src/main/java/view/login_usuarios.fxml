@@ -1,92 +1,72 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
-
-<BorderPane prefHeight="720" prefWidth="1280" style="-fx-background-color: #0f172a;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
-
-    <!-- Fondo decorativo (panes de pan) -->
+<BorderPane prefHeight="720" prefWidth="1280" style="-fx-background-color: #0f172a;">
+    <!-- Fondo decorativo -->
     <children>
-        <Pane style="-fx-background-color: #f3e9df;">
+        <Pane mouseTransparent="true" prefWidth="1280" prefHeight="720" style="-fx-background-color: transparent;">
             <children>
-                <!-- Elementos decorativos sutiles (panes) -->
-                <Label layoutX="100" layoutY="80" style="-fx-font-size: 48px; -fx-opacity: 0.15;" text="🍞" />
-                <Label layoutX="1100" layoutY="550" style="-fx-font-size: 36px; -fx-opacity: 0.15;" text="🥐" />
-                <Label layoutX="200" layoutY="600" style="-fx-font-size: 42px; -fx-opacity: 0.1;" text="🥖" />
-                <Label layoutX="950" layoutY="150" style="-fx-font-size: 32px; -fx-opacity: 0.12;" text="🥮" />
+                <Label layoutX="80" layoutY="60" style="-fx-font-size: 64px; -fx-opacity: 0.04;" text="🍞"/>
+                <Label layoutX="1120" layoutY="520" style="-fx-font-size: 52px; -fx-opacity: 0.04;" text="🥐"/>
+                <Label layoutX="180" layoutY="580" style="-fx-font-size: 56px; -fx-opacity: 0.03;" text="🥖"/>
+                <Label layoutX="980" layoutY="100" style="-fx-font-size: 44px; -fx-opacity: 0.04;" text="🥮"/>
+                <Label layoutX="600" layoutY="40" style="-fx-font-size: 38px; -fx-opacity: 0.03;" text="🧁"/>
             </children>
         </Pane>
     </children>
-
     <!-- Panel de login centrado -->
     <center>
-        <StackPane>
-            <VBox alignment="CENTER" maxWidth="480" prefHeight="633.0" prefWidth="479.0" spacing="24" style="-fx-background-color: #1e293b; -fx-border-color: #f1f5f9; -fx-border-width: 3; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 48px; -fx-max-height: 600;">
-                <children>
-
-                    <VBox alignment="CENTER" fillWidth="false" spacing="16">
-                        <children>
-                            <Label style="-fx-font-size: 28px; -fx-text-fill: #f1f5f9; -fx-font-weight: bold;" text="Panadería " textFill="#fff3eb" />
-                            <Label style="-fx-font-size: 16px; -fx-text-fill: #fff3eb; -fx-font-style: italic;" text="Sistema Integral de Gestión" />
-                        </children>
-                    </VBox>
-
-                    <!-- Formulario de login -->
-                    <VBox spacing="16" style="-fx-padding: 16 0;">
-                        <children>
-                            <!-- Campo Usuario -->
-                            <VBox spacing="6">
-                                <children>
-                                    <Label style="-fx-font-size: 14px; -fx-text-fill: #fff3eb; -fx-font-weight: bold;" text="Usuario" />
-                                    <TextField promptText="Ingrese su nombre de usuario" style="-fx-background-color: white; -fx-border-color: #3b2b1c; -fx-border-width: 1.5; -fx-padding: 12; -fx-font-size: 16px; -fx-border-radius: 6px;" />
-                                </children>
-                            </VBox>
-
-                            <!-- Campo Contraseña -->
-                            <VBox spacing="6">
-                                <children>
-                                    <Label style="-fx-font-size: 14px; -fx-text-fill: #fff3eb; -fx-font-weight: bold;" text="Contraseña" />
-                                    <PasswordField promptText="Ingrese su contraseña" style="-fx-background-color: white; -fx-border-color: #3b2b1c; -fx-border-width: 1.5; -fx-padding: 12; -fx-font-size: 16px; -fx-border-radius: 6px;" />
-                                </children>
-                            </VBox>
-
-                            <!-- Selector de Rol (crítico para ERP) -->
-                            <VBox spacing="6" />
-
-                            <!-- Recordar sesión -->
-                            <HBox alignment="CENTER_LEFT">
-                                <children>
-                                    <CheckBox style="-fx-text-fill: #fff3eb; -fx-font-size: 14px;" text="Recordar sesión" />
-                                </children>
-                            </HBox>
-
-                            <!-- Botón de acceso -->
-                            <Button style="-fx-background-color: #6366f1; -fx-text-fill: #fff5e8; -fx-font-size: 18px; -fx-font-weight: bold; -fx-padding: 14 48; -fx-border-radius: 4; -fx-background-radius: 4;" styleClass="login-button" text="Iniciar Sesión">
-                                <effect>
-                                    <DropShadow blurType="GAUSSIAN" radius="8" />
-                                </effect>
-                            </Button>
-
-                            <!-- Enlace recuperación -->
-                            <HBox alignment="CENTER">
-                                <children>
-                                    <Label style="-fx-text-fill: #fff3eb; -fx-font-size: 14px; -fx-underline: true; -fx-cursor: hand;" text="¿Olvidó su contraseña?" />
-                                </children>
-                            </HBox>
-                        </children>
-                    </VBox>
-                </children>
+        <StackPane style="-fx-background-color: transparent;">
+            <VBox alignment="CENTER" maxWidth="460" spacing="0" style="-fx-background-color: #1e293b; -fx-border-color: #334155; -fx-border-width: 1; -fx-border-radius: 14; -fx-background-radius: 14;">
+                <!-- Franja superior de color -->
+                <VBox alignment="CENTER" spacing="6" style="-fx-background-color: #6366f1; -fx-background-radius: 13 13 0 0; -fx-padding: 28 48 24 48;">
+                    <children>
+                        <Label style="-fx-font-size: 32px; -fx-text-fill: #fff3eb; -fx-font-weight: bold;" text="Panadería"/>
+                        <Label style="-fx-font-size: 13px; -fx-text-fill: #c7d2fe; -fx-font-style: italic;" text="Sistema Integral de Gestión"/>
+                    </children>
+                </VBox>
+                <!-- Cuerpo del formulario -->
+                <VBox spacing="18" style="-fx-padding: 36 48 40 48;">
+                    <children>
+                        <Label style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #38bdf8; -fx-padding: 0 0 4 0;" text="Iniciar Sesión"/>
+                        <!-- Usuario -->
+                        <VBox spacing="6">
+                            <children>
+                                <Label style="-fx-font-size: 13px; -fx-text-fill: #f1f5f9; -fx-font-weight: bold;" text="Usuario"/>
+                                <TextField promptText="Nombre de usuario" style="-fx-background-color: #0f172a; -fx-text-fill: #f1f5f9; -fx-prompt-text-fill: #334155; -fx-border-color: #334155; -fx-border-width: 1; -fx-border-radius: 7; -fx-background-radius: 7; -fx-padding: 11; -fx-font-size: 14px;"/>
+                            </children>
+                        </VBox>
+                        <!-- Contraseña -->
+                        <VBox spacing="6">
+                            <children>
+                                <Label style="-fx-font-size: 13px; -fx-text-fill: #f1f5f9; -fx-font-weight: bold;" text="Contraseña"/>
+                                <PasswordField promptText="Contraseña" style="-fx-background-color: #0f172a; -fx-text-fill: #f1f5f9; -fx-prompt-text-fill: #334155; -fx-border-color: #334155; -fx-border-width: 1; -fx-border-radius: 7; -fx-background-radius: 7; -fx-padding: 11; -fx-font-size: 14px;"/>
+                            </children>
+                        </VBox>
+                        <!-- Recordar + olvidé contraseña -->
+                        <HBox alignment="CENTER_LEFT">
+                            <children>
+                                <CheckBox style="-fx-text-fill: #f1f5f9; -fx-font-size: 13px;" text="Recordar sesión" HBox.hgrow="ALWAYS"/>
+                                <Label style="-fx-text-fill: #38bdf8; -fx-font-size: 13px; -fx-underline: true; -fx-cursor: hand;" text="¿Olvidó su contraseña?"/>
+                            </children>
+                        </HBox>
+                        <!-- Botón -->
+                        <Button maxWidth="Infinity" style="-fx-background-color: #6366f1; -fx-text-fill: #fff3eb; -fx-font-size: 15px; -fx-font-weight: bold; -fx-padding: 13 0; -fx-border-radius: 8; -fx-background-radius: 8;" text="Iniciar Sesión">
+                            <effect>
+                                <DropShadow blurType="GAUSSIAN" color="#6366f155" radius="14" spread="0.1"/>
+                            </effect>
+                        </Button>
+                    </children>
+                </VBox>
             </VBox>
         </StackPane>
     </center>
-
-    <!-- Footer institucional -->
+    <!-- Footer -->
     <bottom>
-        <VBox style="-fx-background-color: #927D4E; -fx-padding: 16 0; -fx-border-top-color: #3b2b1c; -fx-border-top-width: 1;">
+        <HBox alignment="CENTER" style="-fx-background-color: #1e293b; -fx-padding: 13; -fx-border-color: #334155; -fx-border-width: 1 0 0 0;">
             <children>
-                <HBox alignment="CENTER" style="-fx-padding-top: 8;" />
+                <Label style="-fx-text-fill: #334155; -fx-font-size: 12px;" text="© 2026 Panadería — Todos los derechos reservados"/>
             </children>
-        </VBox>
+        </HBox>
     </bottom>
 </BorderPane>
