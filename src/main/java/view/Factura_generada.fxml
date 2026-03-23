@@ -1,114 +1,164 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
 
-<BorderPane prefHeight="720" prefWidth="1280" style="-fx-background-color: #f3e9df;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="720" prefWidth="1280"
+            style="-fx-background-color: #0f172a;"
+            xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1">
 
     <top>
-        <VBox style="-fx-background-color: #f3dbb3; -fx-padding: 12;">
+        <VBox style="-fx-background-color: #1e293b;
+                     -fx-padding: 16 24;
+                     -fx-border-color: #334155;
+                     -fx-border-width: 0 0 1 0;">
             <children>
-                <HBox spacing="16">
-                    <children>
-                        <ImageView fitHeight="60" fitWidth="60" preserveRatio="true">
-                            <image>
-                                <Image url="@../assets/logo_panaderia.png" />
-                            </image>
-                        </ImageView>
-                        <VBox>
-                            <children>
-                                <Label style="-fx-font-size: 24px; -fx-text-fill: #3b2b1c; -fx-font-weight: bold;" text="Factura de Venta" />
-                                <Label style="-fx-font-size: 14px; -fx-text-fill: #3b2b1c;" text="Nº FV-2026-0087 | Emitida el 16/02/2026" />
-                            </children>
-                        </VBox>
-                    </children>
-                </HBox>
+                <Label style="-fx-font-size: 10px;
+                              -fx-font-weight: bold;
+                              -fx-text-fill: #38bdf8;
+                              -fx-letter-spacing: 2;"
+                       text="PANADERÍA — FACTURACIÓN" />
+                <Label style="-fx-font-size: 22px;
+                              -fx-font-weight: bold;
+                              -fx-text-fill: #f1f5f9;"
+                       text="Factura de Venta" />
+                <Label style="-fx-font-size: 13px;
+                              -fx-text-fill: #38bdf8;"
+                       text="Nº FV-2026-0087 | Emitida el 16/02/2026" />
             </children>
         </VBox>
     </top>
 
     <center>
-        <VBox alignment="CENTER" spacing="24" style="-fx-padding: 32;">
-            <children>
-                <!-- Encabezado de factura -->
-                <HBox alignment="TOP_LEFT" spacing="40">
+        <ScrollPane fitToWidth="true"
+                    style="-fx-background-color: #0f172a;
+                           -fx-background: #0f172a;
+                           -fx-border-color: transparent;">
+            <content>
+                <VBox spacing="32" style="-fx-padding: 40;">
                     <children>
-                        <VBox spacing="8" style="-fx-min-width: 300;">
-                            <children>
-                                <Label style="-fx-font-size: 18px; -fx-text-fill: #3b2b1c; -fx-font-weight: bold;" text="Panadería" />
-                                <Label style="-fx-text-fill: #3b2b1c;" text="RNC: 123-456789-0" />
-                                <Label style="-fx-text-fill: #3b2b1c;" text="Calle Principal #123, Zona Colonial" />
-                                <Label style="-fx-text-fill: #3b2b1c;" text="Santo Domingo, República Dominicana" />
-                            </children>
-                        </VBox>
-                        <VBox spacing="8" style="-fx-min-width: 300;">
-                            <children>
-                                <Label style="-fx-font-size: 14px; -fx-text-fill: #3b2b1c; -fx-font-weight: bold;" text="Cliente:" />
-                                <Label style="-fx-text-fill: #3b2b1c;" text="Supermercados del Caribe SRL" />
-                                <Label style="-fx-text-fill: #3b2b1c;" text="RNC: 987-654321-0" />
-                                <Label style="-fx-text-fill: #3b2b1c;" text="Av. Independencia #456, Ensanche Naco" />
-                            </children>
-                        </VBox>
-                    </children>
-                </HBox>
 
-                <!-- Líneas de producto -->
-                <TableView prefHeight="250" prefWidth="900" style="-fx-border-color: #3b2b1c; -fx-border-width: 1;">
-                    <columns>
-                        <TableColumn prefWidth="350" text="Descripción" />
-                        <TableColumn prefWidth="80" text="Cant." />
-                        <TableColumn prefWidth="120" text="P.U. (RD$)" />
-                        <TableColumn prefWidth="80" text="Desc." />
-                        <TableColumn prefWidth="120" text="Total (RD$)" />
-                        <TableColumn prefWidth="80" text="IVA" />
-                    </columns>
-                </TableView>
+                        <HBox spacing="40">
+                            <children>
+                                <VBox spacing="8" style="-fx-min-width: 350;
+                                                        -fx-background-color: #1e293b;
+                                                        -fx-padding: 20;
+                                                        -fx-background-radius: 8;
+                                                        -fx-border-color: #334155;
+                                                        -fx-border-radius: 8;">
+                                    <children>
+                                        <Label style="-fx-font-size: 14px; -fx-text-fill: #38bdf8; -fx-font-weight: bold;" text="EMISOR" />
+                                        <Label style="-fx-font-size: 18px; -fx-text-fill: #f1f5f9; -fx-font-weight: bold;" text="Panadería" />
+                                        <Label style="-fx-text-fill: #94a3b8;" text="RNC: 123-456789-0" />
+                                        <Label style="-fx-text-fill: #94a3b8;" text="Calle Principal #123, Zona Colonial" />
+                                        <Label style="-fx-text-fill: #94a3b8;" text="Santo Domingo, República Dominicana" />
+                                    </children>
+                                </VBox>
+                                <VBox spacing="8" style="-fx-min-width: 350;
+                                                        -fx-background-color: #1e293b;
+                                                        -fx-padding: 20;
+                                                        -fx-background-radius: 8;
+                                                        -fx-border-color: #334155;
+                                                        -fx-border-radius: 8;">
+                                    <children>
+                                        <Label style="-fx-font-size: 14px; -fx-text-fill: #38bdf8; -fx-font-weight: bold;" text="CLIENTE" />
+                                        <Label style="-fx-font-size: 18px; -fx-text-fill: #f1f5f9; -fx-font-weight: bold;" text="Supermercados del Caribe SRL" />
+                                        <Label style="-fx-text-fill: #94a3b8;" text="RNC: 987-654321-0" />
+                                        <Label style="-fx-text-fill: #94a3b8;" text="Av. Independencia #456, Ensanche Naco" />
+                                    </children>
+                                </VBox>
+                            </children>
+                        </HBox>
 
-                <!-- Resumen fiscal -->
-                <VBox spacing="8" style="-fx-background-color: white; -fx-padding: 16; -fx-border-color: #3b2b1c; -fx-border-width: 1;">
-                    <children>
-                        <HBox spacing="16">
+                        <TableView prefHeight="300"
+                                   style="-fx-background-color: #1e293b;
+                                          -fx-border-color: #334155;
+                                          -fx-border-radius: 8;
+                                          -fx-background-radius: 8;">
+                            <columns>
+                                <TableColumn prefWidth="350" text="Descripción" />
+                                <TableColumn prefWidth="100" text="Cant." />
+                                <TableColumn prefWidth="150" text="P.U. (RD$)" />
+                                <TableColumn prefWidth="100" text="Desc." />
+                                <TableColumn prefWidth="150" text="Total (RD$)" />
+                            </columns>
+                        </TableView>
+
+                        <HBox alignment="TOP_RIGHT">
                             <children>
-                                <Label style="-fx-text-fill: #3b2b1c;" text="Base Imponible:" />
-                                <Label style="-fx-text-fill: #3b2b1c; -fx-font-weight: bold;" text="RD$ 1,250.00" HBox.hgrow="ALWAYS" />
+                                <VBox spacing="12" style="-fx-background-color: #1e293b;
+                                                        -fx-padding: 24;
+                                                        -fx-min-width: 350;
+                                                        -fx-background-radius: 8;
+                                                        -fx-border-color: #334155;
+                                                        -fx-border-radius: 8;">
+                                    <children>
+                                        <HBox alignment="CENTER_LEFT">
+                                            <Label style="-fx-text-fill: #94a3b8;" text="Base Imponible:" />
+                                            <Region HBox.hgrow="ALWAYS" />
+                                            <Label style="-fx-text-fill: #f1f5f9; -fx-font-weight: bold;" text="RD$ 1,250.00" />
+                                        </HBox>
+                                        <HBox alignment="CENTER_LEFT">
+                                            <Label style="-fx-text-fill: #94a3b8;" text="ITBIS (18%):" />
+                                            <Region HBox.hgrow="ALWAYS" />
+                                            <Label style="-fx-text-fill: #f1f5f9; -fx-font-weight: bold;" text="RD$ 225.00" />
+                                        </HBox>
+                                        <HBox alignment="CENTER_LEFT">
+                                            <Label style="-fx-text-fill: #94a3b8;" text="Costo Envío:" />
+                                            <Region HBox.hgrow="ALWAYS" />
+                                            <Label style="-fx-text-fill: #f1f5f9; -fx-font-weight: bold;" text="RD$ 150.00" />
+                                        </HBox>
+                                        <Separator style="-fx-opacity: 0.2; -fx-padding: 10 0;" />
+                                        <HBox alignment="CENTER_LEFT">
+                                            <Label style="-fx-text-fill: #38bdf8; -fx-font-size: 18px; -fx-font-weight: bold;" text="TOTAL:" />
+                                            <Region HBox.hgrow="ALWAYS" />
+                                            <Label style="-fx-text-fill: #f1f5f9; -fx-font-size: 20px; -fx-font-weight: bold;" text="RD$ 1,625.00" />
+                                        </HBox>
+                                    </children>
+                                </VBox>
                             </children>
                         </HBox>
-                        <HBox spacing="16">
+
+                        <HBox alignment="CENTER_RIGHT" spacing="16">
                             <children>
-                                <Label style="-fx-text-fill: #3b2b1c;" text="ITBIS 18%:" />
-                                <Label style="-fx-text-fill: #3b2b1c; -fx-font-weight: bold;" text="RD$ 225.00" HBox.hgrow="ALWAYS" />
-                            </children>
-                        </HBox>
-                        <HBox spacing="16">
-                            <children>
-                                <Label style="-fx-text-fill: #3b2b1c;" text="Envío:" />
-                                <Label style="-fx-text-fill: #3b2b1c; -fx-font-weight: bold;" text="RD$ 150.00" HBox.hgrow="ALWAYS" />
-                            </children>
-                        </HBox>
-                        <HBox spacing="16" style="-fx-border-top: 2px solid #3b2b1c; -fx-padding-top: 8;">
-                            <children>
-                                <Label style="-fx-text-fill: #3b2b1c; -fx-font-size: 18px; -fx-font-weight: bold;" text="TOTAL A PAGAR:" />
-                                <Label style="-fx-text-fill: #3b2b1c; -fx-font-size: 18px; -fx-font-weight: bold;" text="RD$ 1,625.00" HBox.hgrow="ALWAYS" />
+                                <Button text="Volver al Inicio"
+                                        style="-fx-background-color: #1e293b;
+                                               -fx-text-fill: #f1f5f9;
+                                               -fx-font-size: 14px;
+                                               -fx-border-color: #334155;
+                                               -fx-border-radius: 8;
+                                               -fx-background-radius: 8;
+                                               -fx-padding: 11 28;" />
+                                <Button text="Imprimir Factura"
+                                        style="-fx-background-color: #1e293b;
+                                               -fx-text-fill: #f1f5f9;
+                                               -fx-font-size: 14px;
+                                               -fx-border-color: #334155;
+                                               -fx-border-radius: 8;
+                                               -fx-background-radius: 8;
+                                               -fx-padding: 11 28;" />
+                                <Button text="Registrar Pago"
+                                        style="-fx-background-color: #6366f1;
+                                               -fx-text-fill: #fff3eb;
+                                               -fx-font-size: 14px;
+                                               -fx-font-weight: bold;
+                                               -fx-background-radius: 8;
+                                               -fx-padding: 11 28;" />
                             </children>
                         </HBox>
                     </children>
                 </VBox>
-
-                <!-- Estado y acciones -->
-                <HBox alignment="CENTER" spacing="20">
-                    <children>
-                        <Label style="-fx-text-fill: #3b2b1c; -fx-font-size: 16px; -fx-font-weight: bold;" text="Estado: Emitida" />
-                        <Button style="-fx-background-color: #b2946f; -fx-text-fill: #fff5e8; -fx-padding: 12 28; -fx-font-size: 16;" text="Imprimir Factura" />
-                        <Button style="-fx-background-color: #b2946f; -fx-text-fill: #fff5e8; -fx-padding: 12 28; -fx-font-size: 16;" text="Registrar Pago" />
-                        <Button style="-fx-background-color: #e2d2c2; -fx-text-fill: #3b2b1c; -fx-padding: 12 28; -fx-font-size: 16;" text="Volver al Inicio" />
-                    </children>
-                </HBox>
-            </children>
-        </VBox>
+            </content>
+        </ScrollPane>
     </center>
 
     <bottom>
-        <HBox alignment="CENTER" style="-fx-background-color: #f3dbb3; -fx-padding: 12;" />
+        <HBox alignment="CENTER"
+              style="-fx-background-color: #1e293b;
+                     -fx-padding: 12;
+                     -fx-border-color: #334155;
+                     -fx-border-width: 1 0 0 0;" />
     </bottom>
 </BorderPane>
