@@ -12,8 +12,15 @@ public class AppNavigator {
         stage = s;
     }
 
-    public static void load(String fxml) throws Exception {
-        Parent root = FXMLLoader.load(AppNavigator.class.getResource(fxml));
-        stage.getScene().setRoot(root);
+    public static void load(String fxml) {
+        try {
+            Parent root = FXMLLoader.load(AppNavigator.class.getResource(fxml));
+            stage.getScene().setRoot(root);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public void volverMenu(){
+        AppNavigator.load("/view/Menu.fxml");
     }
 }

@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<StackPane prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #0f172a;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane fx:controller="controllers.Registro_proveedor_controller" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #0f172a;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <VBox maxWidth="900" spacing="30" style="-fx-background-color: #0f172a;">
             <padding>
@@ -19,7 +19,7 @@
                     </children>
                 </VBox>
 
-                <GridPane alignment="CENTER" hgap="30" vgap="20" style="-fx-background-color: #1e293b; -fx-background-radius: 12; -fx-border-color: #334155; -fx-border-width: 1; -fx-border-radius: 12; -fx-padding: 40;">
+                <GridPane alignment="CENTER" hgap="30" style="-fx-background-color: #1e293b; -fx-background-radius: 12; -fx-border-color: #334155; -fx-border-width: 1; -fx-border-radius: 12; -fx-padding: 40;" vgap="20">
 
                     <columnConstraints>
                         <ColumnConstraints minWidth="180" prefWidth="200" />
@@ -45,11 +45,19 @@
                         <Label style="-fx-text-fill: #f1f5f9; -fx-font-size: 14px;" text="Tipo de productos" GridPane.columnIndex="0" GridPane.rowIndex="5" />
                         <ComboBox maxWidth="Infinity" promptText="Seleccione una categoría..." style="-fx-background-color: #0f172a; -fx-border-color: #334155; -fx-border-radius: 6; -fx-padding: 8;" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                     </children>
+               <rowConstraints>
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+               </rowConstraints>
                 </GridPane>
 
                 <HBox alignment="CENTER_RIGHT" spacing="20">
                     <children>
-                        <Button prefHeight="45" prefWidth="160" style="-fx-background-color: #1e293b; -fx-text-fill: #f1f5f9; -fx-font-size: 15px; -fx-border-color: #334155; -fx-border-radius: 8; -fx-background-radius: 8;" text="Cancelar" />
+                        <Button fx:id="btnCancelaRegistro" onAction="#fnVolverMenu" prefHeight="45" prefWidth="160" style="-fx-background-color: #1e293b; -fx-text-fill: #f1f5f9; -fx-font-size: 15px; -fx-border-color: #334155; -fx-border-radius: 8; -fx-background-radius: 8;" text="Cancelar" />
                         <Button prefHeight="45" prefWidth="220" style="-fx-background-color: #6366f1; -fx-text-fill: #fff3eb; -fx-font-size: 15px; -fx-font-weight: bold; -fx-background-radius: 8;" text="Guardar Proveedor" />
                     </children>
                 </HBox>

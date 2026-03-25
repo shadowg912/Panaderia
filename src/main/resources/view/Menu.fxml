@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
 
-<BorderPane prefHeight="720" prefWidth="1280" style="-fx-background-color: #0f172a;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="720" prefWidth="1280" style="-fx-background-color: #0f172a;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.menu_contoller">
 
     <top>
         <HBox alignment="CENTER_LEFT" spacing="20" style="-fx-background-color: #1e293b;                      -fx-padding: 16 32;                      -fx-border-color: #334155;                      -fx-border-width: 0 0 1 0;">
@@ -37,6 +37,7 @@
                                     <Button fx:id="btnNuevaOrden" maxWidth="Infinity" onAction="#fnIrCrearOrden" style="-fx-background-color: #6366f1; -fx-text-fill: white; -fx-background-radius: 6;" text="Nueva Orden" />
                                     <Button fx:id="btnHistorialVenta" maxWidth="Infinity" onAction="#fnIrHistorialVentas" style="-fx-background-color: transparent; -fx-text-fill: #f1f5f9; -fx-border-color: #334155; -fx-border-radius: 6;" text="Historial de Ventas" />
                                     <Button fx:id="btnSeguimientroEnvio" maxWidth="Infinity" onAction="#fnIrSeguimientoEnvio" style="-fx-background-color: transparent; -fx-text-fill: #f1f5f9; -fx-border-color: #334155; -fx-border-radius: 6;" text="Seguimiento Envíos" />
+                           <Button fx:id="btnGuardarDIrecciones" layoutX="35.0" layoutY="146.0" maxWidth="Infinity" onAction="#fnIrGuardarDIrecciones" style="-fx-background-color: transparent; -fx-text-fill: #f1f5f9; -fx-border-color: #334155; -fx-border-radius: 6;" text="Guardar Direcciones" />
                                 </VBox>
 
                                 <VBox spacing="15" style="-fx-background-color: #1e293b; -fx-padding: 24; -fx-background-radius: 12; -fx-border-color: #334155; -fx-border-radius: 12; -fx-min-width: 240;">

@@ -1,101 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<BorderPane prefHeight="720" prefWidth="1280" style="-fx-background-color: #0f172a;">
+<?import javafx.geometry.Insets?>
+
+<BorderPane prefHeight="720" prefWidth="1280" style="-fx-background-color: #0f172a;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+
     <top>
         <VBox style="-fx-background-color: #1e293b; -fx-padding: 16 24; -fx-border-color: #334155; -fx-border-width: 0 0 1 0;">
             <children>
-                <Label style="-fx-font-size: 10px; -fx-font-weight: bold; -fx-text-fill: #38bdf8; -fx-letter-spacing: 2;" text="PANADERÍA — POSTVENTA"/>
-                <Label style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #f1f5f9;" text="Reclamaciones de Venta"/>
+                <Label style="-fx-font-size: 10px; -fx-font-weight: bold; -fx-text-fill: #38bdf8; -fx-letter-spacing: 2;" text="PANADERÍA — POSTVENTA" />
+                <Label style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #f1f5f9;" text="Gestión de Reclamaciones" />
             </children>
         </VBox>
     </top>
+
     <center>
-        <SplitPane dividerPositions="0.42" prefHeight="600" style="-fx-background-color: #0f172a; -fx-border-color: transparent;">
+        <SplitPane dividerPositions="0.4" prefHeight="600" style="-fx-background-color: #0f172a; -fx-border-color: transparent;">
             <items>
-                <!-- Panel izquierdo: Lista de reclamaciones -->
-                <VBox spacing="14" style="-fx-padding: 24; -fx-background-color: #0f172a;">
+                <VBox spacing="14" style="-fx-padding: 20; -fx-background-color: #0f172a;">
                     <children>
-                        <Label style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #38bdf8;" text="Reclamaciones Recientes"/>
-                        <TableView prefHeight="430" style="-fx-background-color: #1e293b; -fx-border-color: #334155; -fx-border-width: 1; -fx-border-radius: 8; -fx-background-radius: 8;">
+                        <Label style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #38bdf8;" text="REGISTROS EN SISTEMA" />
+                        <TableView prefHeight="500" style="-fx-background-color: #1e293b; -fx-border-color: #334155; -fx-border-radius: 8; -fx-background-radius: 8;">
                             <columns>
-                                <TableColumn prefWidth="120" text="Nº Reclamo"/>
-                                <TableColumn prefWidth="110" text="Factura"/>
-                                <TableColumn prefWidth="110" text="Fecha"/>
-                                <TableColumn prefWidth="100" text="Estado"/>
-                                <TableColumn prefWidth="100" text="Prioridad"/>
+                                <TableColumn prefWidth="60" text="ID" />
+                                <TableColumn prefWidth="100" text="Fecha" />
+                                <TableColumn prefWidth="110" text="Estado" />
+                                <TableColumn prefWidth="100" text="Prioridad" />
+                                <TableColumn prefWidth="90" text="Factura" />
                             </columns>
                         </TableView>
                         <HBox alignment="CENTER_RIGHT">
                             <children>
-                                <Button style="-fx-background-color: #6366f1; -fx-text-fill: #fff3eb; -fx-font-size: 14px; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 10 24;" text="+ Nuevo Reclamo"/>
+                                <Button style="-fx-background-color: #6366f1; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20; -fx-background-radius: 8;" text="+ Crear Nueva Reclamación" />
                             </children>
                         </HBox>
                     </children>
                 </VBox>
-                <!-- Panel derecho: Detalle del reclamo -->
-                <VBox spacing="14" style="-fx-padding: 24; -fx-background-color: #0f172a;">
-                    <children>
-                        <Label style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #38bdf8;" text="Detalle de Reclamo"/>
-                        <!-- Datos del reclamo -->
-                        <VBox style="-fx-background-color: #1e293b; -fx-border-color: #334155; -fx-border-width: 1; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 20;">
+
+                <ScrollPane fitToWidth="true" style="-fx-background-color: #0f172a; -fx-background: #0f172a; -fx-border-color: transparent;">
+                    <content>
+                        <VBox spacing="20" style="-fx-padding: 20;">
                             <children>
-                                <GridPane hgap="16" vgap="10">
-                                    <columnConstraints>
-                                        <ColumnConstraints halignment="RIGHT" hgrow="NEVER" minWidth="130"/>
-                                        <ColumnConstraints hgrow="ALWAYS"/>
-                                    </columnConstraints>
-                                    <rowConstraints>
-                                        <RowConstraints/>
-                                        <RowConstraints/>
-                                        <RowConstraints/>
-                                        <RowConstraints/>
-                                        <RowConstraints/>
-                                        <RowConstraints/>
-                                    </rowConstraints>
+                                <Label style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #38bdf8;" text="DETALLES DEL RECLAMO" />
+
+                                <VBox spacing="15" style="-fx-background-color: #1e293b; -fx-padding: 20; -fx-background-radius: 10; -fx-border-color: #334155;">
                                     <children>
-                                        <Label style="-fx-text-fill: #f1f5f9; -fx-font-size: 13px;" text="Nº Reclamo:" GridPane.rowIndex="0"/>
-                                        <Label style="-fx-text-fill: #38bdf8; -fx-font-size: 13px; -fx-font-weight: bold;" text="RCL-2026-042" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
-                                        <Label style="-fx-text-fill: #f1f5f9; -fx-font-size: 13px;" text="Factura:" GridPane.rowIndex="1"/>
-                                        <Label style="-fx-text-fill: #f1f5f9; -fx-font-size: 13px;" text="FV-2026-0087" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-                                        <Label style="-fx-text-fill: #f1f5f9; -fx-font-size: 13px;" text="Cliente:" GridPane.rowIndex="2"/>
-                                        <Label style="-fx-text-fill: #f1f5f9; -fx-font-size: 13px;" text="Supermercados del Caribe SRL" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-                                        <Label style="-fx-text-fill: #f1f5f9; -fx-font-size: 13px;" text="Fecha:" GridPane.rowIndex="3"/>
-                                        <Label style="-fx-text-fill: #f1f5f9; -fx-font-size: 13px;" text="16/02/2026" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-                                        <Label style="-fx-text-fill: #f1f5f9; -fx-font-size: 13px;" text="Estado:" GridPane.rowIndex="4"/>
-                                        <ComboBox maxWidth="Infinity" style="-fx-background-color: #0f172a; -fx-border-color: #334155; -fx-border-width: 1; -fx-border-radius: 6; -fx-background-radius: 6;" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
-                                        <Label style="-fx-text-fill: #f1f5f9; -fx-font-size: 13px;" text="Prioridad:" GridPane.rowIndex="5"/>
-                                        <ComboBox maxWidth="Infinity" style="-fx-background-color: #0f172a; -fx-border-color: #334155; -fx-border-width: 1; -fx-border-radius: 6; -fx-background-radius: 6;" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+                                        <GridPane hgap="15" vgap="12">
+                                            <columnConstraints>
+                                                <ColumnConstraints halignment="RIGHT" hgrow="NEVER" minWidth="140" />
+                                                <ColumnConstraints hgrow="ALWAYS" />
+                                            </columnConstraints>
+                                            <children>
+                                                <Label style="-fx-text-fill: #94a3b8;" text="Factura Venta (ID):" GridPane.rowIndex="0" />
+                                                <TextField promptText="ID de factura" style="-fx-background-color: #0f172a; -fx-text-fill: white; -fx-border-color: #334155; -fx-padding: 8;" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                                                <Label style="-fx-text-fill: #94a3b8;" text="Empresa Cliente (ID):" GridPane.rowIndex="1" />
+                                                <TextField promptText="ID de cliente" style="-fx-background-color: #0f172a; -fx-text-fill: white; -fx-border-color: #334155; -fx-padding: 8;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                                                <Label style="-fx-text-fill: #94a3b8;" text="Empleado (ID):" GridPane.rowIndex="2" />
+                                                <TextField promptText="ID del empleado responsable" style="-fx-background-color: #0f172a; -fx-text-fill: white; -fx-border-color: #334155; -fx-padding: 8;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                            </children>
+                                        </GridPane>
                                     </children>
-                                </GridPane>
+                                </VBox>
+
+                                <VBox spacing="15" style="-fx-background-color: #1e293b; -fx-padding: 20; -fx-background-radius: 10; -fx-border-color: #334155;">
+                                    <children>
+                                        <GridPane hgap="15" vgap="12">
+                                            <columnConstraints>
+                                                <ColumnConstraints halignment="RIGHT" hgrow="NEVER" minWidth="140" />
+                                                <ColumnConstraints hgrow="ALWAYS" />
+                                            </columnConstraints>
+                                            <children>
+                                                <Label style="-fx-text-fill: #94a3b8;" text="Tipo Reclamación:" GridPane.rowIndex="0" />
+                                                <TextField promptText="Ej: Devolución, Error Precio" style="-fx-background-color: #0f172a; -fx-text-fill: white; -fx-border-color: #334155; -fx-padding: 8;" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                                                <Label style="-fx-text-fill: #94a3b8;" text="Estado Actual:" GridPane.rowIndex="1" />
+                                                <TextField promptText="Ej: Pendiente, En Proceso" style="-fx-background-color: #0f172a; -fx-text-fill: white; -fx-border-color: #334155; -fx-padding: 8;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                                                <Label style="-fx-text-fill: #94a3b8;" text="Prioridad:" GridPane.rowIndex="2" />
+                                                <TextField promptText="Ej: Alta, Media, Baja" style="-fx-background-color: #0f172a; -fx-text-fill: white; -fx-border-color: #334155; -fx-padding: 8;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                            </children>
+                                        </GridPane>
+                                    </children>
+                                </VBox>
+
+                                <VBox spacing="8">
+                                    <children>
+                                        <Label style="-fx-text-fill: #f1f5f9; -fx-font-weight: bold;" text="Motivo del Reclamo" />
+                                        <TextArea prefHeight="100" promptText="Descripción detallada del motivo..." style="-fx-control-inner-background: #0f172a; -fx-text-fill: white; -fx-border-color: #334155;" wrapText="true" />
+                                    </children>
+                                </VBox>
+
+                                <HBox alignment="CENTER_RIGHT" spacing="15">
+                                    <children>
+                                        <Button style="-fx-background-color: #1e293b; -fx-text-fill: white; -fx-border-color: #334155; -fx-padding: 10 25; -fx-background-radius: 8;" text="Cancelar" />
+                                        <Button style="-fx-background-color: #6366f1; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 30; -fx-background-radius: 8;" text="Guardar Registro" />
+                                    </children>
+                                </HBox>
                             </children>
                         </VBox>
-                        <!-- Descripción -->
-                        <VBox spacing="6">
-                            <children>
-                                <Label style="-fx-text-fill: #f1f5f9; -fx-font-size: 13px; -fx-font-weight: bold;" text="Descripción del problema"/>
-                                <TextArea prefHeight="100" style="-fx-background-color: #1e293b; -fx-text-fill: #f1f5f9; -fx-border-color: #334155; -fx-border-width: 1; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 8;"/>
-                            </children>
-                        </VBox>
-                        <!-- Solución -->
-                        <VBox spacing="6">
-                            <children>
-                                <Label style="-fx-text-fill: #f1f5f9; -fx-font-size: 13px; -fx-font-weight: bold;" text="Solución propuesta"/>
-                                <TextArea prefHeight="100" style="-fx-background-color: #1e293b; -fx-text-fill: #f1f5f9; -fx-border-color: #334155; -fx-border-width: 1; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 8;"/>
-                            </children>
-                        </VBox>
-                        <!-- Botones -->
-                        <HBox alignment="CENTER_RIGHT" spacing="14">
-                            <children>
-                                <Button style="-fx-background-color: #1e293b; -fx-text-fill: #f1f5f9; -fx-font-size: 14px; -fx-border-color: #334155; -fx-border-width: 1; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 11 24;" text="Cancelar"/>
-                                <Button style="-fx-background-color: #6366f1; -fx-text-fill: #fff3eb; -fx-font-size: 14px; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 11 24;" text="Guardar Cambios"/>
-                            </children>
-                        </HBox>
-                    </children>
-                </VBox>
+                    </content>
+                </ScrollPane>
             </items>
         </SplitPane>
     </center>
+
     <bottom>
-        <HBox alignment="CENTER" style="-fx-background-color: #1e293b; -fx-padding: 12; -fx-border-color: #334155; -fx-border-width: 1 0 0 0;"/>
+        <HBox alignment="CENTER_RIGHT" style="-fx-background-color: #1e293b; -fx-padding: 10 25; -fx-border-color: #334155; -fx-border-width: 1 0 0 0;">
+            <children>
+                <Label style="-fx-text-fill: #475569; -fx-font-size: 11px;" text="SUDO ERP — Módulo de Postventa" />
+            </children>
+        </HBox>
     </bottom>
 </BorderPane>

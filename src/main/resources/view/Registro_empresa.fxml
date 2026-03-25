@@ -86,8 +86,8 @@
 
                     <HBox alignment="CENTER_RIGHT" maxWidth="982" spacing="16">
                         <children>
-                            <Button style="-fx-background-color: #1e293b; -fx-text-fill: #f1f5f9; -fx-padding: 11 28; -fx-border-color: #334155; -fx-border-radius: 8;" text="Limpiar" />
-                            <Button style="-fx-background-color: #1e293b; -fx-text-fill: #f1f5f9; -fx-padding: 11 28; -fx-border-color: #334155; -fx-border-radius: 8;" text="Cancelar" />
+                            <Button fx:id="btnLimpiar" onAction="#fnLimpiar" style="-fx-background-color: #1e293b; -fx-text-fill: #f1f5f9; -fx-padding: 11 28; -fx-border-color: #334155; -fx-border-radius: 8;" text="Limpiar" />
+                            <Button fx:id="btnVolverMenu" onAction="#fnVolvermenu" style="-fx-background-color: #1e293b; -fx-text-fill: #f1f5f9; -fx-padding: 11 28; -fx-border-color: #334155; -fx-border-radius: 8;" text="Cancelar" />
                             <Button fx:id="btnGuardar" onAction="#fnGuardar" style="-fx-background-color: #6366f1; -fx-text-fill: #fff3eb; -fx-padding: 11 32; -fx-font-weight: bold; -fx-background-radius: 8;" text="Guardar Empresa" />
                         </children>
                     </HBox>

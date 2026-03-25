@@ -4,7 +4,8 @@ module com.example.panaderia {
     requires java.sql;
     requires java.desktop;
 
+    exports com.example.panaderia;
 
     opens com.example.panaderia to javafx.fxml;
-    exports com.example.panaderia;
+    opens controllers to javafx.fxml;
 }

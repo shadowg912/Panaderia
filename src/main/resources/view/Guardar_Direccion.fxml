@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane prefHeight="720" prefWidth="1280" style="-fx-background-color: #0f172a;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+
+    <top>
+        <VBox style="-fx-background-color: #1e293b; -fx-padding: 16 24; -fx-border-color: #334155; -fx-border-width: 0 0 1 0;">
+            <children>
+                <Label style="-fx-font-size: 10px; -fx-font-weight: bold; -fx-text-fill: #38bdf8; -fx-letter-spacing: 2;" text="SISTEMA — CONFIGURACIÓN" />
+                <Label style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #f1f5f9;" text="Registro de Nueva Dirección" />
+            </children>
+        </VBox>
+    </top>
+
+    <center>
+        <StackPane>
+            <children>
+                <VBox maxWidth="800" spacing="24" alignment="TOP_CENTER" style="-fx-padding: 40;">
+                    <children>
+
+                        <VBox spacing="20" style="-fx-background-color: #1e293b; -fx-padding: 30; -fx-border-color: #334155; -fx-border-width: 1; -fx-border-radius: 12; -fx-background-radius: 12;">
+                            <children>
+                                <Label style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #38bdf8;" text="Detalles de Ubicación" />
+
+                                <GridPane hgap="25" vgap="18">
+                                    <columnConstraints>
+                                        <ColumnConstraints halignment="RIGHT" hgrow="NEVER" minWidth="120" />
+                                        <ColumnConstraints hgrow="ALWAYS" />
+                                    </columnConstraints>
+
+                                    <children>
+                                        <Label style="-fx-text-fill: #f1f5f9; -fx-font-size: 14px;" text="Calle *" GridPane.rowIndex="0" />
+                                        <TextField promptText="Nombre de la vía o calle" style="-fx-background-color: #0f172a; -fx-text-fill: #f1f5f9; -fx-border-color: #334155; -fx-padding: 10; -fx-border-radius: 5;" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                                        <Label style="-fx-text-fill: #f1f5f9; -fx-font-size: 14px;" text="Número/Apto *" GridPane.rowIndex="1" />
+                                        <TextField promptText="Ej: 12-B o #45" style="-fx-background-color: #0f172a; -fx-text-fill: #f1f5f9; -fx-border-color: #334155; -fx-padding: 10; -fx-border-radius: 5;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                                        <Label style="-fx-text-fill: #f1f5f9; -fx-font-size: 14px;" text="Sector/Barrio" GridPane.rowIndex="2" />
+                                        <TextField promptText="Ej: Ensanche Naco" style="-fx-background-color: #0f172a; -fx-text-fill: #f1f5f9; -fx-border-color: #334155; -fx-padding: 10; -fx-border-radius: 5;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                                        <Label style="-fx-text-fill: #f1f5f9; -fx-font-size: 14px;" text="Ciudad *" GridPane.rowIndex="3" />
+                                        <TextField promptText="Ej: Santiago de los Caballeros" style="-fx-background-color: #0f172a; -fx-text-fill: #f1f5f9; -fx-border-color: #334155; -fx-padding: 10; -fx-border-radius: 5;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+                                        <Label style="-fx-text-fill: #f1f5f9; -fx-font-size: 14px;" text="Provincia *" GridPane.rowIndex="4" />
+                                        <ComboBox maxWidth="Infinity" promptText="Seleccionar provincia..." style="-fx-background-color: #0f172a; -fx-border-color: #334155; -fx-padding: 7;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+
+                                        <Label style="-fx-text-fill: #f1f5f9; -fx-font-size: 14px;" text="Referencia" GridPane.rowIndex="5" />
+                                        <TextArea prefHeight="80" promptText="Ej: Frente al parque, casa color azul..." style="-fx-control-inner-background: #0f172a; -fx-text-fill: white; -fx-border-color: #334155; -fx-padding: 5;" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                    </children>
+                                </GridPane>
+                            </children>
+                        </VBox>
+
+                        <HBox alignment="CENTER_RIGHT" spacing="16">
+                            <children>
+                                <Button style="-fx-background-color: #1e293b; -fx-text-fill: #f1f5f9; -fx-font-size: 14px; -fx-border-color: #334155; -fx-border-radius: 8; -fx-padding: 12 30;" text="Limpiar" />
+                                <Button style="-fx-background-color: #1e293b; -fx-text-fill: #f1f5f9; -fx-font-size: 14px; -fx-border-color: #334155; -fx-border-radius: 8; -fx-padding: 12 30;" text="Cancelar" />
+                                <Button style="-fx-background-color: #6366f1; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 12 35;" text="Guardar Dirección" />
+                            </children>
+                        </HBox>
+
+                    </children>
+                </VBox>
+            </children>
+        </StackPane>
+    </center>
+
+    <bottom>
+        <HBox alignment="CENTER_RIGHT" style="-fx-background-color: #1e293b; -fx-padding: 10 25; -fx-border-color: #334155; -fx-border-width: 1 0 0 0;">
+            <children>
+                <Label style="-fx-text-fill: #475569; -fx-font-size: 11px;" text="SUDO ERP — Gestión de Logística" />
+            </children>
+        </HBox>
+    </bottom>
+</BorderPane>
