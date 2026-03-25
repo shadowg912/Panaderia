@@ -3,6 +3,7 @@ package Data_base;
 import javax.swing.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 
 public class CONEXION {
     Connection connection = null;
@@ -27,5 +28,13 @@ public class CONEXION {
             JOptionPane.showMessageDialog(null, "te jodiste manito, algo esta mal, no se que, pero esta mal" + e.toString());
         }
         return connection;
+    }
+    public void Ejecutarsql(String sql){
+        try (Connection connection = establecerconexio();
+             PreparedStatement ps=connection.prepareStatement(sql)){
+            ps.executeUpdate();
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
     }
 }
