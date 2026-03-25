@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane prefHeight="720" prefWidth="1280"
+            style="-fx-background-color: #0f172a;"
+            xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1">
+
+    <top>
+        <VBox style="-fx-background-color: #1e293b;
+                     -fx-padding: 16 24;
+                     -fx-border-color: #334155;
+                     -fx-border-width: 0 0 1 0;">
+            <children>
+                <Label style="-fx-font-size: 10px;
+                              -fx-font-weight: bold;
+                              -fx-text-fill: #38bdf8;
+                              -fx-letter-spacing: 2;"
+                       text="PANADERÍA — REPORTES" />
+                <Label style="-fx-font-size: 22px;
+                              -fx-font-weight: bold;
+                              -fx-text-fill: #f1f5f9;"
+                       text="Historial de Ventas" />
+                <Label style="-fx-font-size: 13px;
+                              -fx-text-fill: #38bdf8;"
+                       text="Consulta y seguimiento de facturación emitida" />
+            </children>
+        </VBox>
+    </top>
+
+    <center>
+        <VBox spacing="24" style="-fx-padding: 32;">
+            <children>
+
+                <HBox alignment="CENTER_LEFT" spacing="16"
+                      style="-fx-background-color: #1e293b;
+                             -fx-padding: 20;
+                             -fx-background-radius: 8;
+                             -fx-border-color: #334155;
+                             -fx-border-radius: 8;">
+                    <children>
+                        <VBox spacing="5">
+                            <Label style="-fx-text-fill: #94a3b8; -fx-font-size: 11px;" text="CLIENTE" />
+                            <ComboBox prefWidth="200" promptText="Todos los clientes"
+                                      style="-fx-background-color: #0f172a; -fx-border-color: #334155; -fx-border-radius: 6;" />
+                        </VBox>
+
+                        <VBox spacing="5">
+                            <Label style="-fx-text-fill: #94a3b8; -fx-font-size: 11px;" text="DESDE" />
+                            <DatePicker prefWidth="150"
+                                        style="-fx-background-color: #0f172a; -fx-border-color: #334155;" />
+                        </VBox>
+
+                        <VBox spacing="5">
+                            <Label style="-fx-text-fill: #94a3b8; -fx-font-size: 11px;" text="HASTA" />
+                            <DatePicker prefWidth="150"
+                                        style="-fx-background-color: #0f172a; -fx-border-color: #334155;" />
+                        </VBox>
+
+                        <Region HBox.hgrow="ALWAYS" />
+
+                        <Button text="Buscar Registros"
+                                style="-fx-background-color: #6366f1;
+                                       -fx-text-fill: #fff3eb;
+                                       -fx-font-weight: bold;
+                                       -fx-padding: 10 25;
+                                       -fx-background-radius: 8;" />
+                    </children>
+                </HBox>
+
+                <TableView VBox.vgrow="ALWAYS"
+                           style="-fx-background-color: #1e293b;
+                                  -fx-border-color: #334155;
+                                  -fx-border-radius: 8;
+                                  -fx-background-radius: 8;">
+                    <columns>
+                        <TableColumn prefWidth="130" text="Nº Factura" />
+                        <TableColumn prefWidth="130" text="Fecha" />
+                        <TableColumn prefWidth="300" text="Cliente" />
+                        <TableColumn prefWidth="150" text="Total (RD$)" />
+                        <TableColumn prefWidth="120" text="Estado" />
+                        <TableColumn prefWidth="150" text="Acciones" />
+                    </columns>
+                </TableView>
+
+                <HBox alignment="CENTER_RIGHT" spacing="15" style="-fx-padding: 10 0;">
+                    <children>
+                        <Label style="-fx-text-fill: #94a3b8;" text="Mostrando página 1 de 5" />
+                        <Button text="Anterior"
+                                style="-fx-background-color: #1e293b;
+                                       -fx-text-fill: #f1f5f9;
+                                       -fx-border-color: #334155;
+                                       -fx-border-radius: 6;
+                                       -fx-padding: 6 15;" />
+                        <Button text="Siguiente"
+                                style="-fx-background-color: #1e293b;
+                                       -fx-text-fill: #f1f5f9;
+                                       -fx-border-color: #334155;
+                                       -fx-border-radius: 6;
+                                       -fx-padding: 6 15;" />
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </center>
+
+    <bottom>
+        <HBox alignment="CENTER"
+              style="-fx-background-color: #1e293b;
+                     -fx-padding: 12;
+                     -fx-border-color: #334155;
+                     -fx-border-width: 1 0 0 0;" />
+    </bottom>
+</BorderPane>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.shape.Circle?>
+
+<BorderPane prefHeight="720" prefWidth="1280"
+            style="-fx-background-color: #0f172a;"
+            xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1">
+
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="20"
+              style="-fx-background-color: #1e293b;
+                     -fx-padding: 16 32;
+                     -fx-border-color: #334155;
+                     -fx-border-width: 0 0 1 0;">
+            <children>
+                <VBox>
+                    <Label style="-fx-font-size: 10px; -fx-font-weight: bold; -fx-text-fill: #38bdf8; -fx-letter-spacing: 2;"
+                           text="SUDO — ERP DE PANADERÍA" />
+                    <Label style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #f1f5f9;"
+                           text="Panel Principal" />
+                </VBox>
+                <Region HBox.hgrow="ALWAYS" />
+                <HBox alignment="CENTER" spacing="12">
+                    <Label style="-fx-text-fill: #f1f5f9; -fx-font-weight: bold;" text="Usuario Administrador" />
+                    <Circle fill="#6366f1" radius="18" />
+                </HBox>
+            </children>
+        </HBox>
+    </top>
+
+    <center>
+        <ScrollPane fitToWidth="true"
+                    style="-fx-background-color: #0f172a;
+                           -fx-background: #0f172a;
+                           -fx-border-color: transparent;">
+            <content>
+                <VBox spacing="32" style="-fx-padding: 40;">
+                    <children>
+
+                        <Label style="-fx-text-fill: #38bdf8; -fx-font-weight: bold; -fx-font-size: 14px;"
+                               text="MÓDULOS DEL SISTEMA" />
+
+                        <FlowPane hgap="24" vgap="24" prefWrapLength="1100">
+                            <children>
+
+                                <VBox spacing="15" styleClass="menu-card"
+                                      style="-fx-background-color: #1e293b; -fx-padding: 24; -fx-background-radius: 12; -fx-border-color: #334155; -fx-border-radius: 12; -fx-min-width: 240;">
+                                    <Label style="-fx-text-fill: #38bdf8; -fx-font-weight: bold;" text="VENTAS" />
+                                    <Button maxWidth="Infinity" text="Nueva Orden" style="-fx-background-color: #6366f1; -fx-text-fill: white; -fx-background-radius: 6;" />
+                                    <Button maxWidth="Infinity" text="Historial de Ventas" style="-fx-background-color: transparent; -fx-text-fill: #f1f5f9; -fx-border-color: #334155; -fx-border-radius: 6;" />
+                                    <Button maxWidth="Infinity" text="Seguimiento Envíos" style="-fx-background-color: transparent; -fx-text-fill: #f1f5f9; -fx-border-color: #334155; -fx-border-radius: 6;" />
+                                </VBox>
+
+                                <VBox spacing="15"
+                                      style="-fx-background-color: #1e293b; -fx-padding: 24; -fx-background-radius: 12; -fx-border-color: #334155; -fx-border-radius: 12; -fx-min-width: 240;">
+                                    <Label style="-fx-text-fill: #38bdf8; -fx-font-weight: bold;" text="INVENTARIO" />
+                                    <Button maxWidth="Infinity" text="Registro Producto" style="-fx-background-color: #6366f1; -fx-text-fill: white; -fx-background-radius: 6;" />
+                                    <Button maxWidth="Infinity" text="Proveedores" style="-fx-background-color: transparent; -fx-text-fill: #f1f5f9; -fx-border-color: #334155; -fx-border-radius: 6;" />
+                                    <Button maxWidth="Infinity" text="Recetas" style="-fx-background-color: transparent; -fx-text-fill: #f1f5f9; -fx-border-color: #334155; -fx-border-radius: 6;" />
+                                </VBox>
+
+                                <VBox spacing="15"
+                                      style="-fx-background-color: #1e293b; -fx-padding: 24; -fx-background-radius: 12; -fx-border-color: #334155; -fx-border-radius: 12; -fx-min-width: 240;">
+                                    <Label style="-fx-text-fill: #38bdf8; -fx-font-weight: bold;" text="PRODUCCIÓN" />
+                                    <Button maxWidth="Infinity" text="Orden de Producción" style="-fx-background-color: #6366f1; -fx-text-fill: white; -fx-background-radius: 6;" />
+                                    <Button maxWidth="Infinity" text="Estado de Fábrica" style="-fx-background-color: transparent; -fx-text-fill: #f1f5f9; -fx-border-color: #334155; -fx-border-radius: 6;" />
+                                </VBox>
+
+                                <VBox spacing="15"
+                                      style="-fx-background-color: #1e293b; -fx-padding: 24; -fx-background-radius: 12; -fx-border-color: #334155; -fx-border-radius: 12; -fx-min-width: 240;">
+                                    <Label style="-fx-text-fill: #38bdf8; -fx-font-weight: bold;" text="CLIENTES" />
+                                    <Button maxWidth="Infinity" text="Registro Cliente" style="-fx-background-color: #6366f1; -fx-text-fill: white; -fx-background-radius: 6;" />
+                                    <Button maxWidth="Infinity" text="Reclamaciones" style="-fx-background-color: transparent; -fx-text-fill: #f1f5f9; -fx-border-color: #334155; -fx-border-radius: 6;" />
+                                </VBox>
+
+                                <VBox spacing="15"
+                                      style="-fx-background-color: #1e293b; -fx-padding: 24; -fx-background-radius: 12; -fx-border-color: #334155; -fx-border-radius: 12; -fx-min-width: 240;">
+                                    <Label style="-fx-text-fill: #38bdf8; -fx-font-weight: bold;" text="SISTEMA" />
+                                    <Button maxWidth="Infinity" text="Crear Usuario" style="-fx-background-color: #6366f1; -fx-text-fill: white; -fx-background-radius: 6;" />
+                                    <Button maxWidth="Infinity" text="Cerrar Sesión" style="-fx-background-color: transparent; -fx-text-fill: #ef4444; -fx-border-color: #ef4444; -fx-border-radius: 6;" />
+                                </VBox>
+
+                            </children>
+                        </FlowPane>
+                    </children>
+                </VBox>
+            </content>
+        </ScrollPane>
+    </center>
+
+    <bottom>
+        <HBox alignment="CENTER" style="-fx-background-color: #1e293b; -fx-padding: 12; -fx-border-color: #334155; -fx-border-width: 1 0 0 0;">
+            <children>
+                <Label style="-fx-text-fill: #94a3b8; -fx-font-size: 11px;" text="SUDO ERP v1.0 — Sistema de Gestión de Panadería" />
+            </children>
+        </HBox>
+    </bottom>
+
+</BorderPane>
