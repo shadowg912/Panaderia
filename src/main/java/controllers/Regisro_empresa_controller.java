@@ -45,7 +45,7 @@ public class Regisro_empresa_controller {
         this.txtCorreo.setText("");
     }
     @FXML
-    public void Guardar(String nombre,String rnc,String telefono, String correo,String id_direccion) {
+    public void Guardarempresa(String nombre,String rnc,String telefono, String correo,String id_direccion) {
         String sql = "INSERT INTO EMPRESA_CLIENTE(razon_social,rnc,telefono,correo_electronico,id_direccion) VALUES(?,?,?,?,?)";
         try (Connection connection = conexion.establecerconexio(); PreparedStatement ps=connection.prepareStatement(sql)) {
             ps.setString(1,nombre);
@@ -74,11 +74,15 @@ public class Regisro_empresa_controller {
         String telefono = this.txtTelefono.getText().trim();
         String correo = this.txtCorreo.getText().trim();
 
-        Guardar(Nombre,rnc,telefono,correo,"1");
+        Guardarempresa(Nombre,rnc,telefono,correo,"1");
         limipar();
     }
 
     public void fnLimpiar(ActionEvent actionEvent) {
         limipar();
+    }
+
+    public void Guardardireccion(){
+
     }
 }
