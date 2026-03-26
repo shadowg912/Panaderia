@@ -82,7 +82,17 @@ public class Regisro_empresa_controller {
         limipar();
     }
 
-    public void Guardardireccion(){
 
-    }
+   /* public void Guardardireccion(){
+
+         String sqlprovincia="INSERT INTO PROVINCIA(nombre,id_pais)values(";
+         String sql;
+         String sql;
+        String sqldireccion= "INSERT INTO DIRECCION(calle,numero,referecia,id_sector) VALUES(?,?,?,?)";
+
+
+
+
+
+    }*/
 }
