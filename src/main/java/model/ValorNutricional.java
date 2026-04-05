@@ -30,7 +30,69 @@ public class ValorNutricional {
     public String getGrasasTotales() { return grasasTotales; }
     public void setGrasasTotales(String grasasTotales) { this.grasasTotales = grasasTotales; }
 
-    // ... resto de getters/setters (son muchos, los omito por brevedad)
+    public String getGrasasSaturadas() {
+        return grasasSaturadas;
+    }
+
+    public void setGrasasSaturadas(String grasasSaturadas) {
+        this.grasasSaturadas = grasasSaturadas;
+    }
+
+    public String getGrasasTrans() {
+        return grasasTrans;
+    }
+
+    public void setGrasasTrans(String grasasTrans) {
+        this.grasasTrans = grasasTrans;
+    }
+
+    public String getCarbohidratos() {
+        return carbohidratos;
+    }
+
+    public void setCarbohidratos(String carbohidratos) {
+        this.carbohidratos = carbohidratos;
+    }
+
+    public String getAzucares() {
+        return azucares;
+    }
+
+    public void setAzucares(String azucares) {
+        this.azucares = azucares;
+    }
+
+    public String getProteinas() {
+        return proteinas;
+    }
+
+    public void setProteinas(String proteinas) {
+        this.proteinas = proteinas;
+    }
+
+    public String getFibraDietetica() {
+        return fibraDietetica;
+    }
+
+    public void setFibraDietetica(String fibraDietetica) {
+        this.fibraDietetica = fibraDietetica;
+    }
+
+    public String getSodio() {
+        return sodio;
+    }
+
+    public void setSodio(String sodio) {
+        this.sodio = sodio;
+    }
+
+    public String getVitaminasMinerales() {
+        return vitaminasMinerales;
+    }
+
+    public void setVitaminasMinerales(String vitaminasMinerales) {
+        this.vitaminasMinerales = vitaminasMinerales;
+    }
 
     public String getCondicionesConservacion() { return condicionesConservacion; }
     public void setCondicionesConservacion(String condicionesConservacion) {
