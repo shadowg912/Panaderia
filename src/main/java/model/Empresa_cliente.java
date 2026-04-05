@@ -7,6 +7,8 @@ public class Empresa_cliente {
     private String telefono;
     private String correo;
 
+    public Empresa_cliente(){}
+
     public Empresa_cliente(String nombre, String rnc, String telefono, String correo) {
         this.Nombre = nombre;
         this.rnc = rnc;
