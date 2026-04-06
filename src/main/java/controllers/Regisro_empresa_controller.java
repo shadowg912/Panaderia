@@ -1,21 +1,35 @@
 package controllers;
 
 import Data_base.CONEXION;
+import javafx.beans.value.ObservableNumberValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import model.Empresa_cliente;
 import utils.AppNavigator;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Regisro_empresa_controller {
+    public ComboBox<String> cmbProvincia;
+    @FXML
+    private TextField txtCiudad;
+
+    @FXML
+    private TextField txtNumero;
+    @FXML
+    private TextField txtCalle;
     @FXML
     private Button btnLimpiar;
-    @FXML private Button btnVolverMenu;
+    @FXML
+    private Button btnVolverMenu;
     AppNavigator appNavigator = new AppNavigator();
     CONEXION conexion = new CONEXION();
     @FXML
@@ -30,6 +44,8 @@ public class Regisro_empresa_controller {
     @FXML
     private Button btnGuardar;
 
+
+    Connection connection = null;
     public void Ejecutarsql(String sql) {
         try (Connection connection = conexion.establecerconexio();
              PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -38,21 +54,23 @@ public class Regisro_empresa_controller {
             throw new RuntimeException(e);
         }
     }
-    public void limipar(){
+
+    public void limipar() {
         this.txtNombreEmpresa.setText("");
         this.txtRNC.setText("");
         this.txtTelefono.setText("");
         this.txtCorreo.setText("");
     }
+
     @FXML
-    public void Guardarempresa(String nombre,String rnc,String telefono, String correo,String id_direccion) {
+    public void Guardarempresa(String nombre, String rnc, String telefono, String correo, String id_direccion) {
         String sql = "INSERT INTO EMPRESA_CLIENTE(razon_social,rnc,telefono,correo_electronico,id_direccion) VALUES(?,?,?,?,?)";
-        try (Connection connection = conexion.establecerconexio(); PreparedStatement ps=connection.prepareStatement(sql)) {
-            ps.setString(1,nombre);
+        try (Connection connection = conexion.establecerconexio(); PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, nombre);
             ps.setString(2, rnc);
-            ps.setString(3,telefono);
-            ps.setString(4,correo);
-            ps.setString(5,id_direccion);
+            ps.setString(3, telefono);
+            ps.setString(4, correo);
+            ps.setString(5, id_direccion);
 
             int filasAfectadas = ps.executeUpdate();
 
@@ -74,7 +92,7 @@ public class Regisro_empresa_controller {
         String telefono = this.txtTelefono.getText().trim();
         String correo = this.txtCorreo.getText().trim();
 
-        Guardarempresa(Nombre,rnc,telefono,correo,"1");
+        Guardarempresa(Nombre, rnc, telefono, correo, "1");
         limipar();
     }
 
@@ -82,17 +100,30 @@ public class Regisro_empresa_controller {
         limipar();
     }
 
+    public ObservableList cargarprovincias(){
 
-   /* public void Guardardireccion(){
+        String sql="select nombre from PROVINCIA";
+        try (Connection connection = conexion.establecerconexio();
+             PreparedStatement ps=connection.prepareStatement(sql)){
+            ResultSet rs=ps.executeQuery();
+            while (rs.next()){
+                Provincias.add(rs.getString("nombre"));
+            }
+        }catch (Exception e){
 
-         String sqlprovincia="INSERT INTO PROVINCIA(nombre,id_pais)values(";
-         String sql;
-         String sql;
-        String sqldireccion= "INSERT INTO DIRECCION(calle,numero,referecia,id_sector) VALUES(?,?,?,?)";
+        }
+      return Provincias;
+
+    }
+    ObservableList<String> Provincias = FXCollections.observableArrayList();
+    @FXML
+    public void initialize(){
+        cmbProvincia.setItems(cargarprovincias());
+
+    }
+    public void GuardarDireccion(){
+    }
 
 
 
-
-
-    }*/
 }

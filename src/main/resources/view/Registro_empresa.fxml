@@ -57,28 +57,31 @@
                                         <ColumnConstraints hgrow="ALWAYS" />
                                     </columnConstraints>
                                     <children>
-                                        <Label style="-fx-text-fill: #f1f5f9;" text="Calle *" GridPane.rowIndex="0" />
-                                        <TextField promptText="Calle Principal" style="-fx-background-color: #0f172a; -fx-border-color: #334155; -fx-padding: 10; -fx-text-fill: #f1f5f9;" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
-                                        <Label style="-fx-text-fill: #f1f5f9;" text="Número *" GridPane.rowIndex="1" />
-                                        <TextField promptText="123" style="-fx-background-color: #0f172a; -fx-border-color: #334155; -fx-padding: 10; -fx-text-fill: #f1f5f9;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                        <Label style="-fx-text-fill: #f1f5f9;" text="Provincia *" GridPane.rowIndex="1" />
+                                        <ComboBox fx:id="cmbProvincia" editable="true" maxWidth="Infinity" prefHeight="42.0" promptText="Seleccione provincia"
+                                                  style="-fx-background-color: #0f172a; -fx-border-color: #334155; -fx-text-fill: #f1f5f9; -fx-control-inner-background: #0f172a; -fx-background-insets: 0;"
+                                                  GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
                                         <Label style="-fx-text-fill: #f1f5f9;" text="Ciudad *" GridPane.rowIndex="2" />
-                                        <TextField promptText="Santo Domingo" style="-fx-background-color: #0f172a; -fx-border-color: #334155; -fx-padding: 10; -fx-text-fill: #f1f5f9;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                        <ComboBox fx:id="cmbCiudad" editable="true" maxWidth="Infinity" prefHeight="42.0" promptText="Seleccione ciudad"
+                                                  style="-fx-background-color: #0f172a; -fx-border-color: #334155; -fx-text-fill: #f1f5f9; -fx-control-inner-background: #0f172a; -fx-background-insets: 0;"
+                                                  GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
-                                        <Label style="-fx-text-fill: #f1f5f9;" text="Provincia *" GridPane.rowIndex="3" />
-                                        <ComboBox maxWidth="Infinity" promptText="Seleccione provincia" style="-fx-background-color: #0f172a; -fx-border-color: #334155; -fx-padding: 6;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                        <Label style="-fx-text-fill: #f1f5f9;" text="Sector *" GridPane.rowIndex="3" />
+                                        <ComboBox fx:id="cmbSector" editable="true" maxWidth="Infinity" prefHeight="42.0" promptText="Seleccione sector"
+                                                  style="-fx-background-color: #0f172a; -fx-border-color: #334155; -fx-text-fill: #f1f5f9; -fx-control-inner-background: #0f172a; -fx-background-insets: 0;"
+                                                  GridPane.columnIndex="1" GridPane.rowIndex="3" />
 
-                                        <Label style="-fx-text-fill: #f1f5f9;" text="País *" GridPane.rowIndex="4" />
-                                        <TextField editable="false" style="-fx-background-color: #334155; -fx-border-color: #334155; -fx-padding: 10; -fx-text-fill: #f1f5f9;" text="República Dominicana" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                        <Label style="-fx-text-fill: #f1f5f9;" text="Calle *" GridPane.rowIndex="4" />
+                                        <TextField fx:id="txtCalle" prefHeight="42.0" promptText="Nombre de la calle" style="-fx-background-color: #0f172a; -fx-border-color: #334155; -fx-padding: 10; -fx-text-fill: #f1f5f9;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+
+                                        <Label style="-fx-text-fill: #f1f5f9;" text="Número *" GridPane.rowIndex="5" />
+                                        <TextField fx:id="txtNumero" prefHeight="42.0" promptText="Ej: 123" style="-fx-background-color: #0f172a; -fx-border-color: #334155; -fx-padding: 10; -fx-text-fill: #f1f5f9;" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+
+                                        <Label style="-fx-text-fill: #f1f5f9;" text="Referencia" GridPane.rowIndex="6" />
+                                        <TextField fx:id="txtReferencia" prefHeight="42.0" promptText="Frente a... / Edf. X" style="-fx-background-color: #0f172a; -fx-border-color: #334155; -fx-padding: 10; -fx-text-fill: #f1f5f9;" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                                     </children>
-                           <rowConstraints>
-                              <RowConstraints />
-                              <RowConstraints />
-                              <RowConstraints />
-                              <RowConstraints />
-                              <RowConstraints />
-                           </rowConstraints>
                                 </GridPane>
                             </children>
                         </VBox>

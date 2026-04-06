@@ -1,7 +1,7 @@
 package model;
 
 public class ValorNutricional {
-    private Producto producto;  // FK como objeto (y PK)
+    private Producto producto;
     private String calorias;
     private String grasasTotales;
     private String grasasSaturadas;
@@ -13,6 +13,19 @@ public class ValorNutricional {
     private String sodio;
     private String vitaminasMinerales;
     private String condicionesConservacion;
+
+    public ValorNutricional(Producto producto, String calorias, String grasasTotales, String grasasSaturadas, String grasasTrans, String carbohidratos, String azucares, String proteinas, String fibraDietetica, String sodio) {
+        this.producto = producto;
+        this.calorias = calorias;
+        this.grasasTotales = grasasTotales;
+        this.grasasSaturadas = grasasSaturadas;
+        this.grasasTrans = grasasTrans;
+        this.carbohidratos = carbohidratos;
+        this.azucares = azucares;
+        this.proteinas = proteinas;
+        this.fibraDietetica = fibraDietetica;
+        this.sodio = sodio;
+    }
 
     public ValorNutricional() {}
 
