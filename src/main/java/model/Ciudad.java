@@ -1,6 +1,8 @@
-package model.Ubicacion;
+package model;
 
-class Ciudad {
+import model.Provincia;
+
+public class Ciudad {
     private int id_ciudad;
     private String nombre;
     private Provincia provincia;

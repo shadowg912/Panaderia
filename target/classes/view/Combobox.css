@@ -1,0 +1,66 @@
+
+.combo-box {
+    -fx-background-color: #0f172a;
+    -fx-border-color: #334155;
+    -fx-border-width: 1px;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+}
+
+
+.combo-box .list-cell {
+    -fx-text-fill: #f1f5f9;
+    -fx-background-color: transparent;
+}
+
+
+.combo-box .list-cell:hover,
+.combo-box .list-cell:filled:selected {
+    -fx-background-color: transparent;
+    -fx-text-fill: #f1f5f9;
+    -fx-font-weight: normal;
+}
+
+
+.combo-box-base .context-menu {
+    -fx-background-color: #0f172a;
+    -fx-border-color: #334155;
+    -fx-border-width: 1px;
+}
+
+.combo-box .arrow-button {
+    -fx-background-color: transparent;
+}
+
+.combo-box .arrow {
+    -fx-background-color: #f1f5f9;     /* Color del texto para la flecha */
+}
+
+.combo-box:focused {
+    -fx-border-color: #334155;
+    -fx-border-width: 1px;
+}
+.combo-box-base .context-menu {
+    -fx-background-color: #0f172a; /* Tu color oscuro */
+    -fx-border-color: #334155;
+    -fx-border-width: 1px;
+    -fx-background-radius: 6px;
+    -fx-border-radius: 6px;
+}
+
+
+.combo-box .list-view {
+    -fx-background-color: #0f172a;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+
+.combo-box .list-cell {
+    -fx-background-color: #0f172a;
+    -fx-text-fill: #f1f5f9;
+}
+
+/.combo-box .list-view .placeholder .label {
+    -fx-text-fill: #334155;
+}

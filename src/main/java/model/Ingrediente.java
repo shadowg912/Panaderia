@@ -3,36 +3,27 @@ package model;
 public class Ingrediente {
     private int idIngrediente;
     private String nombre;
-    private String unidadMedida;
-    private CategoriaIngrediente categoriaIngrediente;  // FK como objeto
+    private double cantidad;
+    private String unidad;
 
     public Ingrediente() {}
 
-    public Ingrediente(int idIngrediente, String nombre, String unidadMedida,
-                       CategoriaIngrediente categoriaIngrediente) {
-        this.idIngrediente = idIngrediente;
+    public Ingrediente(int id, String nombre, double cantidad, String unidad) {
+        this.idIngrediente = id;
         this.nombre = nombre;
-        this.unidadMedida = unidadMedida;
-        this.categoriaIngrediente = categoriaIngrediente;
+        this.cantidad = cantidad;
+        this.unidad = unidad;
     }
 
     public int getIdIngrediente() { return idIngrediente; }
-    public void setIdIngrediente(int idIngrediente) { this.idIngrediente = idIngrediente; }
+    public void setIdIngrediente(int id) { this.idIngrediente = id; }
 
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
 
-    public String getUnidadMedida() { return unidadMedida; }
-    public void setUnidadMedida(String unidadMedida) { this.unidadMedida = unidadMedida; }
+    public double getCantidad() { return cantidad; }
+    public void setCantidad(double cantidad) { this.cantidad = cantidad; }
 
-    public CategoriaIngrediente getCategoriaIngrediente() { return categoriaIngrediente; }
-    public void setCategoriaIngrediente(CategoriaIngrediente categoriaIngrediente) {
-        this.categoriaIngrediente = categoriaIngrediente;
-    }
-
-    @Override
-    public String toString() {
-        return nombre;
-    }
-
+    public String getUnidad() { return unidad; }
+    public void setUnidad(String unidad) { this.unidad = unidad; }
 }

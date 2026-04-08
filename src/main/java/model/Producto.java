@@ -11,6 +11,11 @@ public class Producto {
 
     public Producto() {}
 
+    public Producto(int idProducto, String nombre) {
+        this.idProducto = idProducto;
+        this.nombre = nombre;
+    }
+
     public Producto(int idProducto, String nombre, CategoriaProducto categoriaProducto,
                     BigDecimal precioUnitario, Unidad unidad) {
         this.idProducto = idProducto;

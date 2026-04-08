@@ -1,6 +1,6 @@
-package model.Ubicacion;
+package model;
 
-class Sector {
+public class Sector {
     private int id_sector;
     private String nombre;
     private Ciudad ciudad;

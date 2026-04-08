@@ -1,14 +1,17 @@
-package model.Ubicacion;
+package model;
 
-class Provincia {
+public class Provincia {
     private int id_provincia;
     private String nombre;
-    private Pais pais;
 
-    public Provincia(int id_provincia, String nombre, Pais pais) {
+    public Provincia(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public Provincia(int id_provincia, String nombre) {
         this.id_provincia = id_provincia;
         this.nombre = nombre;
-        this.pais = pais;
+
     }
 
     public int getId_provincia() {
@@ -27,11 +30,8 @@ class Provincia {
         this.nombre = nombre;
     }
 
-    public Pais getPais() {
-        return pais;
-    }
-
-    public void setPais(Pais pais) {
-        this.pais = pais;
+    @Override
+    public String toString() {
+        return nombre;
     }
 }

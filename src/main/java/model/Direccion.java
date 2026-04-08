@@ -1,12 +1,14 @@
-package model.Ubicacion;
+package model;
 
 
-class Direccion {
+import model.Sector;
+
+public class Direccion {
     private  int id_direccion;
     private  String calle;
     private  int numero;
     private   String referencia;
-    private   Sector sector;
+    private Sector sector;
 
     public Direccion(int id_direccion, String calle, int numero, String referencia, Sector sector) {
         this.id_direccion = id_direccion;

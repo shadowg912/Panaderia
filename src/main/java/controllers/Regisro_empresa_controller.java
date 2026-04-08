@@ -10,22 +10,25 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import model.Empresa_cliente;
+import model.Provincia;
 import utils.AppNavigator;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class Regisro_empresa_controller {
-    public ComboBox<String> cmbProvincia;
+
+    @FXML
+    private ComboBox<Provincia> cmbProvincia;
     @FXML
     private TextField txtCiudad;
-
+    @FXML
+    private TextField txtSector;
+    @FXML
+    private TextField txtCalle;
     @FXML
     private TextField txtNumero;
     @FXML
-    private TextField txtCalle;
+    private TextField txtReferencia;
     @FXML
     private Button btnLimpiar;
     @FXML
@@ -92,6 +95,20 @@ public class Regisro_empresa_controller {
         String telefono = this.txtTelefono.getText().trim();
         String correo = this.txtCorreo.getText().trim();
 
+        String calle = txtCalle.getText().trim();
+        String numero = txtNumero.getText().trim();
+        String sector = txtSector.getText().trim();
+        String ciudad = txtCiudad.getText().trim();
+        int idProvincia = cmbProvincia.getValue().getId_provincia();
+        String referencia = txtReferencia.getText().trim();
+
+
+        int idDireccion = insertarDireccionCompleta(calle, numero, referencia, ciudad, sector, idProvincia);
+
+        if (idDireccion == 0) {
+            System.out.println(" Error al guardar dirección");
+            return;
+        }
         Guardarempresa(Nombre, rnc, telefono, correo, "1");
         limipar();
     }
@@ -100,30 +117,145 @@ public class Regisro_empresa_controller {
         limipar();
     }
 
-    public ObservableList cargarprovincias(){
-
-        String sql="select nombre from PROVINCIA";
+    public ObservableList cargarprovincias() {
+        String sql = "SELECT id_provincia, nombre FROM PROVINCIA ORDER BY nombre";
         try (Connection connection = conexion.establecerconexio();
-             PreparedStatement ps=connection.prepareStatement(sql)){
-            ResultSet rs=ps.executeQuery();
-            while (rs.next()){
-                Provincias.add(rs.getString("nombre"));
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Provincias.add(new Provincia(rs.getInt(1), rs.getString("nombre")));
             }
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
-      return Provincias;
-
+        return Provincias;
     }
-    ObservableList<String> Provincias = FXCollections.observableArrayList();
+    ObservableList<Provincia> Provincias = FXCollections.observableArrayList();
     @FXML
     public void initialize(){
         cmbProvincia.setItems(cargarprovincias());
 
     }
-    public void GuardarDireccion(){
+
+    private int insertarDireccionCompleta(String calle, String numero, String referencia,
+                                          String nombreCiudad, String nombreSector,
+                                          int idProvincia) {
+
+        int idCiudad = buscarOCrearCiudad(nombreCiudad, idProvincia);
+        if (idCiudad == 0) return 0;
+
+        int idSector = buscarOCrearSector(nombreSector, idCiudad);
+        if (idSector == 0) return 0;
+
+        return insertarDireccion(calle, numero, referencia, idSector);
     }
 
+    private int buscarOCrearCiudad(String nombreCiudad, int idProvincia) {
+        String sqlBuscar = "SELECT id_ciudad FROM CIUDAD WHERE nombre = ? AND id_provincia = ?";
+        try (Connection connection = conexion.establecerconexio();
+             PreparedStatement ps = connection.prepareStatement(sqlBuscar)) {
 
+            ps.setString(1, nombreCiudad);
+            ps.setInt(2, idProvincia);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt("id_ciudad");
+            }
+        } catch (Exception e) {
+            System.out.println("Error buscando ciudad: " + e.getMessage());
+        }
+
+        String sqlInsertar = "INSERT INTO CIUDAD (nombre, id_provincia) VALUES (?, ?)";
+        try (Connection connection = conexion.establecerconexio();
+             PreparedStatement ps = connection.prepareStatement(sqlInsertar, Statement.RETURN_GENERATED_KEYS)) {
+
+            ps.setString(1, nombreCiudad);
+            ps.setInt(2, idProvincia);
+            ps.executeUpdate();
+
+            ResultSet rs = ps.getGeneratedKeys();
+            if (rs.next()) {
+                System.out.println("Ciudad creada: " + nombreCiudad);
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+            System.out.println("Error creando ciudad: " + e.getMessage());
+        }
+        return 0;
+    }
+
+    private int buscarOCrearSector(String nombreSector, int idCiudad) {
+        String sqlBuscar = "SELECT id_sector FROM SECTOR WHERE nombre = ? AND id_ciudad = ?";
+        try (Connection connection = conexion.establecerconexio();
+             PreparedStatement ps = connection.prepareStatement(sqlBuscar)) {
+
+            ps.setString(1, nombreSector);
+            ps.setInt(2, idCiudad);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt("id_sector");
+            }
+        } catch (Exception e) {
+            System.out.println("Error buscando sector: " + e.getMessage());
+        }
+
+        String sqlInsertar = "INSERT INTO SECTOR (nombre, id_ciudad) VALUES (?, ?)";
+        try (Connection connection = conexion.establecerconexio();
+             PreparedStatement ps = connection.prepareStatement(sqlInsertar, Statement.RETURN_GENERATED_KEYS)) {
+
+            ps.setString(1, nombreSector);
+            ps.setInt(2, idCiudad);
+            ps.executeUpdate();
+
+            ResultSet rs = ps.getGeneratedKeys();
+            if (rs.next()) {
+                System.out.println(" Sector creado: " + nombreSector);
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+            System.out.println("Error creando sector: " + e.getMessage());
+        }
+        return 0;
+    }
+
+    private int insertarDireccion(String calle, String numero, String referencia, int idSector) {
+        String sql = "INSERT INTO DIRECCION (calle, numero, referencia, id_sector) VALUES (?, ?, ?, ?)";
+
+        try (Connection connection = conexion.establecerconexio();
+             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+
+            ps.setString(1, calle);
+
+            if (numero != null && !numero.isEmpty()) {
+                try {
+                    ps.setInt(2, Integer.parseInt(numero));
+                } catch (NumberFormatException e) {
+                    ps.setNull(2, Types.INTEGER);
+                }
+            } else {
+                ps.setNull(2, Types.INTEGER);
+            }
+
+            if (referencia != null && !referencia.isEmpty()) {
+                ps.setString(3, referencia);
+            } else {
+                ps.setNull(3, Types.VARCHAR);
+            }
+
+            ps.setInt(4, idSector);
+            ps.executeUpdate();
+
+            ResultSet rs = ps.getGeneratedKeys();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+
+        } catch (Exception e) {
+            System.out.println("❌ Error insertando dirección: " + e.getMessage());
+        }
+        return 0;
+    }
 
 }

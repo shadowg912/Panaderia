@@ -81,7 +81,11 @@ public class menu_contoller {
      }catch (Exception e){
      }
     }
-
+  public void fnirconfirmarorden(ActionEvent actionEvent) {
+     try {
+      appNavigator.load("/view/Confirmar_orden.fxml");
+     }catch (Exception e){}
+  }
  public void fnIrGuardarDIrecciones(ActionEvent actionEvent) {
      appNavigator.load("/view/Guardar_Direccion.fxml");
  }

@@ -1,6 +1,6 @@
-package model.Ubicacion;
+package model;
 
-class Pais {
+public class Pais {
     private int id_pais;
     private String nombre;
 
