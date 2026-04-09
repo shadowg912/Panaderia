@@ -5,169 +5,279 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.StringConverter;
 import model.Ingrediente;
+import model.Producto;
+import model.RecetaProducto;
 import utils.AppNavigator;
 
-import java.sql.*;
+import java.math.BigDecimal;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class Registro_recetas_controller {
-
-    @FXML private TextField txtNombre;
-    @FXML private ComboBox<String> cmbCategoria;
-    @FXML private TextField txtRendimiento;
-    @FXML private TextField txtTiempo;
-    @FXML private TextArea txtInstrucciones;
-    @FXML private TableView<Ingrediente> tblIngredientes;
-    @FXML private TableColumn<Ingrediente, String> colIngrediente;
-    @FXML private TableColumn<Ingrediente, Double> colCantidad;
-    @FXML private TableColumn<Ingrediente, String> colUnidad;
-    @FXML private TableColumn<Ingrediente, Double> colCosto;
-    @FXML private Button btnAgregarIngrediente;
-    @FXML private Button btnGuardar;
-    @FXML private Button btnLimpiar;
-    @FXML private Button btnCancelar;
-
-    CONEXION conexion = new CONEXION();
     AppNavigator appNavigator = new AppNavigator();
-    ObservableList<Ingrediente> listaIngredientes = FXCollections.observableArrayList();
-    ObservableList<String> categorias = FXCollections.observableArrayList("1", "2", "3", "4");
+    @FXML private ComboBox<Producto> cmbProducto;
+    @FXML private ComboBox<Ingrediente> cmbIngrediente;
+    @FXML private TextField txtCantidadIngrediente;
+    @FXML private TableView<Ingrediente> tblRecetaDetalle;
+    @FXML private TableColumn<Ingrediente, Integer> colIdIngrediente;
+    @FXML private TableColumn<Ingrediente, String>  colNombreIngrediente;
+    @FXML private TableColumn<Ingrediente, Double>  colCantidad;
+    @FXML private TableColumn<Ingrediente, String>  colUnidad;
+    @FXML private TableColumn<Ingrediente, Void>    colAccion;
+    @FXML private Button btnAgregarALista;
+    @FXML private Button btnGuardarReceta;
+
+    private final CONEXION conexion = new CONEXION();
+    private final ObservableList<Producto>    listaProductos    = FXCollections.observableArrayList();
+    private final ObservableList<Ingrediente> listaIngredientes = FXCollections.observableArrayList();
+
+    // Lista temporal de ingredientes agregados a la receta actual (en memoria)
+    private final ObservableList<Ingrediente> detalleReceta = FXCollections.observableArrayList();
+
+    // ─────────────────────────────────────────────────────────────────────────
+    //  INICIALIZACIÓN
+    // ─────────────────────────────────────────────────────────────────────────
 
     @FXML
     public void initialize() {
-        colIngrediente.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-        colCantidad.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
-        colUnidad.setCellValueFactory(new PropertyValueFactory<>("unidad"));
-        tblIngredientes.setItems(listaIngredientes);
-        cmbCategoria.setItems(categorias);
+        configurarColumnas();
+        cargarProductos();
+        cargarIngredientes();
+        tblRecetaDetalle.setItems(detalleReceta);
     }
 
-    @FXML
-    public void fnAgregarIngrediente(ActionEvent event) {
-        TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Nuevo Ingrediente");
-        dialog.setHeaderText("Ingrese los datos del ingrediente");
-        dialog.setContentText("Formato: nombre,cantidad,unidad (Ej: Harina,500,g)");
-        dialog.showAndWait().ifPresent(input -> {
-            try {
-                String[] partes = input.split(",");
-                if (partes.length >= 3) {
-                    listaIngredientes.add(new Ingrediente(0, partes[0].trim(), Double.parseDouble(partes[1].trim()), partes[2].trim()));
-                    tblIngredientes.refresh();
-                }
-            } catch (Exception e) {
-                System.out.println("Error al procesar ingrediente: " + e.getMessage());
+    // ─────────────────────────────────────────────────────────────────────────
+    //  CONFIGURACIÓN DE TABLA
+    // ─────────────────────────────────────────────────────────────────────────
+
+    private void configurarColumnas() {
+        colIdIngrediente.setCellValueFactory(new PropertyValueFactory<>("idIngrediente"));
+        colNombreIngrediente.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        colCantidad.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
+        colUnidad.setCellValueFactory(new PropertyValueFactory<>("unidad"));
+
+        // Columna con botón "Eliminar"
+        colAccion.setCellFactory(col -> new TableCell<>() {
+            private final Button btnEliminar = new Button("Eliminar");
+
+            {
+                btnEliminar.setStyle(
+                        "-fx-background-color: #ef4444; -fx-text-fill: white; " +
+                                "-fx-font-weight: bold; -fx-cursor: hand; -fx-background-radius: 6;"
+                );
+                btnEliminar.setOnAction(e -> {
+                    Ingrediente item = getTableView().getItems().get(getIndex());
+                    detalleReceta.remove(item);
+                });
+            }
+
+            @Override
+            protected void updateItem(Void v, boolean empty) {
+                super.updateItem(v, empty);
+                setGraphic(empty ? null : btnEliminar);
             }
         });
     }
 
-    @FXML
-    public void fnGuardarReceta(ActionEvent event) {
-        String nombre = txtNombre.getText().trim();
-        int idCategoria = 1;
-        double precioUnitario = 0.00;
-        int idUnidad = 1;
+    // ─────────────────────────────────────────────────────────────────────────
+    //  CARGA DE DATOS DESDE BD
+    // ─────────────────────────────────────────────────────────────────────────
 
-        if (listaIngredientes.isEmpty()) {
-            System.out.println("Debe agregar al menos un ingrediente");
+    private void cargarProductos() {
+        listaProductos.clear();
+        String sql = "SELECT id_producto, nombre FROM PRODUCTO ORDER BY nombre";
+        try (Connection con = conexion.establecerconexio();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                listaProductos.add(new Producto(rs.getInt(1), rs.getString("nombre")));
+            }
+        } catch (SQLException e) {
+            mostrarError("Error cargando productos: " + e.getMessage());
+        }
+
+        cmbProducto.setItems(listaProductos);
+
+        // Muestra el nombre del producto en el ComboBox
+        cmbProducto.setConverter(new StringConverter<>() {
+            @Override public String toString(Producto p)   { return p == null ? "" : p.getNombre(); }
+            @Override public Producto fromString(String s) { return null; }
+        });
+    }
+
+    private void cargarIngredientes() {
+        listaIngredientes.clear();
+        // Traemos también la unidad de medida para mostrarla en la tabla
+        String sql = "SELECT id_ingrediente, nombre, unidad_medida FROM INGREDIENTE ORDER BY nombre";
+        try (Connection con = conexion.establecerconexio();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                // cantidad = 0 por defecto; se asignará al agregarlo a la lista
+                listaIngredientes.add(new Ingrediente(
+                        rs.getInt("id_ingrediente"),
+                        rs.getString("nombre"),
+                        0,
+                        rs.getString("unidad_medida")
+                ));
+            }
+        } catch (SQLException e) {
+            mostrarError("Error cargando ingredientes: " + e.getMessage());
+        }
+
+        cmbIngrediente.setItems(listaIngredientes);
+
+        cmbIngrediente.setConverter(new StringConverter<>() {
+            @Override public String toString(Ingrediente i)   { return i == null ? "" : i.getNombre(); }
+            @Override public Ingrediente fromString(String s) { return null; }
+        });
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    //  ACCIONES
+    // ─────────────────────────────────────────────────────────────────────────
+
+    @FXML
+    public void fnAgregarALista(ActionEvent event) {
+        Ingrediente seleccionado = cmbIngrediente.getValue();
+        String cantidadTexto     = txtCantidadIngrediente.getText().trim();
+
+        // Validaciones básicas
+        if (seleccionado == null) {
+            mostrarAdvertencia("Seleccione un ingrediente.");
+            return;
+        }
+        if (cantidadTexto.isEmpty()) {
+            mostrarAdvertencia("Ingrese la cantidad del ingrediente.");
             return;
         }
 
-        Connection conn = null;
+        double cantidad;
         try {
-            conn = conexion.establecerconexio();
-            conn.setAutoCommit(false);
+            cantidad = Double.parseDouble(cantidadTexto);
+            if (cantidad <= 0) throw new NumberFormatException();
+        } catch (NumberFormatException e) {
+            mostrarAdvertencia("La cantidad debe ser un número mayor a 0.");
+            return;
+        }
 
-            String sqlProducto = "INSERT INTO PRODUCTO (nombre, id_categoria_producto, precio_unitario, id_unidad) VALUES (?, ?, ?, ?)";
-            int idProducto;
-            try (PreparedStatement pst = conn.prepareStatement(sqlProducto, Statement.RETURN_GENERATED_KEYS)) {
-                pst.setString(1, nombre);
-                pst.setInt(2, idCategoria);
-                pst.setDouble(3, precioUnitario);
-                pst.setInt(4, idUnidad);
-                pst.executeUpdate();
-                ResultSet rs = pst.getGeneratedKeys();
-                if (rs.next()) {
-                    idProducto = rs.getInt(1);
-                } else {
-                    throw new SQLException("No se obtuvo el ID del producto");
-                }
+        // Evitar duplicados en la lista temporal
+        boolean yaExiste = detalleReceta.stream()
+                .anyMatch(i -> i.getIdIngrediente() == seleccionado.getIdIngrediente());
+        if (yaExiste) {
+            mostrarAdvertencia("Este ingrediente ya fue añadido. Elimínelo primero si desea cambiar la cantidad.");
+            return;
+        }
+
+        // Crear un nuevo objeto Ingrediente con la cantidad asignada
+        Ingrediente entrada = new Ingrediente(
+                seleccionado.getIdIngrediente(),
+                seleccionado.getNombre(),
+                cantidad,
+                seleccionado.getUnidad()
+        );
+
+        detalleReceta.add(entrada);
+
+        // Limpiar controles del panel de agregar
+        cmbIngrediente.setValue(null);
+        txtCantidadIngrediente.clear();
+    }
+
+    @FXML
+    public void fnGuardarReceta(ActionEvent event) {
+        Producto producto = cmbProducto.getValue();
+
+        if (producto == null) {
+            mostrarAdvertencia("Seleccione el producto a elaborar.");
+            return;
+        }
+        if (detalleReceta.isEmpty()) {
+            mostrarAdvertencia("Agregue al menos un ingrediente antes de guardar.");
+            return;
+        }
+
+        // Confirmación opcional
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION,
+                "¿Guardar la receta para \"" + producto.getNombre() + "\" con " +
+                        detalleReceta.size() + " ingrediente(s)?",
+                ButtonType.YES, ButtonType.NO);
+        confirm.setTitle("Confirmar guardado");
+        confirm.setHeaderText(null);
+        if (confirm.showAndWait().orElse(ButtonType.NO) != ButtonType.YES) return;
+
+        guardarRecetaEnBD(producto);
+    }
+
+    private void guardarRecetaEnBD(Producto producto) {
+        // Borramos primero las recetas existentes para ese producto (reemplazo completo)
+        String sqlDelete = "DELETE FROM RECETA_PRODUCTO WHERE id_producto = ?";
+        String sqlInsert = "INSERT INTO RECETA_PRODUCTO (id_producto, id_ingrediente, cantidad_ingrediente) VALUES (?, ?, ?)";
+
+        try (Connection con = conexion.establecerconexio()) {
+            con.setAutoCommit(false); // Transacción
+
+            // 1. Eliminar receta previa del mismo producto
+            try (PreparedStatement psDel = con.prepareStatement(sqlDelete)) {
+                psDel.setInt(1, producto.getIdProducto());
+                psDel.executeUpdate();
             }
 
-            String sqlRecetaIng = "INSERT INTO RECETA_PRODUCTO (id_producto, id_ingrediente, cantidad_ingrediente) VALUES (?, ?, ?)";
-            try (PreparedStatement pstIng = conn.prepareStatement(sqlRecetaIng)) {
-                for (Ingrediente ing : listaIngredientes) {
-                    int idIng = buscarOCrearIngrediente(conn, ing.getNombre(), ing.getUnidad());
-                    if (idIng == 0) {
-                        throw new SQLException("No se pudo procesar el ingrediente: " + ing.getNombre());
-                    }
-                    pstIng.setInt(1, idProducto);
-                    pstIng.setInt(2, idIng);
-                    pstIng.setDouble(3, ing.getCantidad());
-                    pstIng.addBatch();
+            // 2. Insertar cada línea de la nueva receta
+            try (PreparedStatement psIns = con.prepareStatement(sqlInsert)) {
+                for (Ingrediente ing : detalleReceta) {
+                    psIns.setInt(1, producto.getIdProducto());
+                    psIns.setInt(2, ing.getIdIngrediente());
+                    psIns.setBigDecimal(3, BigDecimal.valueOf(ing.getCantidad()));
+                    psIns.addBatch();
                 }
-                pstIng.executeBatch();
+                psIns.executeBatch();
             }
 
-            conn.commit();
-            System.out.println("Receta guardada exitosamente con ID: " + idProducto);
-            fnLimpiarFormulario(event);
+            con.commit();
+            mostrarInfo("Receta guardada exitosamente para: " + producto.getNombre());
+            fnLimpiar();
 
         } catch (SQLException e) {
-            if (conn != null) {
-                try { conn.rollback(); } catch (SQLException ex) { System.out.println("Error rollback: " + ex.getMessage()); }
-            }
-            System.out.println("Error al guardar receta: " + e.getMessage());
-        } finally {
-            if (conn != null) {
-                try { conn.setAutoCommit(true); conn.close(); } catch (SQLException e) { e.printStackTrace(); }
-            }
+            mostrarError("Error al guardar la receta: " + e.getMessage());
         }
     }
 
     @FXML
-    public void fnLimpiarFormulario(ActionEvent event) {
-        txtNombre.clear();
-        cmbCategoria.getSelectionModel().clearSelection();
-        txtRendimiento.clear();
-        txtTiempo.clear();
-        txtInstrucciones.clear();
-        listaIngredientes.clear();
-        tblIngredientes.refresh();
+    public void fnLimpiar() {
+        cmbProducto.setValue(null);
+        cmbIngrediente.setValue(null);
+        txtCantidadIngrediente.clear();
+        detalleReceta.clear();
     }
 
+    private void mostrarAdvertencia(String mensaje) {
+        Alert a = new Alert(Alert.AlertType.WARNING, mensaje, ButtonType.OK);
+        a.setHeaderText(null);
+        a.showAndWait();
+    }
+
+    private void mostrarError(String mensaje) {
+        Alert a = new Alert(Alert.AlertType.ERROR, mensaje, ButtonType.OK);
+        a.setHeaderText(null);
+        a.showAndWait();
+    }
+
+    private void mostrarInfo(String mensaje) {
+        Alert a = new Alert(Alert.AlertType.INFORMATION, mensaje, ButtonType.OK);
+        a.setHeaderText(null);
+        a.showAndWait();
+    }
     @FXML
-    public void fnCancelar(ActionEvent event) {
-        fnLimpiarFormulario(event);
-    }
+    public void fnVolverMenu(ActionEvent event) {
 
-    private int buscarOCrearIngrediente(Connection conn, String nombre, String unidad) {
-        String sqlBuscar = "SELECT id_ingrediente FROM INGREDIENTE WHERE nombre = ? AND unidad_medida = ?";
-        try (PreparedStatement ps = conn.prepareStatement(sqlBuscar)) {
-            ps.setString(1, nombre);
-            ps.setString(2, unidad != null ? unidad : "und");
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                return rs.getInt("id_ingrediente");
-            }
-        } catch (SQLException e) {
-            System.out.println("Error buscando ingrediente: " + e.getMessage());
-        }
-
-        String sqlInsertar = "INSERT INTO INGREDIENTE (nombre, unidad_medida, id_categoria_ingrediente) VALUES (?, ?, 1)";
-        try (PreparedStatement ps = conn.prepareStatement(sqlInsertar, Statement.RETURN_GENERATED_KEYS)) {
-            ps.setString(1, nombre);
-            ps.setString(2, unidad != null ? unidad : "und");
-            ps.executeUpdate();
-            ResultSet rs = ps.getGeneratedKeys();
-            if (rs.next()) {
-                return rs.getInt(1);
-            }
-        } catch (SQLException e) {
-            System.out.println("Error creando ingrediente: " + e.getMessage());
-        }
-        return 0;
-    }
-}
+        appNavigator.volverMenu();
+    }}

@@ -66,50 +66,57 @@ public class Regisro_empresa_controller {
     }
 
     @FXML
-    public void Guardarempresa(String nombre, String rnc, String telefono, String correo, String id_direccion) {
-        String sql = "INSERT INTO EMPRESA_CLIENTE(razon_social,rnc,telefono,correo_electronico,id_direccion) VALUES(?,?,?,?,?)";
-        try (Connection connection = conexion.establecerconexio(); PreparedStatement ps = connection.prepareStatement(sql)) {
+    public void Guardarempresa(String nombre, String rnc, String telefono, String correo, int idDireccion) {
+        String sql = "INSERT INTO EMPRESA_CLIENTE(razon_social, rnc, telefono, correo_electronico, id_direccion) VALUES(?,?,?,?,?)";
+        try (Connection connection = conexion.establecerconexio();
+             PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, nombre);
             ps.setString(2, rnc);
             ps.setString(3, telefono);
             ps.setString(4, correo);
-            ps.setString(5, id_direccion);
-
-            int filasAfectadas = ps.executeUpdate();
-
+            ps.setInt(5, idDireccion);
+            int filas = ps.executeUpdate();
+            if (filas > 0) {
+                System.out.println("Empresa guardada correctamente con dirección ID: " + idDireccion);
+            }
         } catch (SQLException e) {
-            System.err.printf("Error al guardar: %s%n", e.getMessage());
-
+            System.err.println("Error al guardar empresa: " + e.getMessage());
         }
-        limipar();
     }
+
 
     public void fnVolvermenu(javafx.event.ActionEvent actionEvent) {
         appNavigator.volverMenu();
     }
 
 
-    public void fnGuardar(javafx.event.ActionEvent actionEvent) {
-        String Nombre = this.txtNombreEmpresa.getText().trim();
-        String rnc = this.txtRNC.getText().trim();
-        String telefono = this.txtTelefono.getText().trim();
-        String correo = this.txtCorreo.getText().trim();
 
-        String calle = txtCalle.getText().trim();
-        String numero = txtNumero.getText().trim();
-        String sector = txtSector.getText().trim();
-        String ciudad = txtCiudad.getText().trim();
-        int idProvincia = cmbProvincia.getValue().getId_provincia();
+    public void fnGuardar(javafx.event.ActionEvent actionEvent) {
+        String nombre     = txtNombreEmpresa.getText().trim();
+        String rnc        = txtRNC.getText().trim();
+        String telefono   = txtTelefono.getText().trim();
+        String correo     = txtCorreo.getText().trim();
+        String calle      = txtCalle.getText().trim();
+        String numero     = txtNumero.getText().trim();
+        String sector     = txtSector.getText().trim();
+        String ciudad     = txtCiudad.getText().trim();
         String referencia = txtReferencia.getText().trim();
 
+        if (cmbProvincia.getValue() == null) {
+            System.out.println("Debe seleccionar una provincia");
+            return;
+        }
+
+        int idProvincia = cmbProvincia.getValue().getId_provincia();
 
         int idDireccion = insertarDireccionCompleta(calle, numero, referencia, ciudad, sector, idProvincia);
 
         if (idDireccion == 0) {
-            System.out.println(" Error al guardar dirección");
+            System.out.println("Error al guardar dirección");
             return;
         }
-        Guardarempresa(Nombre, rnc, telefono, correo, "1");
+
+        Guardarempresa(nombre, rnc, telefono, correo, idDireccion);
         limipar();
     }
 

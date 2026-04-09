@@ -5,7 +5,7 @@
 <?import javafx.collections.FXCollections?>
 <?import java.lang.String?>
 
-<BorderPane prefHeight="720" prefWidth="1280" style="-fx-background-color: #0f172a;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="720" prefWidth="1280" style="-fx-background-color: #0f172a;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Reclamaciones_controller">
 
     <top>
         <VBox style="-fx-background-color: #1e293b; -fx-padding: 20 24; -fx-border-color: #334155; -fx-border-width: 0 0 1 0;">
@@ -108,11 +108,11 @@
 
                     <HBox alignment="CENTER_RIGHT" maxWidth="1072" spacing="20">
                         <children>
-                            <Button fx:id="btnLimpiar"
+                            <Button fx:id="btnLimpiar" onAction="#fnLimpiar"
                                     style="-fx-background-color: #1e293b; -fx-text-fill: #f1f5f9; -fx-padding: 14 35; -fx-border-color: #334155; -fx-border-radius: 8; -fx-font-size: 14px;" text="Limpiar" />
-                            <Button fx:id="btnCancelar"
+                            <Button fx:id="btnCancelar" onAction="#fnVolverMenu"
                                     style="-fx-background-color: #1e293b; -fx-text-fill: #f1f5f9; -fx-padding: 14 35; -fx-border-color: #334155; -fx-border-radius: 8; -fx-font-size: 14px;" text="Cancelar" />
-                            <Button fx:id="btnGuardar"
+                            <Button fx:id="btnGuardar" onAction="#fnGuardarReclamacion"
                                     style="-fx-background-color: #6366f1; -fx-text-fill: #ffffff; -fx-padding: 14 45; -fx-font-weight: bold; -fx-font-size: 15px; -fx-background-radius: 8;" text="Guardar Reclamación" />
                         </children>
                     </HBox>

@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane fx:controller="controllers.Confirmar_orden_controller" prefHeight="720" prefWidth="1280" style="-fx-background-color: #0f172a;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane stylesheets="@Table.css" fx:controller="controllers.Confirmar_orden_controller" prefHeight="720" prefWidth="1280" style="-fx-background-color: #0f172a;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
     <top>
         <VBox style="-fx-background-color: #1e293b; -fx-padding: 16 24; -fx-border-color: #334155; -fx-border-width: 0 0 1 0;">
             <children>
@@ -57,6 +57,8 @@
                         <Button fx:id="btnEditar" onAction="#fnEditarOrden" style="-fx-background-color: #1e293b; -fx-text-fill: #f1f5f9; -fx-font-size: 15px; -fx-border-color: #334155; -fx-border-width: 1; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 14 32;" text="Editar Orden"/>
                         <Button fx:id="btnCancelar" onAction="#fnCancelarOrden" style="-fx-background-color: #1e293b; -fx-text-fill: #f1f5f9; -fx-font-size: 15px; -fx-border-color: #334155; -fx-border-width: 1; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 14 32;" text="Cancelar Orden"/>
                         <Button fx:id="btnEmitir" onAction="#fnEmitirOrden" style="-fx-background-color: #6366f1; -fx-text-fill: #fff3eb; -fx-font-size: 15px; -fx-font-weight: bold; -fx-background-radius: 10; -fx-padding: 14 32;" text="Emitir Orden"/>
+                        <Button fx:id="btnvolvermenu" onAction="#fnVolvermenu" style="-fx-background-color: #6366f1; -fx-text-fill: #fff3eb; -fx-font-size: 15px; -fx-font-weight: bold; -fx-background-radius: 10; -fx-padding: 14 32;" text="Volver al menu"/>
+
                     </children>
                 </HBox>
             </children>

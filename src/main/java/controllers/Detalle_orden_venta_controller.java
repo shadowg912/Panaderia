@@ -13,8 +13,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import model.DetalleOrdenVenta;
-import model.Producto;
+import model.*;
 import utils.AppNavigator;
 
 import java.math.BigDecimal;
@@ -201,14 +200,33 @@ public class Detalle_orden_venta_controller implements Initializable {
         appNavigator.volverMenu();
     }
 
+
     @FXML
     public void fnConfirmarOrden(ActionEvent event) {
         if (Detalles.isEmpty()) {
             System.out.println("Debe agregar al menos un producto");
             return;
         }
+
         actualizarTotalesOrden();
-        appNavigator.irAConfirmarOrden(idOrdenActual, subtotalAcumulado, itbisAcumulado, totalAcumulado);
+
+        // Llenar el estado global antes de navegar
+        OrdenVenta ordenEstado = new OrdenVenta();
+        ordenEstado.setIdOrdenVenta(idOrdenActual);
+        ordenEstado.setSubtotal(subtotalAcumulado);
+        ordenEstado.setItbis(itbisAcumulado);
+        ordenEstado.setMontoTotal(totalAcumulado);
+
+        // Recuperar cliente y forma de pago para el header
+        Empresa_cliente cliente = /* la variable donde guardaste el cliente seleccionado */ null;
+        FormaPago formaPago     = /* la variable donde guardaste la forma de pago */       null;
+
+        OrdenVentaEstado.ordenActual     = ordenEstado;
+        OrdenVentaEstado.detalles        = new java.util.ArrayList<>(Detalles);
+        OrdenVentaEstado.nombreCliente   = cliente   != null ? cliente.getNombre()  : "—";
+        OrdenVentaEstado.nombreFormaPago = formaPago != null ? formaPago.getNombre()     : "—";
+
+        AppNavigator.irAConfirmarOrden();
     }
 
     private void actualizarTotalesOrden() {

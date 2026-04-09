@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane fx:controller="controllers.Detalle_orden_venta_controller" prefHeight="720" prefWidth="1280" style="-fx-background-color: #0f172a;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane stylesheets="@Combobox.css, @Table.css" fx:controller="controllers.Detalle_orden_venta_controller" prefHeight="720" prefWidth="1280" style="-fx-background-color: #0f172a;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
     <top>
         <VBox style="-fx-background-color: #1e293b; -fx-padding: 16 24; -fx-border-color: #334155; -fx-border-width: 0 0 1 0;">
             <children>

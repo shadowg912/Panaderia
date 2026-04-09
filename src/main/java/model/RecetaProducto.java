@@ -2,11 +2,11 @@ package model;
 import java.math.BigDecimal;
 
 public class RecetaProducto {
-    private Producto producto;  // FK como objeto
-    private Ingrediente ingrediente;  // FK como objeto
+    private Producto producto;
+    private Ingrediente ingrediente;
     private BigDecimal cantidadIngrediente;
 
-    // Constructor vacío
+
     public RecetaProducto() {}
 
     public RecetaProducto(Producto producto, Ingrediente ingrediente, BigDecimal cantidadIngrediente) {

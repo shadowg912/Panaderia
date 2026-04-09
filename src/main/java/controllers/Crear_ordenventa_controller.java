@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 import model.Empresa_cliente;
 import model.Empresa_cliente;
 import model.FormaPago;
+import model.OrdenVentaEstado;
 import utils.AppNavigator;
 
 import java.sql.Connection;
@@ -71,11 +72,10 @@ public class Crear_ordenventa_controller {
         txtEstado.setText("PENDIENTE");
     }
 
+
     @FXML
     public void fnCrearOrden(ActionEvent event) {
-        if (!validarCampos()) {
-            return;
-        }
+        if (!validarCampos()) return;
 
         int idEmpresaCliente = cmbCliente.getValue().getIdEmpresaCliente();
         int idFormaPago = cmbFormaPago.getValue().getIdFormaPago();
@@ -85,12 +85,21 @@ public class Crear_ordenventa_controller {
 
         if (idOrden > 0) {
             System.out.println("Orden creada exitosamente con ID: " + idOrden);
+
+            Detalle_orden_venta_controller.setIdOrden(idOrden);
+
             appNavigator.load("/view/Detalle_Venta.fxml");
         } else {
             System.out.println("Error al crear orden");
         }
-    }
 
+        OrdenVentaEstado.nombreCliente   = cmbCliente.getValue().getNombre();
+        OrdenVentaEstado.nombreFormaPago = cmbFormaPago.getValue().getNombre();
+        OrdenVentaEstado.idEmpresaCliente = idEmpresaCliente;
+
+        Detalle_orden_venta_controller.setIdOrden(idOrden);
+        appNavigator.load("/view/Detalle_Venta.fxml");
+    }
     private int insertarOrden(int idEmpresaCliente, int idFormaPago, Date fechaEntrega) {
         String sql = "INSERT INTO ORDEN_VENTA (id_empresa_cliente, estado, fecha_orden, id_forma_pago, fecha_entrega) VALUES (?, 'PENDIENTE', GETDATE(), ?, ?)";
         try (Connection connection = conexion.establecerconexio();

@@ -50,8 +50,7 @@
                                 <VBox spacing="15" style="-fx-background-color: #1e293b; -fx-padding: 24; -fx-background-radius: 12; -fx-border-color: #334155; -fx-border-radius: 12; -fx-min-width: 240;">
                                     <Label style="-fx-text-fill: #38bdf8; -fx-font-weight: bold;" text="PRODUCCIÓN" />
                                     <Button fx:id="btnOrdenProduccion" maxWidth="Infinity" onAction="#fnIrOrdenProduccion" style="-fx-background-color: #6366f1; -fx-text-fill: white; -fx-background-radius: 6;" text="Orden de Producción" />
-                                    <Button fx:id="btnConfirmarOrden" maxWidth="Infinity" onAction="#fnirconfirmarorden" style="-fx-background-color: #6366f1; -fx-text-fill: white; -fx-background-radius: 6;" text="Confirmar orden" />
-                                    <Button maxWidth="Infinity" style="-fx-background-color: transparent; -fx-text-fill: #f1f5f9; -fx-border-color: #334155; -fx-border-radius: 6;" text="Estado de Fábrica" />
+
                                 </VBox>
 
                                 <VBox spacing="15" style="-fx-background-color: #1e293b; -fx-padding: 24; -fx-background-radius: 12; -fx-border-color: #334155; -fx-border-radius: 12; -fx-min-width: 240;">

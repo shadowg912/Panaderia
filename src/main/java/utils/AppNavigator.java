@@ -31,8 +31,7 @@ public class AppNavigator {
         load("/view/Detalle_orden.fxml");
     }
 
-    public static void irAConfirmarOrden(int idOrden, double subtotal, double itbis, double total) {
-        Confirmar_orden_controller.setDatos(idOrden, subtotal, itbis, total);
+    public static void irAConfirmarOrden() {
         load("/view/Confirmar_orden.fxml");
     }
 }
