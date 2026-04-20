@@ -85,7 +85,7 @@ public class Crear_ordenventa_controller {
         int idOrden = insertarOrden(idEmpresaCliente, idFormaPago, fechaEntrega);
 
         if (idOrden > 0) {
-            // Guardar en estado global ANTES de navegar
+
             OrdenVentaEstado.idOrdenVenta = idOrden;
             OrdenVentaEstado.idEmpresaCliente = idEmpresaCliente;
             OrdenVentaEstado.nombreCliente = cmbCliente.getValue().getNombre(); // o getRazonSocial()
