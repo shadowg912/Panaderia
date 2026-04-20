@@ -48,6 +48,23 @@ public class Registro_producto_controller {
 
 
 
+    public void fnlimpiar() {
+        txtEnergia.clear();
+        txtProteinas.clear();
+        txtCarbohidratos.clear();
+        txtGrasas.clear();
+        txtFibra.clear();
+        txtSodio.clear();
+        txtAzucares.clear();
+        txtGrasasSaturadas.clear();
+        txtGrasasTrans.clear();
+        txtPrecio.clear();
+        txtNombre.clear();
+        cmbCategoria.getSelectionModel().clearSelection();
+        cmbUnidad.getSelectionModel().clearSelection();
+
+
+    }
     public void Ejecutarsql(String sql) {
         try (Connection connection = conexion.establecerconexio();
              PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -111,7 +128,7 @@ public class Registro_producto_controller {
 
     }
 
-    public void GuardarProducto(ActionEvent actionEvent) {
+    public void fnGuardarProducto(ActionEvent actionEvent) {
         try {
             String nombre = txtNombre.getText();
             Unidad unidad = cmbUnidad.getValue();
@@ -139,9 +156,10 @@ public class Registro_producto_controller {
             insertarValorNutricional(vn);
 
             InsertarProducto(nombre, unidad, precio, categoria);
+            fnlimpiar();
 
         } catch (NumberFormatException e) {
-            System.out.println("❌ El precio debe ser un número válido");
+            System.out.println(" El precio debe ser un número válido");
         }
     }
 
@@ -166,10 +184,10 @@ public class Registro_producto_controller {
             ps.setString(10, vn.getSodio());
 
             ps.executeUpdate();
-            System.out.println("✅ Valor nutricional insertado correctamente");
+            System.out.println(" Valor nutricional insertado correctamente");
 
         } catch (SQLException e) {
-            System.out.println("❌ Error al insertar: " + e.getMessage());
+            System.out.println(" Error al insertar: " + e.getMessage());
             System.out.println("Código de error: " + e.getErrorCode());
         }
     }

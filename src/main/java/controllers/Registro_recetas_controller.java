@@ -37,12 +37,10 @@ public class Registro_recetas_controller {
     private final ObservableList<Producto>    listaProductos    = FXCollections.observableArrayList();
     private final ObservableList<Ingrediente> listaIngredientes = FXCollections.observableArrayList();
 
-    // Lista temporal de ingredientes agregados a la receta actual (en memoria)
+
     private final ObservableList<Ingrediente> detalleReceta = FXCollections.observableArrayList();
 
-    // ─────────────────────────────────────────────────────────────────────────
-    //  INICIALIZACIÓN
-    // ─────────────────────────────────────────────────────────────────────────
+
 
     @FXML
     public void initialize() {
@@ -52,9 +50,6 @@ public class Registro_recetas_controller {
         tblRecetaDetalle.setItems(detalleReceta);
     }
 
-    // ─────────────────────────────────────────────────────────────────────────
-    //  CONFIGURACIÓN DE TABLA
-    // ─────────────────────────────────────────────────────────────────────────
 
     private void configurarColumnas() {
         colIdIngrediente.setCellValueFactory(new PropertyValueFactory<>("idIngrediente"));
@@ -62,7 +57,7 @@ public class Registro_recetas_controller {
         colCantidad.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
         colUnidad.setCellValueFactory(new PropertyValueFactory<>("unidad"));
 
-        // Columna con botón "Eliminar"
+
         colAccion.setCellFactory(col -> new TableCell<>() {
             private final Button btnEliminar = new Button("Eliminar");
 
@@ -85,9 +80,7 @@ public class Registro_recetas_controller {
         });
     }
 
-    // ─────────────────────────────────────────────────────────────────────────
-    //  CARGA DE DATOS DESDE BD
-    // ─────────────────────────────────────────────────────────────────────────
+
 
     private void cargarProductos() {
         listaProductos.clear();
@@ -105,7 +98,6 @@ public class Registro_recetas_controller {
 
         cmbProducto.setItems(listaProductos);
 
-        // Muestra el nombre del producto en el ComboBox
         cmbProducto.setConverter(new StringConverter<>() {
             @Override public String toString(Producto p)   { return p == null ? "" : p.getNombre(); }
             @Override public Producto fromString(String s) { return null; }
@@ -114,7 +106,7 @@ public class Registro_recetas_controller {
 
     private void cargarIngredientes() {
         listaIngredientes.clear();
-        // Traemos también la unidad de medida para mostrarla en la tabla
+
         String sql = "SELECT id_ingrediente, nombre, unidad_medida FROM INGREDIENTE ORDER BY nombre";
         try (Connection con = conexion.establecerconexio();
              PreparedStatement ps = con.prepareStatement(sql);
@@ -141,16 +133,13 @@ public class Registro_recetas_controller {
         });
     }
 
-    // ─────────────────────────────────────────────────────────────────────────
-    //  ACCIONES
-    // ─────────────────────────────────────────────────────────────────────────
 
     @FXML
     public void fnAgregarALista(ActionEvent event) {
         Ingrediente seleccionado = cmbIngrediente.getValue();
         String cantidadTexto     = txtCantidadIngrediente.getText().trim();
 
-        // Validaciones básicas
+
         if (seleccionado == null) {
             mostrarAdvertencia("Seleccione un ingrediente.");
             return;
@@ -169,7 +158,7 @@ public class Registro_recetas_controller {
             return;
         }
 
-        // Evitar duplicados en la lista temporal
+
         boolean yaExiste = detalleReceta.stream()
                 .anyMatch(i -> i.getIdIngrediente() == seleccionado.getIdIngrediente());
         if (yaExiste) {
@@ -177,7 +166,7 @@ public class Registro_recetas_controller {
             return;
         }
 
-        // Crear un nuevo objeto Ingrediente con la cantidad asignada
+
         Ingrediente entrada = new Ingrediente(
                 seleccionado.getIdIngrediente(),
                 seleccionado.getNombre(),
@@ -187,7 +176,12 @@ public class Registro_recetas_controller {
 
         detalleReceta.add(entrada);
 
-        // Limpiar controles del panel de agregar
+        detalleReceta.add(entrada);
+
+        tblRecetaDetalle.refresh();
+
+        cmbIngrediente.setValue(null);
+        txtCantidadIngrediente.clear();
         cmbIngrediente.setValue(null);
         txtCantidadIngrediente.clear();
     }
@@ -205,7 +199,6 @@ public class Registro_recetas_controller {
             return;
         }
 
-        // Confirmación opcional
         Alert confirm = new Alert(Alert.AlertType.CONFIRMATION,
                 "¿Guardar la receta para \"" + producto.getNombre() + "\" con " +
                         detalleReceta.size() + " ingrediente(s)?",
@@ -218,20 +211,19 @@ public class Registro_recetas_controller {
     }
 
     private void guardarRecetaEnBD(Producto producto) {
-        // Borramos primero las recetas existentes para ese producto (reemplazo completo)
         String sqlDelete = "DELETE FROM RECETA_PRODUCTO WHERE id_producto = ?";
         String sqlInsert = "INSERT INTO RECETA_PRODUCTO (id_producto, id_ingrediente, cantidad_ingrediente) VALUES (?, ?, ?)";
 
         try (Connection con = conexion.establecerconexio()) {
             con.setAutoCommit(false); // Transacción
 
-            // 1. Eliminar receta previa del mismo producto
+            
             try (PreparedStatement psDel = con.prepareStatement(sqlDelete)) {
                 psDel.setInt(1, producto.getIdProducto());
                 psDel.executeUpdate();
             }
 
-            // 2. Insertar cada línea de la nueva receta
+
             try (PreparedStatement psIns = con.prepareStatement(sqlInsert)) {
                 for (Ingrediente ing : detalleReceta) {
                     psIns.setInt(1, producto.getIdProducto());
