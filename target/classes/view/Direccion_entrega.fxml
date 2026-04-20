@@ -1,35 +1,35 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<BorderPane prefHeight="720" prefWidth="1280" style="-fx-background-color: #0f172a;">
+<BorderPane prefHeight="720" prefWidth="1280" style="-fx-background-color: #F5F2EB;">
     <top>
-        <VBox style="-fx-background-color: #1e293b; -fx-padding: 16 24; -fx-border-color: #334155; -fx-border-width: 0 0 1 0;">
+        <VBox style="-fx-background-color: #CDB08E; -fx-padding: 16 24; -fx-border-color: #BFB6A6; -fx-border-width: 0 0 1 0;">
             <children>
-                <Label style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #38bdf8; -fx-letter-spacing: 2;" text="CHECKOUT"/>
-                <Label style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #f1f5f9;" text="Dirección de Entrega"/>
-                <Label style="-fx-font-size: 13px; -fx-text-fill: #38bdf8;" text="Cliente: [Nombre del cliente]"/>
+                <Label style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #4A4944;" text="CHECKOUT"/>
+                <Label style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #11100B;" text="Dirección de Entrega"/>
+                <Label style="-fx-font-size: 13px; -fx-text-fill: #4A4944;" text="Cliente: [Nombre del cliente]"/>
             </children>
         </VBox>
     </top>
     <center>
-        <VBox alignment="CENTER" spacing="20" style="-fx-padding: 32; -fx-background-color: #0f172a;">
+        <VBox alignment="CENTER" spacing="20" style="-fx-padding: 32; -fx-background-color: #F5F2EB;">
             <children>
-                <!-- Direcciones Guardadas -->
-                <VBox style="-fx-background-color: #1e293b; -fx-border-color: #334155; -fx-border-width: 1; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 20 24;">
+
+                <VBox style="-fx-background-color: #FFFFFF; -fx-border-color: #BFB6A6; -fx-border-width: 1; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 20 24;">
                     <children>
-                        <Label style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #38bdf8; -fx-padding: 0 0 12 0;" text="Direcciones Guardadas"/>
+                        <Label style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #CDB08E; -fx-padding: 0 0 12 0;" text="Direcciones Guardadas"/>
                         <VBox spacing="10">
                             <children>
-                                <RadioButton selected="true" text="Calle Principal #123, Zona Colonial, Santo Domingo" style="-fx-text-fill: #f1f5f9;"/>
-                                <RadioButton text="Av. Independencia #456, Ensanche Naco, Santo Domingo" style="-fx-text-fill: #f1f5f9;"/>
-                                <RadioButton text="Calle Duarte #789, Los Alcarrizos" style="-fx-text-fill: #f1f5f9;"/>
+                                <RadioButton selected="true" text="Calle Principal #123, Zona Colonial, Santo Domingo" style="-fx-text-fill: #4A4944;"/>
+                                <RadioButton text="Av. Independencia #456, Ensanche Naco, Santo Domingo" style="-fx-text-fill: #4A4944;"/>
+                                <RadioButton text="Calle Duarte #789, Los Alcarrizos" style="-fx-text-fill: #4A4944;"/>
                             </children>
                         </VBox>
                     </children>
                 </VBox>
-                <!-- Nueva Dirección -->
-                <VBox style="-fx-background-color: #1e293b; -fx-border-color: #334155; -fx-border-width: 1; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 20 24;">
+
+                <VBox style="-fx-background-color: #FFFFFF; -fx-border-color: #BFB6A6; -fx-border-width: 1; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 20 24;">
                     <children>
-                        <Label style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #38bdf8; -fx-padding: 0 0 14 0;" text="Nueva Dirección"/>
+                        <Label style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #CDB08E; -fx-padding: 0 0 14 0;" text="Nueva Dirección"/>
                         <GridPane hgap="20" vgap="12" style="-fx-padding: 0;">
                             <columnConstraints>
                                 <ColumnConstraints halignment="RIGHT" hgrow="NEVER" minWidth="110"/>
@@ -43,41 +43,42 @@
                                 <RowConstraints/>
                             </rowConstraints>
                             <children>
-                                <Label style="-fx-text-fill: #f1f5f9; -fx-font-size: 13px;" text="Calle"/>
-                                <TextField style="-fx-background-color: #0f172a; -fx-text-fill: #f1f5f9; -fx-border-color: #334155; -fx-border-width: 1; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 8;" GridPane.columnIndex="1"/>
-                                <Label style="-fx-text-fill: #f1f5f9; -fx-font-size: 13px;" text="Número" GridPane.rowIndex="1"/>
-                                <TextField style="-fx-background-color: #0f172a; -fx-text-fill: #f1f5f9; -fx-border-color: #334155; -fx-border-width: 1; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 8;" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-                                <Label style="-fx-text-fill: #f1f5f9; -fx-font-size: 13px;" text="Ciudad" GridPane.rowIndex="2"/>
-                                <TextField style="-fx-background-color: #0f172a; -fx-text-fill: #f1f5f9; -fx-border-color: #334155; -fx-border-width: 1; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 8;" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-                                <Label style="-fx-text-fill: #f1f5f9; -fx-font-size: 13px;" text="Provincia" GridPane.rowIndex="3"/>
-                                <ComboBox style="-fx-background-color: #0f172a; -fx-border-color: #334155; -fx-border-width: 1; -fx-border-radius: 6; -fx-background-radius: 6;" GridPane.columnIndex="1" GridPane.rowIndex="3" maxWidth="Infinity"/>
-                                <Label style="-fx-text-fill: #f1f5f9; -fx-font-size: 13px;" text="País" GridPane.rowIndex="4"/>
-                                <TextField editable="false" text="República Dominicana" style="-fx-background-color: #334155; -fx-text-fill: #f1f5f9; -fx-border-color: #334155; -fx-border-width: 1; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 8;" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+                                <Label style="-fx-text-fill: #4A4944; -fx-font-size: 13px;" text="Calle"/>
+                                <TextField style="-fx-background-color: #F5F2EB; -fx-text-fill: #11100B; -fx-border-color: #BFB6A6; -fx-border-width: 1; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 8;" GridPane.columnIndex="1"/>
+                                <Label style="-fx-text-fill: #4A4944; -fx-font-size: 13px;" text="Número" GridPane.rowIndex="1"/>
+                                <TextField style="-fx-background-color: #F5F2EB; -fx-text-fill: #11100B; -fx-border-color: #BFB6A6; -fx-border-width: 1; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 8;" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                                <Label style="-fx-text-fill: #4A4944; -fx-font-size: 13px;" text="Ciudad" GridPane.rowIndex="2"/>
+                                <TextField style="-fx-background-color: #F5F2EB; -fx-text-fill: #11100B; -fx-border-color: #BFB6A6; -fx-border-width: 1; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 8;" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                                <Label style="-fx-text-fill: #4A4944; -fx-font-size: 13px;" text="Provincia" GridPane.rowIndex="3"/>
+                                <ComboBox style="-fx-background-color: #F5F2EB; -fx-border-color: #BFB6A6; -fx-border-width: 1; -fx-border-radius: 6; -fx-background-radius: 6;" GridPane.columnIndex="1" GridPane.rowIndex="3" maxWidth="Infinity"/>
+                                <Label style="-fx-text-fill: #4A4944; -fx-font-size: 13px;" text="País" GridPane.rowIndex="4"/>
+                                <TextField editable="false" text="República Dominicana" style="-fx-background-color: #EAE4DA; -fx-text-fill: #4A4944; -fx-border-color: #BFB6A6; -fx-border-width: 1; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 8;" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
                             </children>
                         </GridPane>
                     </children>
                 </VBox>
-                <!-- Costo de envío -->
-                <HBox alignment="CENTER_RIGHT" spacing="12" style="-fx-background-color: #1e293b; -fx-border-color: #334155; -fx-border-width: 1; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 14 24;">
+
+                <HBox alignment="CENTER_RIGHT" spacing="12" style="-fx-background-color: #FFFFFF; -fx-border-color: #BFB6A6; -fx-border-width: 1; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 14 24;">
                     <children>
-                        <Label style="-fx-text-fill: #f1f5f9; -fx-font-size: 15px;" text="Costo de Envío:"/>
-                        <Label style="-fx-text-fill: #38bdf8; -fx-font-size: 17px; -fx-font-weight: bold;" text="RD$ 150.00"/>
+                        <Label style="-fx-text-fill: #4A4944; -fx-font-size: 15px;" text="Costo de Envío:"/>
+                        <Label style="-fx-text-fill: #CDB08E; -fx-font-size: 17px; -fx-font-weight: bold;" text="RD$ 150.00"/>
                     </children>
                 </HBox>
-                <!-- Botones -->
+
                 <HBox alignment="CENTER_RIGHT" spacing="16">
                     <children>
-                        <Button style="-fx-background-color: #1e293b; -fx-text-fill: #f1f5f9; -fx-font-size: 14px; -fx-border-color: #334155; -fx-border-width: 1; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 11 28;" text="Volver"/>
-                        <Button style="-fx-background-color: #6366f1; -fx-text-fill: #fff3eb; -fx-font-size: 14px; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 11 28;" text="Continuar"/>
+                        <Button style="-fx-background-color: #BFB6A6; -fx-text-fill: #11100B; -fx-font-size: 14px; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 11 28;" text="Volver"/>
+                        <Button style="-fx-background-color: #CDB08E; -fx-text-fill: #11100B; -fx-font-size: 14px; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 11 28;" text="Continuar"/>
                     </children>
                 </HBox>
+
             </children>
         </VBox>
     </center>
     <bottom>
-        <HBox alignment="CENTER" style="-fx-background-color: #1e293b; -fx-padding: 12; -fx-border-color: #334155; -fx-border-width: 1 0 0 0;">
+        <HBox alignment="CENTER" style="-fx-background-color: #CDB08E; -fx-padding: 12; -fx-border-color: #BFB6A6; -fx-border-width: 1 0 0 0;">
             <children>
-                <Label style="-fx-text-fill: #334155; -fx-font-size: 12;"/>
+                <Label style="-fx-text-fill: #4A4944; -fx-font-size: 12;"/>
             </children>
         </HBox>
     </bottom>
