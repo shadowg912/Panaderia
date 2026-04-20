@@ -120,9 +120,9 @@
                     <!-- Botones de acción -->
                     <HBox alignment="CENTER_RIGHT" spacing="16">
                         <children>
-                            <Button style="-fx-background-color: #1e293b; -fx-text-fill: #f1f5f9; -fx-font-size: 14px; -fx-border-color: #334155; -fx-border-width: 1; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 11 28;" text="Limpiar Formulario" />
+                            <Button fx:id="btnlimpiar" onAction="#fnlimpiar" style="-fx-background-color: #1e293b; -fx-text-fill: #f1f5f9; -fx-font-size: 14px; -fx-border-color: #334155; -fx-border-width: 1; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 11 28;" text="Limpiar Formulario" />
                             <Button fx:id="btnCancelar" onAction="#fnVolerMenu" style="-fx-background-color: #1e293b; -fx-text-fill: #f1f5f9; -fx-font-size: 14px; -fx-border-color: #334155; -fx-border-width: 1; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 11 28;" text="Cancelar" />
-                            <Button fx:id="btnGuardar" onAction="#GuardarProducto" style="-fx-background-color: #6366f1; -fx-text-fill: #fff3eb; -fx-font-size: 14px; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 11 28;" text="Guardar Producto" />
+                            <Button fx:id="btnGuardar" onAction="#fnGuardarProducto" style="-fx-background-color: #6366f1; -fx-text-fill: #fff3eb; -fx-font-size: 14px; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 11 28;" text="Guardar Producto" />
                         </children>
                     </HBox>
                 </VBox>

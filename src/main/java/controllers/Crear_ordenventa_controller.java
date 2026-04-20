@@ -73,6 +73,7 @@ public class Crear_ordenventa_controller {
     }
 
 
+
     @FXML
     public void fnCrearOrden(ActionEvent event) {
         if (!validarCampos()) return;
@@ -84,21 +85,18 @@ public class Crear_ordenventa_controller {
         int idOrden = insertarOrden(idEmpresaCliente, idFormaPago, fechaEntrega);
 
         if (idOrden > 0) {
-            System.out.println("Orden creada exitosamente con ID: " + idOrden);
+
+            OrdenVentaEstado.idOrdenVenta = idOrden;
+            OrdenVentaEstado.idEmpresaCliente = idEmpresaCliente;
+            OrdenVentaEstado.nombreCliente = cmbCliente.getValue().getNombre(); // o getRazonSocial()
+            OrdenVentaEstado.idFormaPago = idFormaPago;
+            OrdenVentaEstado.nombreFormaPago = cmbFormaPago.getValue().getNombre();
 
             Detalle_orden_venta_controller.setIdOrden(idOrden);
-
             appNavigator.load("/view/Detalle_Venta.fxml");
         } else {
-            System.out.println("Error al crear orden");
+            System.out.printf("Error al crear la orden");
         }
-
-        OrdenVentaEstado.nombreCliente   = cmbCliente.getValue().getNombre();
-        OrdenVentaEstado.nombreFormaPago = cmbFormaPago.getValue().getNombre();
-        OrdenVentaEstado.idEmpresaCliente = idEmpresaCliente;
-
-        Detalle_orden_venta_controller.setIdOrden(idOrden);
-        appNavigator.load("/view/Detalle_Venta.fxml");
     }
     private int insertarOrden(int idEmpresaCliente, int idFormaPago, Date fechaEntrega) {
         String sql = "INSERT INTO ORDEN_VENTA (id_empresa_cliente, estado, fecha_orden, id_forma_pago, fecha_entrega) VALUES (?, 'PENDIENTE', GETDATE(), ?, ?)";

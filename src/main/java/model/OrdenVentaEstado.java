@@ -6,13 +6,14 @@ import java.util.List;
 
 public class OrdenVentaEstado {
 
-
+    public static int idOrdenVenta;
     public static OrdenVenta ordenActual;
     public static List<DetalleOrdenVenta> detalles;
     public static int    idEmpresaCliente;
     public static int    idFormaPago;
     public static String nombreCliente;
     public static String nombreFormaPago;
+
 
     public static void limpiar() {
         ordenActual      = null;
@@ -21,6 +22,7 @@ public class OrdenVentaEstado {
         nombreFormaPago  = null;
         idEmpresaCliente = 0;
         idFormaPago      = 0;
+        idOrdenVenta  = 0;
     }
 
 

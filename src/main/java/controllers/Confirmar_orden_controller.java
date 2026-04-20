@@ -36,7 +36,7 @@ public class Confirmar_orden_controller {
     @FXML private Button btnCancelar;
     @FXML private Button btnEmitir;
 
-    // ─── DEPENDENCIAS ────────────────────────────────────────────────────────
+
     private final CONEXION     conexion     = new CONEXION();
     private final AppNavigator appNavigator = new AppNavigator();
     private static final NumberFormat FMT  =
@@ -185,7 +185,7 @@ public class Confirmar_orden_controller {
 
                 psOrden.setInt(1, orden.getIdEmpresaCliente());
                 psOrden.setDate(2, Date.valueOf(LocalDate.now()));
-
+            
                 if (orden.getIdFormaPago() != null) {
                     psOrden.setInt(3, orden.getIdFormaPago());
                 } else {

@@ -204,31 +204,28 @@ public class Detalle_orden_venta_controller implements Initializable {
     @FXML
     public void fnConfirmarOrden(ActionEvent event) {
         if (Detalles.isEmpty()) {
-            System.out.println("Debe agregar al menos un producto");
+            System.out.printf("Debe agregar al menos un producto");
             return;
         }
 
         actualizarTotalesOrden();
 
-        // Llenar el estado global antes de navegar
+        // Usar los datos que ya guardaste en Crear_ordenventa_controller
         OrdenVenta ordenEstado = new OrdenVenta();
         ordenEstado.setIdOrdenVenta(idOrdenActual);
+        ordenEstado.setIdEmpresaCliente(OrdenVentaEstado.idEmpresaCliente); // ← CRÍTICO
+        ordenEstado.setIdFormaPago(OrdenVentaEstado.idFormaPago);
         ordenEstado.setSubtotal(subtotalAcumulado);
         ordenEstado.setItbis(itbisAcumulado);
         ordenEstado.setMontoTotal(totalAcumulado);
 
-        // Recuperar cliente y forma de pago para el header
-        Empresa_cliente cliente = /* la variable donde guardaste el cliente seleccionado */ null;
-        FormaPago formaPago     = /* la variable donde guardaste la forma de pago */       null;
-
-        OrdenVentaEstado.ordenActual     = ordenEstado;
-        OrdenVentaEstado.detalles        = new java.util.ArrayList<>(Detalles);
-        OrdenVentaEstado.nombreCliente   = cliente   != null ? cliente.getNombre()  : "—";
-        OrdenVentaEstado.nombreFormaPago = formaPago != null ? formaPago.getNombre()     : "—";
+        // Recuperar del estado global (ya existen)
+        OrdenVentaEstado.ordenActual = ordenEstado;
+        OrdenVentaEstado.detalles = new java.util.ArrayList<>(Detalles);
+        // nombreCliente y nombreFormaPago ya están guardados desde Crear_ordenventa
 
         AppNavigator.irAConfirmarOrden();
     }
-
     private void actualizarTotalesOrden() {
         String sql = "UPDATE ORDEN_VENTA SET subtotal = ?, itbis = ?, monto_total = ? WHERE id_orden_venta = ?";
         try (Connection connection = conexion.establecerconexio();
