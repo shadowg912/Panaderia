@@ -3,23 +3,28 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane stylesheets="@Table.css" fx:controller="controllers.Confirmar_orden_controller" prefHeight="720" prefWidth="1280" style="-fx-background-color: #0f172a;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane stylesheets="@Table.css" fx:controller="controllers.Confirmar_orden_controller" prefHeight="720" prefWidth="1280" style="-fx-background-color: #F5F2EB;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+
     <top>
-        <VBox style="-fx-background-color: #1e293b; -fx-padding: 16 24; -fx-border-color: #334155; -fx-border-width: 0 0 1 0;">
+        <VBox style="-fx-background-color: #CDB08E; -fx-padding: 16 24; -fx-border-color: #BFB6A6; -fx-border-width: 0 0 1 0;">
             <children>
-                <Label style="-fx-font-size: 10px; -fx-font-weight: bold; -fx-text-fill: #38bdf8; -fx-letter-spacing: 2;" text="PANADERÍA — VENTAS"/>
-                <Label style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #f1f5f9;" text="Confirmar Orden de Venta"/>
-                <Label fx:id="lblInfoOrden" style="-fx-font-size: 13px; -fx-text-fill: #38bdf8;" text="Cliente: [Nombre] · Forma de Pago: [Forma]"/>
+                <Label style="-fx-font-size: 10px; -fx-font-weight: bold; -fx-text-fill: #4A4944; -fx-letter-spacing: 2;" text="PANADERÍA — VENTAS"/>
+                <Label style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #11100B;" text="Confirmar Orden de Venta"/>
+                <Label fx:id="lblInfoOrden" style="-fx-font-size: 13px; -fx-text-fill: #4A4944;" text="Cliente: [Nombre] · Forma de Pago: [Forma]"/>
             </children>
         </VBox>
     </top>
+
     <center>
-        <VBox alignment="CENTER" spacing="24" style="-fx-padding: 40; -fx-background-color: #0f172a;">
+        <VBox alignment="CENTER" spacing="24" style="-fx-padding: 40; -fx-background-color: #F5F2EB;">
             <children>
-                <VBox spacing="16" style="-fx-background-color: #1e293b; -fx-border-color: #334155; -fx-border-width: 1; -fx-border-radius: 12; -fx-background-radius: 12; -fx-padding: 28 32;">
+
+                <VBox spacing="16" style="-fx-background-color: #FFFFFF; -fx-border-color: #BFB6A6; -fx-border-width: 1; -fx-border-radius: 12; -fx-background-radius: 12; -fx-padding: 28 32;">
                     <children>
-                        <Label style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #38bdf8;" text="Detalles de la Orden"/>
-                        <TableView fx:id="tblProductos" prefHeight="240" style="-fx-background-color: #0f172a; -fx-border-color: #334155; -fx-border-width: 1; -fx-border-radius: 10; -fx-background-radius: 10;">
+                        <Label style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #CDB08E;" text="Detalles de la Orden"/>
+
+                        <TableView fx:id="tblProductos" prefHeight="240"
+                                   style="-fx-background-color: #FFFFFF; -fx-border-color: #BFB6A6; -fx-border-width: 1; -fx-border-radius: 10; -fx-background-radius: 10;">
                             <columns>
                                 <TableColumn fx:id="colProducto" prefWidth="360" text="Producto"/>
                                 <TableColumn fx:id="colCantidad" prefWidth="100" text="Cant."/>
@@ -32,21 +37,27 @@
 
                 <HBox alignment="CENTER_RIGHT">
                     <children>
-                        <VBox spacing="12" style="-fx-background-color: #1e293b; -fx-border-color: #334155; -fx-border-width: 1; -fx-border-radius: 12; -fx-background-radius: 12; -fx-padding: 24 40; -fx-min-width: 380;">
+                        <VBox spacing="12"
+                              style="-fx-background-color: #FFFFFF; -fx-border-color: #BFB6A6; -fx-border-width: 1; -fx-border-radius: 12; -fx-background-radius: 12; -fx-padding: 24 40; -fx-min-width: 380;">
                             <children>
+
                                 <HBox>
-                                    <Label style="-fx-text-fill: #f1f5f9; -fx-font-size: 15px;" text="Subtotal:" HBox.hgrow="ALWAYS"/>
-                                    <Label fx:id="lblSubtotal" style="-fx-text-fill: #f1f5f9; -fx-font-size: 15px; -fx-font-weight: bold;" text="RD$ 0.00"/>
+                                    <Label style="-fx-text-fill: #4A4944; -fx-font-size: 15px;" text="Subtotal:" HBox.hgrow="ALWAYS"/>
+                                    <Label fx:id="lblSubtotal" style="-fx-text-fill: #11100B; -fx-font-size: 15px; -fx-font-weight: bold;" text="RD$ 0.00"/>
                                 </HBox>
+
                                 <HBox>
-                                    <Label style="-fx-text-fill: #f1f5f9; -fx-font-size: 15px;" text="ITBIS (18%):" HBox.hgrow="ALWAYS"/>
-                                    <Label fx:id="lblItbis" style="-fx-text-fill: #f1f5f9; -fx-font-size: 15px; -fx-font-weight: bold;" text="RD$ 0.00"/>
+                                    <Label style="-fx-text-fill: #4A4944; -fx-font-size: 15px;" text="ITBIS (18%):" HBox.hgrow="ALWAYS"/>
+                                    <Label fx:id="lblItbis" style="-fx-text-fill: #11100B; -fx-font-size: 15px; -fx-font-weight: bold;" text="RD$ 0.00"/>
                                 </HBox>
-                                <Separator style="-fx-background-color: #334155;"/>
+
+                                <Separator style="-fx-background-color: #BFB6A6;"/>
+
                                 <HBox>
-                                    <Label style="-fx-text-fill: #38bdf8; -fx-font-size: 20px; -fx-font-weight: bold;" text="TOTAL:" HBox.hgrow="ALWAYS"/>
-                                    <Label fx:id="lblTotal" style="-fx-text-fill: #38bdf8; -fx-font-size: 20px; -fx-font-weight: bold;" text="RD$ 0.00"/>
+                                    <Label style="-fx-text-fill: #CDB08E; -fx-font-size: 20px; -fx-font-weight: bold;" text="TOTAL:" HBox.hgrow="ALWAYS"/>
+                                    <Label fx:id="lblTotal" style="-fx-text-fill: #11100B; -fx-font-size: 20px; -fx-font-weight: bold;" text="RD$ 0.00"/>
                                 </HBox>
+
                             </children>
                         </VBox>
                     </children>
@@ -54,21 +65,37 @@
 
                 <HBox alignment="CENTER_RIGHT" spacing="16">
                     <children>
-                        <Button fx:id="btnEditar" onAction="#fnEditarOrden" style="-fx-background-color: #1e293b; -fx-text-fill: #f1f5f9; -fx-font-size: 15px; -fx-border-color: #334155; -fx-border-width: 1; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 14 32;" text="Editar Orden"/>
-                        <Button fx:id="btnCancelar" onAction="#fnCancelarOrden" style="-fx-background-color: #1e293b; -fx-text-fill: #f1f5f9; -fx-font-size: 15px; -fx-border-color: #334155; -fx-border-width: 1; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 14 32;" text="Cancelar Orden"/>
-                        <Button fx:id="btnEmitir" onAction="#fnEmitirOrden" style="-fx-background-color: #6366f1; -fx-text-fill: #fff3eb; -fx-font-size: 15px; -fx-font-weight: bold; -fx-background-radius: 10; -fx-padding: 14 32;" text="Emitir Orden"/>
-                        <Button fx:id="btnvolvermenu" onAction="#fnVolvermenu" style="-fx-background-color: #6366f1; -fx-text-fill: #fff3eb; -fx-font-size: 15px; -fx-font-weight: bold; -fx-background-radius: 10; -fx-padding: 14 32;" text="Volver al menu"/>
+
+                        <Button fx:id="btnEditar" onAction="#fnEditarOrden"
+                                style="-fx-background-color: #BFB6A6; -fx-text-fill: #11100B; -fx-font-size: 15px; -fx-border-color: #BFB6A6; -fx-border-width: 1; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 14 32;"
+                                text="Editar Orden"/>
+
+                        <Button fx:id="btnCancelar" onAction="#fnCancelarOrden"
+                                style="-fx-background-color: #BFB6A6; -fx-text-fill: #11100B; -fx-font-size: 15px; -fx-border-color: #BFB6A6; -fx-border-width: 1; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 14 32;"
+                                text="Cancelar Orden"/>
+
+                        <Button fx:id="btnEmitir" onAction="#fnEmitirOrden"
+                                style="-fx-background-color: #CDB08E; -fx-text-fill: #11100B; -fx-font-size: 15px; -fx-font-weight: bold; -fx-background-radius: 10; -fx-padding: 14 32;"
+                                text="Emitir Orden"/>
+
+                        <Button fx:id="btnvolvermenu" onAction="#fnVolvermenu"
+                                style="-fx-background-color: #CDB08E; -fx-text-fill: #11100B; -fx-font-size: 15px; -fx-font-weight: bold; -fx-background-radius: 10; -fx-padding: 14 32;"
+                                text="Volver al menu"/>
 
                     </children>
                 </HBox>
+
             </children>
         </VBox>
     </center>
+
     <bottom>
-        <HBox alignment="CENTER_RIGHT" style="-fx-background-color: #1e293b; -fx-padding: 12 24; -fx-border-color: #334155; -fx-border-width: 1 0 0 0;">
+        <HBox alignment="CENTER_RIGHT"
+              style="-fx-background-color: #CDB08E; -fx-padding: 12 24; -fx-border-color: #BFB6A6; -fx-border-width: 1 0 0 0;">
             <children>
-                <Label style="-fx-text-fill: #334155; -fx-font-size: 12px;" text="Confirmación de Orden de Venta"/>
+                <Label style="-fx-text-fill: #4A4944; -fx-font-size: 12px;" text="Confirmación de Orden de Venta"/>
             </children>
         </HBox>
     </bottom>
+
 </BorderPane>

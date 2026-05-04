@@ -5,29 +5,29 @@
 <?import javafx.geometry.Insets?>
 
 <BorderPane prefHeight="720" prefWidth="1280"
-            style="-fx-background-color: #0f172a;"
+            style="-fx-background-color: #F5F2EB;"
             xmlns="http://javafx.com/javafx/17.0.12"
             xmlns:fx="http://javafx.com/fxml/1"
             stylesheets="@Combobox.css"
             fx:controller="controllers.Orden_produccion_controller">
 
     <top>
-        <VBox style="-fx-background-color: #1e293b;
+        <VBox style="-fx-background-color: #CDB08E;
                      -fx-padding: 16 24;
-                     -fx-border-color: #334155;
+                     -fx-border-color: #BFB6A6;
                      -fx-border-width: 0 0 1 0;">
             <children>
                 <Label style="-fx-font-size: 10px;
                               -fx-font-weight: bold;
-                              -fx-text-fill: #38bdf8;
+                              -fx-text-fill: #4A4944;
                               -fx-letter-spacing: 2;"
                        text="PANADERÍA — PRODUCCIÓN" />
                 <Label style="-fx-font-size: 22px;
                               -fx-font-weight: bold;
-                              -fx-text-fill: #f1f5f9;"
+                              -fx-text-fill: #11100B;"
                        text="Nueva Orden de Producción" />
                 <Label style="-fx-font-size: 13px;
-                              -fx-text-fill: #38bdf8;"
+                              -fx-text-fill: #4A4944;"
                        text="Gestión de lotes de fabricación y asignación de personal" />
             </children>
         </VBox>
@@ -35,20 +35,20 @@
 
     <center>
         <ScrollPane fitToWidth="true"
-                    style="-fx-background-color: #0f172a;
-                           -fx-background: #0f172a;
+                    style="-fx-background-color: #F5F2EB;
+                           -fx-background: #F5F2EB;
                            -fx-border-color: transparent;">
             <content>
                 <VBox spacing="32" style="-fx-padding: 40;">
                     <children>
 
-                        <VBox spacing="20" style="-fx-background-color: #1e293b;
+                        <VBox spacing="20" style="-fx-background-color: #FFFFFF;
                                                 -fx-padding: 30;
                                                 -fx-background-radius: 8;
-                                                -fx-border-color: #334155;
+                                                -fx-border-color: #BFB6A6;
                                                 -fx-border-radius: 8;">
                             <children>
-                                <Label style="-fx-text-fill: #38bdf8; -fx-font-weight: bold; -fx-font-size: 14px;" text="DETALLES DE LA ORDEN" />
+                                <Label style="-fx-text-fill: #CDB08E; -fx-font-weight: bold; -fx-font-size: 14px;" text="DETALLES DE LA ORDEN" />
 
                                 <GridPane hgap="24" vgap="20">
                                     <columnConstraints>
@@ -57,68 +57,65 @@
                                     </columnConstraints>
 
                                     <children>
-                                        <!-- Producto -->
+
                                         <VBox spacing="8" GridPane.columnIndex="0">
-                                            <Label style="-fx-text-fill: #f1f5f9;" text="Producto a Fabricar *" />
+                                            <Label style="-fx-text-fill: #4A4944;" text="Producto a Fabricar *" />
                                             <ComboBox fx:id="cmbProducto" maxWidth="Infinity" promptText="Seleccionar producto..."
-                                                      style="-fx-background-color: #0f172a; -fx-border-color: #334155; -fx-border-radius: 6; -fx-padding: 5;" />
+                                                      style="-fx-background-color: #F5F2EB; -fx-border-color: #BFB6A6; -fx-border-radius: 6; -fx-padding: 5;" />
                                         </VBox>
 
-                                        <!-- Empleado -->
                                         <VBox spacing="8" GridPane.columnIndex="1">
-                                            <Label style="-fx-text-fill: #f1f5f9;" text="Empleado Responsable *" />
+                                            <Label style="-fx-text-fill: #4A4944;" text="Empleado Responsable *" />
                                             <ComboBox fx:id="cmbEmpleado" maxWidth="Infinity" promptText="Asignar empleado..."
-                                                      style="-fx-background-color: #0f172a; -fx-border-color: #334155; -fx-border-radius: 6; -fx-padding: 5;" />
+                                                      style="-fx-background-color: #F5F2EB; -fx-border-color: #BFB6A6; -fx-border-radius: 6; -fx-padding: 5;" />
                                         </VBox>
 
-                                        <!-- Cantidad -->
                                         <VBox spacing="8" GridPane.rowIndex="1" GridPane.columnIndex="0">
-                                            <Label style="-fx-text-fill: #f1f5f9;" text="Cantidad Planificada *" />
+                                            <Label style="-fx-text-fill: #4A4944;" text="Cantidad Planificada *" />
                                             <TextField fx:id="txtCantidad" promptText="0.00"
-                                                       style="-fx-background-color: #0f172a; -fx-text-fill: #f1f5f9; -fx-border-color: #334155; -fx-border-radius: 6; -fx-padding: 10;" />
+                                                       style="-fx-background-color: #F5F2EB; -fx-text-fill: #11100B; -fx-border-color: #BFB6A6; -fx-border-radius: 6; -fx-padding: 10;" />
                                         </VBox>
 
-                                        <!-- Estado (sin fecha, ya que es automática) -->
                                         <VBox spacing="8" GridPane.rowIndex="1" GridPane.columnIndex="1">
-                                            <Label style="-fx-text-fill: #f1f5f9;" text="Estado Inicial" />
+                                            <Label style="-fx-text-fill: #4A4944;" text="Estado Inicial" />
                                             <ComboBox fx:id="cmbEstado" maxWidth="Infinity" promptText="Seleccionar estado..."
-                                                      style="-fx-background-color: #0f172a; -fx-border-color: #334155; -fx-border-radius: 6; -fx-padding: 5;" />
+                                                      style="-fx-background-color: #F5F2EB; -fx-border-color: #BFB6A6; -fx-border-radius: 6; -fx-padding: 5;" />
                                         </VBox>
                                     </children>
                                 </GridPane>
 
-                                <!-- Nota informativa -->
-                                <HBox spacing="12" style="-fx-background-color: #0f172a; -fx-border-color: #6366f1; -fx-border-width: 1; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 12; -fx-alignment: CENTER_LEFT;">
+                                <HBox spacing="12" style="-fx-background-color: #F5F2EB; -fx-border-color: #CDB08E; -fx-border-width: 1; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 12; -fx-alignment: CENTER_LEFT;">
                                     <children>
                                         <Label style="-fx-font-size: 18px;" text="ℹ️" />
-                                        <Label style="-fx-text-fill: #f1f5f9; -fx-font-size: 12px;" text="La fecha de registro se asigna automáticamente al momento de crear la orden." wrapText="true" />
+                                        <Label style="-fx-text-fill: #4A4944; -fx-font-size: 12px;" text="La fecha de registro se asigna automáticamente al momento de crear la orden." wrapText="true" />
                                     </children>
                                 </HBox>
                             </children>
                         </VBox>
 
-                        <!-- Botones -->
                         <HBox alignment="CENTER_RIGHT" spacing="16">
                             <children>
                                 <Button fx:id="btnLimpiar" onAction="#fnLimpiar" text="Limpiar"
-                                        style="-fx-background-color: #1e293b;
-                                               -fx-text-fill: #f1f5f9;
+                                        style="-fx-background-color: #BFB6A6;
+                                               -fx-text-fill: #11100B;
                                                -fx-font-size: 14px;
-                                               -fx-border-color: #334155;
+                                               -fx-border-color: #BFB6A6;
                                                -fx-border-radius: 8;
                                                -fx-background-radius: 8;
                                                -fx-padding: 11 28;" />
+
                                 <Button fx:id="btnCancelar" onAction="#fnVolverMenu" text="Cancelar"
-                                        style="-fx-background-color: #1e293b;
-                                               -fx-text-fill: #f1f5f9;
+                                        style="-fx-background-color: #BFB6A6;
+                                               -fx-text-fill: #11100B;
                                                -fx-font-size: 14px;
-                                               -fx-border-color: #334155;
+                                               -fx-border-color: #BFB6A6;
                                                -fx-border-radius: 8;
                                                -fx-background-radius: 8;
                                                -fx-padding: 11 28;" />
+
                                 <Button fx:id="btnGuardar" onAction="#fnGuardarOrden" text="Generar Orden"
-                                        style="-fx-background-color: #6366f1;
-                                               -fx-text-fill: #fff3eb;
+                                        style="-fx-background-color: #CDB08E;
+                                               -fx-text-fill: #11100B;
                                                -fx-font-size: 14px;
                                                -fx-font-weight: bold;
                                                -fx-background-radius: 8;
@@ -133,9 +130,9 @@
 
     <bottom>
         <HBox alignment="CENTER"
-              style="-fx-background-color: #1e293b;
+              style="-fx-background-color: #CDB08E;
                      -fx-padding: 12;
-                     -fx-border-color: #334155;
+                     -fx-border-color: #BFB6A6;
                      -fx-border-width: 1 0 0 0;" />
     </bottom>
 </BorderPane>

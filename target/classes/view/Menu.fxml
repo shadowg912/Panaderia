@@ -4,65 +4,69 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
 
-<BorderPane prefHeight="720" prefWidth="1280" style="-fx-background-color: #0f172a;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.menu_contoller">
+<BorderPane prefHeight="720" prefWidth="1280" style="-fx-background-color: #F5F2EB;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.menu_contoller">
 
     <top>
-        <HBox alignment="CENTER_LEFT" spacing="20" style="-fx-background-color: #1e293b;                      -fx-padding: 16 32;                      -fx-border-color: #334155;                      -fx-border-width: 0 0 1 0;">
+        <HBox alignment="CENTER_LEFT" spacing="20" style="-fx-background-color: #CDB08E;
+                     -fx-padding: 16 32;
+                     -fx-border-color: #BFB6A6;
+                     -fx-border-width: 0 0 1 0;">
             <children>
                 <VBox>
-                    <Label style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #f1f5f9;" text="Panel Principal" />
+                    <Label style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #11100B;" text="Panel Principal" />
                 </VBox>
                 <Region HBox.hgrow="ALWAYS" />
                 <HBox alignment="CENTER" spacing="12">
-                    <Label style="-fx-text-fill: #f1f5f9; -fx-font-weight: bold;" text="Usuario Administrador" />
-                    <Circle fill="#6366f1" radius="18" />
+                    <Label style="-fx-text-fill: #4A4944; -fx-font-weight: bold;" text="Usuario Administrador" />
+                    <Circle fill="#4A4944" radius="18" />
                 </HBox>
             </children>
         </HBox>
     </top>
 
     <center>
-        <ScrollPane fitToWidth="true" style="-fx-background-color: #0f172a;                            -fx-background: #0f172a;                            -fx-border-color: transparent;">
+        <ScrollPane fitToWidth="true" style="-fx-background-color: #F5F2EB;
+                           -fx-background: #F5F2EB;
+                           -fx-border-color: transparent;">
             <content>
                 <VBox spacing="32" style="-fx-padding: 40;">
                     <children>
 
-                        <Label style="-fx-text-fill: #38bdf8; -fx-font-weight: bold; -fx-font-size: 14px;" text="MÓDULOS DEL SISTEMA" />
+                        <Label style="-fx-text-fill: #CDB08E; -fx-font-weight: bold; -fx-font-size: 14px;" text="MÓDULOS DEL SISTEMA" />
 
                         <FlowPane hgap="24" prefWrapLength="1100" vgap="24">
                             <children>
 
-                                <VBox spacing="15" style="-fx-background-color: #1e293b; -fx-padding: 24; -fx-background-radius: 12; -fx-border-color: #334155; -fx-border-radius: 12; -fx-min-width: 240;" styleClass="menu-card">
-                                    <Label style="-fx-text-fill: #38bdf8; -fx-font-weight: bold;" text="VENTAS" />
-                                    <Button fx:id="btnNuevaOrden" maxWidth="Infinity" onAction="#fnIrCrearOrden" style="-fx-background-color: #6366f1; -fx-text-fill: white; -fx-background-radius: 6;" text="Nueva Orden" />
-                                    <Button fx:id="btnHistorialVenta" maxWidth="Infinity" onAction="#fnIrHistorialVentas" style="-fx-background-color: transparent; -fx-text-fill: #f1f5f9; -fx-border-color: #334155; -fx-border-radius: 6;" text="Historial de Ventas" />
-                                    <Button fx:id="btnSeguimientroEnvio" maxWidth="Infinity" onAction="#fnIrSeguimientoEnvio" style="-fx-background-color: transparent; -fx-text-fill: #f1f5f9; -fx-border-color: #334155; -fx-border-radius: 6;" text="Seguimiento Envíos" />
-                           <Button fx:id="btnGuardarDIrecciones" layoutX="35.0" layoutY="146.0" maxWidth="Infinity" onAction="#fnIrGuardarDIrecciones" style="-fx-background-color: transparent; -fx-text-fill: #f1f5f9; -fx-border-color: #334155; -fx-border-radius: 6;" text="Guardar Direcciones" />
+                                <VBox spacing="15" style="-fx-background-color: #FFFFFF; -fx-padding: 24; -fx-background-radius: 12; -fx-border-color: #BFB6A6; -fx-border-radius: 12; -fx-min-width: 240;" styleClass="menu-card">
+                                    <Label style="-fx-text-fill: #CDB08E; -fx-font-weight: bold;" text="VENTAS" />
+                                    <Button fx:id="btnNuevaOrden" maxWidth="Infinity" onAction="#fnIrCrearOrden" style="-fx-background-color: #CDB08E; -fx-text-fill: #11100B; -fx-background-radius: 6;" text="Nueva Orden" />
+                                    <Button fx:id="btnHistorialVenta" maxWidth="Infinity" onAction="#fnIrHistorialVentas" style="-fx-background-color: transparent; -fx-text-fill: #4A4944; -fx-border-color: #BFB6A6; -fx-border-radius: 6;" text="Historial de Ventas" />
+                                    <Button fx:id="btnSeguimientroEnvio" maxWidth="Infinity" onAction="#fnIrSeguimientoEnvio" style="-fx-background-color: transparent; -fx-text-fill: #4A4944; -fx-border-color: #BFB6A6; -fx-border-radius: 6;" text="Seguimiento Envíos" />
+                                    <Button fx:id="btnGuardarDIrecciones" layoutX="35.0" layoutY="146.0" maxWidth="Infinity" onAction="#fnIrGuardarDIrecciones" style="-fx-background-color: transparent; -fx-text-fill: #4A4944; -fx-border-color: #BFB6A6; -fx-border-radius: 6;" text="Guardar Direcciones" />
                                 </VBox>
 
-                                <VBox spacing="15" style="-fx-background-color: #1e293b; -fx-padding: 24; -fx-background-radius: 12; -fx-border-color: #334155; -fx-border-radius: 12; -fx-min-width: 240;">
-                                    <Label style="-fx-text-fill: #38bdf8; -fx-font-weight: bold;" text="INVENTARIO" />
-                                    <Button fx:id="btnRegistroProducto" maxWidth="Infinity" onAction="#fnIrRegistrarProducto" style="-fx-background-color: #6366f1; -fx-text-fill: white; -fx-background-radius: 6;" text="Registro Producto" />
-                                    <Button fx:id="btnRegistroProveedores" maxWidth="Infinity" onAction="#fnIrRegistroProveedores" style="-fx-background-color: transparent; -fx-text-fill: #f1f5f9; -fx-border-color: #334155; -fx-border-radius: 6;" text="Proveedores" />
-                                    <Button fx:id="btnRegistroRecetas" maxWidth="Infinity" onAction="#fnIrRegistroRecetas" style="-fx-background-color: transparent; -fx-text-fill: #f1f5f9; -fx-border-color: #334155; -fx-border-radius: 6;" text="Recetas" />
+                                <VBox spacing="15" style="-fx-background-color: #FFFFFF; -fx-padding: 24; -fx-background-radius: 12; -fx-border-color: #BFB6A6; -fx-border-radius: 12; -fx-min-width: 240;">
+                                    <Label style="-fx-text-fill: #CDB08E; -fx-font-weight: bold;" text="INVENTARIO" />
+                                    <Button fx:id="btnRegistroProducto" maxWidth="Infinity" onAction="#fnIrRegistrarProducto" style="-fx-background-color: #CDB08E; -fx-text-fill: #11100B; -fx-background-radius: 6;" text="Registro Producto" />
+                                    <Button fx:id="btnRegistroProveedores" maxWidth="Infinity" onAction="#fnIrRegistroProveedores" style="-fx-background-color: transparent; -fx-text-fill: #4A4944; -fx-border-color: #BFB6A6; -fx-border-radius: 6;" text="Proveedores" />
+                                    <Button fx:id="btnRegistroRecetas" maxWidth="Infinity" onAction="#fnIrRegistroRecetas" style="-fx-background-color: transparent; -fx-text-fill: #4A4944; -fx-border-color: #BFB6A6; -fx-border-radius: 6;" text="Recetas" />
                                 </VBox>
 
-                                <VBox spacing="15" style="-fx-background-color: #1e293b; -fx-padding: 24; -fx-background-radius: 12; -fx-border-color: #334155; -fx-border-radius: 12; -fx-min-width: 240;">
-                                    <Label style="-fx-text-fill: #38bdf8; -fx-font-weight: bold;" text="PRODUCCIÓN" />
-                                    <Button fx:id="btnOrdenProduccion" maxWidth="Infinity" onAction="#fnIrOrdenProduccion" style="-fx-background-color: #6366f1; -fx-text-fill: white; -fx-background-radius: 6;" text="Orden de Producción" />
-
+                                <VBox spacing="15" style="-fx-background-color: #FFFFFF; -fx-padding: 24; -fx-background-radius: 12; -fx-border-color: #BFB6A6; -fx-border-radius: 12; -fx-min-width: 240;">
+                                    <Label style="-fx-text-fill: #CDB08E; -fx-font-weight: bold;" text="PRODUCCIÓN" />
+                                    <Button fx:id="btnOrdenProduccion" maxWidth="Infinity" onAction="#fnIrOrdenProduccion" style="-fx-background-color: #CDB08E; -fx-text-fill: #11100B; -fx-background-radius: 6;" text="Orden de Producción" />
                                 </VBox>
 
-                                <VBox spacing="15" style="-fx-background-color: #1e293b; -fx-padding: 24; -fx-background-radius: 12; -fx-border-color: #334155; -fx-border-radius: 12; -fx-min-width: 240;">
-                                    <Label style="-fx-text-fill: #38bdf8; -fx-font-weight: bold;" text="CLIENTES" />
-                                    <Button fx:id="btnRegistroCliente" maxWidth="Infinity" onAction="#fnIrRegistroCliente" style="-fx-background-color: #6366f1; -fx-text-fill: white; -fx-background-radius: 6;" text="Registro Cliente" />
-                                    <Button fx:id="btnReclamaciones" maxWidth="Infinity" onAction="#fnIrReclamaciones" style="-fx-background-color: transparent; -fx-text-fill: #f1f5f9; -fx-border-color: #334155; -fx-border-radius: 6;" text="Reclamaciones" />
+                                <VBox spacing="15" style="-fx-background-color: #FFFFFF; -fx-padding: 24; -fx-background-radius: 12; -fx-border-color: #BFB6A6; -fx-border-radius: 12; -fx-min-width: 240;">
+                                    <Label style="-fx-text-fill: #CDB08E; -fx-font-weight: bold;" text="CLIENTES" />
+                                    <Button fx:id="btnRegistroCliente" maxWidth="Infinity" onAction="#fnIrRegistroCliente" style="-fx-background-color: #CDB08E; -fx-text-fill: #11100B; -fx-background-radius: 6;" text="Registro Cliente" />
+                                    <Button fx:id="btnReclamaciones" maxWidth="Infinity" onAction="#fnIrReclamaciones" style="-fx-background-color: transparent; -fx-text-fill: #4A4944; -fx-border-color: #BFB6A6; -fx-border-radius: 6;" text="Reclamaciones" />
                                 </VBox>
 
-                                <VBox spacing="15" style="-fx-background-color: #1e293b; -fx-padding: 24; -fx-background-radius: 12; -fx-border-color: #334155; -fx-border-radius: 12; -fx-min-width: 240;">
-                                    <Label style="-fx-text-fill: #38bdf8; -fx-font-weight: bold;" text="SISTEMA" />
-                                    <Button fx:id="btnCrearUsuario" maxWidth="Infinity" onAction="#fnIrCrearUsuario" style="-fx-background-color: #6366f1; -fx-text-fill: white; -fx-background-radius: 6;" text="Crear Usuario" />
-                                    <Button maxWidth="Infinity" style="-fx-background-color: transparent; -fx-text-fill: #ef4444; -fx-border-color: #ef4444; -fx-border-radius: 6;" text="Cerrar Sesión" />
+                                <VBox spacing="15" style="-fx-background-color: #FFFFFF; -fx-padding: 24; -fx-background-radius: 12; -fx-border-color: #BFB6A6; -fx-border-radius: 12; -fx-min-width: 240;">
+                                    <Label style="-fx-text-fill: #CDB08E; -fx-font-weight: bold;" text="SISTEMA" />
+                                    <Button fx:id="btnCrearUsuario" maxWidth="Infinity" onAction="#fnIrCrearUsuario" style="-fx-background-color: #CDB08E; -fx-text-fill: #11100B; -fx-background-radius: 6;" text="Crear Usuario" />
+                                    <Button maxWidth="Infinity" style="-fx-background-color: transparent; -fx-text-fill: #4A4944; -fx-border-color: #BFB6A6; -fx-border-radius: 6;" text="Cerrar Sesión" />
                                 </VBox>
 
                             </children>
@@ -74,7 +78,7 @@
     </center>
 
     <bottom>
-        <HBox alignment="CENTER" style="-fx-background-color: #1e293b; -fx-padding: 12; -fx-border-color: #334155; -fx-border-width: 1 0 0 0;" />
+        <HBox alignment="CENTER" style="-fx-background-color: #CDB08E; -fx-padding: 12; -fx-border-color: #BFB6A6; -fx-border-width: 1 0 0 0;" />
     </bottom>
 
 </BorderPane>
