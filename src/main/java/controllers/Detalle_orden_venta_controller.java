@@ -48,7 +48,14 @@ public class Detalle_orden_venta_controller implements Initializable {
     CONEXION conexion = new CONEXION();
     AppNavigator appNavigator = new AppNavigator();
     ObservableList<Producto> Productos = FXCollections.observableArrayList();
-    ObservableList<DetalleOrdenVenta> Detalles = FXCollections.observableArrayList();
+    ObservableList<DetalleOrdenVenta> Detalles = FXCollections.observableArrayList(
+            detalle -> new javafx.beans.Observable[] {
+                    detalle.nombreProductoProperty(),
+                    detalle.cantidadProperty(),
+                    detalle.precioUnitarioProperty(),
+                    detalle.subtotalProperty()
+            }
+    );
     Map<Integer, DetalleOrdenVenta> productosAgregados = new HashMap<>();
     int idOrdenActual = 0;
     double subtotalAcumulado = 0;
@@ -79,22 +86,22 @@ public class Detalle_orden_venta_controller implements Initializable {
         return Productos;
     }
 
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         idOrdenActual = idOrdenEstatico;
         lblInfoOrden.setText("Orden #" + idOrdenActual);
         cmbProducto.setItems(cargarProductos());
 
-        colProducto.setCellValueFactory(new PropertyValueFactory<>("nombreProducto"));
-        colCantidad.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
-        colPrecio.setCellValueFactory(new PropertyValueFactory<>("precioUnitario"));
-        colSubtotal.setCellValueFactory(new PropertyValueFactory<>("subtotal"));
+        // Usar lambdas en vez de PropertyValueFactory
+        colProducto.setCellValueFactory(cellData -> cellData.getValue().nombreProductoProperty());
+        colCantidad.setCellValueFactory(cellData -> cellData.getValue().cantidadProperty());
+        colPrecio.setCellValueFactory(cellData -> cellData.getValue().precioUnitarioProperty().asObject());
+        colSubtotal.setCellValueFactory(cellData -> cellData.getValue().subtotalProperty().asObject());
 
         tblDetalle.setItems(Detalles);
-
         cmbProducto.setOnAction(e -> cargarPrecioProducto());
     }
-
     private void cargarPrecioProducto() {
         Producto p = cmbProducto.getValue();
         if (p != null) {

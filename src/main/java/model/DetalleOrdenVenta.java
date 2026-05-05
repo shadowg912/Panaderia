@@ -1,42 +1,54 @@
 package model;
 
+import javafx.beans.property.*;
 import java.math.BigDecimal;
 
 public class DetalleOrdenVenta {
-    private int idOrdenVenta;
-    private int idProducto;
-    private BigDecimal cantidad;
-    private double precioUnitario;
-    private double subtotal;
+    private final IntegerProperty idOrdenVenta = new SimpleIntegerProperty();
+    private final IntegerProperty idProducto = new SimpleIntegerProperty();
+    private final ObjectProperty<BigDecimal> cantidad = new SimpleObjectProperty<>();
+    private final DoubleProperty precioUnitario = new SimpleDoubleProperty();
+    private final DoubleProperty subtotal = new SimpleDoubleProperty();
+    private final StringProperty nombreProducto = new SimpleStringProperty();
 
     public DetalleOrdenVenta() {}
 
-    private String nombreProducto;
-
-    public String getNombreProducto() { return nombreProducto; }
-    public void setNombreProducto(String nombreProducto) { this.nombreProducto = nombreProducto; }
-
     public DetalleOrdenVenta(int idOrdenVenta, int idProducto, BigDecimal cantidad,
                              double precioUnitario, double subtotal) {
-        this.idOrdenVenta = idOrdenVenta;
-        this.idProducto = idProducto;
-        this.cantidad = cantidad;
-        this.precioUnitario = precioUnitario;
-        this.subtotal = subtotal;
+        this.idOrdenVenta.set(idOrdenVenta);
+        this.idProducto.set(idProducto);
+        this.cantidad.set(cantidad);
+        this.precioUnitario.set(precioUnitario);
+        this.subtotal.set(subtotal);
     }
 
-    public int getIdOrdenVenta() { return idOrdenVenta; }
-    public void setIdOrdenVenta(int idOrdenVenta) { this.idOrdenVenta = idOrdenVenta; }
+    // ── idOrdenVenta ──
+    public int getIdOrdenVenta() { return idOrdenVenta.get(); }
+    public void setIdOrdenVenta(int value) { idOrdenVenta.set(value); }
+    public IntegerProperty idOrdenVentaProperty() { return idOrdenVenta; }
 
-    public int getIdProducto() { return idProducto; }
-    public void setIdProducto(int idProducto) { this.idProducto = idProducto; }
+    // ── idProducto ──
+    public int getIdProducto() { return idProducto.get(); }
+    public void setIdProducto(int value) { idProducto.set(value); }
+    public IntegerProperty idProductoProperty() { return idProducto; }
 
-    public BigDecimal getCantidad() { return cantidad; }
-    public void setCantidad(BigDecimal cantidad) { this.cantidad = cantidad; }
+    // ── cantidad ──
+    public BigDecimal getCantidad() { return cantidad.get(); }
+    public void setCantidad(BigDecimal value) { cantidad.set(value); }
+    public ObjectProperty<BigDecimal> cantidadProperty() { return cantidad; }
 
-    public double getPrecioUnitario() { return precioUnitario; }
-    public void setPrecioUnitario(double precioUnitario) { this.precioUnitario = precioUnitario; }
+    // ── precioUnitario ──
+    public double getPrecioUnitario() { return precioUnitario.get(); }
+    public void setPrecioUnitario(double value) { precioUnitario.set(value); }
+    public DoubleProperty precioUnitarioProperty() { return precioUnitario; }
 
-    public double getSubtotal() { return subtotal; }
-    public void setSubtotal(double subtotal) { this.subtotal = subtotal; }
+    // ── subtotal ──
+    public double getSubtotal() { return subtotal.get(); }
+    public void setSubtotal(double value) { subtotal.set(value); }
+    public DoubleProperty subtotalProperty() { return subtotal; }
+
+    // ── nombreProducto ──
+    public String getNombreProducto() { return nombreProducto.get(); }
+    public void setNombreProducto(String value) { nombreProducto.set(value); }
+    public StringProperty nombreProductoProperty() { return nombreProducto; }
 }
