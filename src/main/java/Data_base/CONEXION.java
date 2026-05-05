@@ -9,10 +9,10 @@ public class CONEXION {
     Connection connection = null;
 
 
-    String usuario = "Esteban";
-    String contrasena = "J3sk0912";
+    String usuario = "sa";
+    String contrasena = "J3sk0912SQL";
     String db = "PANADERIA";
-    String ip = "localhost";
+    String ip = "100.93.3.29";
     String puerto = "1433";
 
     String cadena = "jdbc:sqlserver//" + ip + "," + puerto + "/" + db;
