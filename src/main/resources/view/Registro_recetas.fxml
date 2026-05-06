@@ -2,291 +2,111 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
 
-<BorderPane stylesheets="@Table.css, @Combobox.css"
-
+<BorderPane prefHeight="720" prefWidth="1280"
+            stylesheets="@Styles.css"
             fx:controller="controllers.Registro_recetas_controller"
-            prefHeight="720" prefWidth="1280"
-            style="-fx-background-color: #0f172a;"
             xmlns="http://javafx.com/javafx/17.0.12"
             xmlns:fx="http://javafx.com/fxml/1">
 
-    <!-- ═══════════════════════  HEADER  ═══════════════════════ -->
     <top>
-        <HBox alignment="CENTER_LEFT"
-              style="-fx-background-color: #1e293b;
-                     -fx-padding: 16 24;
-                     -fx-border-color: #334155;
-                     -fx-border-width: 0 0 1 0;"
-              spacing="16">
+        <HBox alignment="CENTER_LEFT" spacing="16" styleClass="header-bar">
             <children>
-                <!-- Botón cancelar / volver -->
-                <Button onAction="#fnVolverMenu"
-                        prefHeight="40" prefWidth="40"
-                        style="-fx-background-color: #0f172a;
-                               -fx-text-fill: #94a3b8;
-                               -fx-font-size: 18px;
-                               -fx-border-color: #334155;
-                               -fx-border-radius: 8;
-                               -fx-background-radius: 8;
-                               -fx-cursor: hand;"
-                        text="←" />
-
+                <Button onAction="#fnVolverMenu" prefHeight="40" prefWidth="40" styleClass="btn-icon" text="←"/>
                 <VBox spacing="2" HBox.hgrow="ALWAYS">
                     <children>
-                        <Label style="-fx-font-size: 10px; -fx-font-weight: bold;
-                                      -fx-text-fill: #38bdf8; -fx-letter-spacing: 2;"
-                               text="PANADERÍA — PRODUCCIÓN" />
-                        <Label style="-fx-font-size: 22px; -fx-font-weight: bold;
-                                      -fx-text-fill: #f1f5f9;"
-                               text="Configuración de Receta" />
-                        <Label style="-fx-text-fill: #64748b; -fx-font-size: 12px;"
-                               text="Asigne los ingredientes y cantidades por producto" />
+                        <Label styleClass="header-subtitle" text="PANADERÍA — PRODUCCIÓN"/>
+                        <Label styleClass="header-title" text="Configuración de Receta"/>
+                        <Label styleClass="text-placeholder" text="Asigne los ingredientes y cantidades por producto"/>
                     </children>
                 </VBox>
             </children>
         </HBox>
     </top>
 
-    <!-- ═══════════════════════  BODY  ═══════════════════════ -->
     <center>
-        <ScrollPane fitToWidth="true"
-                    style="-fx-background-color: #0f172a;
-                           -fx-background: #0f172a;
-                           -fx-border-color: transparent;">
+        <ScrollPane fitToWidth="true" styleClass="scroll-pane">
             <content>
-                <VBox spacing="20"
-                      style="-fx-padding: 28 40; -fx-alignment: TOP_CENTER;">
+                <VBox spacing="20" style="-fx-padding: 28 40; -fx-alignment: TOP_CENTER;">
+                    <children>
+                        <!-- SECCIÓN 1: Producto -->
+                        <VBox spacing="14" styleClass="card" style="-fx-max-width: 980;">
+                            <children>
+                                <HBox alignment="CENTER_LEFT" spacing="10">
+                                    <children>
+                                        <Label styleClass="badge" text="PASO 1"/>
+                                        <Label styleClass="section-title" text="Producto Final"/>
+                                    </children>
+                                </HBox>
 
-                    <!-- ─── SECCIÓN 1: Producto ─── -->
-                    <VBox spacing="14"
-                          style="-fx-background-color: #1e293b;
-                                 -fx-padding: 20 24;
-                                 -fx-border-color: #334155;
-                                 -fx-border-radius: 10;
-                                 -fx-background-radius: 10;
-                                 -fx-max-width: 980;">
-                        <children>
-                            <HBox alignment="CENTER_LEFT" spacing="10">
-                                <children>
-                                    <Label style="-fx-background-color: #38bdf8;
-                                                  -fx-text-fill: #0f172a;
-                                                  -fx-font-weight: bold;
-                                                  -fx-font-size: 11px;
-                                                  -fx-padding: 2 8;
-                                                  -fx-background-radius: 4;"
-                                           text="PASO 1" />
-                                    <Label style="-fx-font-size: 15px;
-                                                  -fx-text-fill: #e2e8f0;
-                                                  -fx-font-weight: bold;"
-                                           text="Producto Final" />
-                                </children>
-                            </HBox>
+                                <HBox alignment="CENTER_LEFT" spacing="16">
+                                    <children>
+                                        <Label styleClass="form-label" style="-fx-min-width: 160;" text="Producto a Elaborar:"/>
+                                        <ComboBox fx:id="cmbProducto" maxWidth="Infinity" prefHeight="42" promptText="Seleccione el producto..." HBox.hgrow="ALWAYS"/>
+                                    </children>
+                                </HBox>
+                            </children>
+                        </VBox>
 
-                            <HBox alignment="CENTER_LEFT" spacing="16">
-                                <children>
-                                    <Label style="-fx-text-fill: #94a3b8;
-                                                  -fx-font-size: 13px;
-                                                  -fx-min-width: 160;"
-                                           text="Producto a Elaborar:" />
-                                    <ComboBox fx:id="cmbProducto"
-                                              maxWidth="Infinity"
-                                              prefHeight="42"
-                                              promptText="Seleccione el producto..."
-                                              style="-fx-background-color: #0f172a;
-                                                     -fx-border-color: #334155;
-                                                     -fx-border-radius: 8;
-                                                     -fx-background-radius: 8;
-                                                     -fx-text-fill: white;
-                                                     -fx-font-size: 13px;"
-                                              HBox.hgrow="ALWAYS" />
-                                </children>
-                            </HBox>
-                        </children>
-                    </VBox>
+                        <!-- SECCIÓN 2: Agregar ingrediente -->
+                        <VBox spacing="14" styleClass="card" style="-fx-max-width: 980;">
+                            <children>
+                                <HBox alignment="CENTER_LEFT" spacing="10">
+                                    <children>
+                                        <Label styleClass="badge-accent" text="PASO 2"/>
+                                        <Label styleClass="section-title" text="Agregar Ingredientes"/>
+                                    </children>
+                                </HBox>
 
-                    <!-- ─── SECCIÓN 2: Agregar ingrediente ─── -->
-                    <VBox spacing="14"
-                          style="-fx-background-color: #1e293b;
-                                 -fx-padding: 20 24;
-                                 -fx-border-color: #334155;
-                                 -fx-border-radius: 10;
-                                 -fx-background-radius: 10;
-                                 -fx-max-width: 980;">
-                        <children>
-                            <HBox alignment="CENTER_LEFT" spacing="10">
-                                <children>
-                                    <Label style="-fx-background-color: #6366f1;
-                                                  -fx-text-fill: white;
-                                                  -fx-font-weight: bold;
-                                                  -fx-font-size: 11px;
-                                                  -fx-padding: 2 8;
-                                                  -fx-background-radius: 4;"
-                                           text="PASO 2" />
-                                    <Label style="-fx-font-size: 15px;
-                                                  -fx-text-fill: #e2e8f0;
-                                                  -fx-font-weight: bold;"
-                                           text="Agregar Ingredientes" />
-                                </children>
-                            </HBox>
+                                <HBox alignment="BOTTOM_LEFT" spacing="12" styleClass="input-row">
+                                    <children>
+                                        <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                            <children>
+                                                <Label styleClass="label-small" text="INGREDIENTE"/>
+                                                <ComboBox fx:id="cmbIngrediente" maxWidth="Infinity" prefHeight="42" promptText="Buscar ingrediente..."/>
+                                            </children>
+                                        </VBox>
 
-                            <!-- Fila de ingreso -->
-                            <HBox alignment="BOTTOM_LEFT" spacing="12"
-                                  style="-fx-background-color: #0f172a;
-                                         -fx-padding: 16;
-                                         -fx-background-radius: 8;
-                                         -fx-border-color: #1e3a5f;
-                                         -fx-border-radius: 8;">
-                                <children>
-                                    <!-- Combo ingrediente -->
-                                    <VBox spacing="6" HBox.hgrow="ALWAYS">
-                                        <children>
-                                            <Label style="-fx-text-fill: #64748b;
-                                                          -fx-font-size: 11px;
-                                                          -fx-font-weight: bold;"
-                                                   text="INGREDIENTE" />
-                                            <ComboBox fx:id="cmbIngrediente"
-                                                      maxWidth="Infinity"
-                                                      prefHeight="42"
-                                                      promptText="Buscar ingrediente..."
-                                                      style="-fx-background-color: #1e293b;
-                                                             -fx-border-color: #334155;
-                                                             -fx-border-radius: 8;
-                                                             -fx-background-radius: 8;
-                                                             -fx-text-fill: white;" />
-                                        </children>
-                                    </VBox>
+                                        <VBox spacing="6" prefWidth="160">
+                                            <children>
+                                                <Label styleClass="label-small" text="CANTIDAD"/>
+                                                <TextField fx:id="txtCantidadIngrediente" prefHeight="42" promptText="0.00"/>
+                                            </children>
+                                        </VBox>
 
-                                    <!-- Campo cantidad -->
-                                    <VBox spacing="6" prefWidth="160">
-                                        <children>
-                                            <Label style="-fx-text-fill: #64748b;
-                                                          -fx-font-size: 11px;
-                                                          -fx-font-weight: bold;"
-                                                   text="CANTIDAD" />
-                                            <TextField fx:id="txtCantidadIngrediente"
-                                                       prefHeight="42"
-                                                       promptText="0.00"
-                                                       style="-fx-background-color: #1e293b;
-                                                              -fx-text-fill: white;
-                                                              -fx-border-color: #334155;
-                                                              -fx-border-radius: 8;
-                                                              -fx-background-radius: 8;
-                                                              -fx-font-size: 14px;" />
-                                        </children>
-                                    </VBox>
+                                        <VBox spacing="6">
+                                            <children>
+                                                <Label style="-fx-text-fill: transparent; -fx-font-size: 11px;" text="."/>
+                                                <Button fx:id="btnAgregarALista" onAction="#fnAgregarALista" prefHeight="42" prefWidth="130" styleClass="btn, btn-accent" text="＋ Añadir"/>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </HBox>
 
-                                    <!-- Botón añadir -->
-                                    <VBox spacing="6">
-                                        <children>
-                                            <Label style="-fx-text-fill: transparent;
-                                                          -fx-font-size: 11px;"
-                                                   text="." />
-                                            <Button fx:id="btnAgregarALista"
-                                                    onAction="#fnAgregarALista"
-                                                    prefHeight="42" prefWidth="130"
-                                                    style="-fx-background-color: #38bdf8;
-                                                           -fx-text-fill: #0f172a;
-                                                           -fx-font-weight: bold;
-                                                           -fx-font-size: 13px;
-                                                           -fx-background-radius: 8;
-                                                           -fx-cursor: hand;"
-                                                    text="＋ Añadir" />
-                                        </children>
-                                    </VBox>
-                                </children>
-                            </HBox>
+                                <TableView fx:id="tblRecetaDetalle" prefHeight="260" maxWidth="Infinity" styleClass="table-view">
+                                    <columns>
+                                        <TableColumn fx:id="colIdIngrediente" prefWidth="80" minWidth="60" text="ID"/>
+                                        <TableColumn fx:id="colNombreIngrediente" prefWidth="420" minWidth="200" text="Ingrediente"/>
+                                        <TableColumn fx:id="colCantidad" prefWidth="140" minWidth="100" text="Cantidad"/>
+                                        <TableColumn fx:id="colUnidad" prefWidth="150" minWidth="100" text="Unidad de Medida"/>
+                                        <TableColumn fx:id="colAccion" prefWidth="110" minWidth="100" text="Eliminar" resizable="false"/>
+                                    </columns>
+                                    <placeholder>
+                                        <Label styleClass="text-placeholder" text="Aún no se han añadido ingredientes"/>
+                                    </placeholder>
+                                </TableView>
+                            </children>
+                        </VBox>
 
-                            <!-- Tabla de detalle -->
-                            <TableView fx:id="tblRecetaDetalle"
-                                       prefHeight="260"
-                                       maxWidth="Infinity"
-                                       styleClass="dark-table"
-                                       style="-fx-background-color: #0f172a;
-                                              -fx-border-color: #334155;
-                                              -fx-border-radius: 8;">
-                                <columns>
-                                    <TableColumn fx:id="colIdIngrediente"
-                                                 prefWidth="80"
-                                                 minWidth="60"
-                                                 text="ID"
-                                                 style="-fx-alignment: CENTER;" />
-                                    <TableColumn fx:id="colNombreIngrediente"
-                                                 prefWidth="420"
-                                                 minWidth="200"
-                                                 text="Ingrediente" />
-                                    <TableColumn fx:id="colCantidad"
-                                                 prefWidth="140"
-                                                 minWidth="100"
-                                                 text="Cantidad"
-                                                 style="-fx-alignment: CENTER_RIGHT;" />
-                                    <TableColumn fx:id="colUnidad"
-                                                 prefWidth="150"
-                                                 minWidth="100"
-                                                 text="Unidad de Medida"
-                                                 style="-fx-alignment: CENTER;" />
-                                    <TableColumn fx:id="colAccion"
-                                                 prefWidth="110"
-                                                 minWidth="100"
-                                                 text="Eliminar"
-                                                 style="-fx-alignment: CENTER;"
-                                                 resizable="false" />
-                                </columns>
-                                <placeholder>
-                                    <Label style="-fx-text-fill: #475569;
-                                                  -fx-font-size: 13px;"
-                                           text="Aún no se han añadido ingredientes" />
-                                </placeholder>
-                            </TableView>
-
-                        </children>
-                    </VBox>
-
-                    <!-- ─── BARRA DE ACCIONES ─── -->
-                    <HBox alignment="CENTER_RIGHT"
-                          maxWidth="980"
-                          spacing="12"
-                          style="-fx-padding: 0 0 20 0;">
-                        <children>
-                            <!-- Cancelar / volver -->
-                            <Button onAction="#fnVolverMenu"
-                                    prefHeight="44" prefWidth="160"
-                                    style="-fx-background-color: transparent;
-                                           -fx-text-fill: #94a3b8;
-                                           -fx-border-color: #475569;
-                                           -fx-border-radius: 8;
-                                           -fx-background-radius: 8;
-                                           -fx-font-size: 13px;
-                                           -fx-cursor: hand;"
-                                    text="  Cancelar" />
-
-                            <!-- Limpiar -->
-                            <Button onAction="#fnLimpiar"
-                                    prefHeight="44" prefWidth="150"
-                                    style="-fx-background-color: #1e293b;
-                                           -fx-text-fill: #f1f5f9;
-                                           -fx-border-color: #334155;
-                                           -fx-border-radius: 8;
-                                           -fx-background-radius: 8;
-                                           -fx-font-size: 13px;
-                                           -fx-cursor: hand;"
-                                    text="  Limpiar" />
-
-                            <!-- Guardar -->
-                            <Button fx:id="btnGuardarReceta"
-                                    onAction="#fnGuardarReceta"
-                                    prefHeight="44" prefWidth="230"
-                                    style="-fx-background-color: #6366f1;
-                                           -fx-text-fill: white;
-                                           -fx-font-weight: bold;
-                                           -fx-background-radius: 8;
-                                           -fx-font-size: 14px;
-                                           -fx-cursor: hand;"
-                                    text="  Guardar Receta" />
-                        </children>
-                    </HBox>
-
+                        <!-- BARRA DE ACCIONES -->
+                        <HBox alignment="CENTER_RIGHT" maxWidth="980" spacing="12" style="-fx-padding: 0 0 20 0;">
+                            <children>
+                                <Button onAction="#fnVolverMenu" prefHeight="44" prefWidth="160" styleClass="btn, btn-ghost" text="Cancelar"/>
+                                <Button onAction="#fnLimpiar" prefHeight="44" prefWidth="150" styleClass="btn, btn-secondary" text="Limpiar"/>
+                                <Button fx:id="btnGuardarReceta" onAction="#fnGuardarReceta" prefHeight="44" prefWidth="230" styleClass="btn, btn-primary" text="Guardar Receta"/>
+                            </children>
+                        </HBox>
+                    </children>
                 </VBox>
             </content>
         </ScrollPane>

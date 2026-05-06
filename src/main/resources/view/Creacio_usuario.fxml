@@ -3,24 +3,30 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane stylesheets="@Combobox.css" prefHeight="720" prefWidth="1280" style="-fx-background-color: #0f172a;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Crear_usuario_controller">
+<BorderPane prefHeight="720" prefWidth="1280"
+            stylesheets="@Styles.css"
+            fx:controller="controllers.Crear_usuario_controller"
+            xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1">
+
     <top>
-        <VBox style="-fx-background-color: #1e293b; -fx-padding: 16 24; -fx-border-color: #334155; -fx-border-width: 0 0 1 0;">
+        <VBox styleClass="header-bar">
             <children>
-                <Label style="-fx-font-size: 10px; -fx-font-weight: bold; -fx-text-fill: #38bdf8; -fx-letter-spacing: 2;" text="PANADERÍA — ADMINISTRACIÓN"/>
-                <Label style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #f1f5f9;" text="Creación de Usuario"/>
+                <Label styleClass="header-subtitle" text="PANADERÍA — ADMINISTRACIÓN"/>
+                <Label styleClass="header-title" text="Creación de Usuario"/>
             </children>
         </VBox>
     </top>
+
     <center>
-        <ScrollPane style="-fx-background-color: #0f172a; -fx-background: #0f172a;">
+        <ScrollPane styleClass="scroll-pane">
             <content>
-                <VBox alignment="CENTER" spacing="24" style="-fx-padding: 32; -fx-background-color: #0f172a;">
+                <VBox alignment="CENTER" spacing="24" style="-fx-padding: 32;">
                     <HBox alignment="TOP_CENTER" spacing="28">
-                        <VBox spacing="16" style="-fx-background-color: #1e293b; -fx-padding: 24; -fx-border-color: #334155; -fx-border-width: 1; -fx-border-radius: 10; -fx-background-radius: 10; -fx-min-width: 500;">
+                        <VBox spacing="16" styleClass="card" style="-fx-min-width: 500;">
                             <children>
-                                <Label style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #38bdf8;" text="Datos Personales"/>
-                                <GridPane hgap="16" vgap="12">
+                                <Label styleClass="card-title" text="Datos Personales"/>
+                                <GridPane styleClass="form-grid">
                                     <columnConstraints>
                                         <ColumnConstraints halignment="RIGHT" hgrow="NEVER" minWidth="150"/>
                                         <ColumnConstraints hgrow="ALWAYS"/>
@@ -33,24 +39,25 @@
                                         <RowConstraints/>
                                     </rowConstraints>
                                     <children>
-                                        <Label style="-fx-text-fill: #f1f5f9; -fx-font-size: 13px;" text="Nombre *" GridPane.rowIndex="0"/>
-                                        <TextField fx:id="txtNombre" promptText="Ej: María González" style="-fx-background-color: #0f172a; -fx-text-fill: #f1f5f9; -fx-prompt-text-fill: #334155; -fx-border-color: #334155; -fx-border-width: 1; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 8;" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
-                                        <Label style="-fx-text-fill: #f1f5f9; -fx-font-size: 13px;" text="Apellido *" GridPane.rowIndex="1"/>
-                                        <TextField fx:id="txtApellido" promptText="Ej: Pérez" style="-fx-background-color: #0f172a; -fx-text-fill: #f1f5f9; -fx-prompt-text-fill: #334155; -fx-border-color: #334155; -fx-border-width: 1; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 8;" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-                                        <Label style="-fx-text-fill: #f1f5f9; -fx-font-size: 13px;" text="Correo *" GridPane.rowIndex="2"/>
-                                        <TextField fx:id="txtCorreo" promptText="usuario@panaderia.com" style="-fx-background-color: #0f172a; -fx-text-fill: #f1f5f9; -fx-prompt-text-fill: #334155; -fx-border-color: #334155; -fx-border-width: 1; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 8;" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-                                        <Label style="-fx-text-fill: #f1f5f9; -fx-font-size: 13px;" text="Teléfono" GridPane.rowIndex="3"/>
-                                        <TextField fx:id="txtTelefono" promptText="809-000-0000" style="-fx-background-color: #0f172a; -fx-text-fill: #f1f5f9; -fx-prompt-text-fill: #334155; -fx-border-color: #334155; -fx-border-width: 1; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 8;" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-                                        <Label style="-fx-text-fill: #f1f5f9; -fx-font-size: 13px;" text="Cargo / Puesto" GridPane.rowIndex="4"/>
-                                        <TextField fx:id="txtPuesto" promptText="Ej: Cajero, Supervisor" style="-fx-background-color: #0f172a; -fx-text-fill: #f1f5f9; -fx-prompt-text-fill: #334155; -fx-border-color: #334155; -fx-border-width: 1; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 8;" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+                                        <Label styleClass="form-label" text="Nombre *" GridPane.rowIndex="0"/>
+                                        <TextField fx:id="txtNombre" promptText="Ej: María González" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                                        <Label styleClass="form-label" text="Apellido *" GridPane.rowIndex="1"/>
+                                        <TextField fx:id="txtApellido" promptText="Ej: Pérez" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                                        <Label styleClass="form-label" text="Correo *" GridPane.rowIndex="2"/>
+                                        <TextField fx:id="txtCorreo" promptText="usuario@panaderia.com" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                                        <Label styleClass="form-label" text="Teléfono" GridPane.rowIndex="3"/>
+                                        <TextField fx:id="txtTelefono" promptText="809-000-0000" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                                        <Label styleClass="form-label" text="Cargo / Puesto" GridPane.rowIndex="4"/>
+                                        <TextField fx:id="txtPuesto" promptText="Ej: Cajero, Supervisor" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
                                     </children>
                                 </GridPane>
                             </children>
                         </VBox>
-                        <VBox spacing="16" style="-fx-background-color: #1e293b; -fx-padding: 24; -fx-border-color: #334155; -fx-border-width: 1; -fx-border-radius: 10; -fx-background-radius: 10; -fx-min-width: 450;">
+
+                        <VBox spacing="16" styleClass="card" style="-fx-min-width: 450;">
                             <children>
-                                <Label style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #38bdf8;" text="Credenciales y Permisos"/>
-                                <GridPane hgap="16" vgap="12">
+                                <Label styleClass="card-title" text="Credenciales y Permisos"/>
+                                <GridPane styleClass="form-grid">
                                     <columnConstraints>
                                         <ColumnConstraints halignment="RIGHT" hgrow="NEVER" minWidth="150"/>
                                         <ColumnConstraints hgrow="ALWAYS"/>
@@ -63,45 +70,47 @@
                                         <RowConstraints/>
                                     </rowConstraints>
                                     <children>
-                                        <Label style="-fx-text-fill: #f1f5f9; -fx-font-size: 13px;" text="Nombre de usuario *" GridPane.rowIndex="0"/>
-                                        <TextField fx:id="txtUsuario" promptText="Ej: mgonzalez" style="-fx-background-color: #0f172a; -fx-text-fill: #f1f5f9; -fx-prompt-text-fill: #334155; -fx-border-color: #334155; -fx-border-width: 1; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 8;" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
-                                        <Label style="-fx-text-fill: #f1f5f9; -fx-font-size: 13px;" text="Contraseña *" GridPane.rowIndex="1"/>
-                                        <PasswordField fx:id="txtPassword" promptText="Mínimo 8 caracteres" style="-fx-background-color: #0f172a; -fx-text-fill: #f1f5f9; -fx-prompt-text-fill: #334155; -fx-border-color: #334155; -fx-border-width: 1; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 8;" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-                                        <Label style="-fx-text-fill: #f1f5f9; -fx-font-size: 13px;" text="Confirmar contraseña *" GridPane.rowIndex="2"/>
-                                        <PasswordField fx:id="txtConfirmarPassword" promptText="Repita la contraseña" style="-fx-background-color: #0f172a; -fx-text-fill: #f1f5f9; -fx-prompt-text-fill: #334155; -fx-border-color: #334155; -fx-border-width: 1; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 8;" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-                                        <Label style="-fx-text-fill: #f1f5f9; -fx-font-size: 13px;" text="Rol *" GridPane.rowIndex="3"/>
-                                        <ComboBox fx:id="cmbRol" promptText="Seleccione un rol" maxWidth="Infinity" style="-fx-background-color: #0f172a; -fx-border-color: #334155; -fx-border-width: 1; -fx-border-radius: 6; -fx-background-radius: 6;" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-                                        <Label style="-fx-text-fill: #f1f5f9; -fx-font-size: 13px;" text="Estado" GridPane.rowIndex="4"/>
+                                        <Label styleClass="form-label" text="Nombre de usuario *" GridPane.rowIndex="0"/>
+                                        <TextField fx:id="txtUsuario" promptText="Ej: mgonzalez" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                                        <Label styleClass="form-label" text="Contraseña *" GridPane.rowIndex="1"/>
+                                        <PasswordField fx:id="txtPassword" promptText="Mínimo 8 caracteres" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                                        <Label styleClass="form-label" text="Confirmar contraseña *" GridPane.rowIndex="2"/>
+                                        <PasswordField fx:id="txtConfirmarPassword" promptText="Repita la contraseña" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                                        <Label styleClass="form-label" text="Rol *" GridPane.rowIndex="3"/>
+                                        <ComboBox fx:id="cmbRol" promptText="Seleccione un rol" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                                        <Label styleClass="form-label" text="Estado" GridPane.rowIndex="4"/>
                                         <HBox spacing="20" GridPane.columnIndex="1" GridPane.rowIndex="4">
                                             <children>
-                                                <RadioButton fx:id="rbActivo" selected="true" style="-fx-text-fill: #f1f5f9;" text="Activo"/>
-                                                <RadioButton fx:id="rbInactivo" style="-fx-text-fill: #f1f5f9;" text="Inactivo"/>
+                                                <RadioButton fx:id="rbActivo" selected="true" styleClass="radio-light" text="Activo"/>
+                                                <RadioButton fx:id="rbInactivo" styleClass="radio-light" text="Inactivo"/>
                                             </children>
                                         </HBox>
                                     </children>
                                 </GridPane>
-                                <HBox spacing="12" style="-fx-background-color: #0f172a; -fx-border-color: #6366f1; -fx-border-width: 1; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 12; -fx-alignment: CENTER_LEFT;">
+                                <HBox styleClass="info-box">
                                     <children>
                                         <Label style="-fx-font-size: 18px;" text="🔒"/>
-                                        <Label maxWidth="310" style="-fx-text-fill: #f1f5f9; -fx-font-size: 12px;" text="La contraseña debe tener al menos 8 caracteres, una mayúscula y un número." wrapText="true"/>
+                                        <Label maxWidth="310" text="La contraseña debe tener al menos 8 caracteres, una mayúscula y un número." wrapText="true"/>
                                     </children>
                                 </HBox>
                             </children>
                         </VBox>
                     </HBox>
+
                     <HBox alignment="CENTER_RIGHT" spacing="16">
                         <children>
-                            <Button fx:id="btnCrearEmpleado" onAction="#fnCrearEmpleado" style="-fx-background-color: #10b981; -fx-text-fill: #fff3eb; -fx-font-size: 14px; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 11 28;" text="Crear Empleado"/>
-                            <Button fx:id="btnLimpiar" onAction="#fnLimpiar" style="-fx-background-color: #1e293b; -fx-text-fill: #f1f5f9; -fx-font-size: 14px; -fx-border-color: #334155; -fx-border-width: 1; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 11 28;" text="Limpiar Formulario"/>
-                            <Button fx:id="btnCancelar" onAction="#fnVolverMenu" style="-fx-background-color: #1e293b; -fx-text-fill: #f1f5f9; -fx-font-size: 14px; -fx-border-color: #334155; -fx-border-width: 1; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 11 28;" text="Cancelar"/>
-                            <Button fx:id="btnCrearUsuario" onAction="#fnCrearUsuario" style="-fx-background-color: #6366f1; -fx-text-fill: #fff3eb; -fx-font-size: 14px; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 11 28;" text="Crear Usuario"/>
+                            <Button fx:id="btnCrearEmpleado" onAction="#fnCrearEmpleado" text="Crear Empleado" styleClass="btn, btn-success"/>
+                            <Button fx:id="btnLimpiar" onAction="#fnLimpiar" text="Limpiar Formulario" styleClass="btn, btn-secondary"/>
+                            <Button fx:id="btnCancelar" onAction="#fnVolverMenu" text="Cancelar" styleClass="btn, btn-secondary"/>
+                            <Button fx:id="btnCrearUsuario" onAction="#fnCrearUsuario" text="Crear Usuario" styleClass="btn, btn-primary"/>
                         </children>
                     </HBox>
                 </VBox>
             </content>
         </ScrollPane>
     </center>
+
     <bottom>
-        <HBox alignment="CENTER" style="-fx-background-color: #1e293b; -fx-padding: 12; -fx-border-color: #334155; -fx-border-width: 1 0 0 0;"/>
+        <HBox alignment="CENTER" styleClass="footer-bar"/>
     </bottom>
 </BorderPane>

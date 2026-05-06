@@ -4,58 +4,61 @@
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane prefHeight="720" prefWidth="1280" style="-fx-background-color: #F5F2EB;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="720" prefWidth="1280"
+            stylesheets="@Styles.css"
+            xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1">
+
     <children>
-        <Pane mouseTransparent="true" prefHeight="720" prefWidth="1280" style="-fx-background-color: transparent;">
+        <Pane mouseTransparent="true" prefHeight="720" prefWidth="1280" styleClass="bg-transparent">
             <children>
-                <Label layoutX="80" layoutY="60" style="-fx-font-size: 64px; -fx-opacity: 0.04;" text="🍞" />
-                <Label layoutX="1120" layoutY="520" style="-fx-font-size: 52px; -fx-opacity: 0.04;" text="🥐" />
-                <Label layoutX="180" layoutY="580" style="-fx-font-size: 56px; -fx-opacity: 0.03;" text="🥖" />
-                <Label layoutX="980" layoutY="100" style="-fx-font-size: 44px; -fx-opacity: 0.04;" text="🥮" />
-                <Label layoutX="600" layoutY="40" style="-fx-font-size: 38px; -fx-opacity: 0.03;" text="🧁" />
+                <Label layoutX="80" layoutY="60" style="-fx-font-size: 64px; -fx-opacity: 0.04;" text="🍞"/>
+                <Label layoutX="1120" layoutY="520" style="-fx-font-size: 52px; -fx-opacity: 0.04;" text="🥐"/>
+                <Label layoutX="180" layoutY="580" style="-fx-font-size: 56px; -fx-opacity: 0.03;" text="🥖"/>
+                <Label layoutX="980" layoutY="100" style="-fx-font-size: 44px; -fx-opacity: 0.04;" text="🥮"/>
+                <Label layoutX="600" layoutY="40" style="-fx-font-size: 38px; -fx-opacity: 0.03;" text="🧁"/>
             </children>
         </Pane>
     </children>
 
     <center>
-        <StackPane style="-fx-background-color: transparent;">
-            <VBox alignment="CENTER" maxWidth="460" spacing="0" style="-fx-background-color: #FFFFFF; -fx-border-color: #BFB6A6; -fx-border-width: 1; -fx-border-radius: 14; -fx-background-radius: 14;">
-
-                <VBox alignment="CENTER" spacing="6" style="-fx-background-color: #CDB08E; -fx-background-radius: 13 13 0 0; -fx-padding: 28 48 24 48;">
+        <StackPane styleClass="bg-transparent">
+            <VBox alignment="CENTER" maxWidth="460" spacing="0" styleClass="login-card">
+                <VBox alignment="CENTER" spacing="6" styleClass="login-header">
                     <children>
-                        <Label style="-fx-font-size: 32px; -fx-text-fill: #11100B; -fx-font-weight: bold;" text="Panadería" />
-                        <Label style="-fx-font-size: 13px; -fx-text-fill: #4A4944; -fx-font-style: italic;" text="Sistema Integral de Gestión" />
+                        <Label styleClass="login-title" text="Panadería"/>
+                        <Label styleClass="login-subtitle" text="Sistema Integral de Gestión"/>
                     </children>
                 </VBox>
 
-                <VBox spacing="18" style="-fx-padding: 36 48 40 48;">
+                <VBox spacing="18" styleClass="login-body">
                     <children>
-                        <Label style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #CDB08E; -fx-padding: 0 0 4 0;" text="Iniciar Sesión" />
+                        <Label styleClass="card-title" text="Iniciar Sesión"/>
 
                         <VBox spacing="6">
                             <children>
-                                <Label style="-fx-font-size: 13px; -fx-text-fill: #4A4944; -fx-font-weight: bold;" text="Usuario" />
-                                <TextField promptText="Nombre de usuario" style="-fx-background-color: #F5F2EB; -fx-text-fill: #11100B; -fx-prompt-text-fill: #AAAAA4; -fx-border-color: #BFB6A6; -fx-border-width: 1; -fx-border-radius: 7; -fx-background-radius: 7; -fx-padding: 11; -fx-font-size: 14px;" />
+                                <Label styleClass="form-label" text="Usuario"/>
+                                <TextField promptText="Nombre de usuario"/>
                             </children>
                         </VBox>
 
                         <VBox spacing="6">
                             <children>
-                                <Label style="-fx-font-size: 13px; -fx-text-fill: #4A4944; -fx-font-weight: bold;" text="Contraseña" />
-                                <PasswordField promptText="Contraseña" style="-fx-background-color: #F5F2EB; -fx-text-fill: #11100B; -fx-prompt-text-fill: #AAAAA4; -fx-border-color: #BFB6A6; -fx-border-width: 1; -fx-border-radius: 7; -fx-background-radius: 7; -fx-padding: 11; -fx-font-size: 14px;" />
+                                <Label styleClass="form-label" text="Contraseña"/>
+                                <PasswordField promptText="Contraseña"/>
                             </children>
                         </VBox>
 
                         <HBox alignment="CENTER_LEFT">
                             <children>
-                                <CheckBox style="-fx-text-fill: #4A4944; -fx-font-size: 13px;" text="Recordar sesión" HBox.hgrow="ALWAYS" />
-                                <Label style="-fx-text-fill: #CDB08E; -fx-font-size: 13px; -fx-underline: true; -fx-cursor: hand;" text="¿Olvidó su contraseña?" />
+                                <CheckBox styleClass="radio-light" text="Recordar sesión" HBox.hgrow="ALWAYS"/>
+                                <Label styleClass="text-link" text="¿Olvidó su contraseña?"/>
                             </children>
                         </HBox>
 
-                        <Button maxWidth="Infinity" style="-fx-background-color: #CDB08E; -fx-text-fill: #11100B; -fx-font-size: 15px; -fx-font-weight: bold; -fx-padding: 13 0; -fx-border-radius: 8; -fx-background-radius: 8;" text="Iniciar Sesión">
+                        <Button maxWidth="Infinity" text="Iniciar Sesión" styleClass="btn, btn-primary">
                             <effect>
-                                <DropShadow blurType="GAUSSIAN" color="#BFB6A655" radius="14" spread="0.1" />
+                                <DropShadow blurType="GAUSSIAN" color="#cdb08e55" radius="14" spread="0.1"/>
                             </effect>
                         </Button>
                     </children>
@@ -65,9 +68,9 @@
     </center>
 
     <bottom>
-        <HBox alignment="CENTER" style="-fx-background-color: #CDB08E; -fx-padding: 13; -fx-border-color: #BFB6A6; -fx-border-width: 1 0 0 0;">
+        <HBox alignment="CENTER" styleClass="footer-bar">
             <children>
-                <Label style="-fx-text-fill: #4A4944; -fx-font-size: 12px;" text="© 2026 Panadería — Todos los derechos reservados" />
+                <Label styleClass="text-placeholder" text="© 2026 Panadería — Todos los derechos reservados"/>
             </children>
         </HBox>
     </bottom>

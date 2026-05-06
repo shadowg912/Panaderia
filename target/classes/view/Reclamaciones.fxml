@@ -5,96 +5,102 @@
 <?import javafx.collections.FXCollections?>
 <?import java.lang.String?>
 
-<BorderPane prefHeight="720" prefWidth="1280" style="-fx-background-color: #F5F2EB;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Reclamaciones_controller">
+<BorderPane prefHeight="720" prefWidth="1280"
+            stylesheets="@Styles.css"
+            fx:controller="controllers.Reclamaciones_controller"
+            xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1">
 
     <top>
-        <VBox style="-fx-background-color: #CDB08E; -fx-padding: 20 24; -fx-border-color: #BFB6A6; -fx-border-width: 0 0 1 0;">
+        <VBox styleClass="header-bar">
             <children>
-                <Label style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #4A4944; -fx-letter-spacing: 2;" text="PANADERÍA — POSTVENTA" />
-                <Label style="-fx-font-size: 26px; -fx-text-fill: #11100B; -fx-font-weight: bold;" text="Gestión de Reclamaciones" />
+                <Label styleClass="header-subtitle" text="PANADERÍA — POSTVENTA"/>
+                <Label styleClass="header-title" text="Gestión de Reclamaciones"/>
             </children>
         </VBox>
     </top>
 
     <center>
-        <ScrollPane fitToWidth="true" style="-fx-background-color: #F5F2EB; -fx-background: #F5F2EB; -fx-border-color: transparent;">
+        <ScrollPane fitToWidth="true" styleClass="scroll-pane">
             <content>
-                <VBox alignment="TOP_CENTER" spacing="32" style="-fx-padding: 40; -fx-background-color: #F5F2EB;">
+                <VBox alignment="TOP_CENTER" spacing="32" style="-fx-padding: 40;">
                     <HBox alignment="TOP_CENTER" spacing="32">
-
-                        <VBox spacing="25" style="-fx-background-color: #FFFFFF; -fx-padding: 30; -fx-border-color: #BFB6A6; -fx-border-width: 1; -fx-border-radius: 12; -fx-background-radius: 12; -fx-min-width: 520;">
+                        <VBox spacing="25" styleClass="card" style="-fx-min-width: 520;">
                             <children>
-                                <Label style="-fx-font-size: 18px; -fx-text-fill: #CDB08E; -fx-font-weight: bold;" text="DATOS DE ORIGEN" />
-                                <GridPane hgap="20" vgap="20">
+                                <Label styleClass="card-title" text="DATOS DE ORIGEN"/>
+                                <GridPane styleClass="form-grid">
                                     <columnConstraints>
-                                        <ColumnConstraints halignment="RIGHT" hgrow="NEVER" minWidth="140" />
-                                        <ColumnConstraints hgrow="ALWAYS" />
+                                        <ColumnConstraints halignment="RIGHT" hgrow="NEVER" minWidth="140"/>
+                                        <ColumnConstraints hgrow="ALWAYS"/>
                                     </columnConstraints>
                                     <children>
-                                        <Label style="-fx-text-fill: #4A4944; -fx-font-size: 14px;" text="ID Factura *" GridPane.rowIndex="0" />
-                                        <TextField fx:id="txtIdFactura" promptText="Número de factura"
-                                                   style="-fx-background-color: #F5F2EB; -fx-border-color: #BFB6A6; -fx-padding: 14; -fx-text-fill: #11100B; -fx-font-size: 15px; -fx-background-radius: 8;"
-                                                   GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                        <Label styleClass="form-label" text="ID Factura *" GridPane.rowIndex="0"/>
+                                        <TextField fx:id="txtIdFactura" promptText="Número de factura" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
 
-                                        <Label style="-fx-text-fill: #4A4944; -fx-font-size: 14px;" text="ID Cliente *" GridPane.rowIndex="1" />
-                                        <TextField fx:id="txtIdCliente" promptText="ID de empresa cliente"
-                                                   style="-fx-background-color: #F5F2EB; -fx-border-color: #BFB6A6; -fx-padding: 14; -fx-text-fill: #11100B; -fx-font-size: 15px; -fx-background-radius: 8;"
-                                                   GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                        <Label styleClass="form-label" text="ID Cliente *" GridPane.rowIndex="1"/>
+                                        <TextField fx:id="txtIdCliente" promptText="ID de empresa cliente" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
 
-                                        <Label style="-fx-text-fill: #4A4944; -fx-font-size: 14px;" text="ID Empleado" GridPane.rowIndex="2" />
-                                        <TextField fx:id="txtIdEmpleado" promptText="ID del responsable"
-                                                   style="-fx-background-color: #F5F2EB; -fx-border-color: #BFB6A6; -fx-padding: 14; -fx-text-fill: #11100B; -fx-font-size: 15px; -fx-background-radius: 8;"
-                                                   GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                        <Label styleClass="form-label" text="ID Empleado" GridPane.rowIndex="2"/>
+                                        <TextField fx:id="txtIdEmpleado" promptText="ID del responsable" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
                                     </children>
                                 </GridPane>
                             </children>
                         </VBox>
 
-                        <VBox spacing="25" style="-fx-background-color: #FFFFFF; -fx-padding: 30; -fx-border-color: #BFB6A6; -fx-border-width: 1; -fx-border-radius: 12; -fx-background-radius: 12; -fx-min-width: 520;">
+                        <VBox spacing="25" styleClass="card" style="-fx-min-width: 520;">
                             <children>
-                                <Label style="-fx-font-size: 18px; -fx-text-fill: #CDB08E; -fx-font-weight: bold;" text="ESTADO Y PRIORIDAD" />
-                                <GridPane hgap="20" vgap="20">
+                                <Label styleClass="card-title" text="ESTADO Y PRIORIDAD"/>
+                                <GridPane styleClass="form-grid">
                                     <columnConstraints>
-                                        <ColumnConstraints halignment="RIGHT" hgrow="NEVER" minWidth="140" />
-                                        <ColumnConstraints hgrow="ALWAYS" />
+                                        <ColumnConstraints halignment="RIGHT" hgrow="NEVER" minWidth="140"/>
+                                        <ColumnConstraints hgrow="ALWAYS"/>
                                     </columnConstraints>
                                     <children>
-                                        <Label style="-fx-text-fill: #4A4944; -fx-font-size: 14px;" text="Tipo *" GridPane.rowIndex="0" />
-                                        <TextField fx:id="txtTipoReclamacion" promptText="Ej: Devolución"
-                                                   style="-fx-background-color: #F5F2EB; -fx-border-color: #BFB6A6; -fx-padding: 14; -fx-text-fill: #11100B; -fx-font-size: 15px; -fx-background-radius: 8;"
-                                                   GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                        <Label styleClass="form-label" text="Tipo *" GridPane.rowIndex="0"/>
+                                        <TextField fx:id="txtTipoReclamacion" promptText="Ej: Devolución" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
 
-                                        <Label style="-fx-text-fill: #4A4944; -fx-font-size: 14px;" text="Estado *" GridPane.rowIndex="1" />
-                                        <ComboBox fx:id="cmbEstado" maxWidth="Infinity" prefHeight="50.0"
-                                                  style="-fx-background-color: #F5F2EB; -fx-border-color: #BFB6A6; -fx-font-size: 15px;"
-                                                  GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                        <Label styleClass="form-label" text="Estado *" GridPane.rowIndex="1"/>
+                                        <ComboBox fx:id="cmbEstado" maxWidth="Infinity" prefHeight="50.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                            <items>
+                                                <FXCollections fx:factory="observableArrayList">
+                                                    <String fx:value="ABIERTA"/>
+                                                    <String fx:value="EN_PROCESO"/>
+                                                    <String fx:value="RESUELTA"/>
+                                                    <String fx:value="CERRADA"/>
+                                                </FXCollections>
+                                            </items>
+                                            <value><String fx:value="ABIERTA"/></value>
+                                        </ComboBox>
 
-                                        <Label style="-fx-text-fill: #4A4944; -fx-font-size: 14px;" text="Prioridad *" GridPane.rowIndex="2" />
-                                        <ComboBox fx:id="cmbPrioridad" maxWidth="Infinity" prefHeight="50.0"
-                                                  style="-fx-background-color: #F5F2EB; -fx-border-color: #BFB6A6; -fx-font-size: 15px;"
-                                                  GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                        <Label styleClass="form-label" text="Prioridad *" GridPane.rowIndex="2"/>
+                                        <ComboBox fx:id="cmbPrioridad" maxWidth="Infinity" prefHeight="50.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                            <items>
+                                                <FXCollections fx:factory="observableArrayList">
+                                                    <String fx:value="BAJA"/>
+                                                    <String fx:value="MEDIA"/>
+                                                    <String fx:value="ALTA"/>
+                                                </FXCollections>
+                                            </items>
+                                            <value><String fx:value="MEDIA"/></value>
+                                        </ComboBox>
                                     </children>
                                 </GridPane>
                             </children>
                         </VBox>
                     </HBox>
 
-                    <VBox maxWidth="1072" spacing="15" style="-fx-background-color: #FFFFFF; -fx-padding: 30; -fx-border-color: #BFB6A6; -fx-border-width: 1; -fx-border-radius: 12; -fx-background-radius: 12;">
+                    <VBox maxWidth="1072" spacing="15" styleClass="card">
                         <children>
-                            <Label style="-fx-font-size: 18px; -fx-text-fill: #CDB08E; -fx-font-weight: bold;" text="MOTIVO DEL RECLAMO" />
-                            <TextArea fx:id="txtMotivo" prefHeight="120" promptText="Describa el problema aquí..."
-                                      style="-fx-control-inner-background: #F5F2EB; -fx-text-fill: #11100B; -fx-border-color: #BFB6A6; -fx-font-size: 15px;" wrapText="true" />
+                            <Label styleClass="card-title" text="MOTIVO DEL RECLAMO"/>
+                            <TextArea fx:id="txtMotivo" prefHeight="120" promptText="Describa el problema aquí..." wrapText="true"/>
                         </children>
                     </VBox>
 
                     <HBox alignment="CENTER_RIGHT" maxWidth="1072" spacing="20">
                         <children>
-                            <Button fx:id="btnLimpiar" onAction="#fnLimpiar"
-                                    style="-fx-background-color: #BFB6A6; -fx-text-fill: #11100B; -fx-padding: 14 35; -fx-border-color: #BFB6A6; -fx-border-radius: 8; -fx-font-size: 14px;" text="Limpiar" />
-                            <Button fx:id="btnCancelar" onAction="#fnVolverMenu"
-                                    style="-fx-background-color: #BFB6A6; -fx-text-fill: #11100B; -fx-padding: 14 35; -fx-border-color: #BFB6A6; -fx-border-radius: 8; -fx-font-size: 14px;" text="Cancelar" />
-                            <Button fx:id="btnGuardar" onAction="#fnGuardarReclamacion"
-                                    style="-fx-background-color: #CDB08E; -fx-text-fill: #11100B; -fx-padding: 14 45; -fx-font-weight: bold; -fx-font-size: 15px; -fx-background-radius: 8;" text="Guardar Reclamación" />
+                            <Button fx:id="btnLimpiar" onAction="#fnLimpiar" text="Limpiar" styleClass="btn, btn-secondary"/>
+                            <Button fx:id="btnCancelar" onAction="#fnVolverMenu" text="Cancelar" styleClass="btn, btn-secondary"/>
+                            <Button fx:id="btnGuardar" onAction="#fnGuardarReclamacion" text="Guardar Reclamación" styleClass="btn, btn-primary"/>
                         </children>
                     </HBox>
                 </VBox>

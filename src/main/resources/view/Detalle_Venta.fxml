@@ -3,44 +3,51 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane stylesheets="@Combobox.css, @Table.css" fx:controller="controllers.Detalle_orden_venta_controller" prefHeight="720" prefWidth="1280" style="-fx-background-color: #0f172a;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="720" prefWidth="1280"
+            stylesheets="@Styles.css"
+            fx:controller="controllers.Detalle_orden_venta_controller"
+            xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1">
+
     <top>
-        <VBox style="-fx-background-color: #1e293b; -fx-padding: 16 24; -fx-border-color: #334155; -fx-border-width: 0 0 1 0;">
+        <VBox styleClass="header-bar">
             <children>
-                <Label style="-fx-font-size: 10px; -fx-font-weight: bold; -fx-text-fill: #38bdf8; -fx-letter-spacing: 2;" text="PANADERÍA — VENTAS"/>
-                <Label style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #f1f5f9;" text="Agregar Productos a la Orden"/>
-                <Label fx:id="lblInfoOrden" style="-fx-font-size: 13px; -fx-text-fill: #38bdf8;" text="Orden #"/>
+                <Label styleClass="header-subtitle" text="PANADERÍA — VENTAS"/>
+                <Label styleClass="header-title" text="Agregar Productos a la Orden"/>
+                <Label fx:id="lblInfoOrden" styleClass="text-accent" text="Orden #"/>
             </children>
         </VBox>
     </top>
+
     <center>
-        <VBox spacing="32" style="-fx-padding: 40; -fx-background-color: #0f172a;">
+        <VBox spacing="32" style="-fx-padding: 40;">
             <children>
                 <HBox spacing="32" alignment="TOP_CENTER">
-                    <VBox spacing="20" style="-fx-background-color: #1e293b; -fx-padding: 32; -fx-border-color: #334155; -fx-border-width: 1; -fx-border-radius: 12; -fx-background-radius: 12; -fx-min-width: 500;">
+                    <VBox spacing="20" styleClass="card" style="-fx-min-width: 500;">
                         <children>
-                            <Label style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #38bdf8;" text="Seleccionar Producto"/>
+                            <Label styleClass="card-title" text="Seleccionar Producto"/>
                             <VBox spacing="12">
-                                <Label style="-fx-text-fill: #f1f5f9; -fx-font-size: 15px;" text="Producto *"/>
-                                <ComboBox fx:id="cmbProducto" promptText="Seleccione un producto..." prefHeight="52" maxWidth="Infinity" style="-fx-background-color: #0f172a; -fx-border-color: #334155; -fx-border-width: 1; -fx-border-radius: 8; -fx-background-radius: 8; -fx-font-size: 14px;"/>
+                                <Label styleClass="form-label" text="Producto *"/>
+                                <ComboBox fx:id="cmbProducto" promptText="Seleccione un producto..." prefHeight="52" maxWidth="Infinity"/>
                             </VBox>
                             <HBox spacing="16">
                                 <VBox spacing="12" HBox.hgrow="ALWAYS">
-                                    <Label style="-fx-text-fill: #f1f5f9; -fx-font-size: 15px;" text="Cantidad *"/>
-                                    <TextField fx:id="txtCantidad" promptText="0.00" prefHeight="52" style="-fx-background-color: #0f172a; -fx-text-fill: #f1f5f9; -fx-border-color: #334155; -fx-border-width: 1; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 12; -fx-font-size: 14px;"/>
+                                    <Label styleClass="form-label" text="Cantidad *"/>
+                                    <TextField fx:id="txtCantidad" promptText="0.00" prefHeight="52"/>
                                 </VBox>
                                 <VBox spacing="12" HBox.hgrow="ALWAYS">
-                                    <Label style="-fx-text-fill: #f1f5f9; -fx-font-size: 15px;" text="Precio Unitario"/>
-                                    <TextField fx:id="txtPrecioUnitario" editable="false" promptText="RD$ 0.00" prefHeight="52" style="-fx-background-color: #0f172a; -fx-text-fill: #38bdf8; -fx-border-color: #334155; -fx-border-width: 1; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 12; -fx-font-size: 14px;"/>
+                                    <Label styleClass="form-label" text="Precio Unitario"/>
+                                    <TextField fx:id="txtPrecioUnitario" editable="false" promptText="RD$ 0.00" prefHeight="52" styleClass="text-accent"/>
                                 </VBox>
                             </HBox>
-                            <Button fx:id="btnAgregarProducto" onAction="#fnAgregarProducto" prefHeight="52" maxWidth="Infinity" style="-fx-background-color: #10b981; -fx-text-fill: #fff3eb; -fx-font-size: 15px; -fx-font-weight: bold; -fx-background-radius: 10; -fx-padding: 14;" text="Agregar Producto"/>
+                            <Button fx:id="btnAgregarProducto" onAction="#fnAgregarProducto" prefHeight="52" maxWidth="Infinity" styleClass="btn, btn-success" text="Agregar Producto"/>
                         </children>
                     </VBox>
-                    <VBox spacing="20" style="-fx-background-color: #1e293b; -fx-padding: 32; -fx-border-color: #334155; -fx-border-width: 1; -fx-border-radius: 12; -fx-background-radius: 12; -fx-min-width: 500;">
+
+                    <VBox spacing="20" styleClass="card" style="-fx-min-width: 500;">
                         <children>
-                            <Label style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #38bdf8;" text="Productos Agregados"/>
-                            <TableView fx:id="tblDetalle" prefHeight="300" style="-fx-background-color: #0f172a; -fx-border-color: #334155; -fx-border-width: 1; -fx-border-radius: 8; -fx-background-radius: 8;">
+                            <Label styleClass="card-title" text="Productos Agregados"/>
+                            <TableView fx:id="tblDetalle" prefHeight="300" styleClass="table-view">
                                 <columns>
                                     <TableColumn fx:id="colProducto" prefWidth="200" text="Producto"/>
                                     <TableColumn fx:id="colCantidad" prefWidth="100" text="Cantidad"/>
@@ -48,34 +55,36 @@
                                     <TableColumn fx:id="colSubtotal" prefWidth="120" text="Subtotal"/>
                                 </columns>
                             </TableView>
-                            <VBox spacing="12" style="-fx-background-color: #0f172a; -fx-padding: 20; -fx-border-color: #334155; -fx-border-width: 1; -fx-border-radius: 10; -fx-background-radius: 10;">
+                            <VBox spacing="12" styleClass="card" style="-fx-padding: 20;">
                                 <HBox>
-                                    <Label style="-fx-text-fill: #f1f5f9; -fx-font-size: 15px;" text="Subtotal:" HBox.hgrow="ALWAYS"/>
-                                    <Label fx:id="lblSubtotal" style="-fx-text-fill: #f1f5f9; -fx-font-size: 15px; -fx-font-weight: bold;" text="RD$ 0.00"/>
+                                    <Label styleClass="form-label" text="Subtotal:" HBox.hgrow="ALWAYS"/>
+                                    <Label fx:id="lblSubtotal" styleClass="text-body" style="-fx-font-weight: bold;" text="RD$ 0.00"/>
                                 </HBox>
                                 <HBox>
-                                    <Label style="-fx-text-fill: #f1f5f9; -fx-font-size: 15px;" text="ITBIS (18%):" HBox.hgrow="ALWAYS"/>
-                                    <Label fx:id="lblItbis" style="-fx-text-fill: #f1f5f9; -fx-font-size: 15px; -fx-font-weight: bold;" text="RD$ 0.00"/>
+                                    <Label styleClass="form-label" text="ITBIS (18%):" HBox.hgrow="ALWAYS"/>
+                                    <Label fx:id="lblItbis" styleClass="text-body" style="-fx-font-weight: bold;" text="RD$ 0.00"/>
                                 </HBox>
-                                <Separator style="-fx-background-color: #334155;"/>
+                                <Separator styleClass="separator-dark"/>
                                 <HBox>
-                                    <Label style="-fx-text-fill: #38bdf8; -fx-font-size: 18px; -fx-font-weight: bold;" text="Total:" HBox.hgrow="ALWAYS"/>
-                                    <Label fx:id="lblTotal" style="-fx-text-fill: #38bdf8; -fx-font-size: 18px; -fx-font-weight: bold;" text="RD$ 0.00"/>
+                                    <Label styleClass="card-title" text="Total:" HBox.hgrow="ALWAYS"/>
+                                    <Label fx:id="lblTotal" styleClass="card-title" text="RD$ 0.00"/>
                                 </HBox>
                             </VBox>
                         </children>
                     </VBox>
                 </HBox>
+
                 <HBox alignment="CENTER_RIGHT" spacing="20">
                     <children>
-                        <Button fx:id="btnVolver" onAction="#fnVolver" prefHeight="52" style="-fx-background-color: #1e293b; -fx-text-fill: #f1f5f9; -fx-font-size: 15px; -fx-border-color: #334155; -fx-border-width: 1; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 14 32;" text="Volver"/>
-                        <Button fx:id="btnConfirmarOrden" onAction="#fnConfirmarOrden" prefHeight="52" style="-fx-background-color: #6366f1; -fx-text-fill: #fff3eb; -fx-font-size: 15px; -fx-font-weight: bold; -fx-background-radius: 10; -fx-padding: 14 32;" text="Confirmar Orden"/>
+                        <Button fx:id="btnVolver" onAction="#fnVolver" prefHeight="52" text="Volver" styleClass="btn, btn-secondary"/>
+                        <Button fx:id="btnConfirmarOrden" onAction="#fnConfirmarOrden" prefHeight="52" text="Confirmar Orden" styleClass="btn, btn-primary"/>
                     </children>
                 </HBox>
             </children>
         </VBox>
     </center>
+
     <bottom>
-        <HBox alignment="CENTER" style="-fx-background-color: #1e293b; -fx-padding: 12; -fx-border-color: #334155; -fx-border-width: 1 0 0 0;"/>
+        <HBox alignment="CENTER" styleClass="footer-bar"/>
     </bottom>
 </BorderPane>

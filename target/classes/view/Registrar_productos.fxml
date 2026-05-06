@@ -3,121 +3,134 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane prefHeight="720" prefWidth="1280" style="-fx-background-color: #F5F2EB;" stylesheets="@Combobox.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Registro_producto_controller">
+<BorderPane prefHeight="720" prefWidth="1280"
+            stylesheets="@Styles.css"
+            fx:controller="controllers.Registro_producto_controller"
+            xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1">
+
     <top>
-        <VBox style="-fx-background-color: #CDB08E; -fx-padding: 16 24; -fx-border-color: #BFB6A6; -fx-border-width: 0 0 1 0;">
+        <VBox styleClass="header-bar">
             <children>
-                <Label style="-fx-font-size: 10px; -fx-font-weight: bold; -fx-text-fill: #4A4944;" text="PANADERÍA — INVENTARIO" />
-                <Label style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #11100B;" text="Registro de Producto" />
+                <Label styleClass="header-subtitle" text="PANADERÍA — INVENTARIO"/>
+                <Label styleClass="header-title" text="Registro de Producto"/>
             </children>
         </VBox>
     </top>
 
     <center>
-        <ScrollPane style="-fx-background-color: #F5F2EB; -fx-background: #F5F2EB;">
+        <ScrollPane fitToWidth="true" styleClass="scroll-pane">
             <content>
-                <VBox alignment="CENTER" spacing="24" style="-fx-padding: 32; -fx-background-color: #F5F2EB;">
-                    <HBox alignment="TOP_CENTER" spacing="28">
+                <VBox alignment="CENTER" spacing="24" style="-fx-padding: 32;">
+                    <children>
+                        <HBox alignment="TOP_CENTER" spacing="28">
+                            <!-- Columna izquierda: Datos del Producto -->
+                            <VBox spacing="16" styleClass="card" style="-fx-min-width: 500;">
+                                <children>
+                                    <Label styleClass="card-title" text="Datos del Producto"/>
+                                    <GridPane styleClass="form-grid">
+                                        <columnConstraints>
+                                            <ColumnConstraints halignment="RIGHT" hgrow="NEVER" minWidth="160"/>
+                                            <ColumnConstraints hgrow="ALWAYS"/>
+                                        </columnConstraints>
+                                        <rowConstraints>
+                                            <RowConstraints/>
+                                            <RowConstraints/>
+                                            <RowConstraints/>
+                                            <RowConstraints/>
+                                            <RowConstraints/>
+                                            <RowConstraints/>
+                                            <RowConstraints/>
+                                        </rowConstraints>
+                                        <children>
+                                            <Label styleClass="form-label" text="Nombre *" GridPane.rowIndex="1"/>
+                                            <TextField fx:id="txtNombre" prefHeight="40.0" prefWidth="291.0" promptText="Ej: Pan Francés" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                                            <Label styleClass="form-label" text="Unidad *" GridPane.rowIndex="2"/>
+                                            <ComboBox fx:id="cmbUnidad" maxWidth="Infinity" prefHeight="42.0" prefWidth="291.0" promptText="Seleccionar Unidad" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                                            <Label styleClass="form-label" text="Precio Unitario (RD$) *" GridPane.rowIndex="3"/>
+                                            <TextField fx:id="txtPrecio" prefHeight="38.0" prefWidth="291.0" promptText="0.00" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                                            <Label styleClass="form-label" text="Categoría" GridPane.rowIndex="5"/>
+                                            <ComboBox fx:id="cmbCategoria" maxWidth="Infinity" prefHeight="43.0" prefWidth="291.0" promptText="Seleccione categoría" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+                                            <HBox spacing="20" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+                                        </children>
+                                    </GridPane>
+                                </children>
+                            </VBox>
 
-                        <VBox spacing="16" style="-fx-background-color: #FFFFFF; -fx-padding: 24; -fx-border-color: #BFB6A6; -fx-border-width: 1; -fx-border-radius: 10; -fx-background-radius: 10; -fx-min-width: 500;">
+                            <!-- Columna derecha: Valores Nutricionales -->
+                            <VBox spacing="16" styleClass="card" style="-fx-min-width: 450;">
+                                <children>
+                                    <Label styleClass="card-title" text="Valores Nutricionales (por 100g)"/>
+                                    <GridPane styleClass="form-grid">
+                                        <columnConstraints>
+                                            <ColumnConstraints halignment="RIGHT" hgrow="NEVER" minWidth="150"/>
+                                            <ColumnConstraints hgrow="ALWAYS"/>
+                                        </columnConstraints>
+                                        <rowConstraints>
+                                            <RowConstraints/>
+                                            <RowConstraints/>
+                                            <RowConstraints/>
+                                            <RowConstraints/>
+                                            <RowConstraints/>
+                                            <RowConstraints/>
+                                            <RowConstraints/>
+                                            <RowConstraints/>
+                                            <RowConstraints/>
+                                        </rowConstraints>
+                                        <children>
+                                            <Label styleClass="form-label" text="Energía (kcal)" GridPane.rowIndex="0"/>
+                                            <TextField fx:id="txtEnergia" promptText="0.00" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                                            <Label styleClass="form-label" text="Proteínas (g)" GridPane.rowIndex="1"/>
+                                            <TextField fx:id="txtProteinas" promptText="0.00" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                                            <Label styleClass="form-label" text="Carbohidratos (g)" GridPane.rowIndex="2"/>
+                                            <TextField fx:id="txtCarbohidratos" promptText="0.00" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+                                            <Label styleClass="form-label" text="Azúcares (g)" GridPane.rowIndex="3"/>
+                                            <TextField fx:id="txtAzucares" promptText="0.00" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+
+                                            <Label styleClass="form-label" text="Grasas totales (g)" GridPane.rowIndex="4"/>
+                                            <TextField fx:id="txtGrasas" promptText="0.00" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+
+                                            <Label styleClass="form-label" text="Grasas saturadas (g)" GridPane.rowIndex="5"/>
+                                            <TextField fx:id="txtGrasasSaturadas" promptText="0.00" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+
+                                            <Label styleClass="form-label" text="Grasas trans (g)" GridPane.rowIndex="6"/>
+                                            <TextField fx:id="txtGrasasTrans" promptText="0.00" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+
+                                            <Label styleClass="form-label" text="Fibra (g)" GridPane.rowIndex="7"/>
+                                            <TextField fx:id="txtFibra" promptText="0.00" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
+
+                                            <Label styleClass="form-label" text="Sodio (mg)" GridPane.rowIndex="8"/>
+                                            <TextField fx:id="txtSodio" promptText="0.00" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
+                                        </children>
+                                    </GridPane>
+
+                                    <HBox styleClass="info-box">
+                                        <children>
+                                            <Label style="-fx-font-size: 18px;" text="ℹ️"/>
+                                            <Label maxWidth="340" text="Solo aplicable a productos terminados para venta directa" wrapText="true"/>
+                                        </children>
+                                    </HBox>
+                                </children>
+                            </VBox>
+                        </HBox>
+
+                        <HBox alignment="CENTER_RIGHT" spacing="16">
                             <children>
-                                <Label style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #CDB08E;" text="Datos del Producto" />
-                                <GridPane hgap="16" vgap="12">
-                                    <columnConstraints>
-                                        <ColumnConstraints halignment="RIGHT" hgrow="NEVER" minWidth="160" />
-                                        <ColumnConstraints hgrow="ALWAYS" />
-                                    </columnConstraints>
-                                    <rowConstraints>
-                                        <RowConstraints />
-                                        <RowConstraints />
-                                        <RowConstraints />
-                                        <RowConstraints />
-                                        <RowConstraints />
-                                        <RowConstraints />
-                                        <RowConstraints />
-                                    </rowConstraints>
-                                    <children>
-                                        <Label style="-fx-text-fill: #4A4944; -fx-font-size: 13px;" text="Nombre *" GridPane.rowIndex="1" />
-                                        <TextField fx:id="txtNombre" prefHeight="40.0" prefWidth="291.0" promptText="Ej: Pan Francés" style="-fx-background-color: #F5F2EB; -fx-text-fill: #11100B; -fx-prompt-text-fill: #BFB6A6; -fx-border-color: #BFB6A6; -fx-border-width: 1; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 8;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-
-                                        <Label style="-fx-text-fill: #4A4944; -fx-font-size: 13px;" text="Unidad *" GridPane.rowIndex="2" />
-                                        <ComboBox fx:id="cmbUnidad" maxWidth="Infinity" prefHeight="42.0" prefWidth="291.0" promptText="Seleccionar Unidad" style="-fx-text-fill: #11100B; -fx-background-color: #F5F2EB; -fx-border-color: #BFB6A6; -fx-border-width: 1; -fx-border-radius: 6; -fx-background-radius: 6; -fx-control-inner-background: #F5F2EB;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-
-                                        <Label style="-fx-text-fill: #4A4944; -fx-font-size: 13px;" text="Precio Unitario (RD$) *" GridPane.rowIndex="3" />
-                                        <TextField fx:id="txtPrecio" prefHeight="38.0" prefWidth="291.0" promptText="0.00" style="-fx-background-color: #F5F2EB; -fx-text-fill: #11100B; -fx-prompt-text-fill: #BFB6A6; -fx-border-color: #BFB6A6; -fx-border-width: 1; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 8;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-
-                                        <Label style="-fx-text-fill: #4A4944; -fx-font-size: 13px;" text="Categoría" GridPane.rowIndex="5" />
-                                        <ComboBox fx:id="cmbCategoria" maxWidth="Infinity" prefHeight="43.0" prefWidth="291.0" promptText="Seleccione categoría" style="-fx-background-color: #F5F2EB; -fx-border-color: #BFB6A6; -fx-border-width: 1; -fx-border-radius: 6; -fx-background-radius: 6; -fx-text-fill: #11100B;" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-
-                                        <HBox spacing="20" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                                    </children>
-                                </GridPane>
+                                <Button fx:id="btnlimpiar" onAction="#fnlimpiar" text="Limpiar Formulario" styleClass="btn, btn-secondary"/>
+                                <Button fx:id="btnCancelar" onAction="#fnVolerMenu" text="Cancelar" styleClass="btn, btn-secondary"/>
+                                <Button fx:id="btnGuardar" onAction="#fnGuardarProducto" text="Guardar Producto" styleClass="btn, btn-primary"/>
                             </children>
-                        </VBox>
-
-                        <VBox spacing="16" style="-fx-background-color: #FFFFFF; -fx-padding: 24; -fx-border-color: #BFB6A6; -fx-border-width: 1; -fx-border-radius: 10; -fx-background-radius: 10; -fx-min-width: 450;">
-                            <children>
-                                <Label style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #CDB08E;" text="Valores Nutricionales (por 100g)" />
-                                <GridPane hgap="16" vgap="12">
-                                    <columnConstraints>
-                                        <ColumnConstraints halignment="RIGHT" hgrow="NEVER" minWidth="150" />
-                                        <ColumnConstraints hgrow="ALWAYS" />
-                                    </columnConstraints>
-
-                                    <children>
-                                        <Label style="-fx-text-fill: #4A4944;" text="Energía (kcal)" GridPane.rowIndex="0" />
-                                        <TextField fx:id="txtEnergia" promptText="0.00" style="-fx-background-color: #F5F2EB; -fx-text-fill: #11100B; -fx-border-color: #BFB6A6;" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-
-                                        <Label style="-fx-text-fill: #4A4944;" text="Proteínas (g)" GridPane.rowIndex="1" />
-                                        <TextField fx:id="txtProteinas" promptText="0.00" style="-fx-background-color: #F5F2EB; -fx-text-fill: #11100B; -fx-border-color: #BFB6A6;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-
-                                        <Label style="-fx-text-fill: #4A4944;" text="Carbohidratos (g)" GridPane.rowIndex="2" />
-                                        <TextField fx:id="txtCarbohidratos" promptText="0.00" style="-fx-background-color: #F5F2EB; -fx-text-fill: #11100B; -fx-border-color: #BFB6A6;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-
-                                        <Label style="-fx-text-fill: #4A4944;" text="Azúcares (g)" GridPane.rowIndex="3" />
-                                        <TextField fx:id="txtAzucares" promptText="0.00" style="-fx-background-color: #F5F2EB; -fx-text-fill: #11100B; -fx-border-color: #BFB6A6;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-
-                                        <Label style="-fx-text-fill: #4A4944;" text="Grasas totales (g)" GridPane.rowIndex="4" />
-                                        <TextField fx:id="txtGrasas" promptText="0.00" style="-fx-background-color: #F5F2EB; -fx-text-fill: #11100B; -fx-border-color: #BFB6A6;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-
-                                        <Label style="-fx-text-fill: #4A4944;" text="Grasas saturadas (g)" GridPane.rowIndex="5" />
-                                        <TextField fx:id="txtGrasasSaturadas" promptText="0.00" style="-fx-background-color: #F5F2EB; -fx-text-fill: #11100B; -fx-border-color: #BFB6A6;" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-
-                                        <Label style="-fx-text-fill: #4A4944;" text="Grasas trans (g)" GridPane.rowIndex="6" />
-                                        <TextField fx:id="txtGrasasTrans" promptText="0.00" style="-fx-background-color: #F5F2EB; -fx-text-fill: #11100B; -fx-border-color: #BFB6A6;" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-
-                                        <Label style="-fx-text-fill: #4A4944;" text="Fibra (g)" GridPane.rowIndex="7" />
-                                        <TextField fx:id="txtFibra" promptText="0.00" style="-fx-background-color: #F5F2EB; -fx-text-fill: #11100B; -fx-border-color: #BFB6A6;" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-
-                                        <Label style="-fx-text-fill: #4A4944;" text="Sodio (mg)" GridPane.rowIndex="8" />
-                                        <TextField fx:id="txtSodio" promptText="0.00" style="-fx-background-color: #F5F2EB; -fx-text-fill: #11100B; -fx-border-color: #BFB6A6;" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                                    </children>
-                                </GridPane>
-
-                                <HBox spacing="12" style="-fx-background-color: #F5F2EB; -fx-border-color: #CDB08E; -fx-border-width: 1; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 12; -fx-alignment: CENTER_LEFT;">
-                                    <children>
-                                        <Label style="-fx-font-size: 18px;" text="ℹ️" />
-                                        <Label maxWidth="340" style="-fx-text-fill: #4A4944; -fx-font-size: 12px;" text="Solo aplicable a productos terminados para venta directa" wrapText="true" />
-                                    </children>
-                                </HBox>
-                            </children>
-                        </VBox>
-                    </HBox>
-
-                    <HBox alignment="CENTER_RIGHT" spacing="16">
-                        <children>
-                            <Button fx:id="btnlimpiar" onAction="#fnlimpiar" style="-fx-background-color: #BFB6A6; -fx-text-fill: #11100B; -fx-font-size: 14px; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 11 28;" text="Limpiar Formulario" />
-                            <Button fx:id="btnCancelar" onAction="#fnVolerMenu" style="-fx-background-color: #BFB6A6; -fx-text-fill: #11100B; -fx-font-size: 14px; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 11 28;" text="Cancelar" />
-                            <Button fx:id="btnGuardar" onAction="#fnGuardarProducto" style="-fx-background-color: #CDB08E; -fx-text-fill: #11100B; -fx-font-size: 14px; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 11 28;" text="Guardar Producto" />
-                        </children>
-                    </HBox>
-
+                        </HBox>
+                    </children>
                 </VBox>
             </content>
         </ScrollPane>
     </center>
 
     <bottom>
-        <HBox alignment="CENTER" style="-fx-background-color: #CDB08E; -fx-padding: 12; -fx-border-color: #BFB6A6; -fx-border-width: 1 0 0 0;" />
+        <HBox alignment="CENTER" styleClass="footer-bar"/>
     </bottom>
 </BorderPane>
