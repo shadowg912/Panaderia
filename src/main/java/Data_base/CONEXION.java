@@ -7,20 +7,20 @@ import java.sql.PreparedStatement;
 
 public class CONEXION {
     Connection connection = null;
-   /*//conexion 2 para produccion
+   //conexion 2 para produccion
     String usuario = "sa";
     String contrasena = "J3sk0912";
     String db = "PANADERIA";
     String ip = "Localhost";
-    String puerto = "1433";*/
+    String puerto = "1433";
 
 
-    //conexion 1
+    /*/conexion 1
     String usuario = "sa";
     String contrasena = "J3sk0912SQL";
     String db = "PANADERIA";
     String ip = "100.93.3.29";
-    String puerto = "1433";
+    String puerto = "1433";*/
 
     String cadena = "jdbc:sqlserver//" + ip + "," + puerto + "/" + db;
 

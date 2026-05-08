@@ -10,6 +10,8 @@ import java.awt.*;
 public class menu_contoller {
    @FXML
     private Button btnRegistroProveedores;
+    @FXML
+    private Button btnVerInventario;
     AppNavigator appNavigator = new AppNavigator();
 
 
@@ -42,11 +44,18 @@ public class menu_contoller {
      }
     }
 
-    public void fnIrRegistrarProducto(ActionEvent actionEvent) {
-     try {
-      appNavigator.load("/view/Registrar_productos.fxml");
-     }catch (Exception e){
-     }
+public void fnIrRegistrarProducto(ActionEvent actionEvent) {
+      try {
+       appNavigator.load("/view/Registrar_productos.fxml");
+      }catch (Exception e){
+      }
+    }
+
+    public void fnIrVerInventario(ActionEvent actionEvent) {
+      try {
+       appNavigator.load("/view/Inventario.fxml");
+      }catch (Exception e){
+      }
     }
 
     public void fnIrRegistroRecetas(ActionEvent actionEvent) { try {

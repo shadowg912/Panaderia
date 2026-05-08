@@ -45,6 +45,7 @@
                                 <VBox spacing="15" styleClass="menu-card">
                                     <Label styleClass="card-title" text="INVENTARIO"/>
                                     <Button fx:id="btnRegistroProducto" maxWidth="Infinity" onAction="#fnIrRegistrarProducto" text="Registro Producto" styleClass="btn, btn-primary"/>
+                                    <Button fx:id="btnVerInventario" maxWidth="Infinity" onAction="#fnIrVerInventario" text="Ver Inventario" styleClass="btn, btn-ghost"/>
                                     <Button fx:id="btnRegistroProveedores" maxWidth="Infinity" onAction="#fnIrRegistroProveedores" text="Proveedores" styleClass="btn, btn-ghost"/>
                                     <Button fx:id="btnRegistroRecetas" maxWidth="Infinity" onAction="#fnIrRegistroRecetas" text="Recetas" styleClass="btn, btn-ghost"/>
                                 </VBox>
