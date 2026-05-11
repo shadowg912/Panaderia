@@ -69,7 +69,7 @@
                         <HBox alignment="CENTER_RIGHT" spacing="16">
                             <children>
                                 <Button fx:id="btnLimpiar" onAction="#fnLimpiar" text="Limpiar" styleClass="btn, btn-secondary"/>
-                                <Button fx:id="btnCancelar" onAction="#fnVolverMenu" text="Cancelar" styleClass="btn, btn-secondary"/>
+                                <Button fx:id="btnCancelar" onAction="#fnVolverMenu" text="Volver" styleClass="btn, btn-secondary"/>
                                 <Button fx:id="btnGuardar" onAction="#fnGuardarOrden" text="Generar Orden" styleClass="btn, btn-primary"/>
                             </children>
                         </HBox>

@@ -52,7 +52,7 @@
 
                 <HBox alignment="CENTER_RIGHT" spacing="20">
                     <children>
-                        <Button fx:id="btnCancelar" onAction="#fnCancelar" prefHeight="52" style="-fx-background-color: #ffffff; -fx-text-fill: #535659; -fx-font-size: 15px; -fx-border-color: #c2baab; -fx-border-width: 1; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 14 32;" text="Cancelar"/>
+                        <Button fx:id="btnCancelar" onAction="#fnCancelar" prefHeight="52" style="-fx-background-color: #ffffff; -fx-text-fill: #535659; -fx-font-size: 15px; -fx-border-color: #c2baab; -fx-border-width: 1; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 14 32;" text="Volver"/>
                         <Button fx:id="btnCrearOrden" onAction="#fnCrearOrden" prefHeight="52" style="-fx-background-color: #cdb08e; -fx-text-fill: #100e0a; -fx-font-size: 15px; -fx-font-weight: bold; -fx-background-radius: 10; -fx-padding: 14 32;" text="Crear Orden"/>
                     </children>
                 </HBox>

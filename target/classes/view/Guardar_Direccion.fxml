@@ -59,7 +59,7 @@
                         <HBox alignment="CENTER_RIGHT" spacing="16">
                             <children>
                                 <Button onAction="#fnLimpiarFormulario" text="Limpiar" styleClass="btn, btn-secondary, button-tall"/>
-                                <Button onAction="#fnVolverMenu" text="Cancelar" styleClass="btn, btn-secondary, button-tall"/>
+                                <Button onAction="#fnVolverMenu" text="Volver" styleClass="btn, btn-secondary, button-tall"/>
                                 <Button onAction="#fnGuardarDireccion" text="Guardar Dirección" styleClass="btn, btn-primary, button-tall"/>
                             </children>
                         </HBox>

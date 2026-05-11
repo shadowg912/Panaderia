@@ -108,7 +108,7 @@
                         <!-- BARRA DE ACCIONES -->
                         <HBox alignment="CENTER_RIGHT" maxWidth="980" spacing="12" style="-fx-padding: 0 0 20 0;">
                             <children>
-                                <Button onAction="#fnVolverMenu" prefHeight="44" prefWidth="160" styleClass="btn, btn-ghost" text="Cancelar"/>
+                                <Button onAction="#fnVolverMenu" prefHeight="44" prefWidth="160" styleClass="btn, btn-ghost" text="Volver"/>
                                 <Button onAction="#fnLimpiar" prefHeight="44" prefWidth="150" styleClass="btn, btn-secondary" text="Limpiar"/>
                                 <Button fx:id="btnGuardarReceta" onAction="#fnGuardarReceta" prefHeight="44" prefWidth="230" styleClass="btn, btn-primary" text="Guardar Receta"/>
                             </children>

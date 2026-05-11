@@ -91,7 +91,7 @@
                     <HBox alignment="CENTER_RIGHT" maxWidth="982" spacing="16">
                         <children>
                             <Button fx:id="btnLimpiar" onAction="#fnLimpiar" text="Limpiar" styleClass="btn, btn-secondary"/>
-                            <Button fx:id="btnVolverMenu" onAction="#fnVolvermenu" text="Cancelar" styleClass="btn, btn-secondary"/>
+                            <Button fx:id="btnVolverMenu" onAction="#fnVolvermenu" text="Volver" styleClass="btn, btn-secondary"/>
                             <Button fx:id="btnGuardar" onAction="#fnGuardar" text="Guardar Empresa" styleClass="btn, btn-primary"/>
                         </children>
                     </HBox>
