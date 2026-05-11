@@ -25,32 +25,29 @@
                     <HBox alignment="TOP_CENTER" spacing="28">
                         <VBox spacing="16" styleClass="card" style="-fx-min-width: 500;">
                             <children>
-                                <Label styleClass="card-title" text="Datos Personales"/>
-                                <GridPane styleClass="form-grid">
-                                    <columnConstraints>
-                                        <ColumnConstraints halignment="RIGHT" hgrow="NEVER" minWidth="150"/>
-                                        <ColumnConstraints hgrow="ALWAYS"/>
-                                    </columnConstraints>
-                                    <rowConstraints>
-                                        <RowConstraints/>
-                                        <RowConstraints/>
-                                        <RowConstraints/>
-                                        <RowConstraints/>
-                                        <RowConstraints/>
-                                    </rowConstraints>
+                                <Label styleClass="card-title" text="Empleado Asignado"/>
+                                <HBox spacing="12" alignment="CENTER_LEFT">
                                     <children>
-                                        <Label styleClass="form-label" text="Nombre *" GridPane.rowIndex="0"/>
-                                        <TextField fx:id="txtNombre" promptText="Ej: María González" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
-                                        <Label styleClass="form-label" text="Apellido *" GridPane.rowIndex="1"/>
-                                        <TextField fx:id="txtApellido" promptText="Ej: Pérez" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-                                        <Label styleClass="form-label" text="Correo *" GridPane.rowIndex="2"/>
-                                        <TextField fx:id="txtCorreo" promptText="usuario@panaderia.com" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-                                        <Label styleClass="form-label" text="Teléfono" GridPane.rowIndex="3"/>
-                                        <TextField fx:id="txtTelefono" promptText="809-000-0000" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-                                        <Label styleClass="form-label" text="Cargo / Puesto" GridPane.rowIndex="4"/>
-                                        <TextField fx:id="txtPuesto" promptText="Ej: Cajero, Supervisor" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+                                        <VBox spacing="6" prefWidth="120">
+                                            <children>
+                                                <Label styleClass="label-small" text="ID EMPLEADO"/>
+                                                <TextField fx:id="txtIdEmpleado" promptText="Ej: 1"/>
+                                            </children>
+                                        </VBox>
+                                        <VBox spacing="6" prefWidth="280">
+                                            <children>
+                                                <Label styleClass="label-small" text="NOMBRE DEL EMPLEADO"/>
+                                                <TextField fx:id="txtNombreEmpleado" editable="false" styleClass="text-readonly"/>
+                                            </children>
+                                        </VBox>
+                                        <VBox spacing="6">
+                                            <children>
+                                                <Label style="-fx-text-fill: transparent;" text="."/>
+                                                <Button fx:id="btnBuscarEmpleado" onAction="#fnBuscarEmpleado" prefHeight="42" styleClass="btn, btn-secondary" text="Buscar"/>
+                                            </children>
+                                        </VBox>
                                     </children>
-                                </GridPane>
+                                </HBox>
                             </children>
                         </VBox>
 
@@ -67,7 +64,6 @@
                                         <RowConstraints/>
                                         <RowConstraints/>
                                         <RowConstraints/>
-                                        <RowConstraints/>
                                     </rowConstraints>
                                     <children>
                                         <Label styleClass="form-label" text="Nombre de usuario *" GridPane.rowIndex="0"/>
@@ -78,13 +74,6 @@
                                         <PasswordField fx:id="txtConfirmarPassword" promptText="Repita la contraseña" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
                                         <Label styleClass="form-label" text="Rol *" GridPane.rowIndex="3"/>
                                         <ComboBox fx:id="cmbRol" promptText="Seleccione un rol" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-                                        <Label styleClass="form-label" text="Estado" GridPane.rowIndex="4"/>
-                                        <HBox spacing="20" GridPane.columnIndex="1" GridPane.rowIndex="4">
-                                            <children>
-                                                <RadioButton fx:id="rbActivo" selected="true" styleClass="radio-light" text="Activo"/>
-                                                <RadioButton fx:id="rbInactivo" styleClass="radio-light" text="Inactivo"/>
-                                            </children>
-                                        </HBox>
                                     </children>
                                 </GridPane>
                                 <HBox styleClass="info-box">
@@ -99,7 +88,6 @@
 
                     <HBox alignment="CENTER_RIGHT" spacing="16">
                         <children>
-                            <Button fx:id="btnCrearEmpleado" onAction="#fnCrearEmpleado" text="Crear Empleado" styleClass="btn, btn-success"/>
                             <Button fx:id="btnLimpiar" onAction="#fnLimpiar" text="Limpiar Formulario" styleClass="btn, btn-secondary"/>
                             <Button fx:id="btnCancelar" onAction="#fnVolverMenu" text="Cancelar" styleClass="btn, btn-secondary"/>
                             <Button fx:id="btnCrearUsuario" onAction="#fnCrearUsuario" text="Crear Usuario" styleClass="btn, btn-primary"/>

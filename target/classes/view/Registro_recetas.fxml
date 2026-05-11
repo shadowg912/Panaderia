@@ -67,10 +67,17 @@
                                             </children>
                                         </VBox>
 
-                                        <VBox spacing="6" prefWidth="160">
+                                        <VBox spacing="6" prefWidth="120">
                                             <children>
                                                 <Label styleClass="label-small" text="CANTIDAD"/>
                                                 <TextField fx:id="txtCantidadIngrediente" prefHeight="42" promptText="0.00"/>
+                                            </children>
+                                        </VBox>
+
+                                        <VBox spacing="6" prefWidth="140">
+                                            <children>
+                                                <Label styleClass="label-small" text="UNIDAD"/>
+                                                <ComboBox fx:id="cmbUnidad" prefHeight="42" promptText="Seleccionar..."/>
                                             </children>
                                         </VBox>
 

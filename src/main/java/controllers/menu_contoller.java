@@ -12,6 +12,8 @@ public class menu_contoller {
     private Button btnRegistroProveedores;
     @FXML
     private Button btnVerInventario;
+    @FXML
+    private Button btnCrearEmpleado;
     AppNavigator appNavigator = new AppNavigator();
 
 
@@ -84,11 +86,18 @@ public void fnIrRegistrarProducto(ActionEvent actionEvent) {
     }
     }
 
-    public void fnIrCrearUsuario(ActionEvent actionEvent) {
-     try {
-      appNavigator.load("/view/Creacio_usuario.fxml");
-     }catch (Exception e){
-     }
+public void fnIrCrearUsuario(ActionEvent actionEvent) {
+      try {
+       appNavigator.load("/view/Creacio_usuario.fxml");
+      }catch (Exception e){
+      }
+    }
+
+    public void fnIrCrearEmpleado(ActionEvent actionEvent) {
+      try {
+       appNavigator.load("/view/Crear_empleado.fxml");
+      }catch (Exception e){
+      }
     }
   public void fnirconfirmarorden(ActionEvent actionEvent) {
      try {
