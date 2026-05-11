@@ -99,26 +99,16 @@ public class Inventario_controller {
     private void cargarProductos() {
         listaProductos.clear();
 
-        String sql = "SELECT p.id_producto, p.nombre, p.precio_unitario, " +
-                   "cp.id_categoria_producto, cp.nombre as cat_nombre, " +
-                   "u.id_unidad, u.nombre as und_nombre " +
-                   "FROM PRODUCTO p " +
-                   "LEFT JOIN CATEGORIA_PRODUCTO cp ON p.id_categoria_producto = cp.id_categoria_producto " +
-                   "LEFT JOIN UNIDAD u ON p.id_unidad = u.id_unidad " +
-                   "ORDER BY p.nombre";
+        String sql = "SELECT id_producto, nombre, nombre_categoria, precio_unitario, nombre_unidad " +
+                   "FROM vw_productos_con_categoria_y_unidad " +
+                   "ORDER BY nombre";
 
         try (Connection connection = conexion.establecerconexio();
              PreparedStatement ps = connection.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
-                CategoriaProducto categoria = new CategoriaProducto(
-                    rs.getInt("id_categoria_producto"),
-                    rs.getString("cat_nombre")
-                );
-                Unidad unidad = new Unidad(
-                    rs.getInt("id_unidad"),
-                    rs.getString("und_nombre")
-                );
+                CategoriaProducto categoria = new CategoriaProducto(0, rs.getString("nombre_categoria"));
+                Unidad unidad = new Unidad(0, rs.getString("nombre_unidad"));
                 Producto producto = new Producto(
                     rs.getInt("id_producto"),
                     rs.getString("nombre"),
@@ -167,28 +157,24 @@ public class Inventario_controller {
         listaProductos.clear();
 
         StringBuilder sql = new StringBuilder(
-            "SELECT p.id_producto, p.nombre, p.precio_unitario, " +
-            "cp.id_categoria_producto, cp.nombre as cat_nombre, " +
-            "u.id_unidad, u.nombre as und_nombre " +
-            "FROM PRODUCTO p " +
-            "LEFT JOIN CATEGORIA_PRODUCTO cp ON p.id_categoria_producto = cp.id_categoria_producto " +
-            "LEFT JOIN UNIDAD u ON p.id_unidad = u.id_unidad " +
+            "SELECT id_producto, nombre, nombre_categoria, precio_unitario, nombre_unidad " +
+            "FROM vw_productos_con_categoria_y_unidad " +
             "WHERE 1=1 "
         );
 
         List<Object> parametros = new ArrayList<>();
 
         if (idCategoria > 0) {
-            sql.append(" AND p.id_categoria_producto = ? ");
+            sql.append(" AND id_categoria_producto = ? ");
             parametros.add(idCategoria);
         }
 
         if (textoBusqueda != null && !textoBusqueda.trim().isEmpty()) {
-            sql.append(" AND LOWER(p.nombre) LIKE ? ");
+            sql.append(" AND LOWER(nombre) LIKE ? ");
             parametros.add("%" + textoBusqueda.toLowerCase().trim() + "%");
         }
 
-        sql.append(" ORDER BY p.nombre");
+        sql.append(" ORDER BY nombre");
 
         try (Connection connection = conexion.establecerconexio();
              PreparedStatement ps = connection.prepareStatement(sql.toString())) {
@@ -199,14 +185,8 @@ public class Inventario_controller {
 
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                CategoriaProducto categoria = new CategoriaProducto(
-                    rs.getInt("id_categoria_producto"),
-                    rs.getString("cat_nombre")
-                );
-                Unidad unidad = new Unidad(
-                    rs.getInt("id_unidad"),
-                    rs.getString("und_nombre")
-                );
+                CategoriaProducto categoria = new CategoriaProducto(0, rs.getString("nombre_categoria"));
+                Unidad unidad = new Unidad(0, rs.getString("nombre_unidad"));
                 Producto producto = new Producto(
                     rs.getInt("id_producto"),
                     rs.getString("nombre"),

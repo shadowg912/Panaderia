@@ -139,7 +139,6 @@ public class Registro_recetas_controller {
         Ingrediente seleccionado = cmbIngrediente.getValue();
         String cantidadTexto     = txtCantidadIngrediente.getText().trim();
 
-
         if (seleccionado == null) {
             mostrarAdvertencia("Seleccione un ingrediente.");
             return;
@@ -158,7 +157,6 @@ public class Registro_recetas_controller {
             return;
         }
 
-
         boolean yaExiste = detalleReceta.stream()
                 .anyMatch(i -> i.getIdIngrediente() == seleccionado.getIdIngrediente());
         if (yaExiste) {
@@ -166,22 +164,18 @@ public class Registro_recetas_controller {
             return;
         }
 
+        String unidadMedida = seleccionado.getUnidad();
 
         Ingrediente entrada = new Ingrediente(
                 seleccionado.getIdIngrediente(),
                 seleccionado.getNombre(),
                 cantidad,
-                seleccionado.getUnidad()
+                unidadMedida
         );
 
         detalleReceta.add(entrada);
-
-        detalleReceta.add(entrada);
-
         tblRecetaDetalle.refresh();
 
-        cmbIngrediente.setValue(null);
-        txtCantidadIngrediente.clear();
         cmbIngrediente.setValue(null);
         txtCantidadIngrediente.clear();
     }
