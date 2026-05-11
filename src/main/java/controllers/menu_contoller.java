@@ -14,6 +14,8 @@ public class menu_contoller {
     private Button btnVerInventario;
     @FXML
     private Button btnCrearEmpleado;
+    @FXML
+    private Button btnAdminUsuarios;
     AppNavigator appNavigator = new AppNavigator();
 
 
@@ -96,6 +98,13 @@ public void fnIrCrearUsuario(ActionEvent actionEvent) {
     public void fnIrCrearEmpleado(ActionEvent actionEvent) {
       try {
        appNavigator.load("/view/Crear_empleado.fxml");
+      }catch (Exception e){
+      }
+    }
+
+    public void fnIrAdminUsuarios(ActionEvent actionEvent) {
+      try {
+       appNavigator.load("/view/Admin_usuarios.fxml");
       }catch (Exception e){
       }
     }
