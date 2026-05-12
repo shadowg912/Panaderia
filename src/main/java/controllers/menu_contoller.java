@@ -18,6 +18,8 @@ public class menu_contoller {
     private Button btnAdminUsuarios;
     @FXML
     private Button btnVerOrdenesProduccion;
+    @FXML
+    private Button btnGestionClientes;
     AppNavigator appNavigator = new AppNavigator();
 
 
@@ -123,6 +125,10 @@ public void fnIrCrearUsuario(ActionEvent actionEvent) {
      }catch (Exception e){}
   }
  public void fnIrGuardarDIrecciones(ActionEvent actionEvent) {
-     appNavigator.load("/view/Guardar_Direccion.fxml");
- }
+      appNavigator.load("/view/Guardar_Direccion.fxml");
+  }
+
+  public void fnIrGestionClientes(ActionEvent actionEvent) {
+      appNavigator.load("/view/Gestion_clientes.fxml");
+  }
 }

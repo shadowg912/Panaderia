@@ -2,8 +2,6 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.collections.FXCollections?>
-<?import java.lang.String?>
 
 <BorderPane prefHeight="720" prefWidth="1280"
             stylesheets="@Styles.css"
@@ -28,22 +26,33 @@
                         <VBox spacing="25" styleClass="card" style="-fx-min-width: 520;">
                             <children>
                                 <Label styleClass="card-title" text="DATOS DE ORIGEN"/>
-                                <GridPane styleClass="form-grid">
-                                    <columnConstraints>
-                                        <ColumnConstraints halignment="RIGHT" hgrow="NEVER" minWidth="140"/>
-                                        <ColumnConstraints hgrow="ALWAYS"/>
-                                    </columnConstraints>
-                                    <children>
-                                        <Label styleClass="form-label" text="ID Factura *" GridPane.rowIndex="0"/>
-                                        <TextField fx:id="txtIdFactura" promptText="Número de factura" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
 
-                                        <Label styleClass="form-label" text="ID Cliente *" GridPane.rowIndex="1"/>
-                                        <TextField fx:id="txtIdCliente" promptText="ID de empresa cliente" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                                <VBox spacing="12">
+                                    <Label styleClass="form-label" text="Órden de Venta *"/>
+                                    <TextField fx:id="txtDatosOrden" id="txtDatosOrden" editable="false" styleClass="text-readonly" promptText="Busque una orden..."/>
+                                    <HBox spacing="12" alignment="CENTER_LEFT">
+                                        <TextField fx:id="txtIdOrden" promptText="ID" prefWidth="80"/>
+                                        <Button fx:id="btnBuscarOrden" onAction="#fnBuscarOrden" text="Buscar" styleClass="btn, btn-secondary" prefHeight="42"/>
+                                    </HBox>
+                                </VBox>
 
-                                        <Label styleClass="form-label" text="ID Empleado" GridPane.rowIndex="2"/>
-                                        <TextField fx:id="txtIdEmpleado" promptText="ID del responsable" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-                                    </children>
-                                </GridPane>
+                                <VBox spacing="12">
+                                    <Label styleClass="form-label" text="Cliente *"/>
+                                    <HBox spacing="12" alignment="CENTER_LEFT">
+                                        <TextField fx:id="txtIdCliente" promptText="ID" prefWidth="80"/>
+                                        <TextField fx:id="txtNombreCliente" editable="false" styleClass="text-readonly" HBox.hgrow="ALWAYS" promptText="Busque un cliente..."/>
+                                        <Button fx:id="btnBuscarCliente" onAction="#fnBuscarCliente" text="Buscar" styleClass="btn, btn-secondary" prefHeight="42"/>
+                                    </HBox>
+                                </VBox>
+
+                                <VBox spacing="12">
+                                    <Label styleClass="form-label" text="Empleado Responsable"/>
+                                    <HBox spacing="12" alignment="CENTER_LEFT">
+                                        <TextField fx:id="txtIdEmpleado" promptText="ID" prefWidth="80"/>
+                                        <TextField fx:id="txtNombreEmpleado" editable="false" styleClass="text-readonly" HBox.hgrow="ALWAYS" promptText="Busque un empleado..."/>
+                                        <Button fx:id="btnBuscarEmpleado" onAction="#fnBuscarEmpleado" text="Buscar" styleClass="btn, btn-secondary" prefHeight="42"/>
+                                    </HBox>
+                                </VBox>
                             </children>
                         </VBox>
 
@@ -55,34 +64,20 @@
                                         <ColumnConstraints halignment="RIGHT" hgrow="NEVER" minWidth="140"/>
                                         <ColumnConstraints hgrow="ALWAYS"/>
                                     </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints/>
+                                        <RowConstraints/>
+                                        <RowConstraints/>
+                                    </rowConstraints>
                                     <children>
                                         <Label styleClass="form-label" text="Tipo *" GridPane.rowIndex="0"/>
-                                        <TextField fx:id="txtTipoReclamacion" promptText="Ej: Devolución" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                                        <ComboBox fx:id="cmbTipo" maxWidth="Infinity" prefHeight="48" GridPane.columnIndex="1" GridPane.rowIndex="0" promptText="Seleccione tipo"/>
 
                                         <Label styleClass="form-label" text="Estado *" GridPane.rowIndex="1"/>
-                                        <ComboBox fx:id="cmbEstado" maxWidth="Infinity" prefHeight="50.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                                            <items>
-                                                <FXCollections fx:factory="observableArrayList">
-                                                    <String fx:value="ABIERTA"/>
-                                                    <String fx:value="EN_PROCESO"/>
-                                                    <String fx:value="RESUELTA"/>
-                                                    <String fx:value="CERRADA"/>
-                                                </FXCollections>
-                                            </items>
-                                            <value><String fx:value="ABIERTA"/></value>
-                                        </ComboBox>
+                                        <ComboBox fx:id="cmbEstado" maxWidth="Infinity" prefHeight="48" GridPane.columnIndex="1" GridPane.rowIndex="1" promptText="Seleccione estado"/>
 
                                         <Label styleClass="form-label" text="Prioridad *" GridPane.rowIndex="2"/>
-                                        <ComboBox fx:id="cmbPrioridad" maxWidth="Infinity" prefHeight="50.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                                            <items>
-                                                <FXCollections fx:factory="observableArrayList">
-                                                    <String fx:value="BAJA"/>
-                                                    <String fx:value="MEDIA"/>
-                                                    <String fx:value="ALTA"/>
-                                                </FXCollections>
-                                            </items>
-                                            <value><String fx:value="MEDIA"/></value>
-                                        </ComboBox>
+                                        <ComboBox fx:id="cmbPrioridad" maxWidth="Infinity" prefHeight="48" GridPane.columnIndex="1" GridPane.rowIndex="2" promptText="Seleccione prioridad"/>
                                     </children>
                                 </GridPane>
                             </children>

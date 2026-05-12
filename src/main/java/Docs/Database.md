@@ -223,13 +223,13 @@ Estados:
 
 ---
 
-## EMPRESA_CLIENTE
+## CLIENTE
 
 Descripción:
 Empresas clientes de la panadería.
 
 Columnas:
-- id_empresa_cliente (PK)
+- id_cliente (PK)
 - razon_social
 - rnc
 - id_direccion (FK)

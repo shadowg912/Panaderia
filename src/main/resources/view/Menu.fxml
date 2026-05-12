@@ -59,6 +59,7 @@
                                 <VBox spacing="15" styleClass="menu-card">
                                     <Label styleClass="card-title" text="CLIENTES"/>
                                     <Button fx:id="btnRegistroCliente" maxWidth="Infinity" onAction="#fnIrRegistroCliente" text="Registro Cliente" styleClass="btn, btn-primary"/>
+                                    <Button fx:id="btnGestionClientes" maxWidth="Infinity" onAction="#fnIrGestionClientes" text="Gestionar Clientes" styleClass="btn, btn-ghost"/>
                                     <Button fx:id="btnReclamaciones" maxWidth="Infinity" onAction="#fnIrReclamaciones" text="Reclamaciones" styleClass="btn, btn-ghost"/>
                                 </VBox>
 

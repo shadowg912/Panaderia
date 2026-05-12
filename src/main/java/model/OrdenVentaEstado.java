@@ -9,7 +9,7 @@ public class OrdenVentaEstado {
     public static int idOrdenVenta;
     public static OrdenVenta ordenActual;
     public static List<DetalleOrdenVenta> detalles;
-    public static int    idEmpresaCliente;
+    public static int    idCliente;
     public static int    idFormaPago;
     public static String nombreCliente;
     public static String nombreFormaPago;
@@ -20,7 +20,7 @@ public class OrdenVentaEstado {
         detalles         = null;
         nombreCliente    = null;
         nombreFormaPago  = null;
-        idEmpresaCliente = 0;
+        idCliente = 0;
         idFormaPago      = 0;
         idOrdenVenta  = 0;
     }

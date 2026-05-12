@@ -507,3 +507,9 @@
     -fx-pref-height: 52;
     -fx-min-height: 52;
 }
+
+/* Campo de información de orden en reclamaciones */
+#txtDatosOrden {
+    -fx-pref-height: 84;
+    -fx-font-size: 14px;
+}

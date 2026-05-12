@@ -1,81 +1,199 @@
 package controllers;
 
 import Data_base.CONEXION;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import utils.AppNavigator;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class Reclamaciones_controller {
 
-    @FXML private TextField txtIdFactura;
+    @FXML private TextField txtIdOrden;
+    @FXML private TextField txtDatosOrden;
+    @FXML private Button btnBuscarOrden;
+
     @FXML private TextField txtIdCliente;
+    @FXML private TextField txtNombreCliente;
+    @FXML private Button btnBuscarCliente;
+
     @FXML private TextField txtIdEmpleado;
-    @FXML private TextField txtTipoReclamacion;
+    @FXML private TextField txtNombreEmpleado;
+    @FXML private Button btnBuscarEmpleado;
+
+    @FXML private ComboBox<String> cmbTipo;
     @FXML private ComboBox<String> cmbEstado;
     @FXML private ComboBox<String> cmbPrioridad;
     @FXML private TextArea txtMotivo;
-    @FXML private Button btnLimpiar;
-    @FXML private Button btnCancelar;
-    @FXML private Button btnGuardar;
 
-    CONEXION conexion = new CONEXION();
-    AppNavigator appNavigator = new AppNavigator();
+    private CONEXION conexion = new CONEXION();
+    private AppNavigator appNavigator = new AppNavigator();
+
+    private int idOrdenSeleccionada;
+    private int idClienteSeleccionado;
+    private int idEmpleadoSeleccionado;
 
     @FXML
     public void initialize() {
+        cmbTipo.setItems(FXCollections.observableArrayList("Devolución", "Cambio", "Queja", "Garantía"));
+        cmbEstado.setItems(FXCollections.observableArrayList("ABIERTA", "EN_PROCESO", "RESUELTA", "CERRADA"));
+        cmbPrioridad.setItems(FXCollections.observableArrayList("BAJA", "MEDIA", "ALTA"));
+
         cmbEstado.setValue("ABIERTA");
         cmbPrioridad.setValue("MEDIA");
     }
 
     @FXML
-    public void fnGuardarReclamacion(ActionEvent event) {
-        if (!validarCampos()) {
+    public void fnBuscarOrden(ActionEvent event) {
+        String idTexto = txtIdOrden.getText().trim();
+        if (idTexto.isEmpty()) {
+            mostrarAdvertencia("Ingrese el ID de la orden.");
             return;
         }
 
-        int idFactura = Integer.parseInt(txtIdFactura.getText().trim());
-        int idCliente = Integer.parseInt(txtIdCliente.getText().trim());
-        String tipo = txtTipoReclamacion.getText().trim();
+        int idOrden;
+        try {
+            idOrden = Integer.parseInt(idTexto);
+        } catch (NumberFormatException e) {
+            mostrarAdvertencia("El ID debe ser un número válido.");
+            return;
+        }
+
+        String sql = "SELECT ov.id_orden_venta, c.razon_social, ov.monto_total, ov.estado, ov.id_cliente " +
+                   "FROM ORDEN_VENTA ov " +
+                   "INNER JOIN CLIENTE c ON ov.id_cliente = c.id_cliente " +
+                   "WHERE ov.id_orden_venta = ?";
+
+        try (Connection conn = conexion.establecerconexio();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, idOrden);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                idOrdenSeleccionada = rs.getInt("id_orden_venta");
+                idClienteSeleccionado = rs.getInt("id_cliente");
+                String cliente = rs.getString("razon_social");
+                double total = rs.getDouble("monto_total");
+                String estado = rs.getString("estado");
+                txtDatosOrden.setText("Cliente: " + cliente + " | Total: RD$ " + String.format("%.2f", total) + " | Estado: " + estado);
+                txtIdCliente.setText(String.valueOf(idClienteSeleccionado));
+                txtNombreCliente.setText(cliente);
+            } else {
+                mostrarAdvertencia("No se encontró ninguna orden con ese ID.");
+                limpiarOrden();
+            }
+        } catch (SQLException e) {
+            mostrarError("Error al buscar orden: " + e.getMessage());
+        }
+    }
+
+    @FXML
+    public void fnBuscarCliente(ActionEvent event) {
+        String idTexto = txtIdCliente.getText().trim();
+        if (idTexto.isEmpty()) {
+            mostrarAdvertencia("Ingrese el ID del cliente.");
+            return;
+        }
+
+        int idCliente;
+        try {
+            idCliente = Integer.parseInt(idTexto);
+        } catch (NumberFormatException e) {
+            mostrarAdvertencia("El ID debe ser un número válido.");
+            return;
+        }
+
+        String sql = "SELECT id_cliente, razon_social FROM CLIENTE WHERE id_cliente = ?";
+
+        try (Connection conn = conexion.establecerconexio();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, idCliente);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                idClienteSeleccionado = rs.getInt("id_cliente");
+                txtNombreCliente.setText(rs.getString("razon_social"));
+            } else {
+                mostrarAdvertencia("No se encontró ningún cliente con ese ID.");
+                txtNombreCliente.clear();
+                idClienteSeleccionado = 0;
+            }
+        } catch (SQLException e) {
+            mostrarError("Error al buscar cliente: " + e.getMessage());
+        }
+    }
+
+    @FXML
+    public void fnBuscarEmpleado(ActionEvent event) {
+        String idTexto = txtIdEmpleado.getText().trim();
+        if (idTexto.isEmpty()) {
+            mostrarAdvertencia("Ingrese el ID del empleado.");
+            return;
+        }
+
+        int idEmpleado;
+        try {
+            idEmpleado = Integer.parseInt(idTexto);
+        } catch (NumberFormatException e) {
+            mostrarAdvertencia("El ID debe ser un número válido.");
+            return;
+        }
+
+        String sql = "SELECT id_empleado, nombre + ' ' + apellido1 as nombre_completo FROM EMPLEADO WHERE id_empleado = ?";
+
+        try (Connection conn = conexion.establecerconexio();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, idEmpleado);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                idEmpleadoSeleccionado = rs.getInt("id_empleado");
+                txtNombreEmpleado.setText(rs.getString("nombre_completo"));
+            } else {
+                mostrarAdvertencia("No se encontró ningún empleado con ese ID.");
+                txtNombreEmpleado.clear();
+                idEmpleadoSeleccionado = 0;
+            }
+        } catch (SQLException e) {
+            mostrarError("Error al buscar empleado: " + e.getMessage());
+        }
+    }
+
+    @FXML
+    public void fnGuardarReclamacion(ActionEvent event) {
+        if (!validarCampos()) return;
+
+        String tipo = cmbTipo.getValue();
         String estado = cmbEstado.getValue();
         String prioridad = cmbPrioridad.getValue();
         String motivo = txtMotivo.getText().trim();
 
-        Integer idEmpleado = null;
-        if (txtIdEmpleado.getText() != null && !txtIdEmpleado.getText().trim().isEmpty()) {
-            idEmpleado = Integer.parseInt(txtIdEmpleado.getText().trim());
-        }
-
-        int idReclamacion = insertarReclamacion(motivo, estado, tipo, prioridad, idFactura, idCliente, idEmpleado);
+        int idReclamacion = insertarReclamacion(motivo, estado, tipo, prioridad, idOrdenSeleccionada, idClienteSeleccionado, idEmpleadoSeleccionado > 0 ? idEmpleadoSeleccionado : null);
 
         if (idReclamacion > 0) {
-            System.out.println("Reclamacion guardada exitosamente con ID: " + idReclamacion);
+            mostrarInfo("Reclamación guardada exitosamente.\nID: " + idReclamacion);
             fnLimpiar();
         } else {
-            System.out.println("Error al guardar reclamacion");
+            mostrarError("Error al guardar la reclamación.");
         }
     }
 
     private int insertarReclamacion(String motivo, String estado, String tipo,
-                                    String prioridad, int idFactura, int idCliente,
+                                    String prioridad, int idOrden, int idCliente,
                                     Integer idEmpleado) {
-        String sql = "INSERT INTO RECLAMACION_VENTA (motivo, estado_actual, tipo_reclamacion, prioridad, id_factura_venta, id_empresa_cliente, id_empleado) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO RECLAMACION_VENTA (motivo, estado_actual, tipo_reclamacion, prioridad, id_orden_venta, id_cliente, id_empleado) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (Connection connection = conexion.establecerconexio();
-             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+             PreparedStatement ps = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, motivo);
             ps.setString(2, estado);
             ps.setString(3, tipo);
             ps.setString(4, prioridad);
-            ps.setInt(5, idFactura);
+            ps.setInt(5, idOrden);
             ps.setInt(6, idCliente);
             if (idEmpleado != null) {
                 ps.setInt(7, idEmpleado);
@@ -95,79 +213,74 @@ public class Reclamaciones_controller {
     }
 
     private boolean validarCampos() {
-        if (txtIdFactura.getText() == null || txtIdFactura.getText().trim().isEmpty()) {
-            System.out.println("El ID de factura es obligatorio");
+        if (idOrdenSeleccionada == 0) {
+            mostrarAdvertencia("Debe seleccionar una orden de venta válida.");
             return false;
         }
-        try {
-            Integer.parseInt(txtIdFactura.getText().trim());
-        } catch (NumberFormatException e) {
-            System.out.println("El ID de factura debe ser un numero valido");
+        if (idClienteSeleccionado == 0) {
+            mostrarAdvertencia("Debe seleccionar un cliente válido.");
             return false;
         }
-
-        if (txtIdCliente.getText() == null || txtIdCliente.getText().trim().isEmpty()) {
-            System.out.println("El ID de cliente es obligatorio");
+        if (cmbTipo.getValue() == null) {
+            mostrarAdvertencia("Debe seleccionar un tipo de reclamación.");
             return false;
         }
-        try {
-            Integer.parseInt(txtIdCliente.getText().trim());
-        } catch (NumberFormatException e) {
-            System.out.println("El ID de cliente debe ser un numero valido");
-            return false;
-        }
-
-        if (txtTipoReclamacion.getText() == null || txtTipoReclamacion.getText().trim().isEmpty()) {
-            System.out.println("El tipo de reclamacion es obligatorio");
-            return false;
-        }
-
         if (txtMotivo.getText() == null || txtMotivo.getText().trim().isEmpty()) {
-            System.out.println("El motivo es obligatorio");
+            mostrarAdvertencia("El motivo es obligatorio.");
             return false;
         }
-
-        if (cmbEstado.getValue() == null) {
-            System.out.println("Debe seleccionar un estado");
-            return false;
-        }
-
-        if (cmbPrioridad.getValue() == null) {
-            System.out.println("Debe seleccionar una prioridad");
-            return false;
-        }
-
-        if (txtIdEmpleado.getText() != null && !txtIdEmpleado.getText().trim().isEmpty()) {
-            try {
-                Integer.parseInt(txtIdEmpleado.getText().trim());
-            } catch (NumberFormatException e) {
-                System.out.println("El ID de empleado debe ser un numero valido");
-                return false;
-            }
-        }
-
         return true;
     }
 
     @FXML
     public void fnLimpiar() {
-        txtIdFactura.clear();
-        txtIdCliente.clear();
-        txtIdEmpleado.clear();
-        txtTipoReclamacion.clear();
+        limpiarOrden();
+        limpiarCliente();
+        limpiarEmpleado();
+        cmbTipo.setValue(null);
         cmbEstado.setValue("ABIERTA");
         cmbPrioridad.setValue("MEDIA");
         txtMotivo.clear();
-        System.out.println("Formulario limpiado");
     }
 
-    @FXML
-    public void fnLimpiar(ActionEvent event) {
-        fnLimpiar();
+    private void limpiarOrden() {
+        txtIdOrden.clear();
+        txtDatosOrden.clear();
+        idOrdenSeleccionada = 0;
+    }
+
+    private void limpiarCliente() {
+        txtIdCliente.clear();
+        txtNombreCliente.clear();
+        idClienteSeleccionado = 0;
+    }
+
+    private void limpiarEmpleado() {
+        txtIdEmpleado.clear();
+        txtNombreEmpleado.clear();
+        idEmpleadoSeleccionado = 0;
     }
 
     @FXML
     public void fnVolverMenu(ActionEvent event) {
         appNavigator.volverMenu();
+    }
+
+    private void mostrarAdvertencia(String mensaje) {
+        Alert a = new Alert(Alert.AlertType.WARNING, mensaje, ButtonType.OK);
+        a.setHeaderText(null);
+        a.showAndWait();
+    }
+
+    private void mostrarError(String mensaje) {
+        Alert a = new Alert(Alert.AlertType.ERROR, mensaje, ButtonType.OK);
+        a.setHeaderText(null);
+        a.showAndWait();
+    }
+
+    private void mostrarInfo(String mensaje) {
+        Alert a = new Alert(Alert.AlertType.INFORMATION, mensaje, ButtonType.OK);
+        a.setHeaderText(null);
+        a.showAndWait();
     }
 }

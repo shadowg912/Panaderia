@@ -9,7 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import model.Empresa_cliente;
+import model.Cliente;
 import model.Provincia;
 import utils.AppNavigator;
 
@@ -67,7 +67,7 @@ public class Regisro_empresa_controller {
 
     @FXML
     public void Guardarempresa(String nombre, String rnc, String telefono, String correo, int idDireccion) {
-        String sql = "INSERT INTO EMPRESA_CLIENTE(razon_social, rnc, telefono, correo_electronico, id_direccion) VALUES(?,?,?,?,?)";
+        String sql = "INSERT INTO CLIENTE(razon_social, rnc, telefono, correo_electronico, id_direccion) VALUES(?,?,?,?,?)";
         try (Connection connection = conexion.establecerconexio();
              PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, nombre);

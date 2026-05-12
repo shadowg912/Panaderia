@@ -9,8 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-import model.Empresa_cliente;
-import model.Empresa_cliente;
+import model.Cliente;
 import model.FormaPago;
 import model.OrdenVentaEstado;
 import utils.AppNavigator;
@@ -25,7 +24,7 @@ import java.time.LocalDate;
 
 public class Crear_ordenventa_controller {
 
-    @FXML private ComboBox<Empresa_cliente> cmbCliente;
+    @FXML private ComboBox<Cliente> cmbCliente;
     @FXML private ComboBox<FormaPago> cmbFormaPago;
     @FXML private DatePicker dpFechaEntrega;
     @FXML private TextField txtEstado;
@@ -34,16 +33,16 @@ public class Crear_ordenventa_controller {
 
     CONEXION conexion = new CONEXION();
     AppNavigator appNavigator = new AppNavigator();
-    ObservableList<Empresa_cliente> Clientes = FXCollections.observableArrayList();
+    ObservableList<Cliente> Clientes = FXCollections.observableArrayList();
     ObservableList<FormaPago> FormasPago = FXCollections.observableArrayList();
 
     public ObservableList cargarClientes() {
-        String sql = "SELECT id_empresa_cliente, razon_social FROM EMPRESA_CLIENTE ORDER BY razon_social";
+        String sql = "SELECT id_cliente, razon_social FROM CLIENTE ORDER BY razon_social";
         try (Connection connection = conexion.establecerconexio();
              PreparedStatement ps = connection.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Clientes.add(new Empresa_cliente(rs.getInt(1), rs.getString("razon_social")));
+                Clientes.add(new Cliente(rs.getInt(1), rs.getString("razon_social")));
             }
         } catch (Exception e) {
             System.out.println("Error cargando clientes: " + e.getMessage());
@@ -78,16 +77,16 @@ public class Crear_ordenventa_controller {
     public void fnCrearOrden(ActionEvent event) {
         if (!validarCampos()) return;
 
-        int idEmpresaCliente = cmbCliente.getValue().getIdEmpresaCliente();
+        int idCliente = cmbCliente.getValue().getIdCliente();
         int idFormaPago = cmbFormaPago.getValue().getIdFormaPago();
         Date fechaEntrega = dpFechaEntrega.getValue() != null ? Date.valueOf(dpFechaEntrega.getValue()) : null;
 
-        int idOrden = insertarOrden(idEmpresaCliente, idFormaPago, fechaEntrega);
+        int idOrden = insertarOrden(idCliente, idFormaPago, fechaEntrega);
 
         if (idOrden > 0) {
 
             OrdenVentaEstado.idOrdenVenta = idOrden;
-            OrdenVentaEstado.idEmpresaCliente = idEmpresaCliente;
+            OrdenVentaEstado.idCliente = idCliente;
             OrdenVentaEstado.nombreCliente = cmbCliente.getValue().getNombre(); // o getRazonSocial()
             OrdenVentaEstado.idFormaPago = idFormaPago;
             OrdenVentaEstado.nombreFormaPago = cmbFormaPago.getValue().getNombre();
@@ -98,11 +97,11 @@ public class Crear_ordenventa_controller {
             System.out.printf("Error al crear la orden");
         }
     }
-    private int insertarOrden(int idEmpresaCliente, int idFormaPago, Date fechaEntrega) {
-        String sql = "INSERT INTO ORDEN_VENTA (id_empresa_cliente, estado, fecha_orden, id_forma_pago, fecha_entrega) VALUES (?, 'PENDIENTE', GETDATE(), ?, ?)";
+    private int insertarOrden(int idCliente, int idFormaPago, Date fechaEntrega) {
+        String sql = "INSERT INTO ORDEN_VENTA (id_cliente, estado, fecha_orden, id_forma_pago, fecha_entrega) VALUES (?, 'PENDIENTE', GETDATE(), ?, ?)";
         try (Connection connection = conexion.establecerconexio();
              PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            ps.setInt(1, idEmpresaCliente);
+            ps.setInt(1, idCliente);
             ps.setInt(2, idFormaPago);
             if (fechaEntrega != null) {
                 ps.setDate(3, fechaEntrega);

@@ -1,7 +1,5 @@
 package model;
 
-import javafx.application.Application;
-
 import java.sql.Timestamp;
 
 public class Reclamaciones {
@@ -11,23 +9,23 @@ public class Reclamaciones {
     private String estadoActual;
     private String tipoReclamacion;
     private String prioridad;
-    private int idFacturaVenta;
-    private int idEmpresaCliente;
+    private int idOrdenVenta;
+    private int idCliente;
     private Integer idEmpleado;
 
     public Reclamaciones() {}
 
     public Reclamaciones(int idReclamacionVenta, Timestamp fecha, String motivo,
                             String estadoActual, String tipoReclamacion, String prioridad,
-                            int idFacturaVenta, int idEmpresaCliente, Integer idEmpleado) {
+                            int idOrdenVenta, int idCliente, Integer idEmpleado) {
         this.idReclamacionVenta = idReclamacionVenta;
         this.fecha = fecha;
         this.motivo = motivo;
         this.estadoActual = estadoActual;
         this.tipoReclamacion = tipoReclamacion;
         this.prioridad = prioridad;
-        this.idFacturaVenta = idFacturaVenta;
-        this.idEmpresaCliente = idEmpresaCliente;
+        this.idOrdenVenta = idOrdenVenta;
+        this.idCliente = idCliente;
         this.idEmpleado = idEmpleado;
     }
 
@@ -49,11 +47,11 @@ public class Reclamaciones {
     public String getPrioridad() { return prioridad; }
     public void setPrioridad(String prioridad) { this.prioridad = prioridad; }
 
-    public int getIdFacturaVenta() { return idFacturaVenta; }
-    public void setIdFacturaVenta(int idFacturaVenta) { this.idFacturaVenta = idFacturaVenta; }
+    public int getIdOrdenVenta() { return idOrdenVenta; }
+    public void setIdOrdenVenta(int idOrdenVenta) { this.idOrdenVenta = idOrdenVenta; }
 
-    public int getIdEmpresaCliente() { return idEmpresaCliente; }
-    public void setIdEmpresaCliente(int idEmpresaCliente) { this.idEmpresaCliente = idEmpresaCliente; }
+    public int getIdCliente() { return idCliente; }
+    public void setIdCliente(int idCliente) { this.idCliente = idCliente; }
 
     public Integer getIdEmpleado() { return idEmpleado; }
     public void setIdEmpleado(Integer idEmpleado) { this.idEmpleado = idEmpleado; }

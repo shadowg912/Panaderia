@@ -5,7 +5,7 @@ import java.sql.Date;
 
 public class OrdenVenta {
     private int idOrdenVenta;
-    private int idEmpresaCliente;
+    private int idCliente;
     private String estado;
     private Date fechaOrden;
     private Integer idFormaPago;
@@ -17,11 +17,11 @@ public class OrdenVenta {
 
     public OrdenVenta() {}
 
-    public OrdenVenta(int idOrdenVenta, int idEmpresaCliente, String estado, Date fechaOrden,
+    public OrdenVenta(int idOrdenVenta, int idCliente, String estado, Date fechaOrden,
                       Integer idFormaPago, Double subtotal, Double itbis, Double montoTotal,
                       Date fechaEntrega, String motivoCancelacion) {
         this.idOrdenVenta = idOrdenVenta;
-        this.idEmpresaCliente = idEmpresaCliente;
+        this.idCliente = idCliente;
         this.estado = estado;
         this.fechaOrden = fechaOrden;
         this.idFormaPago = idFormaPago;
@@ -35,8 +35,8 @@ public class OrdenVenta {
     public int getIdOrdenVenta() { return idOrdenVenta; }
     public void setIdOrdenVenta(int idOrdenVenta) { this.idOrdenVenta = idOrdenVenta; }
 
-    public int getIdEmpresaCliente() { return idEmpresaCliente; }
-    public void setIdEmpresaCliente(int idEmpresaCliente) { this.idEmpresaCliente = idEmpresaCliente; }
+    public int getIdCliente() { return idCliente; }
+    public void setIdCliente(int idCliente) { this.idCliente = idCliente; }
 
     public String getEstado() { return estado; }
     public void setEstado(String estado) { this.estado = estado; }

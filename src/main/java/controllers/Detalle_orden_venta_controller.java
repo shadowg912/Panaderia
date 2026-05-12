@@ -220,7 +220,7 @@ public class Detalle_orden_venta_controller implements Initializable {
         // Usar los datos que ya guardaste en Crear_ordenventa_controller
         OrdenVenta ordenEstado = new OrdenVenta();
         ordenEstado.setIdOrdenVenta(idOrdenActual);
-        ordenEstado.setIdEmpresaCliente(OrdenVentaEstado.idEmpresaCliente); // ← CRÍTICO
+        ordenEstado.setIdCliente(OrdenVentaEstado.idCliente); // ← CRÍTICO
         ordenEstado.setIdFormaPago(OrdenVentaEstado.idFormaPago);
         ordenEstado.setSubtotal(subtotalAcumulado);
         ordenEstado.setItbis(itbisAcumulado);

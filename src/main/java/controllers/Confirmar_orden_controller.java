@@ -166,7 +166,7 @@ public class Confirmar_orden_controller {
     private int emitirEnBD(OrdenVenta orden, List<DetalleOrdenVenta> detalles) {
         String sqlOrden =
                 "INSERT INTO ORDEN_VENTA " +
-                        "(id_empresa_cliente, estado, fecha_orden, id_forma_pago, subtotal, itbis, monto_total, fecha_entrega) " +
+                        "(id_cliente, estado, fecha_orden, id_forma_pago, subtotal, itbis, monto_total, fecha_entrega) " +
                         "VALUES (?, 'PENDIENTE', ?, ?, ?, ?, ?, ?)";
 
         String sqlDetalle =
@@ -183,7 +183,7 @@ public class Confirmar_orden_controller {
             try (PreparedStatement psOrden =
                          con.prepareStatement(sqlOrden, Statement.RETURN_GENERATED_KEYS)) {
 
-                psOrden.setInt(1, orden.getIdEmpresaCliente());
+                psOrden.setInt(1, orden.getIdCliente());
                 psOrden.setDate(2, Date.valueOf(LocalDate.now()));
             
                 if (orden.getIdFormaPago() != null) {
