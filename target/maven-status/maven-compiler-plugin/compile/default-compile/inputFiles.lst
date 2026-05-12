@@ -22,6 +22,7 @@
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/controllers/Registro_proveedor_controller.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/controllers/Registro_recetas_controller.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/controllers/Seguimento_envio_controller.java
+/home/shadowg912/IdeaProjects/Panaderia/src/main/java/controllers/Ver_ordenes_produccion_controller.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/controllers/menu_contoller.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/CategoriaIngrediente.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/CategoriaProducto.java

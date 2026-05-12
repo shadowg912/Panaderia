@@ -1,69 +1,49 @@
 package model;
 
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 
 import java.math.BigDecimal;
-import java.sql.Date;
-import java.sql.Timestamp;
+import java.util.Date;
 
-    public class OrdenProduccion {
-        private int idOrdenProduccion;
-        private Producto producto;
-        private Empleado empleado;
-        private BigDecimal cantidadPlanificada;
-        private Date fechaProduccion;
-        private String estado;
-        private Timestamp fechaRegistro;
+public class OrdenProduccion {
+    private final SimpleIntegerProperty idOrdenProduccion;
+    private final SimpleStringProperty nombreProducto;
+    private final SimpleStringProperty nombreEmpleado;
+    private final SimpleStringProperty cantidadTexto;
+    private final SimpleStringProperty fechaTexto;
+    private final SimpleStringProperty estado;
 
-        public OrdenProduccion() {}
-
-        public OrdenProduccion(int idOrdenProduccion, Producto producto, Empleado empleado,
-                               BigDecimal cantidadPlanificada, Date fechaProduccion,
-                               String estado, Timestamp fechaRegistro) {
-            this.idOrdenProduccion = idOrdenProduccion;
-            this.producto = producto;
-            this.empleado = empleado;
-            this.cantidadPlanificada = cantidadPlanificada;
-            this.fechaProduccion = fechaProduccion;
-            this.estado = estado;
-            this.fechaRegistro = fechaRegistro;
-        }
-
-        // Constructor para insertar (sin ID ni fechas automáticas)
-        public OrdenProduccion(Producto producto, Empleado empleado,
-                               BigDecimal cantidadPlanificada, String estado) {
-            this.producto = producto;
-            this.empleado = empleado;
-            this.cantidadPlanificada = cantidadPlanificada;
-            this.estado = estado;
-        }
-
-        public int getIdOrdenProduccion() { return idOrdenProduccion; }
-        public void setIdOrdenProduccion(int idOrdenProduccion) { this.idOrdenProduccion = idOrdenProduccion; }
-
-        public Producto getProducto() { return producto; }
-        public void setProducto(Producto producto) { this.producto = producto; }
-
-        public int getIdProducto() {
-            return producto != null ? producto.getIdProducto() : 0;
-        }
-
-        public Empleado getEmpleado() { return empleado; }
-        public void setEmpleado(Empleado empleado) { this.empleado = empleado; }
-
-        public int getIdEmpleado() {
-            return empleado != null ? empleado.getIdEmpleado() : 0;
-        }
-
-        public BigDecimal getCantidadPlanificada() { return cantidadPlanificada; }
-        public void setCantidadPlanificada(BigDecimal cantidadPlanificada) { this.cantidadPlanificada = cantidadPlanificada; }
-
-        public Date getFechaProduccion() { return fechaProduccion; }
-        public void setFechaProduccion(Date fechaProduccion) { this.fechaProduccion = fechaProduccion; }
-
-        public String getEstado() { return estado; }
-        public void setEstado(String estado) { this.estado = estado; }
-
-        public Timestamp getFechaRegistro() { return fechaRegistro; }
-        public void setFechaRegistro(Timestamp fechaRegistro) { this.fechaRegistro = fechaRegistro; }
+    public OrdenProduccion() {
+        this.idOrdenProduccion = new SimpleIntegerProperty(0);
+        this.nombreProducto = new SimpleStringProperty("");
+        this.nombreEmpleado = new SimpleStringProperty("");
+        this.cantidadTexto = new SimpleStringProperty("");
+        this.fechaTexto = new SimpleStringProperty("");
+        this.estado = new SimpleStringProperty("");
     }
 
+    public int getIdOrdenProduccion() { return idOrdenProduccion.get(); }
+    public void setIdOrdenProduccion(int value) { idOrdenProduccion.set(value); }
+    public SimpleIntegerProperty idOrdenProduccionProperty() { return idOrdenProduccion; }
+
+    public String getNombreProducto() { return nombreProducto.get(); }
+    public void setNombreProducto(String value) { nombreProducto.set(value); }
+    public SimpleStringProperty nombreProductoProperty() { return nombreProducto; }
+
+    public String getNombreEmpleado() { return nombreEmpleado.get(); }
+    public void setNombreEmpleado(String value) { nombreEmpleado.set(value); }
+    public SimpleStringProperty nombreEmpleadoProperty() { return nombreEmpleado; }
+
+    public String getCantidadTexto() { return cantidadTexto.get(); }
+    public void setCantidadTexto(String value) { cantidadTexto.set(value); }
+    public SimpleStringProperty cantidadTextoProperty() { return cantidadTexto; }
+
+    public String getFechaTexto() { return fechaTexto.get(); }
+    public void setFechaTexto(String value) { fechaTexto.set(value); }
+    public SimpleStringProperty fechaTextoProperty() { return fechaTexto; }
+
+    public String getEstado() { return estado.get(); }
+    public void setEstado(String value) { estado.set(value); }
+    public SimpleStringProperty estadoProperty() { return estado; }
+}

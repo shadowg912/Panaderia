@@ -52,7 +52,8 @@
 
                                 <VBox spacing="15" styleClass="menu-card">
                                     <Label styleClass="card-title" text="PRODUCCIÓN"/>
-                                    <Button fx:id="btnOrdenProduccion" maxWidth="Infinity" onAction="#fnIrOrdenProduccion" text="Orden de Producción" styleClass="btn, btn-primary"/>
+                                    <Button fx:id="btnOrdenProduccion" maxWidth="Infinity" onAction="#fnIrOrdenProduccion" text="Nueva Orden" styleClass="btn, btn-primary"/>
+                                    <Button fx:id="btnVerOrdenesProduccion" maxWidth="Infinity" onAction="#fnIrVerOrdenesProduccion" text="Ver Órdenes" styleClass="btn, btn-ghost"/>
                                 </VBox>
 
                                 <VBox spacing="15" styleClass="menu-card">

@@ -42,7 +42,28 @@
 
                                         <VBox spacing="8" GridPane.columnIndex="1">
                                             <Label styleClass="form-label" text="Empleado Responsable *"/>
-                                            <ComboBox fx:id="cmbEmpleado" maxWidth="Infinity" promptText="Asignar empleado..."/>
+                                            <HBox spacing="12">
+                                                <children>
+                                                    <VBox spacing="5" prefWidth="100">
+                                                        <children>
+                                                            <Label styleClass="label-small" text="ID"/>
+                                                            <TextField fx:id="txtIdEmpleado" promptText="ID"/>
+                                                        </children>
+                                                    </VBox>
+                                                    <VBox spacing="5" HBox.hgrow="ALWAYS">
+                                                        <children>
+                                                            <Label styleClass="label-small" text="NOMBRE"/>
+                                                            <TextField fx:id="txtNombreEmpleado" editable="false" styleClass="text-readonly"/>
+                                                        </children>
+                                                    </VBox>
+                                                    <VBox spacing="5">
+                                                        <children>
+                                                            <Label style="-fx-text-fill: transparent;" text="."/>
+                                                            <Button fx:id="btnBuscarEmpleado" onAction="#fnBuscarEmpleado" text="Buscar" styleClass="btn, btn-secondary"/>
+                                                        </children>
+                                                    </VBox>
+                                                </children>
+                                            </HBox>
                                         </VBox>
 
                                         <VBox spacing="8" GridPane.rowIndex="1" GridPane.columnIndex="0">
@@ -56,13 +77,6 @@
                                         </VBox>
                                     </children>
                                 </GridPane>
-
-                                <HBox styleClass="info-box">
-                                    <children>
-                                        <Label style="-fx-font-size: 18px;" text="ℹ️"/>
-                                        <Label text="La fecha de registro se asigna automáticamente al momento de crear la orden." wrapText="true"/>
-                                    </children>
-                                </HBox>
                             </children>
                         </VBox>
 
