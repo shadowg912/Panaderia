@@ -42,6 +42,8 @@ public class Registro_producto_controller {
     private ComboBox<CategoriaProducto> cmbCategoria;
     @FXML
     private ComboBox<Unidad> cmbUnidad;
+    @FXML
+    private ComboBox<String> cmbTipoProducto;
     CONEXION conexion = new CONEXION();
     Connection connection = null;
     AppNavigator appNavigator = new AppNavigator();
@@ -62,6 +64,7 @@ public class Registro_producto_controller {
         txtNombre.clear();
         cmbCategoria.getSelectionModel().clearSelection();
         cmbUnidad.getSelectionModel().clearSelection();
+        cmbTipoProducto.getSelectionModel().clearSelection();
 
 
     }
@@ -106,20 +109,24 @@ public class Registro_producto_controller {
     }
     ObservableList<CategoriaProducto> Categoria = FXCollections.observableArrayList();
     ObservableList<Unidad> Unidades= FXCollections.observableArrayList();
+    ObservableList<String> TiposProducto = FXCollections.observableArrayList(
+            "PRODUCTO_TERMINADO", "MATERIA_PRIMA", "MATERIAL_EMPAQUE"
+    );
     @FXML
     public void initialize(){
         cmbUnidad.setItems(cargarUnidad());
         cmbCategoria.setItems(CargarCategoria());
-
+        cmbTipoProducto.setItems(TiposProducto);
     }
 
-    public void InsertarProducto(String nombre, Unidad unidad, float precio, CategoriaProducto categoria){
-        String sql="INSERT INTO PRODUCTO(nombre,id_categoria_producto, precio_unitario, id_unidad)values(?,?,?,?) ";
+    public void InsertarProducto(String nombre, Unidad unidad, float precio, CategoriaProducto categoria, String tipoProducto){
+        String sql="INSERT INTO PRODUCTO(nombre,id_categoria_producto, precio_unitario, id_unidad, tipo_producto)values(?,?,?,?,?) ";
         try (Connection connection = conexion.establecerconexio(); PreparedStatement ps = connection.prepareStatement(sql)){
             ps.setString(1, nombre);
             ps.setInt(2,categoria.getIdCategoriaProducto());
             ps.setBigDecimal(3, new BigDecimal(precio));
             ps.setInt(4,unidad.getIdUnidad());
+            ps.setString(5, tipoProducto);
             ps.executeUpdate();
             System.out.println("Producto insertado correctamente");
         }catch (SQLException e){
@@ -133,6 +140,7 @@ public class Registro_producto_controller {
             String nombre = txtNombre.getText();
             Unidad unidad = cmbUnidad.getValue();
             CategoriaProducto categoria = cmbCategoria.getValue();
+            String tipoProducto = cmbTipoProducto.getValue();
 
             int idProducto = obtenerUltimoIdProducto();
             float precio = Float.parseFloat(txtPrecio.getText());
@@ -155,7 +163,7 @@ public class Registro_producto_controller {
 
             insertarValorNutricional(vn);
 
-            InsertarProducto(nombre, unidad, precio, categoria);
+            InsertarProducto(nombre, unidad, precio, categoria, tipoProducto);
             fnlimpiar();
 
         } catch (NumberFormatException e) {

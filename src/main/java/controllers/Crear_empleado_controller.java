@@ -17,7 +17,6 @@ public class Crear_empleado_controller {
     @FXML private TextField txtApellido1;
     @FXML private TextField txtApellido2;
     @FXML private TextField txtTelefono;
-    @FXML private TextField txtPuesto;
     @FXML private Button btnLimpiar;
     @FXML private Button btnCancelar;
     @FXML private Button btnCrearEmpleado;
@@ -39,9 +38,8 @@ public class Crear_empleado_controller {
         String apellido1 = txtApellido1.getText().trim();
         String apellido2 = txtApellido2.getText().trim();
         String telefono = txtTelefono.getText().trim();
-        String puesto = txtPuesto.getText().trim();
 
-        int idEmpleado = insertarEmpleado(nombre, apellido1, apellido2, telefono, puesto);
+        int idEmpleado = insertarEmpleado(nombre, apellido1, apellido2, telefono);
         if (idEmpleado > 0) {
             mostrarInfo("Empleado creado exitosamente.\nID: " + idEmpleado);
             fnLimpiar();
@@ -50,15 +48,14 @@ public class Crear_empleado_controller {
         }
     }
 
-    private int insertarEmpleado(String nombre, String apellido1, String apellido2, String telefono, String puesto) {
-        String sql = "INSERT INTO EMPLEADO (nombre, apellido1, apellido2, numero_telefono, puesto) VALUES (?, ?, ?, ?, ?)";
+    private int insertarEmpleado(String nombre, String apellido1, String apellido2, String telefono) {
+        String sql = "INSERT INTO EMPLEADO (nombre, apellido1, apellido2, numero_telefono) VALUES (?, ?, ?, ?)";
         try (Connection connection = conexion.establecerconexio();
              PreparedStatement ps = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, nombre);
             ps.setString(2, apellido1);
             ps.setString(3, apellido2.isEmpty() ? null : apellido2);
             ps.setString(4, telefono.isEmpty() ? null : telefono);
-            ps.setString(5, puesto.isEmpty() ? null : puesto);
             ps.executeUpdate();
 
             ResultSet rs = ps.getGeneratedKeys();
@@ -89,7 +86,6 @@ public class Crear_empleado_controller {
         txtApellido1.clear();
         txtApellido2.clear();
         txtTelefono.clear();
-        txtPuesto.clear();
     }
 
     @FXML

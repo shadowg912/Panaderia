@@ -35,7 +35,6 @@
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/Empleado.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/Factura.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/FormaPago.java
-/home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/Ingrediente.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/OrdenProduccion.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/OrdenVenta.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/OrdenVentaEstado.java
@@ -43,7 +42,7 @@
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/Producto.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/Proveedor.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/Provincia.java
-/home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/RecetaProducto.java
+/home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/RecetaDetalle.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/Reclamaciones.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/Rol.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/Sector.java

@@ -7,3 +7,4 @@ controllers/Crear_empleado_controller.class
 controllers/Gestion_clientes_controller.class
 controllers/Ver_ordenes_produccion_controller$1.class
 controllers/Admin_usuarios_controller$1.class
+model/RecetaDetalle.class

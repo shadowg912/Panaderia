@@ -51,6 +51,8 @@
                                             <TextField fx:id="txtPrecio" prefHeight="38.0" prefWidth="291.0" promptText="0.00" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
                                             <Label styleClass="form-label" text="Categoría" GridPane.rowIndex="5"/>
                                             <ComboBox fx:id="cmbCategoria" maxWidth="Infinity" prefHeight="43.0" prefWidth="291.0" promptText="Seleccione categoría" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+                                            <Label styleClass="form-label" text="Tipo de Producto" GridPane.rowIndex="4"/>
+                                            <ComboBox fx:id="cmbTipoProducto" maxWidth="Infinity" prefHeight="42.0" promptText="Seleccione tipo" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
                                             <HBox spacing="20" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
                                         </children>
                                     </GridPane>

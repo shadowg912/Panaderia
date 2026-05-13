@@ -186,7 +186,7 @@ public class Reclamaciones_controller {
     private int insertarReclamacion(String motivo, String estado, String tipo,
                                     String prioridad, int idOrden, int idCliente,
                                     Integer idEmpleado) {
-        String sql = "INSERT INTO RECLAMACION_VENTA (motivo, estado_actual, tipo_reclamacion, prioridad, id_orden_venta, id_cliente, id_empleado) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO RECLAMACION_VENTA (motivo, estado_actual, tipo_reclamacion, prioridad, id_orden_venta, id_empresa_cliente, id_empleado) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (Connection connection = conexion.establecerconexio();
              PreparedStatement ps = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, motivo);

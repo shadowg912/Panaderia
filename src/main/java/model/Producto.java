@@ -10,6 +10,7 @@ public class Producto {
     private CategoriaProducto categoriaProducto;
     private BigDecimal precioUnitario;
     private Unidad unidad;
+    private String tipoProducto;
 
     private final SimpleStringProperty nombreDisplay;
     private final SimpleStringProperty categoriaDisplay;
@@ -58,6 +59,9 @@ public class Producto {
 
     public Unidad getUnidad() { return unidad; }
     public void setUnidad(Unidad unidad) { this.unidad = unidad; }
+
+    public String getTipoProducto() { return tipoProducto; }
+    public void setTipoProducto(String tipoProducto) { this.tipoProducto = tipoProducto; }
 
     public int getIdCategoriaProducto() {
         return categoriaProducto != null ? categoriaProducto.getIdCategoriaProducto() : 0;

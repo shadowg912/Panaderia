@@ -6,18 +6,16 @@ public class Empleado {
     private String apellido1;
     private String apellido2;
     private String numeroTelefono;
-    private String puesto;
 
     public Empleado() {}
 
     public Empleado(int idEmpleado, String nombre, String apellido1, String apellido2,
-                    String numeroTelefono, String puesto) {
+                    String numeroTelefono) {
         this.idEmpleado = idEmpleado;
         this.nombre = nombre;
         this.apellido1 = apellido1;
         this.apellido2 = apellido2;
         this.numeroTelefono = numeroTelefono;
-        this.puesto = puesto;
     }
 
     // Constructor simplificado para ComboBox
@@ -42,10 +40,6 @@ public class Empleado {
     public String getNumeroTelefono() { return numeroTelefono; }
     public void setNumeroTelefono(String numeroTelefono) { this.numeroTelefono = numeroTelefono; }
 
-    public String getPuesto() { return puesto; }
-    public void setPuesto(String puesto) { this.puesto = puesto; }
-
-    // Para mostrar en ComboBox: "Juan Pérez"
     public String getNombreCompleto() {
         if (apellido2 != null && !apellido2.isEmpty()) {
             return nombre + " " + apellido1 + " " + apellido2;

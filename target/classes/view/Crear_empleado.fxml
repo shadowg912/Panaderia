@@ -35,7 +35,6 @@
                                     <RowConstraints/>
                                     <RowConstraints/>
                                     <RowConstraints/>
-                                    <RowConstraints/>
                                 </rowConstraints>
                                 <children>
                                     <Label styleClass="form-label" text="Nombre *" GridPane.rowIndex="0"/>
@@ -49,9 +48,6 @@
 
                                     <Label styleClass="form-label" text="Teléfono" GridPane.rowIndex="3"/>
                                     <TextField fx:id="txtTelefono" promptText="Ej: 809-000-0000" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-
-                                    <Label styleClass="form-label" text="Puesto / Cargo" GridPane.rowIndex="4"/>
-                                    <TextField fx:id="txtPuesto" promptText="Ej: Cajero, Supervisor" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
                                 </children>
                             </GridPane>
                         </children>
