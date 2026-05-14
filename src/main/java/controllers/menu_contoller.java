@@ -17,11 +17,13 @@ public class menu_contoller {
     @FXML
     private Button btnAdminUsuarios;
     @FXML
-    private Button btnAdminEmpleados;
-    @FXML
     private Button btnVerOrdenesProduccion;
     @FXML
     private Button btnGestionClientes;
+    @FXML
+    private Button btnAdminEmpleados;
+    @FXML
+    private Button btnVerRecetas;
     AppNavigator appNavigator = new AppNavigator();
 
 
@@ -83,6 +85,13 @@ public void fnIrOrdenProduccion(ActionEvent actionEvent) { try {
     public void fnIrVerOrdenesProduccion(ActionEvent actionEvent) {
       try {
        appNavigator.load("/view/Ver_ordenes_produccion.fxml");
+      }catch (Exception e){
+      }
+    }
+
+    public void fnIrVerRecetas(ActionEvent actionEvent) {
+      try {
+       appNavigator.load("/view/Ver_recetas.fxml");
       }catch (Exception e){
       }
     }

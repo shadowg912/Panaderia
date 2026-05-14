@@ -61,6 +61,7 @@ public class Registro_producto_controller {
         txtGrasasSaturadas.clear();
         txtGrasasTrans.clear();
         txtPrecio.clear();
+        txtPrecio.setEditable(true);
         txtNombre.clear();
         cmbCategoria.getSelectionModel().clearSelection();
         cmbUnidad.getSelectionModel().clearSelection();
@@ -117,6 +118,17 @@ public class Registro_producto_controller {
         cmbUnidad.setItems(cargarUnidad());
         cmbCategoria.setItems(CargarCategoria());
         cmbTipoProducto.setItems(TiposProducto);
+
+        cmbTipoProducto.setOnAction(e -> {
+            String tipo = cmbTipoProducto.getValue();
+            if ("MATERIA_PRIMA".equals(tipo) || "MATERIAL_EMPAQUE".equals(tipo)) {
+                txtPrecio.setText("0");
+                txtPrecio.setEditable(false);
+            } else {
+                txtPrecio.setText("");
+                txtPrecio.setEditable(true);
+            }
+        });
     }
 
     public void InsertarProducto(String nombre, Unidad unidad, float precio, CategoriaProducto categoria, String tipoProducto){

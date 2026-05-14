@@ -54,6 +54,7 @@
                                     <Label styleClass="card-title" text="PRODUCCIÓN"/>
                                     <Button fx:id="btnOrdenProduccion" maxWidth="Infinity" onAction="#fnIrOrdenProduccion" text="Nueva Orden" styleClass="btn, btn-primary"/>
                                     <Button fx:id="btnVerOrdenesProduccion" maxWidth="Infinity" onAction="#fnIrVerOrdenesProduccion" text="Ver Órdenes" styleClass="btn, btn-ghost"/>
+                                    <Button fx:id="btnVerRecetas" maxWidth="Infinity" onAction="#fnIrVerRecetas" text="Ver Recetas" styleClass="btn, btn-ghost"/>
                                 </VBox>
 
                                 <VBox spacing="15" styleClass="menu-card">
