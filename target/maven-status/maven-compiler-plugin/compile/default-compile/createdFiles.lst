@@ -1,4 +1,5 @@
 model/Cliente.class
+controllers/Admin_empleados_controller$1.class
 controllers/Ver_ordenes_produccion_controller.class
 controllers/Ver_ordenes_produccion_controller$2.class
 controllers/Inventario_controller.class
@@ -6,5 +7,7 @@ controllers/Admin_usuarios_controller.class
 controllers/Crear_empleado_controller.class
 controllers/Gestion_clientes_controller.class
 controllers/Ver_ordenes_produccion_controller$1.class
+model/Puesto.class
+controllers/Admin_empleados_controller.class
 controllers/Admin_usuarios_controller$1.class
 model/RecetaDetalle.class

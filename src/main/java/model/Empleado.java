@@ -6,6 +6,7 @@ public class Empleado {
     private String apellido1;
     private String apellido2;
     private String numeroTelefono;
+    private Integer idPuesto;
 
     public Empleado() {}
 
@@ -18,7 +19,6 @@ public class Empleado {
         this.numeroTelefono = numeroTelefono;
     }
 
-    // Constructor simplificado para ComboBox
     public Empleado(int idEmpleado, String nombre, String apellido1) {
         this.idEmpleado = idEmpleado;
         this.nombre = nombre;
@@ -39,6 +39,9 @@ public class Empleado {
 
     public String getNumeroTelefono() { return numeroTelefono; }
     public void setNumeroTelefono(String numeroTelefono) { this.numeroTelefono = numeroTelefono; }
+
+    public Integer getIdPuesto() { return idPuesto; }
+    public void setIdPuesto(Integer idPuesto) { this.idPuesto = idPuesto; }
 
     public String getNombreCompleto() {
         if (apellido2 != null && !apellido2.isEmpty()) {

@@ -4,6 +4,7 @@
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/com/example/panaderia/HelloController.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/com/example/panaderia/Launcher.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/com/example/panaderia/Main.java
+/home/shadowg912/IdeaProjects/Panaderia/src/main/java/controllers/Admin_empleados_controller.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/controllers/Admin_usuarios_controller.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/controllers/Confirmar_orden_controller.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/controllers/Crear_empleado_controller.java
@@ -42,6 +43,7 @@
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/Producto.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/Proveedor.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/Provincia.java
+/home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/Puesto.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/RecetaDetalle.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/Reclamaciones.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/Rol.java

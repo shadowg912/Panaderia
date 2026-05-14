@@ -167,6 +167,48 @@ Columnas:
 - apellido1 (varchar, NOT NULL, len &gt; 0)
 - apellido2 (varchar, NULL)
 - numero_telefono (varchar(30), NULL)
+- id_puesto (FK -&gt; PUESTO.id_puesto, int, NULL)
+
+---
+
+## ESTADO_ENVIO
+
+Descripción:
+Catálogo de estados para el seguimiento de envíos.
+
+Columnas:
+- id_estado_envio (PK, int)
+- nombre (varchar(50), NOT NULL)
+- descripcion (varchar(255), NULL)
+
+Valores:
+- PENDIENTE
+- EN_RUTA
+- ENTREGADO
+- DEVUELTO
+- CANCELADO
+
+---
+
+## ENVIO
+
+Descripción:
+Seguimiento de entregas de órdenes de venta.
+
+Columnas:
+- id_envio (PK, int)
+- id_orden_venta (FK -&gt; ORDEN_VENTA.id_orden_venta, int, NOT NULL, UNIQUE)
+- id_empleado_transportista (FK -&gt; EMPLEADO.id_empleado, int, NULL)
+- id_estado_envio (FK -&gt; ESTADO_ENVIO.id_estado_envio, int, NOT NULL)
+- fecha_asignacion (datetime, NULL)
+- fecha_salida (datetime, NULL)
+- fecha_entrega_real (datetime, NULL)
+- direccion_entrega (text, NULL)
+- observaciones (text, NULL)
+
+Reglas:
+- fecha_entrega_real solo si fecha_salida no es NULL
+- fecha_entrega_real &gt;= fecha_salida
 
 ---
 
@@ -197,6 +239,21 @@ Formas de pago disponibles.
 Columnas:
 - id_forma_pago (PK, int)
 - nombre (varchar, NOT NULL, len &gt; 0)
+
+---
+
+## HISTORICO_ENVIO
+
+Descripción:
+Historial de cambios de estado en envíos.
+
+Columnas:
+- id_historico (PK, int)
+- id_envio (FK -&gt; ENVIO.id_envio, int, NOT NULL)
+- fecha_evento (datetime, NOT NULL)
+- id_estado_envio (FK -&gt; ESTADO_ENVIO.id_estado_envio, int, NOT NULL)
+- observaciones (text, NULL)
+- id_usuario (FK -&gt; USUARIO.id_usuario, int, NULL)
 
 ---
 
@@ -373,6 +430,30 @@ Columnas:
 - id_provincia (PK, int)
 - nombre (varchar, NOT NULL, len &gt; 0)
 - id_pais (FK -&gt; PAIS.id_pais, int, NOT NULL)
+
+---
+
+## PUESTO
+
+Descripción:
+Catálogo de puestos de empleados.
+
+Columnas:
+- id_puesto (PK, int)
+- nombre (varchar(50), NOT NULL, UNIQUE, len &gt; 0)
+- descripcion (varchar(255), NULL)
+- area (varchar(30), NOT NULL) — PRODUCCION | VENTAS | LOGISTICA | ADMINISTRACION | MANTENIMIENTO
+- estado (bit, NOT NULL, DEFAULT 1)
+
+Puestos registrados:
+
+| Área | Puestos |
+|---|---|
+| PRODUCCION | Panadero, Pastelero, Ayudante de panaderia, Encargado de produccion, Mezclador |
+| VENTAS | Cajero, Vendedor, Atencion al cliente, Encargado de tienda |
+| LOGISTICA | Repartidor, Auxiliar de almacen, Encargado de inventario |
+| ADMINISTRACION | Gerente, Administrador, Contador, Recursos humanos, Encargado de compras |
+| MANTENIMIENTO | Limpieza, Mantenimiento |
 
 ---
 
@@ -558,6 +639,8 @@ Vista detallada de producciones.
 - EMPLEADO 1:1 USUARIO
 - EMPLEADO 1:N HISTORICO_RECLAMACIONES
 - EMPLEADO 1:N RECLAMACION_VENTA
+- EMPLEADO 1:N ENVIO (como transportista)
+- PUESTO 1:N EMPLEADO
 - CATEGORIA_PRODUCTO 1:N PRODUCTO
 - UNIDAD 1:N PRODUCTO
 - PRODUCTO 1:1 INVENTARIO
@@ -574,6 +657,7 @@ Vista detallada de producciones.
 - ORDEN_VENTA 1:N PAGO
 - ORDEN_VENTA 1:1 PRODUCCION
 - ORDEN_VENTA 1:N RECLAMACION_VENTA
+- ORDEN_VENTA 1:1 ENVIO
 - CLIENTE 1:N ORDEN_VENTA
 - CLIENTE 1:N FACTURA_VENTA
 - CLIENTE 1:N RECLAMACION_VENTA
@@ -590,7 +674,11 @@ Vista detallada de producciones.
 - PRODUCCION 1:N CONSUMO_PRODUCCION
 - USUARIO 1:N MOVIMIENTO_INVENTARIO
 - USUARIO 1:N PRODUCCION
+- USUARIO 1:N HISTORICO_ENVIO
 - TIPO_MOVIMIENTO 1:N MOVIMIENTO_INVENTARIO
+- ESTADO_ENVIO 1:N ENVIO
+- ESTADO_ENVIO 1:N HISTORICO_ENVIO
+- ENVIO 1:N HISTORICO_ENVIO
 
 ---
 

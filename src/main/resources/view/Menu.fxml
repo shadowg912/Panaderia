@@ -67,6 +67,7 @@
                                     <Label styleClass="card-title" text="SISTEMA"/>
                                     <Button fx:id="btnCrearUsuario" maxWidth="Infinity" onAction="#fnIrCrearUsuario" text="Crear Usuario" styleClass="btn, btn-primary"/>
                                     <Button fx:id="btnAdminUsuarios" maxWidth="Infinity" onAction="#fnIrAdminUsuarios" text="Administrar Usuarios" styleClass="btn, btn-ghost"/>
+                                    <Button fx:id="btnAdminEmpleados" maxWidth="Infinity" onAction="#fnIrAdminEmpleados" text="Administrar Empleados" styleClass="btn, btn-ghost"/>
                                     <Button fx:id="btnCrearEmpleado" maxWidth="Infinity" onAction="#fnIrCrearEmpleado" text="Crear Empleado" styleClass="btn, btn-ghost"/>
                                     <Button maxWidth="Infinity" text="Cerrar Sesión" styleClass="btn, btn-danger"/>
                                 </VBox>

@@ -28,9 +28,9 @@ public class CONEXION {
 
             String cadena = "jdbc:sqlserver://" + ip + ":" + puerto + ";" + "databaseName=" + db + ";" + "encrypt=true" + ";" + "trustServerCertificate=true";
             connection = DriverManager.getConnection(cadena, usuario, contrasena);
-            System.out.printf("todo bien");
+            System.out.printf("ok");
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "te jodiste manito, algo esta mal, no se que, pero esta mal" + e.toString());
+            JOptionPane.showMessageDialog(null, "te jodiste manito, algo esta mal, no se que, pero esta mal " + e.toString());
         }
         return connection;
     }

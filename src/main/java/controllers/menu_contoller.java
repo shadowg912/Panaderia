@@ -17,6 +17,8 @@ public class menu_contoller {
     @FXML
     private Button btnAdminUsuarios;
     @FXML
+    private Button btnAdminEmpleados;
+    @FXML
     private Button btnVerOrdenesProduccion;
     @FXML
     private Button btnGestionClientes;
@@ -116,6 +118,13 @@ public void fnIrCrearUsuario(ActionEvent actionEvent) {
     public void fnIrAdminUsuarios(ActionEvent actionEvent) {
       try {
        appNavigator.load("/view/Admin_usuarios.fxml");
+      }catch (Exception e){
+      }
+    }
+
+    public void fnIrAdminEmpleados(ActionEvent actionEvent) {
+      try {
+       appNavigator.load("/view/Admin_empleados.fxml");
       }catch (Exception e){
       }
     }
