@@ -178,11 +178,12 @@ Catálogo de estados para el seguimiento de envíos.
 
 Columnas:
 - id_estado_envio (PK, int)
-- nombre (varchar(50), NOT NULL)
+- nombre (varchar(50), NOT NULL, UNIQUE)
 - descripcion (varchar(255), NULL)
 
 Valores:
 - PENDIENTE
+- ASIGNADO
 - EN_RUTA
 - ENTREGADO
 - DEVUELTO
@@ -200,15 +201,19 @@ Columnas:
 - id_orden_venta (FK -&gt; ORDEN_VENTA.id_orden_venta, int, NOT NULL, UNIQUE)
 - id_empleado_transportista (FK -&gt; EMPLEADO.id_empleado, int, NULL)
 - id_estado_envio (FK -&gt; ESTADO_ENVIO.id_estado_envio, int, NOT NULL)
+- id_direccion_entrega (FK -&gt; DIRECCION.id_direccion, int, NULL)
+- numero_seguimiento (varchar(50), NULL, UNIQUE)
 - fecha_asignacion (datetime, NULL)
 - fecha_salida (datetime, NULL)
+- fecha_entrega_estimada (datetime, NULL)
 - fecha_entrega_real (datetime, NULL)
-- direccion_entrega (text, NULL)
 - observaciones (text, NULL)
 
 Reglas:
-- fecha_entrega_real solo si fecha_salida no es NULL
-- fecha_entrega_real &gt;= fecha_salida
+- fecha_asignacion &lt;= fecha_salida (si ambas no son NULL)
+- fecha_salida &lt;= fecha_entrega_real (si ambas no son NULL)
+- fecha_entrega_estimada &gt;= fecha_asignacion (si ambas no son NULL)
+- Estado ASIGNADO/EN_RUTA requiere transportista asignado (validación app-level)
 
 ---
 
@@ -251,9 +256,14 @@ Columnas:
 - id_historico (PK, int)
 - id_envio (FK -&gt; ENVIO.id_envio, int, NOT NULL)
 - fecha_evento (datetime, NOT NULL)
+- fecha_registro (datetime, NOT NULL, DEFAULT GETDATE())
 - id_estado_envio (FK -&gt; ESTADO_ENVIO.id_estado_envio, int, NOT NULL)
 - observaciones (text, NULL)
 - id_usuario (FK -&gt; USUARIO.id_usuario, int, NULL)
+
+Nota:
+- fecha_evento = cuándo ocurrió el evento en la realidad
+- fecha_registro = cuándo se registró en el sistema
 
 ---
 
@@ -635,6 +645,7 @@ Vista detallada de producciones.
 - SECTOR 1:N DIRECCION
 - DIRECCION 1:1 CLIENTE
 - DIRECCION 1:1 PROVEEDOR
+- DIRECCION 1:N ENVIO (como dirección de entrega alternativa)
 - ROL 1:N USUARIO
 - EMPLEADO 1:1 USUARIO
 - EMPLEADO 1:N HISTORICO_RECLAMACIONES
