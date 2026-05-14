@@ -202,6 +202,7 @@ Columnas:
 - id_empleado_transportista (FK -&gt; EMPLEADO.id_empleado, int, NULL)
 - id_estado_envio (FK -&gt; ESTADO_ENVIO.id_estado_envio, int, NOT NULL)
 - id_direccion_entrega (FK -&gt; DIRECCION.id_direccion, int, NULL)
+- id_usuario_creacion (FK -&gt; USUARIO.id_usuario, int, NOT NULL)
 - numero_seguimiento (varchar(50), NULL, UNIQUE)
 - fecha_asignacion (datetime, NULL)
 - fecha_salida (datetime, NULL)
@@ -213,7 +214,9 @@ Reglas:
 - fecha_asignacion &lt;= fecha_salida (si ambas no son NULL)
 - fecha_salida &lt;= fecha_entrega_real (si ambas no son NULL)
 - fecha_entrega_estimada &gt;= fecha_asignacion (si ambas no son NULL)
-- Estado ASIGNADO/EN_RUTA requiere transportista asignado (validación app-level)
+- Estados ASIGNADO/EN_RUTA/ENTREGADO requieren transportista y dirección (trigger)
+- Transiciones de estado validadas por máquina de estados (trigger)
+- Cambio de transportista se registra en HISTORICO_TRANSPORTISTA_ENVIO (trigger)
 
 ---
 
@@ -279,6 +282,26 @@ Columnas:
 - estado (varchar, NOT NULL) — ABIERTA | EN_PROCESO | RESUELTA | CERRADA
 - observaciones (text, NULL)
 - id_empleado (FK -&gt; EMPLEADO.id_empleado, int, NULL)
+
+---
+
+## HISTORICO_TRANSPORTISTA_ENVIO
+
+Descripción:
+Trazabilidad de reasignaciones de transportista en envíos.
+
+Columnas:
+- id_historico_transportista (PK, int)
+- id_envio (FK -&gt; ENVIO.id_envio, int, NOT NULL)
+- id_empleado_transportista_anterior (FK -&gt; EMPLEADO.id_empleado, int, NULL)
+- id_empleado_transportista_nuevo (FK -&gt; EMPLEADO.id_empleado, int, NOT NULL)
+- fecha_cambio (datetime, NOT NULL, DEFAULT GETDATE())
+- id_usuario (FK -&gt; USUARIO.id_usuario, int, NULL)
+- motivo (text, NULL)
+
+Notas:
+- id_empleado_transportista_anterior = NULL indica primera asignación
+- Se genera automáticamente por trigger al cambiar el transportista en ENVIO
 
 ---
 
@@ -651,6 +674,8 @@ Vista detallada de producciones.
 - EMPLEADO 1:N HISTORICO_RECLAMACIONES
 - EMPLEADO 1:N RECLAMACION_VENTA
 - EMPLEADO 1:N ENVIO (como transportista)
+- EMPLEADO 1:N HISTORICO_TRANSPORTISTA_ENVIO (como anterior)
+- EMPLEADO 1:N HISTORICO_TRANSPORTISTA_ENVIO (como nuevo)
 - PUESTO 1:N EMPLEADO
 - CATEGORIA_PRODUCTO 1:N PRODUCTO
 - UNIDAD 1:N PRODUCTO
@@ -686,10 +711,13 @@ Vista detallada de producciones.
 - USUARIO 1:N MOVIMIENTO_INVENTARIO
 - USUARIO 1:N PRODUCCION
 - USUARIO 1:N HISTORICO_ENVIO
+- USUARIO 1:N ENVIO (como creador)
+- USUARIO 1:N HISTORICO_TRANSPORTISTA_ENVIO
 - TIPO_MOVIMIENTO 1:N MOVIMIENTO_INVENTARIO
 - ESTADO_ENVIO 1:N ENVIO
 - ESTADO_ENVIO 1:N HISTORICO_ENVIO
 - ENVIO 1:N HISTORICO_ENVIO
+- ENVIO 1:N HISTORICO_TRANSPORTISTA_ENVIO
 
 ---
 
