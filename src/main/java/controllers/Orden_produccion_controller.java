@@ -37,7 +37,7 @@ public class Orden_produccion_controller {
     }
 
     public ObservableList<Producto> cargarProductos() {
-        String sql = "SELECT id_producto, nombre FROM PRODUCTO ORDER BY nombre";
+        String sql = "SELECT id_producto, nombre FROM PRODUCTO WHERE tipo_producto = 'PRODUCTO_TERMINADO' ORDER BY nombre";
         try (Connection connection = conexion.establecerconexio();
              PreparedStatement ps = connection.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();

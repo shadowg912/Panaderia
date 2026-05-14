@@ -85,7 +85,7 @@ public class Registro_recetas_controller {
 
     private void cargarProductos() {
         listaProductos.clear();
-        String sql = "SELECT id_producto, nombre FROM PRODUCTO ORDER BY nombre";
+        String sql = "SELECT id_producto, nombre FROM PRODUCTO WHERE tipo_producto = 'PRODUCTO_TERMINADO' ORDER BY nombre";
         try (Connection con = conexion.establecerconexio();
              PreparedStatement ps = con.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
@@ -104,7 +104,7 @@ public class Registro_recetas_controller {
 
     private void cargarIngredientes() {
         listaIngredientes.clear();
-        String sql = "SELECT id_producto, nombre FROM PRODUCTO ORDER BY nombre";
+        String sql = "SELECT id_producto, nombre FROM PRODUCTO WHERE tipo_producto = 'MATERIA_PRIMA' ORDER BY nombre";
         try (Connection con = conexion.establecerconexio();
              PreparedStatement ps = con.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
