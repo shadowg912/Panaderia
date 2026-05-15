@@ -6,12 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.*;
 import utils.AppNavigator;
@@ -81,7 +76,7 @@ public class Detalle_orden_venta_controller implements Initializable {
                 Productos.add(p);
             }
         } catch (Exception e) {
-            System.out.println("Error cargando productos: " + e.getMessage());
+            mostrarError("Error cargando productos: " + e.getMessage());
         }
         return Productos;
     }
@@ -119,7 +114,7 @@ public class Detalle_orden_venta_controller implements Initializable {
         int idProducto = producto.getIdProducto();
 
         if (productosAgregados.containsKey(idProducto)) {
-            System.out.println("Este producto ya fue agregado a la orden");
+            mostrarAdvertencia("Este producto ya fue agregado a la orden.");
             return;
         }
 
@@ -140,7 +135,7 @@ public class Detalle_orden_venta_controller implements Initializable {
             productosAgregados.put(idProducto, detalle);
             actualizarTotales();
             limpiarCampos();
-            System.out.println("Producto agregado: " + producto.getNombre());
+            mostrarInfo("Producto agregado: " + producto.getNombre());
         }
     }
 
@@ -156,7 +151,7 @@ public class Detalle_orden_venta_controller implements Initializable {
             ps.executeUpdate();
             return true;
         } catch (SQLException e) {
-            System.out.println("Error insertando detalle: " + e.getMessage());
+            mostrarError("Error al agregar producto: " + e.getMessage());
             return false;
         }
     }
@@ -176,21 +171,21 @@ public class Detalle_orden_venta_controller implements Initializable {
 
     private boolean validarCampos() {
         if (cmbProducto.getValue() == null) {
-            System.out.println("Debe seleccionar un producto");
+            mostrarAdvertencia("Debe seleccionar un producto.");
             return false;
         }
         if (txtCantidad.getText() == null || txtCantidad.getText().trim().isEmpty()) {
-            System.out.println("Debe ingresar una cantidad");
+            mostrarAdvertencia("Debe ingresar una cantidad.");
             return false;
         }
         try {
             BigDecimal cantidad = new BigDecimal(txtCantidad.getText().trim());
             if (cantidad.compareTo(BigDecimal.ZERO) <= 0) {
-                System.out.println("La cantidad debe ser mayor a 0");
+                mostrarAdvertencia("La cantidad debe ser mayor a 0.");
                 return false;
             }
         } catch (NumberFormatException e) {
-            System.out.println("La cantidad debe ser un número válido");
+            mostrarAdvertencia("La cantidad debe ser un número válido.");
             return false;
         }
         return true;
@@ -211,7 +206,7 @@ public class Detalle_orden_venta_controller implements Initializable {
     @FXML
     public void fnConfirmarOrden(ActionEvent event) {
         if (Detalles.isEmpty()) {
-            System.out.printf("Debe agregar al menos un producto");
+            mostrarAdvertencia("Debe agregar al menos un producto.");
             return;
         }
 
@@ -243,7 +238,11 @@ public class Detalle_orden_venta_controller implements Initializable {
             ps.setInt(4, idOrdenActual);
             ps.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("Error actualizando totales: " + e.getMessage());
+            mostrarError("Error actualizando totales: " + e.getMessage());
         }
     }
+
+    private void mostrarInfo(String m) { Alert a = new Alert(Alert.AlertType.INFORMATION, m, ButtonType.OK); a.setHeaderText(null); a.showAndWait(); }
+    private void mostrarError(String m) { Alert a = new Alert(Alert.AlertType.ERROR, m, ButtonType.OK); a.setHeaderText(null); a.showAndWait(); }
+    private void mostrarAdvertencia(String m) { Alert a = new Alert(Alert.AlertType.WARNING, m, ButtonType.OK); a.setHeaderText(null); a.showAndWait(); }
 }

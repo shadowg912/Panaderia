@@ -47,7 +47,7 @@ public class Crear_usuario_controller {
                 Roles.add(new Rol(rs.getInt(1), rs.getString("nombre_rol")));
             }
         } catch (Exception e) {
-            System.out.println("Error cargando roles: " + e.getMessage());
+            mostrarError("Error cargando roles: " + e.getMessage());
         }
         return Roles;
     }
@@ -93,7 +93,7 @@ private Empleado buscarEmpleadoPorId(int idEmpleado) {
                         rs.getString("apellido1"));
             }
         } catch (SQLException e) {
-            System.out.println("Error buscando empleado: " + e.getMessage());
+            mostrarError("Error buscando empleado: " + e.getMessage());
         }
         return null;
     }
@@ -132,7 +132,7 @@ private Empleado buscarEmpleadoPorId(int idEmpleado) {
                 return rs.getInt(1);
             }
         } catch (SQLException e) {
-            System.out.println("Error insertando usuario: " + e.getMessage());
+            mostrarError("Error insertando usuario: " + e.getMessage());
         }
         return 0;
     }

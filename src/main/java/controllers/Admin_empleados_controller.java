@@ -103,7 +103,7 @@ public class Admin_empleados_controller {
                 return rs.getString("nombre");
             }
         } catch (SQLException e) {
-            System.out.println("Error obteniendo puesto: " + e.getMessage());
+            mostrarError("Error obteniendo puesto: " + e.getMessage());
         }
         return "";
     }
@@ -119,7 +119,7 @@ public class Admin_empleados_controller {
                 puestos.add(new Puesto(rs.getInt("id_puesto"), rs.getString("nombre")));
             }
         } catch (SQLException e) {
-            System.out.println("Error cargando puestos: " + e.getMessage());
+            mostrarError("Error cargando puestos: " + e.getMessage());
         }
         cmbPuesto.setItems(puestos);
         cmbPuesto.getSelectionModel().selectFirst();
@@ -243,7 +243,7 @@ public class Admin_empleados_controller {
                 }
             }
         } catch (SQLException e) {
-            System.out.println("Error: " + e.getMessage());
+            mostrarError("Error al cargar datos: " + e.getMessage());
         }
         cmbPuestoEdit.setItems(puestos);
 

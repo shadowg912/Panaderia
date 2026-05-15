@@ -98,7 +98,7 @@ public class Gestion_clientes_controller {
                 provinciasFiltro.add(p);
             }
         } catch (SQLException e) {
-            System.out.println("Error cargando provincias: " + e.getMessage());
+            mostrarError("Error cargando provincias: " + e.getMessage());
         }
         cmbProvincia.setItems(provincias);
         cmbFiltroProvincia.setItems(provinciasFiltro);

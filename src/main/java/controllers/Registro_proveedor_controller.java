@@ -5,19 +5,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import model.CategoriaProveedor;
 import model.Provincia;
 import utils.AppNavigator;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.Types;
+import java.sql.*;
+import java.util.*;
 
 public class Registro_proveedor_controller {
 
@@ -49,7 +43,7 @@ public class Registro_proveedor_controller {
                 Categorias.add(new CategoriaProveedor(rs.getInt(1), rs.getString("nombre")));
             }
         } catch (Exception e) {
-            System.out.println("Error cargando categorias: " + e.getMessage());
+            mostrarError("Error cargando categorías: " + e.getMessage());
         }
         return Categorias;
     }
@@ -63,7 +57,7 @@ public class Registro_proveedor_controller {
                 Provincias.add(new Provincia(rs.getInt(1), rs.getString("nombre")));
             }
         } catch (Exception e) {
-            System.out.println("Error cargando provincias: " + e.getMessage());
+            mostrarError("Error cargando provincias: " + e.getMessage());
         }
         return Provincias;
     }
@@ -76,15 +70,12 @@ public class Registro_proveedor_controller {
 
     @FXML
     public void fnGuardarProveedor(ActionEvent event) {
-        if (!validarCampos()) {
-            return;
-        }
+        if (!validarCampos()) return;
 
         String nombre = txtNombre.getText().trim();
         String telefono = txtTelefono.getText().trim();
         String correo = txtCorreo.getText().trim();
         int idCategoria = cmbCategoria.getValue().getIdCategoriaProveedor();
-
         String calle = txtCalle.getText().trim();
         String numero = txtNumero.getText().trim();
         String sector = txtSector.getText().trim();
@@ -94,34 +85,25 @@ public class Registro_proveedor_controller {
 
         int idDireccion = insertarDireccionCompleta(calle, numero, referencia, ciudad, sector, idProvincia);
         if (idDireccion == 0) {
-            System.out.println("Error al guardar direccion");
+            mostrarError("Error al guardar la dirección.");
             return;
         }
 
         int idProveedor = insertarProveedor(nombre, telefono, correo, idCategoria, idDireccion);
         if (idProveedor > 0) {
-            System.out.println("Proveedor guardado exitosamente con ID: " + idProveedor);
+            mostrarInfo("Proveedor guardado exitosamente.\nID: " + idProveedor);
             fnLimpiar();
         } else {
-            System.out.println("Error al guardar proveedor");
+            mostrarError("Error al guardar el proveedor.");
         }
     }
 
     public int insertarDireccionCompleta(String calle, String numero, String referencia,
-                                         String nombreCiudad, String nombreSector,
-                                         int idProvincia) {
+                                         String nombreCiudad, String nombreSector, int idProvincia) {
         int idCiudad = buscarOCrearCiudad(nombreCiudad, idProvincia);
-        if (idCiudad == 0) {
-            System.out.println("Error al procesar ciudad");
-            return 0;
-        }
-
+        if (idCiudad == 0) return 0;
         int idSector = buscarOCrearSector(nombreSector, idCiudad);
-        if (idSector == 0) {
-            System.out.println("Error al procesar sector");
-            return 0;
-        }
-
+        if (idSector == 0) return 0;
         return insertarDireccion(calle, numero, referencia, idSector);
     }
 
@@ -129,29 +111,21 @@ public class Registro_proveedor_controller {
         String sqlBuscar = "SELECT id_ciudad FROM CIUDAD WHERE nombre = ? AND id_provincia = ?";
         try (Connection connection = conexion.establecerconexio();
              PreparedStatement ps = connection.prepareStatement(sqlBuscar)) {
-            ps.setString(1, nombreCiudad);
-            ps.setInt(2, idProvincia);
+            ps.setString(1, nombreCiudad); ps.setInt(2, idProvincia);
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                return rs.getInt("id_ciudad");
-            }
+            if (rs.next()) return rs.getInt("id_ciudad");
         } catch (SQLException e) {
-            System.out.println("Error buscando ciudad: " + e.getMessage());
+            mostrarError("Error buscando ciudad: " + e.getMessage());
         }
-
         String sqlInsertar = "INSERT INTO CIUDAD (nombre, id_provincia) VALUES (?, ?)";
         try (Connection connection = conexion.establecerconexio();
              PreparedStatement ps = connection.prepareStatement(sqlInsertar, Statement.RETURN_GENERATED_KEYS)) {
-            ps.setString(1, nombreCiudad);
-            ps.setInt(2, idProvincia);
+            ps.setString(1, nombreCiudad); ps.setInt(2, idProvincia);
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
-            if (rs.next()) {
-                System.out.println("Ciudad creada: " + nombreCiudad);
-                return rs.getInt(1);
-            }
+            if (rs.next()) return rs.getInt(1);
         } catch (SQLException e) {
-            System.out.println("Error creando ciudad: " + e.getMessage());
+            mostrarError("Error creando ciudad: " + e.getMessage());
         }
         return 0;
     }
@@ -160,29 +134,21 @@ public class Registro_proveedor_controller {
         String sqlBuscar = "SELECT id_sector FROM SECTOR WHERE nombre = ? AND id_ciudad = ?";
         try (Connection connection = conexion.establecerconexio();
              PreparedStatement ps = connection.prepareStatement(sqlBuscar)) {
-            ps.setString(1, nombreSector);
-            ps.setInt(2, idCiudad);
+            ps.setString(1, nombreSector); ps.setInt(2, idCiudad);
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                return rs.getInt("id_sector");
-            }
+            if (rs.next()) return rs.getInt("id_sector");
         } catch (SQLException e) {
-            System.out.println("Error buscando sector: " + e.getMessage());
+            mostrarError("Error buscando sector: " + e.getMessage());
         }
-
         String sqlInsertar = "INSERT INTO SECTOR (nombre, id_ciudad) VALUES (?, ?)";
         try (Connection connection = conexion.establecerconexio();
              PreparedStatement ps = connection.prepareStatement(sqlInsertar, Statement.RETURN_GENERATED_KEYS)) {
-            ps.setString(1, nombreSector);
-            ps.setInt(2, idCiudad);
+            ps.setString(1, nombreSector); ps.setInt(2, idCiudad);
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
-            if (rs.next()) {
-                System.out.println("Sector creado: " + nombreSector);
-                return rs.getInt(1);
-            }
+            if (rs.next()) return rs.getInt(1);
         } catch (SQLException e) {
-            System.out.println("Error creando sector: " + e.getMessage());
+            mostrarError("Error creando sector: " + e.getMessage());
         }
         return 0;
     }
@@ -193,27 +159,16 @@ public class Registro_proveedor_controller {
              PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, calle);
             if (numero != null && !numero.isEmpty()) {
-                try {
-                    ps.setInt(2, Integer.parseInt(numero));
-                } catch (NumberFormatException e) {
-                    ps.setNull(2, Types.INTEGER);
-                }
-            } else {
-                ps.setNull(2, Types.INTEGER);
-            }
-            if (referencia != null && !referencia.isEmpty()) {
-                ps.setString(3, referencia);
-            } else {
-                ps.setNull(3, Types.VARCHAR);
-            }
+                try { ps.setInt(2, Integer.parseInt(numero)); }
+                catch (NumberFormatException e) { ps.setNull(2, Types.INTEGER); }
+            } else { ps.setNull(2, Types.INTEGER); }
+            ps.setString(3, referencia != null && !referencia.isEmpty() ? referencia : null);
             ps.setInt(4, idSector);
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
-            if (rs.next()) {
-                return rs.getInt(1);
-            }
+            if (rs.next()) return rs.getInt(1);
         } catch (SQLException e) {
-            System.out.println("Error insertando direccion: " + e.getMessage());
+            mostrarError("Error insertando dirección: " + e.getMessage());
         }
         return 0;
     }
@@ -223,80 +178,60 @@ public class Registro_proveedor_controller {
         String sql = "INSERT INTO PROVEEDOR (nombre, numero_telefono, correo_electronico, id_categoria_proveedor, id_direccion) VALUES (?, ?, ?, ?, ?)";
         try (Connection connection = conexion.establecerconexio();
              PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            ps.setString(1, nombre);
-            ps.setString(2, telefono);
-            ps.setString(3, correo);
-            ps.setInt(4, idCategoria);
-            ps.setInt(5, idDireccion);
+            ps.setString(1, nombre); ps.setString(2, telefono); ps.setString(3, correo);
+            ps.setInt(4, idCategoria); ps.setInt(5, idDireccion);
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
-            if (rs.next()) {
-                return rs.getInt(1);
-            }
+            if (rs.next()) return rs.getInt(1);
         } catch (SQLException e) {
-            System.out.println("Error insertando proveedor: " + e.getMessage());
+            mostrarError("Error insertando proveedor: " + e.getMessage());
         }
         return 0;
     }
 
     private boolean validarCampos() {
         if (txtNombre.getText() == null || txtNombre.getText().trim().isEmpty()) {
-            System.out.println("El nombre es obligatorio");
-            return false;
+            mostrarAdvertencia("El nombre es obligatorio."); return false;
         }
         if (txtTelefono.getText() == null || txtTelefono.getText().trim().isEmpty()) {
-            System.out.println("El telefono es obligatorio");
-            return false;
+            mostrarAdvertencia("El teléfono es obligatorio."); return false;
         }
         if (cmbCategoria.getValue() == null) {
-            System.out.println("Debe seleccionar una categoria");
-            return false;
+            mostrarAdvertencia("Debe seleccionar una categoría."); return false;
         }
         if (cmbProvincia.getValue() == null) {
-            System.out.println("Debe seleccionar una provincia");
-            return false;
+            mostrarAdvertencia("Debe seleccionar una provincia."); return false;
         }
         if (txtCiudad.getText() == null || txtCiudad.getText().trim().isEmpty()) {
-            System.out.println("La ciudad es obligatoria");
-            return false;
+            mostrarAdvertencia("La ciudad es obligatoria."); return false;
         }
         if (txtSector.getText() == null || txtSector.getText().trim().isEmpty()) {
-            System.out.println("El sector es obligatorio");
-            return false;
+            mostrarAdvertencia("El sector es obligatorio."); return false;
         }
         if (txtCalle.getText() == null || txtCalle.getText().trim().isEmpty()) {
-            System.out.println("La calle es obligatoria");
-            return false;
+            mostrarAdvertencia("La calle es obligatoria."); return false;
         }
         if (txtNumero.getText() == null || txtNumero.getText().trim().isEmpty()) {
-            System.out.println("El numero es obligatorio");
-            return false;
+            mostrarAdvertencia("El número es obligatorio."); return false;
         }
         return true;
     }
 
     @FXML
     public void fnLimpiar() {
-        txtNombre.clear();
-        txtTelefono.clear();
-        txtCorreo.clear();
-        cmbCategoria.setValue(null);
-        cmbProvincia.setValue(null);
-        txtCiudad.clear();
-        txtSector.clear();
-        txtCalle.clear();
-        txtNumero.clear();
-        txtReferencia.clear();
-        System.out.println("Formulario limpiado");
+        txtNombre.clear(); txtTelefono.clear(); txtCorreo.clear();
+        cmbCategoria.setValue(null); cmbProvincia.setValue(null);
+        txtCiudad.clear(); txtSector.clear();
+        txtCalle.clear(); txtNumero.clear(); txtReferencia.clear();
     }
 
     @FXML
-    public void fnLimpiar(ActionEvent event) {
-        fnLimpiar();
-    }
+    public void fnLimpiar(ActionEvent event) { fnLimpiar(); }
 
     @FXML
-    public void fnVolverMenu(ActionEvent event) {
-        appNavigator.volverMenu();
-    }
+    public void fnVolverMenu(ActionEvent event) { appNavigator.volverMenu(); }
+
+    private void mostrarInfo(String m) { Alert a = new Alert(Alert.AlertType.INFORMATION, m, ButtonType.OK); a.setHeaderText(null); a.showAndWait(); }
+    private void mostrarError(String m) { Alert a = new Alert(Alert.AlertType.ERROR, m, ButtonType.OK); a.setHeaderText(null); a.showAndWait(); }
+    private void mostrarAdvertencia(String m) { Alert a = new Alert(Alert.AlertType.WARNING, m, ButtonType.OK); a.setHeaderText(null); a.showAndWait(); }
 }

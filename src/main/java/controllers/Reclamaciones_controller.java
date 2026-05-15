@@ -207,7 +207,7 @@ public class Reclamaciones_controller {
                 return rs.getInt(1);
             }
         } catch (SQLException e) {
-            System.out.println("Error insertando reclamacion: " + e.getMessage());
+            mostrarError("Error al guardar reclamación: " + e.getMessage());
         }
         return 0;
     }

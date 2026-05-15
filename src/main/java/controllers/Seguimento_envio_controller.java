@@ -300,7 +300,7 @@ public class Seguimento_envio_controller {
             ps.setInt(2, idOrden);
             ps.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("Error sincronizando orden: " + e.getMessage());
+            mostrarError("Error sincronizando orden: " + e.getMessage());
         }
     }
 

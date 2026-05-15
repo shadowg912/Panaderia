@@ -45,7 +45,7 @@ public class Orden_produccion_controller {
                 Productos.add(new Producto(rs.getInt(1), rs.getString("nombre"), null, null, null));
             }
         } catch (Exception e) {
-            System.out.println("Error cargando productos: " + e.getMessage());
+            mostrarError("Error cargando productos: " + e.getMessage());
         }
         return Productos;
     }
@@ -91,7 +91,7 @@ public class Orden_produccion_controller {
                         rs.getString("apellido1"));
             }
         } catch (SQLException e) {
-            System.out.println("Error buscando empleado: " + e.getMessage());
+            mostrarError("Error buscando empleado: " + e.getMessage());
         }
         return null;
     }
@@ -135,7 +135,7 @@ public class Orden_produccion_controller {
             }
 
         } catch (Exception e) {
-            System.out.println("Error insertando orden: " + e.getMessage());
+            mostrarError("Error insertando orden: " + e.getMessage());
         }
         return 0;
     }

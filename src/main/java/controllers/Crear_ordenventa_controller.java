@@ -5,10 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import model.Cliente;
 import model.Empleado;
 import model.FormaPago;
@@ -48,7 +45,7 @@ public class Crear_ordenventa_controller {
                 Clientes.add(new Cliente(rs.getInt(1), rs.getString("razon_social")));
             }
         } catch (Exception e) {
-            System.out.println("Error cargando clientes: " + e.getMessage());
+            mostrarError("Error cargando clientes: " + e.getMessage());
         }
         return Clientes;
     }
@@ -62,7 +59,7 @@ public class Crear_ordenventa_controller {
                 FormasPago.add(new FormaPago(rs.getInt(1), rs.getString("nombre")));
             }
         } catch (Exception e) {
-            System.out.println("Error cargando formas de pago: " + e.getMessage());
+            mostrarError("Error cargando formas de pago: " + e.getMessage());
         }
         return FormasPago;
     }
@@ -78,7 +75,7 @@ public class Crear_ordenventa_controller {
                 Empleados.add(new Empleado(rs.getInt("id_empleado"), rs.getString("nombre"), rs.getString("apellido1")));
             }
         } catch (Exception e) {
-            System.out.println("Error cargando empleados: " + e.getMessage());
+            mostrarError("Error cargando empleados: " + e.getMessage());
         }
         cmbEmpleado.setItems(Empleados);
     }
@@ -114,7 +111,7 @@ public class Crear_ordenventa_controller {
             Detalle_orden_venta_controller.setIdOrden(idOrden);
             appNavigator.load("/view/Detalle_Venta.fxml");
         } else {
-            System.out.printf("Error al crear la orden");
+            mostrarError("Error al crear la orden.");
         }
     }
     private int insertarOrden(int idCliente, int idFormaPago, Date fechaEntrega, Integer idEmpleado) {
@@ -140,18 +137,18 @@ public class Crear_ordenventa_controller {
                 return rs.getInt(1);
             }
         } catch (SQLException e) {
-            System.out.println("Error insertando orden: " + e.getMessage());
+            mostrarError("Error insertando orden: " + e.getMessage());
         }
         return 0;
     }
 
     private boolean validarCampos() {
         if (cmbCliente.getValue() == null) {
-            System.out.println("Debe seleccionar un cliente");
+            mostrarAdvertencia("Debe seleccionar un cliente.");
             return false;
         }
         if (cmbFormaPago.getValue() == null) {
-            System.out.println("Debe seleccionar una forma de pago");
+            mostrarAdvertencia("Debe seleccionar una forma de pago.");
             return false;
         }
         return true;
@@ -161,4 +158,8 @@ public class Crear_ordenventa_controller {
     public void fnCancelar(ActionEvent event) {
         appNavigator.volverMenu();
     }
+
+    private void mostrarInfo(String m) { Alert a = new Alert(Alert.AlertType.INFORMATION, m, ButtonType.OK); a.setHeaderText(null); a.showAndWait(); }
+    private void mostrarError(String m) { Alert a = new Alert(Alert.AlertType.ERROR, m, ButtonType.OK); a.setHeaderText(null); a.showAndWait(); }
+    private void mostrarAdvertencia(String m) { Alert a = new Alert(Alert.AlertType.WARNING, m, ButtonType.OK); a.setHeaderText(null); a.showAndWait(); }
 }

@@ -43,7 +43,7 @@ public class Crear_empleado_controller {
                 listaPuestos.add(new Puesto(rs.getInt("id_puesto"), rs.getString("nombre"), rs.getString("area")));
             }
         } catch (SQLException e) {
-            System.out.println("Error cargando puestos: " + e.getMessage());
+            mostrarError("Error cargando puestos: " + e.getMessage());
         }
         cmbPuesto.setItems(listaPuestos);
     }
@@ -87,7 +87,7 @@ public class Crear_empleado_controller {
                 return rs.getInt(1);
             }
         } catch (SQLException e) {
-            System.out.println("Error insertando empleado: " + e.getMessage());
+            mostrarError("Error insertando empleado: " + e.getMessage());
         }
         return 0;
     }

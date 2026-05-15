@@ -222,7 +222,7 @@ public class Ver_recetas_controller {
                 productosIng.add(new Producto(rs.getInt("id_producto"), rs.getString("nombre")));
             }
         } catch (SQLException e) {
-            System.out.println("Error: " + e.getMessage());
+            mostrarError("Error al cargar datos: " + e.getMessage());
         }
         cmbNuevoIng.setItems(productosIng);
         cmbNuevoIng.setPromptText("Seleccionar...");
@@ -241,7 +241,7 @@ public class Ver_recetas_controller {
                 unidades.add(new Unidad(rs.getInt("id_unidad"), rs.getString("nombre")));
             }
         } catch (SQLException e) {
-            System.out.println("Error: " + e.getMessage());
+            mostrarError("Error al cargar datos: " + e.getMessage());
         }
         cmbUnidadNueva.setItems(unidades);
         cmbUnidadNueva.setPromptText("Unidad");
@@ -300,7 +300,7 @@ public class Ver_recetas_controller {
                 ));
             }
         } catch (SQLException e) {
-            System.out.println("Error cargando ingredientes: " + e.getMessage());
+            mostrarError("Error cargando ingredientes: " + e.getMessage());
         }
     }
 
