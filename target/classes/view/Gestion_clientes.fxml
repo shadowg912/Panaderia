@@ -43,6 +43,38 @@
                         </children>
                     </VBox>
 
+                    <VBox spacing="16" styleClass="card" style="-fx-min-width: 982; -fx-max-width: 1072;">
+                        <children>
+                            <HBox alignment="CENTER_LEFT" spacing="16">
+                                <Label styleClass="card-title" text="LISTADO DE CLIENTES"/>
+                                <Region HBox.hgrow="ALWAYS"/>
+                                <VBox spacing="5">
+                                    <Label styleClass="label-small" text="FILTRAR POR PROVINCIA"/>
+                                    <ComboBox fx:id="cmbFiltroProvincia" onAction="#fnFiltrarTabla" prefWidth="220" promptText="Todas las provincias"/>
+                                </VBox>
+                                <Button onAction="#fnFiltrarTabla" text="Filtrar" styleClass="btn, btn-secondary" prefHeight="42"/>
+                            </HBox>
+                            <TableView fx:id="tablaClientes" prefHeight="250" styleClass="table-view">
+                                <columns>
+                                    <TableColumn fx:id="colId" prefWidth="60" text="ID"/>
+                                    <TableColumn fx:id="colRazonSocial" prefWidth="280" text="RAZÓN SOCIAL"/>
+                                    <TableColumn fx:id="colRnc" prefWidth="150" text="RNC"/>
+                                    <TableColumn fx:id="colTelefono" prefWidth="150" text="TELÉFONO"/>
+                                    <TableColumn fx:id="colProvincia" prefWidth="200" text="PROVINCIA"/>
+                                </columns>
+                                <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                                </columnResizePolicy>
+                            </TableView>
+                        </children>
+                    </VBox>
+
+                    <VBox alignment="CENTER" spacing="8" style="-fx-max-width: 1072;">
+                        <Separator styleClass="separator-dark" maxWidth="400"/>
+                        <Label styleClass="section-title" text="DATOS DEL CLIENTE — EDITAR"/>
+                        <Separator styleClass="separator-dark" maxWidth="400"/>
+                    </VBox>
+
                     <HBox alignment="TOP_CENTER" spacing="32">
                         <VBox spacing="20" styleClass="card" style="-fx-min-width: 500;">
                             <children>

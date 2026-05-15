@@ -6,10 +6,13 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import model.ClienteResumen;
 import model.Provincia;
 import utils.AppNavigator;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Gestion_clientes_controller {
 
@@ -23,11 +26,19 @@ public class Gestion_clientes_controller {
     @FXML private TextField txtCorreo;
 
     @FXML private ComboBox<Provincia> cmbProvincia;
+    @FXML private ComboBox<Provincia> cmbFiltroProvincia;
     @FXML private TextField txtCiudad;
     @FXML private TextField txtSector;
     @FXML private TextField txtCalle;
     @FXML private TextField txtNumero;
     @FXML private TextField txtReferencia;
+
+    @FXML private TableView<ClienteResumen> tablaClientes;
+    @FXML private TableColumn<ClienteResumen, Integer> colId;
+    @FXML private TableColumn<ClienteResumen, String> colRazonSocial;
+    @FXML private TableColumn<ClienteResumen, String> colRnc;
+    @FXML private TableColumn<ClienteResumen, String> colTelefono;
+    @FXML private TableColumn<ClienteResumen, String> colProvincia;
 
     @FXML private Button btnGuardar;
     @FXML private Button btnLimpiar;
@@ -39,24 +50,102 @@ public class Gestion_clientes_controller {
     private int idClienteActual;
     private int idDireccionActual;
 
+    private ObservableList<ClienteResumen> listaClientes = FXCollections.observableArrayList(
+            item -> new javafx.beans.Observable[]{
+                    item.idClienteProperty(), item.razonSocialProperty(),
+                    item.rncProperty(), item.telefonoProperty(), item.provinciaProperty()
+            }
+    );
+
     @FXML
     public void initialize() {
+        configurarColumnas();
         cargarProvincias();
+        cargarTablaClientes();
+    }
+
+    private void configurarColumnas() {
+        colId.setCellValueFactory(c -> c.getValue().idClienteProperty().asObject());
+        colRazonSocial.setCellValueFactory(c -> c.getValue().razonSocialProperty());
+        colRnc.setCellValueFactory(c -> c.getValue().rncProperty());
+        colTelefono.setCellValueFactory(c -> c.getValue().telefonoProperty());
+        colProvincia.setCellValueFactory(c -> c.getValue().provinciaProperty());
+        tablaClientes.setItems(listaClientes);
+
+        tablaClientes.setOnMouseClicked(e -> {
+            if (e.getClickCount() == 2) {
+                ClienteResumen sel = tablaClientes.getSelectionModel().getSelectedItem();
+                if (sel != null) {
+                    txtIdCliente.setText(String.valueOf(sel.getIdCliente()));
+                    fnBuscarCliente(null);
+                }
+            }
+        });
     }
 
     private void cargarProvincias() {
         ObservableList<Provincia> provincias = FXCollections.observableArrayList();
+        ObservableList<Provincia> provinciasFiltro = FXCollections.observableArrayList();
+        provinciasFiltro.add(new Provincia(0, "Todas las provincias"));
+
         String sql = "SELECT id_provincia, nombre FROM PROVINCIA ORDER BY nombre";
         try (Connection conn = conexion.establecerconexio();
              PreparedStatement ps = conn.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
-                provincias.add(new Provincia(rs.getInt("id_provincia"), rs.getString("nombre")));
+                Provincia p = new Provincia(rs.getInt("id_provincia"), rs.getString("nombre"));
+                provincias.add(p);
+                provinciasFiltro.add(p);
             }
         } catch (SQLException e) {
             System.out.println("Error cargando provincias: " + e.getMessage());
         }
         cmbProvincia.setItems(provincias);
+        cmbFiltroProvincia.setItems(provinciasFiltro);
+        cmbFiltroProvincia.getSelectionModel().selectFirst();
+    }
+
+    private void cargarTablaClientes() {
+        listaClientes.clear();
+        Provincia filtroProv = cmbFiltroProvincia.getValue();
+
+        StringBuilder sql = new StringBuilder(
+            "SELECT c.id_cliente, c.razon_social, c.rnc, c.telefono, p.nombre as provincia " +
+            "FROM CLIENTE c " +
+            "LEFT JOIN DIRECCION d ON c.id_direccion = d.id_direccion " +
+            "LEFT JOIN SECTOR s ON d.id_sector = s.id_sector " +
+            "LEFT JOIN CIUDAD cd ON s.id_ciudad = cd.id_ciudad " +
+            "LEFT JOIN PROVINCIA p ON cd.id_provincia = p.id_provincia WHERE 1=1 "
+        );
+
+        List<Object> params = new ArrayList<>();
+        if (filtroProv != null && filtroProv.getId_provincia() > 0) {
+            sql.append(" AND p.id_provincia = ? ");
+            params.add(filtroProv.getId_provincia());
+        }
+        sql.append(" ORDER BY c.razon_social");
+
+        try (Connection conn = conexion.establecerconexio();
+             PreparedStatement ps = conn.prepareStatement(sql.toString())) {
+            for (int i = 0; i < params.size(); i++) ps.setObject(i + 1, params.get(i));
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                listaClientes.add(new ClienteResumen(
+                    rs.getInt("id_cliente"),
+                    rs.getString("razon_social"),
+                    rs.getString("rnc"),
+                    rs.getString("telefono"),
+                    rs.getString("provincia")
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void fnFiltrarTabla(ActionEvent event) {
+        cargarTablaClientes();
     }
 
     @FXML
@@ -127,9 +216,7 @@ public class Gestion_clientes_controller {
     }
 
     @FXML
-    public void fnCambioProvincia(ActionEvent event) {
-        // No se necesita lógica adicional, ciudad/sector son TextFields
-    }
+    public void fnCambioProvincia(ActionEvent event) {}
 
     @FXML
     public void fnGuardarCambios(ActionEvent event) {
@@ -161,14 +248,9 @@ public class Gestion_clientes_controller {
                 try (PreparedStatement ps = conn.prepareStatement(sqlDir)) {
                     ps.setString(1, calle);
                     if (!numero.isEmpty()) {
-                        try {
-                            ps.setInt(2, Integer.parseInt(numero));
-                        } catch (NumberFormatException e) {
-                            ps.setNull(2, Types.INTEGER);
-                        }
-                    } else {
-                        ps.setNull(2, Types.INTEGER);
-                    }
+                        try { ps.setInt(2, Integer.parseInt(numero)); }
+                        catch (NumberFormatException e) { ps.setNull(2, Types.INTEGER); }
+                    } else { ps.setNull(2, Types.INTEGER); }
                     ps.setString(3, referencia.isEmpty() ? null : referencia);
                     ps.setInt(4, idSector);
                     ps.setInt(5, idDireccionActual);
@@ -179,21 +261,14 @@ public class Gestion_clientes_controller {
                 try (PreparedStatement ps = conn.prepareStatement(sqlDir, Statement.RETURN_GENERATED_KEYS)) {
                     ps.setString(1, calle);
                     if (!numero.isEmpty()) {
-                        try {
-                            ps.setInt(2, Integer.parseInt(numero));
-                        } catch (NumberFormatException e) {
-                            ps.setNull(2, Types.INTEGER);
-                        }
-                    } else {
-                        ps.setNull(2, Types.INTEGER);
-                    }
+                        try { ps.setInt(2, Integer.parseInt(numero)); }
+                        catch (NumberFormatException e) { ps.setNull(2, Types.INTEGER); }
+                    } else { ps.setNull(2, Types.INTEGER); }
                     ps.setString(3, referencia.isEmpty() ? null : referencia);
                     ps.setInt(4, idSector);
                     ps.executeUpdate();
                     ResultSet rs = ps.getGeneratedKeys();
-                    if (rs.next()) {
-                        idDireccionActual = rs.getInt(1);
-                    }
+                    if (rs.next()) idDireccionActual = rs.getInt(1);
                 }
             }
 
@@ -211,6 +286,7 @@ public class Gestion_clientes_controller {
             conn.commit();
             txtNombreCliente.setText(razonSocial);
             mostrarInfo("Cliente actualizado exitosamente.");
+            cargarTablaClientes();
         } catch (SQLException e) {
             mostrarError("Error al guardar cambios: " + e.getMessage());
         }
@@ -219,23 +295,16 @@ public class Gestion_clientes_controller {
     private int buscarOCrearCiudad(Connection conn, String nombreCiudad, int idProvincia) throws SQLException {
         String sqlBuscar = "SELECT id_ciudad FROM CIUDAD WHERE nombre = ? AND id_provincia = ?";
         try (PreparedStatement ps = conn.prepareStatement(sqlBuscar)) {
-            ps.setString(1, nombreCiudad);
-            ps.setInt(2, idProvincia);
+            ps.setString(1, nombreCiudad); ps.setInt(2, idProvincia);
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                return rs.getInt("id_ciudad");
-            }
+            if (rs.next()) return rs.getInt("id_ciudad");
         }
-
         String sqlInsertar = "INSERT INTO CIUDAD (nombre, id_provincia) VALUES (?, ?)";
         try (PreparedStatement ps = conn.prepareStatement(sqlInsertar, Statement.RETURN_GENERATED_KEYS)) {
-            ps.setString(1, nombreCiudad);
-            ps.setInt(2, idProvincia);
+            ps.setString(1, nombreCiudad); ps.setInt(2, idProvincia);
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
-            if (rs.next()) {
-                return rs.getInt(1);
-            }
+            if (rs.next()) return rs.getInt(1);
         }
         return 0;
     }
@@ -243,89 +312,52 @@ public class Gestion_clientes_controller {
     private int buscarOCrearSector(Connection conn, String nombreSector, int idCiudad) throws SQLException {
         String sqlBuscar = "SELECT id_sector FROM SECTOR WHERE nombre = ? AND id_ciudad = ?";
         try (PreparedStatement ps = conn.prepareStatement(sqlBuscar)) {
-            ps.setString(1, nombreSector);
-            ps.setInt(2, idCiudad);
+            ps.setString(1, nombreSector); ps.setInt(2, idCiudad);
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                return rs.getInt("id_sector");
-            }
+            if (rs.next()) return rs.getInt("id_sector");
         }
-
         String sqlInsertar = "INSERT INTO SECTOR (nombre, id_ciudad) VALUES (?, ?)";
         try (PreparedStatement ps = conn.prepareStatement(sqlInsertar, Statement.RETURN_GENERATED_KEYS)) {
-            ps.setString(1, nombreSector);
-            ps.setInt(2, idCiudad);
+            ps.setString(1, nombreSector); ps.setInt(2, idCiudad);
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
-            if (rs.next()) {
-                return rs.getInt(1);
-            }
+            if (rs.next()) return rs.getInt(1);
         }
         return 0;
     }
 
     private boolean validarCampos() {
         if (txtRazonSocial.getText() == null || txtRazonSocial.getText().trim().isEmpty()) {
-            mostrarAdvertencia("La razón social es obligatoria.");
-            return false;
+            mostrarAdvertencia("La razón social es obligatoria."); return false;
         }
         if (txtRnc.getText() == null || txtRnc.getText().trim().isEmpty()) {
-            mostrarAdvertencia("El RNC es obligatorio.");
-            return false;
+            mostrarAdvertencia("El RNC es obligatorio."); return false;
         }
         if (cmbProvincia.getValue() == null) {
-            mostrarAdvertencia("Debe seleccionar una provincia.");
-            return false;
+            mostrarAdvertencia("Debe seleccionar una provincia."); return false;
         }
         if (txtCiudad.getText() == null || txtCiudad.getText().trim().isEmpty()) {
-            mostrarAdvertencia("La ciudad es obligatoria.");
-            return false;
+            mostrarAdvertencia("La ciudad es obligatoria."); return false;
         }
         if (txtSector.getText() == null || txtSector.getText().trim().isEmpty()) {
-            mostrarAdvertencia("El sector es obligatorio.");
-            return false;
+            mostrarAdvertencia("El sector es obligatorio."); return false;
         }
         return true;
     }
 
     @FXML
     public void fnLimpiar() {
-        txtIdCliente.clear();
-        txtNombreCliente.clear();
-        txtRazonSocial.clear();
-        txtRnc.clear();
-        txtTelefono.clear();
-        txtCorreo.clear();
-        txtCiudad.clear();
-        txtSector.clear();
-        txtCalle.clear();
-        txtNumero.clear();
-        txtReferencia.clear();
+        txtIdCliente.clear(); txtNombreCliente.clear();
+        txtRazonSocial.clear(); txtRnc.clear(); txtTelefono.clear(); txtCorreo.clear();
+        txtCiudad.clear(); txtSector.clear(); txtCalle.clear(); txtNumero.clear(); txtReferencia.clear();
         cmbProvincia.setValue(null);
-        idClienteActual = 0;
-        idDireccionActual = 0;
+        idClienteActual = 0; idDireccionActual = 0;
     }
 
     @FXML
-    public void fnVolverMenu(ActionEvent event) {
-        appNavigator.volverMenu();
-    }
+    public void fnVolverMenu(ActionEvent event) { appNavigator.volverMenu(); }
 
-    private void mostrarAdvertencia(String mensaje) {
-        Alert a = new Alert(Alert.AlertType.WARNING, mensaje, ButtonType.OK);
-        a.setHeaderText(null);
-        a.showAndWait();
-    }
-
-    private void mostrarError(String mensaje) {
-        Alert a = new Alert(Alert.AlertType.ERROR, mensaje, ButtonType.OK);
-        a.setHeaderText(null);
-        a.showAndWait();
-    }
-
-    private void mostrarInfo(String mensaje) {
-        Alert a = new Alert(Alert.AlertType.INFORMATION, mensaje, ButtonType.OK);
-        a.setHeaderText(null);
-        a.showAndWait();
-    }
+    private void mostrarAdvertencia(String m) { Alert a = new Alert(Alert.AlertType.WARNING, m, ButtonType.OK); a.setHeaderText(null); a.showAndWait(); }
+    private void mostrarError(String m) { Alert a = new Alert(Alert.AlertType.ERROR, m, ButtonType.OK); a.setHeaderText(null); a.showAndWait(); }
+    private void mostrarInfo(String m) { Alert a = new Alert(Alert.AlertType.INFORMATION, m, ButtonType.OK); a.setHeaderText(null); a.showAndWait(); }
 }

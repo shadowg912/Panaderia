@@ -32,6 +32,7 @@
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/CategoriaProveedor.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/Ciudad.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/Cliente.java
+/home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/ClienteResumen.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/DetalleOrdenVenta.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/Direccion.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/Empleado.java
