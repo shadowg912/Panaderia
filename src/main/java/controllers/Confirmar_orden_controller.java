@@ -6,7 +6,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import model.DetalleOrdenVenta;
 import model.OrdenVenta;
 import model.OrdenVentaEstado;
@@ -51,10 +50,10 @@ public class Confirmar_orden_controller {
     }
 
     private void configurarColumnas() {
-        colProducto.setCellValueFactory(new PropertyValueFactory<>("nombreProducto"));
-        colCantidad.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
-        colPrecio.setCellValueFactory(new PropertyValueFactory<>("precioUnitario"));
-        colTotal.setCellValueFactory(new PropertyValueFactory<>("subtotal"));
+        colProducto.setCellValueFactory(cellData -> cellData.getValue().nombreProductoProperty());
+        colCantidad.setCellValueFactory(cellData -> cellData.getValue().cantidadProperty());
+        colPrecio.setCellValueFactory(cellData -> cellData.getValue().precioUnitarioProperty().asObject());
+        colTotal.setCellValueFactory(cellData -> cellData.getValue().subtotalProperty().asObject());
 
         // Formatear precio unitario → RD$ 0,000.00
         colPrecio.setCellFactory(col -> new TableCell<>() {
@@ -119,7 +118,8 @@ public class Confirmar_orden_controller {
 
     @FXML
     public void fnEditarOrden(ActionEvent event) {
-        appNavigator.load("view/Crear_ordenventa.fxml");
+        Detalle_orden_venta_controller.setIdOrden(OrdenVentaEstado.idOrdenVenta);
+        appNavigator.load("/view/Detalle_Venta.fxml");
     }
 
     @FXML
@@ -164,10 +164,12 @@ public class Confirmar_orden_controller {
     }
 
     private int emitirEnBD(OrdenVenta orden, List<DetalleOrdenVenta> detalles) {
+        Integer idEmpleado = OrdenVentaEstado.idEmpleado;
+
         String sqlOrden =
                 "INSERT INTO ORDEN_VENTA " +
-                        "(id_cliente, estado, fecha_orden, id_forma_pago, subtotal, itbis, monto_total, fecha_entrega) " +
-                        "VALUES (?, 'PENDIENTE', ?, ?, ?, ?, ?, ?)";
+                        "(id_cliente, id_empleado, estado, fecha_orden, id_forma_pago, subtotal, itbis, monto_total, fecha_entrega) " +
+                        "VALUES (?, ?, 'PENDIENTE', ?, ?, ?, ?, ?, ?)";
 
         String sqlDetalle =
                 "INSERT INTO DETALLE_ORDEN_VENTA " +
@@ -184,22 +186,27 @@ public class Confirmar_orden_controller {
                          con.prepareStatement(sqlOrden, Statement.RETURN_GENERATED_KEYS)) {
 
                 psOrden.setInt(1, orden.getIdCliente());
-                psOrden.setDate(2, Date.valueOf(LocalDate.now()));
+                if (idEmpleado != null) {
+                    psOrden.setInt(2, idEmpleado);
+                } else {
+                    psOrden.setNull(2, Types.INTEGER);
+                }
+                psOrden.setDate(3, Date.valueOf(LocalDate.now()));
             
                 if (orden.getIdFormaPago() != null) {
-                    psOrden.setInt(3, orden.getIdFormaPago());
+                    psOrden.setInt(4, orden.getIdFormaPago());
                 } else {
-                    psOrden.setNull(3, Types.INTEGER);
+                    psOrden.setNull(4, Types.INTEGER);
                 }
 
-                psOrden.setDouble(4, orden.getSubtotal()  != null ? orden.getSubtotal()  : 0.0);
-                psOrden.setDouble(5, orden.getItbis()     != null ? orden.getItbis()     : 0.0);
-                psOrden.setDouble(6, orden.getMontoTotal()!= null ? orden.getMontoTotal(): 0.0);
+                psOrden.setDouble(5, orden.getSubtotal()  != null ? orden.getSubtotal()  : 0.0);
+                psOrden.setDouble(6, orden.getItbis()     != null ? orden.getItbis()     : 0.0);
+                psOrden.setDouble(7, orden.getMontoTotal()!= null ? orden.getMontoTotal(): 0.0);
 
                 if (orden.getFechaEntrega() != null) {
-                    psOrden.setDate(7, orden.getFechaEntrega());
+                    psOrden.setDate(8, orden.getFechaEntrega());
                 } else {
-                    psOrden.setNull(7, Types.DATE);
+                    psOrden.setNull(8, Types.DATE);
                 }
 
                 psOrden.executeUpdate();
@@ -224,6 +231,20 @@ public class Confirmar_orden_controller {
                     psDet.addBatch();
                 }
                 psDet.executeBatch();
+            }
+
+            String estadoEnvio = idEmpleado != null ? "ASIGNADO" : "PENDIENTE";
+            String sqlEnvio = "INSERT INTO ENVIO (id_orden_venta, id_empleado_transportista, id_estado_envio, id_usuario_creacion) " +
+                            "VALUES (?, ?, (SELECT id_estado_envio FROM ESTADO_ENVIO WHERE nombre = ?), 1)";
+            try (PreparedStatement psEnv = con.prepareStatement(sqlEnvio)) {
+                psEnv.setInt(1, idOrdenGenerado);
+                if (idEmpleado != null) {
+                    psEnv.setInt(2, idEmpleado);
+                } else {
+                    psEnv.setNull(2, Types.INTEGER);
+                }
+                psEnv.setString(3, estadoEnvio);
+                psEnv.executeUpdate();
             }
 
             con.commit();

@@ -13,7 +13,7 @@ public class OrdenVentaEstado {
     public static int    idFormaPago;
     public static String nombreCliente;
     public static String nombreFormaPago;
-
+    public static Integer idEmpleado;
 
     public static void limpiar() {
         ordenActual      = null;
@@ -22,7 +22,8 @@ public class OrdenVentaEstado {
         nombreFormaPago  = null;
         idCliente = 0;
         idFormaPago      = 0;
-        idOrdenVenta  = 0;
+        idEmpleado       = null;
+        idOrdenVenta     = 0;
     }
 
 

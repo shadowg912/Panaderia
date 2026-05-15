@@ -8,7 +8,9 @@ model/Cliente.class
 controllers/Admin_empleados_controller$1.class
 controllers/Ver_ordenes_produccion_controller.class
 model/RecetaResumen.class
+controllers/Seguimento_envio_controller$1.class
 controllers/Admin_usuarios_controller.class
+model/EnvioResumen.class
 controllers/Gestion_clientes_controller.class
 controllers/Ver_ordenes_produccion_controller$1.class
 controllers/Ver_recetas_controller$2.class

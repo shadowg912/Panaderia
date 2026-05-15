@@ -35,6 +35,7 @@
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/DetalleOrdenVenta.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/Direccion.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/Empleado.java
+/home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/EnvioResumen.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/Factura.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/FormaPago.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/OrdenProduccion.java

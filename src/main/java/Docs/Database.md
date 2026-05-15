@@ -376,6 +376,7 @@ Columnas:
 - itbis (money, NULL)
 - monto_total (money, NULL)
 - fecha_entrega (date, NULL)
+- id_empleado (FK -> EMPLEADO.id_empleado, int, NULL)
 - motivo_cancelacion (text, NULL)
 
 ---

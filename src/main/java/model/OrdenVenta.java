@@ -13,15 +13,17 @@ public class OrdenVenta {
     private Double itbis;
     private Double montoTotal;
     private Date fechaEntrega;
+    private Integer idEmpleado;
     private String motivoCancelacion;
 
     public OrdenVenta() {}
 
-    public OrdenVenta(int idOrdenVenta, int idCliente, String estado, Date fechaOrden,
+    public OrdenVenta(int idOrdenVenta, int idCliente, Integer idEmpleado, String estado, Date fechaOrden,
                       Integer idFormaPago, Double subtotal, Double itbis, Double montoTotal,
                       Date fechaEntrega, String motivoCancelacion) {
         this.idOrdenVenta = idOrdenVenta;
         this.idCliente = idCliente;
+        this.idEmpleado = idEmpleado;
         this.estado = estado;
         this.fechaOrden = fechaOrden;
         this.idFormaPago = idFormaPago;
@@ -58,6 +60,9 @@ public class OrdenVenta {
 
     public Date getFechaEntrega() { return fechaEntrega; }
     public void setFechaEntrega(Date fechaEntrega) { this.fechaEntrega = fechaEntrega; }
+
+    public Integer getIdEmpleado() { return idEmpleado; }
+    public void setIdEmpleado(Integer idEmpleado) { this.idEmpleado = idEmpleado; }
 
     public String getMotivoCancelacion() { return motivoCancelacion; }
     public void setMotivoCancelacion(String motivoCancelacion) { this.motivoCancelacion = motivoCancelacion; }

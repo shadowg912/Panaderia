@@ -10,6 +10,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import model.Cliente;
+import model.Empleado;
 import model.FormaPago;
 import model.OrdenVentaEstado;
 import utils.AppNavigator;
@@ -26,6 +27,7 @@ public class Crear_ordenventa_controller {
 
     @FXML private ComboBox<Cliente> cmbCliente;
     @FXML private ComboBox<FormaPago> cmbFormaPago;
+    @FXML private ComboBox<Empleado> cmbEmpleado;
     @FXML private DatePicker dpFechaEntrega;
     @FXML private TextField txtEstado;
     @FXML private Button btnCancelar;
@@ -35,6 +37,7 @@ public class Crear_ordenventa_controller {
     AppNavigator appNavigator = new AppNavigator();
     ObservableList<Cliente> Clientes = FXCollections.observableArrayList();
     ObservableList<FormaPago> FormasPago = FXCollections.observableArrayList();
+    ObservableList<Empleado> Empleados = FXCollections.observableArrayList();
 
     public ObservableList cargarClientes() {
         String sql = "SELECT id_cliente, razon_social FROM CLIENTE ORDER BY razon_social";
@@ -64,14 +67,29 @@ public class Crear_ordenventa_controller {
         return FormasPago;
     }
 
+    private void cargarEmpleados() {
+        String sql = "SELECT e.id_empleado, e.nombre, e.apellido1 FROM EMPLEADO e " +
+                   "INNER JOIN PUESTO p ON e.id_puesto = p.id_puesto " +
+                   "WHERE LOWER(p.nombre) LIKE '%repartidor%' ORDER BY e.nombre";
+        try (Connection connection = conexion.establecerconexio();
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Empleados.add(new Empleado(rs.getInt("id_empleado"), rs.getString("nombre"), rs.getString("apellido1")));
+            }
+        } catch (Exception e) {
+            System.out.println("Error cargando empleados: " + e.getMessage());
+        }
+        cmbEmpleado.setItems(Empleados);
+    }
+
     @FXML
     public void initialize() {
         cmbCliente.setItems(cargarClientes());
         cmbFormaPago.setItems(cargarFormasPago());
+        cargarEmpleados();
         txtEstado.setText("PENDIENTE");
     }
-
-
 
     @FXML
     public void fnCrearOrden(ActionEvent event) {
@@ -80,14 +98,16 @@ public class Crear_ordenventa_controller {
         int idCliente = cmbCliente.getValue().getIdCliente();
         int idFormaPago = cmbFormaPago.getValue().getIdFormaPago();
         Date fechaEntrega = dpFechaEntrega.getValue() != null ? Date.valueOf(dpFechaEntrega.getValue()) : null;
+        Integer idEmpleado = cmbEmpleado.getValue() != null ? cmbEmpleado.getValue().getIdEmpleado() : null;
 
-        int idOrden = insertarOrden(idCliente, idFormaPago, fechaEntrega);
+        int idOrden = insertarOrden(idCliente, idFormaPago, fechaEntrega, idEmpleado);
 
         if (idOrden > 0) {
 
             OrdenVentaEstado.idOrdenVenta = idOrden;
             OrdenVentaEstado.idCliente = idCliente;
-            OrdenVentaEstado.nombreCliente = cmbCliente.getValue().getNombre(); // o getRazonSocial()
+            OrdenVentaEstado.idEmpleado = idEmpleado;
+            OrdenVentaEstado.nombreCliente = cmbCliente.getValue().getNombre();
             OrdenVentaEstado.idFormaPago = idFormaPago;
             OrdenVentaEstado.nombreFormaPago = cmbFormaPago.getValue().getNombre();
 
@@ -97,16 +117,21 @@ public class Crear_ordenventa_controller {
             System.out.printf("Error al crear la orden");
         }
     }
-    private int insertarOrden(int idCliente, int idFormaPago, Date fechaEntrega) {
-        String sql = "INSERT INTO ORDEN_VENTA (id_cliente, estado, fecha_orden, id_forma_pago, fecha_entrega) VALUES (?, 'PENDIENTE', GETDATE(), ?, ?)";
+    private int insertarOrden(int idCliente, int idFormaPago, Date fechaEntrega, Integer idEmpleado) {
+        String sql = "INSERT INTO ORDEN_VENTA (id_cliente, id_empleado, estado, fecha_orden, id_forma_pago, fecha_entrega) VALUES (?, ?, 'PENDIENTE', GETDATE(), ?, ?)";
         try (Connection connection = conexion.establecerconexio();
              PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setInt(1, idCliente);
-            ps.setInt(2, idFormaPago);
-            if (fechaEntrega != null) {
-                ps.setDate(3, fechaEntrega);
+            if (idEmpleado != null) {
+                ps.setInt(2, idEmpleado);
             } else {
-                ps.setNull(3, java.sql.Types.DATE);
+                ps.setNull(2, java.sql.Types.INTEGER);
+            }
+            ps.setInt(3, idFormaPago);
+            if (fechaEntrega != null) {
+                ps.setDate(4, fechaEntrega);
+            } else {
+                ps.setNull(4, java.sql.Types.DATE);
             }
             ps.executeUpdate();
 
