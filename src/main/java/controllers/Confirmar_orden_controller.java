@@ -235,7 +235,7 @@ public class Confirmar_orden_controller {
 
             String estadoEnvio = idEmpleado != null ? "ASIGNADO" : "PENDIENTE";
             String sqlEnvio = "INSERT INTO ENVIO (id_orden_venta, id_empleado_transportista, id_estado_envio, id_usuario_creacion) " +
-                            "VALUES (?, ?, (SELECT id_estado_envio FROM ESTADO_ENVIO WHERE nombre = ?), 1)";
+                            "VALUES (?, ?, (SELECT id_estado_envio FROM ESTADO_ENVIO WHERE nombre = ?), ?)";
             try (PreparedStatement psEnv = con.prepareStatement(sqlEnvio)) {
                 psEnv.setInt(1, idOrdenGenerado);
                 if (idEmpleado != null) {
@@ -244,6 +244,7 @@ public class Confirmar_orden_controller {
                     psEnv.setNull(2, Types.INTEGER);
                 }
                 psEnv.setString(3, estadoEnvio);
+                psEnv.setInt(4, utils.SesionUsuario.getIdUsuario());
                 psEnv.executeUpdate();
             }
 

@@ -13,10 +13,10 @@ public class CONEXION {
     String db = "PANADERIA";
     String puerto = "1433";
 
-    String contrasena = "J3sk0912"; String ip = "Localhost";
+    //String contrasena = "J3sk0912"; String ip = "Localhost";
 
 
-    //String contrasena = "J3sk0912SQL"; String ip = "100.93.3.29";
+    String contrasena = "J3sk0912SQL"; String ip = "100.93.3.29";
 
 
 

@@ -39,6 +39,9 @@ public class Regisro_empresa_controller {
 
     public void limipar() {
         txtNombreEmpresa.setText(""); txtRNC.setText(""); txtTelefono.setText(""); txtCorreo.setText("");
+        txtCalle.setText(""); txtNumero.setText(""); txtSector.setText("");
+        txtCiudad.setText(""); txtReferencia.setText("");
+        cmbProvincia.setValue(null);
     }
 
     @FXML

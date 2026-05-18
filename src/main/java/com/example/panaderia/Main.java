@@ -13,7 +13,7 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
         AppNavigator.setStage(stage);
 
-        Parent root = FXMLLoader.load(getClass().getResource("/view/Menu.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/view/login_usuarios.fxml"));
         stage.setScene(new Scene(root, 1280, 720));
        stage.setTitle("menu");
         stage.show();

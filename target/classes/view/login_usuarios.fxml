@@ -7,61 +7,36 @@
 <BorderPane prefHeight="720" prefWidth="1280"
             stylesheets="@Styles.css"
             xmlns="http://javafx.com/javafx/17.0.12"
-            xmlns:fx="http://javafx.com/fxml/1">
-
-    <children>
-        <Pane mouseTransparent="true" prefHeight="720" prefWidth="1280" styleClass="bg-transparent">
-            <children>
-                <Label layoutX="80" layoutY="60" style="-fx-font-size: 64px; -fx-opacity: 0.04;" text="🍞"/>
-                <Label layoutX="1120" layoutY="520" style="-fx-font-size: 52px; -fx-opacity: 0.04;" text="🥐"/>
-                <Label layoutX="180" layoutY="580" style="-fx-font-size: 56px; -fx-opacity: 0.03;" text="🥖"/>
-                <Label layoutX="980" layoutY="100" style="-fx-font-size: 44px; -fx-opacity: 0.04;" text="🥮"/>
-                <Label layoutX="600" layoutY="40" style="-fx-font-size: 38px; -fx-opacity: 0.03;" text="🧁"/>
-            </children>
-        </Pane>
-    </children>
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controllers.Login_controller">
 
     <center>
-        <StackPane styleClass="bg-transparent">
-            <VBox alignment="CENTER" maxWidth="460" spacing="0" styleClass="login-card">
-                <VBox alignment="CENTER" spacing="6" styleClass="login-header">
-                    <children>
-                        <Label styleClass="login-title" text="Panadería"/>
-                        <Label styleClass="login-subtitle" text="Sistema Integral de Gestión"/>
-                    </children>
+        <StackPane styleClass="login-root">
+            <VBox alignment="CENTER" maxWidth="420" spacing="0" styleClass="login-card">
+                <VBox alignment="CENTER" spacing="4" styleClass="login-header">
+                    <Label styleClass="login-icon" text="🥖"/>
+                    <Label styleClass="login-title" text="Panadería"/>
+                    <Label styleClass="login-subtitle" text="Sistema Integral de Gestión"/>
                 </VBox>
 
-                <VBox spacing="18" styleClass="login-body">
-                    <children>
-                        <Label styleClass="card-title" text="Iniciar Sesión"/>
+                <VBox spacing="20" styleClass="login-body">
+                    <Label styleClass="card-title" text="Iniciar Sesión"/>
 
-                        <VBox spacing="6">
-                            <children>
-                                <Label styleClass="form-label" text="Usuario"/>
-                                <TextField promptText="Nombre de usuario"/>
-                            </children>
-                        </VBox>
+                    <VBox spacing="5">
+                        <Label styleClass="form-label" text="Usuario"/>
+                        <TextField fx:id="txtUsuario" promptText="Nombre de usuario" onAction="#fnIniciarSesion" styleClass="login-input"/>
+                    </VBox>
 
-                        <VBox spacing="6">
-                            <children>
-                                <Label styleClass="form-label" text="Contraseña"/>
-                                <PasswordField promptText="Contraseña"/>
-                            </children>
-                        </VBox>
+                    <VBox spacing="5">
+                        <Label styleClass="form-label" text="Contraseña"/>
+                        <PasswordField fx:id="txtPassword" promptText="Contraseña" onAction="#fnIniciarSesion" styleClass="login-input"/>
+                    </VBox>
 
-                        <HBox alignment="CENTER_LEFT">
-                            <children>
-                                <CheckBox styleClass="radio-light" text="Recordar sesión" HBox.hgrow="ALWAYS"/>
-                                <Label styleClass="text-link" text="¿Olvidó su contraseña?"/>
-                            </children>
-                        </HBox>
-
-                        <Button maxWidth="Infinity" text="Iniciar Sesión" styleClass="btn, btn-primary">
-                            <effect>
-                                <DropShadow blurType="GAUSSIAN" color="#cdb08e55" radius="14" spread="0.1"/>
-                            </effect>
-                        </Button>
-                    </children>
+                    <Button maxWidth="Infinity" text="Iniciar Sesión" onAction="#fnIniciarSesion" styleClass="btn, btn-primary">
+                        <effect>
+                            <DropShadow blurType="GAUSSIAN" color="#cdb08e66" radius="16" spread="0.1"/>
+                        </effect>
+                    </Button>
                 </VBox>
             </VBox>
         </StackPane>
@@ -69,9 +44,7 @@
 
     <bottom>
         <HBox alignment="CENTER" styleClass="footer-bar">
-            <children>
-                <Label styleClass="text-placeholder" text="© 2026 Panadería — Todos los derechos reservados"/>
-            </children>
+            <Label styleClass="text-placeholder" text="© 2026 Panadería — Todos los derechos reservados"/>
         </HBox>
     </bottom>
 </BorderPane>

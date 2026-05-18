@@ -3,28 +3,106 @@ package controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 import utils.AppNavigator;
+import utils.SesionUsuario;
 
-import java.awt.*;
+import java.util.*;
 
 public class menu_contoller {
-   @FXML
-    private Button btnRegistroProveedores;
-    @FXML
-    private Button btnVerInventario;
-    @FXML
-    private Button btnCrearEmpleado;
-    @FXML
-    private Button btnAdminUsuarios;
-    @FXML
-    private Button btnVerOrdenesProduccion;
-    @FXML
-    private Button btnGestionClientes;
-    @FXML
-    private Button btnAdminEmpleados;
-    @FXML
-    private Button btnVerRecetas;
+    @FXML private Button btnNuevaOrden, btnHistorialVenta, btnSeguimientroEnvio, btnGuardarDIrecciones;
+    @FXML private Button btnRegistroProducto, btnVerInventario, btnRegistroProveedores, btnRegistroRecetas;
+    @FXML private Button btnOrdenProduccion, btnVerOrdenesProduccion, btnVerRecetas;
+    @FXML private Button btnRegistroCliente, btnGestionClientes, btnReclamaciones;
+    @FXML private Button btnCrearUsuario, btnAdminUsuarios, btnAdminEmpleados, btnCrearEmpleado, btnCerrarSesion;
+    @FXML private Label lblUsuario;
+    @FXML private VBox cardVentas, cardInventario, cardProduccion, cardClientes, cardSistema;
+    
     AppNavigator appNavigator = new AppNavigator();
+
+    private static final Map<String, Set<String>> PERMISOS = new HashMap<>();
+    static {
+        PERMISOS.put("Administrador", Set.of(
+            "btnNuevaOrden", "btnHistorialVenta", "btnSeguimientroEnvio", "btnGuardarDIrecciones",
+            "btnRegistroProducto", "btnVerInventario", "btnRegistroProveedores", "btnRegistroRecetas",
+            "btnOrdenProduccion", "btnVerOrdenesProduccion", "btnVerRecetas",
+            "btnRegistroCliente", "btnGestionClientes", "btnReclamaciones",
+            "btnCrearUsuario", "btnAdminUsuarios", "btnAdminEmpleados", "btnCrearEmpleado"
+        ));
+
+        PERMISOS.put("Encargado de Almacén", Set.of(
+            "btnRegistroProducto", "btnVerInventario", "btnRegistroProveedores",
+            "btnVerRecetas"
+        ));
+
+        PERMISOS.put("Encargado de Área", Set.of(
+            "btnHistorialVenta", "btnSeguimientroEnvio",
+            "btnVerInventario",
+            "btnVerOrdenesProduccion", "btnVerRecetas",
+            "btnGestionClientes", "btnReclamaciones"
+        ));
+
+        PERMISOS.put("Encargado de Producción", Set.of(
+            "btnVerInventario",
+            "btnOrdenProduccion", "btnVerOrdenesProduccion", "btnVerRecetas",
+            "btnRegistroRecetas"
+        ));
+
+        PERMISOS.put("Encargado de Compras", Set.of(
+            "btnVerInventario", "btnRegistroProveedores"
+        ));
+
+        PERMISOS.put("Repartidor", Set.of(
+            "btnSeguimientroEnvio"
+        ));
+    }
+
+    private static final Map<String, List<Button>> CARD_BOTONES = new LinkedHashMap<>();
+    private static final Map<String, VBox> CARDS = new LinkedHashMap<>();
+
+    @FXML
+    public void initialize() {
+        String nombre = SesionUsuario.getNombreEmpleado() != null
+                ? SesionUsuario.getNombreEmpleado()
+                : SesionUsuario.getNombreUsuario();
+        lblUsuario.setText(nombre + " — " + SesionUsuario.getNombreRol());
+
+        Set<String> allowed = PERMISOS.getOrDefault(SesionUsuario.getNombreRol(), Collections.emptySet());
+
+        List<Button> todos = Arrays.asList(
+            btnNuevaOrden, btnHistorialVenta, btnSeguimientroEnvio, btnGuardarDIrecciones,
+            btnRegistroProducto, btnVerInventario, btnRegistroProveedores, btnRegistroRecetas,
+            btnOrdenProduccion, btnVerOrdenesProduccion, btnVerRecetas,
+            btnRegistroCliente, btnGestionClientes, btnReclamaciones,
+            btnCrearUsuario, btnAdminUsuarios, btnAdminEmpleados, btnCrearEmpleado
+        );
+
+        for (Button b : todos) {
+            boolean vis = allowed.contains(b.getId());
+            b.setVisible(vis);
+            b.setManaged(vis);
+        }
+
+        // Hide cards with no visible buttons
+        Map<VBox, List<Button>> cards = Map.of(
+            cardVentas, Arrays.asList(btnNuevaOrden, btnHistorialVenta, btnSeguimientroEnvio, btnGuardarDIrecciones),
+            cardInventario, Arrays.asList(btnRegistroProducto, btnVerInventario, btnRegistroProveedores, btnRegistroRecetas),
+            cardProduccion, Arrays.asList(btnOrdenProduccion, btnVerOrdenesProduccion, btnVerRecetas),
+            cardClientes, Arrays.asList(btnRegistroCliente, btnGestionClientes, btnReclamaciones),
+            cardSistema, Arrays.asList(btnCrearUsuario, btnAdminUsuarios, btnAdminEmpleados, btnCrearEmpleado)
+        );
+
+        for (Map.Entry<VBox, List<Button>> e : cards.entrySet()) {
+            boolean anyVisible = e.getValue().stream().anyMatch(Button::isVisible);
+            e.getKey().setVisible(anyVisible);
+            e.getKey().setManaged(anyVisible);
+        }
+
+        // Sección title also hide if no cards visible
+        boolean hayCards = cards.values().stream()
+                .flatMap(Collection::stream).anyMatch(Button::isVisible);
+    }
 
 
 
@@ -148,5 +226,10 @@ public void fnIrCrearUsuario(ActionEvent actionEvent) {
 
   public void fnIrGestionClientes(ActionEvent actionEvent) {
       appNavigator.load("/view/Gestion_clientes.fxml");
+  }
+
+  public void fnCerrarSesion(ActionEvent actionEvent) {
+      SesionUsuario.cerrarSesion();
+      appNavigator.load("/view/login_usuarios.fxml");
   }
 }

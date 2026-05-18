@@ -406,22 +406,33 @@
    LOGIN
    ============================================ */
 
+.login-root {
+    -fx-background-color: #f5f2eb;
+    -fx-padding: 40;
+}
+
 .login-card {
     -fx-background-color: #ffffff;
     -fx-border-color: #c2baab;
     -fx-border-width: 1;
-    -fx-border-radius: 14;
-    -fx-background-radius: 14;
+    -fx-border-radius: 16;
+    -fx-background-radius: 16;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 24, 0, 0, 6);
 }
 
 .login-header {
     -fx-background-color: #cdb08e;
-    -fx-background-radius: 13 13 0 0;
-    -fx-padding: 28 48 24 48;
+    -fx-background-radius: 15 15 0 0;
+    -fx-padding: 32 48 22 48;
+}
+
+.login-icon {
+    -fx-font-size: 44px;
+    -fx-padding: 0 0 6 0;
 }
 
 .login-title {
-    -fx-font-size: 32px;
+    -fx-font-size: 30px;
     -fx-text-fill: #100e0a;
     -fx-font-weight: bold;
 }
@@ -433,7 +444,24 @@
 }
 
 .login-body {
-    -fx-padding: 36 48 40 48;
+    -fx-padding: 32 40 36 40;
+}
+
+.login-input {
+    -fx-background-color: #f5f2eb;
+    -fx-border-color: #c2baab;
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 10 14;
+    -fx-font-size: 14px;
+    -fx-pref-height: 44;
+}
+
+.login-input:focused {
+    -fx-border-color: #cdb08e;
+    -fx-border-width: 2;
+    -fx-background-color: #ffffff;
 }
 
 /* ============================================
