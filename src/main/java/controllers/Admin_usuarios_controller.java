@@ -112,7 +112,7 @@ public class Admin_usuarios_controller {
                 listaUsuarios.add(usuario);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            mostrarError("Error al cargar datos: " + e.getMessage());
         }
 
         lblTotal.setText("Total: " + listaUsuarios.size() + " usuario(s)");
@@ -173,7 +173,7 @@ public class Admin_usuarios_controller {
                 listaUsuarios.add(usuario);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            mostrarError("Error al cargar datos: " + e.getMessage());
         }
 
         lblTotal.setText("Total: " + listaUsuarios.size() + " usuario(s)");

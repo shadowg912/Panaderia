@@ -49,14 +49,7 @@ public class Admin_empleados_controller {
         colApellido1.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getApellido1()));
         colApellido2.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getApellido2() != null ? cellData.getValue().getApellido2() : ""));
         colTelefono.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNumeroTelefono() != null ? cellData.getValue().getNumeroTelefono() : ""));
-
-        colPuesto.setCellValueFactory(cellData -> {
-            String puesto = "";
-            if (cellData.getValue().getIdPuesto() != null) {
-                puesto = obtenerNombrePuesto(cellData.getValue().getIdPuesto());
-            }
-            return new SimpleStringProperty(puesto);
-        });
+        colPuesto.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPuestoNombre() != null ? cellData.getValue().getPuestoNombre() : ""));
 
         colAccion.setCellFactory(col -> new TableCell<>() {
             private final Button btnEditar = new Button("Editar");
@@ -93,21 +86,6 @@ public class Admin_empleados_controller {
         tablaEmpleados.setItems(listaEmpleados);
     }
 
-    private String obtenerNombrePuesto(int idPuesto) {
-        String sql = "SELECT nombre FROM PUESTO WHERE id_puesto = ?";
-        try (Connection conn = conexion.establecerconexio();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, idPuesto);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                return rs.getString("nombre");
-            }
-        } catch (SQLException e) {
-            mostrarError("Error obteniendo puesto: " + e.getMessage());
-        }
-        return "";
-    }
-
     private void cargarPuestos() {
         ObservableList<Puesto> puestos = FXCollections.observableArrayList();
         puestos.add(new Puesto(0, "Todos los puestos"));
@@ -128,8 +106,11 @@ public class Admin_empleados_controller {
     private void cargarEmpleados() {
         listaEmpleados.clear();
 
-        String sql = "SELECT e.id_empleado, e.nombre, e.apellido1, e.apellido2, e.numero_telefono, e.id_puesto " +
-                   "FROM EMPLEADO e ORDER BY e.nombre";
+        String sql = "SELECT e.id_empleado, e.nombre, e.apellido1, e.apellido2, e.numero_telefono, " +
+                   "e.id_puesto, p.nombre as puesto_nombre " +
+                   "FROM EMPLEADO e " +
+                   "LEFT JOIN PUESTO p ON e.id_puesto = p.id_puesto " +
+                   "ORDER BY e.nombre";
 
         try (Connection conn = conexion.establecerconexio();
              PreparedStatement ps = conn.prepareStatement(sql);
@@ -142,10 +123,11 @@ public class Admin_empleados_controller {
                 emp.setApellido2(rs.getString("apellido2"));
                 emp.setNumeroTelefono(rs.getString("numero_telefono"));
                 emp.setIdPuesto(rs.getObject("id_puesto") != null ? rs.getInt("id_puesto") : null);
+                emp.setPuestoNombre(rs.getString("puesto_nombre"));
                 listaEmpleados.add(emp);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            mostrarError("Error al cargar empleados: " + e.getMessage());
         }
 
         lblTotal.setText("Total: " + listaEmpleados.size() + " empleado(s)");
@@ -160,8 +142,11 @@ public class Admin_empleados_controller {
         Puesto puestoSeleccionado = cmbPuesto.getValue();
 
         StringBuilder sql = new StringBuilder(
-            "SELECT e.id_empleado, e.nombre, e.apellido1, e.apellido2, e.numero_telefono, e.id_puesto " +
-            "FROM EMPLEADO e WHERE 1=1 "
+            "SELECT e.id_empleado, e.nombre, e.apellido1, e.apellido2, e.numero_telefono, " +
+            "e.id_puesto, p.nombre as puesto_nombre " +
+            "FROM EMPLEADO e " +
+            "LEFT JOIN PUESTO p ON e.id_puesto = p.id_puesto " +
+            "WHERE 1=1 "
         );
 
         List<Object> parametros = new ArrayList<>();
@@ -207,10 +192,11 @@ public class Admin_empleados_controller {
                 emp.setApellido2(rs.getString("apellido2"));
                 emp.setNumeroTelefono(rs.getString("numero_telefono"));
                 emp.setIdPuesto(rs.getObject("id_puesto") != null ? rs.getInt("id_puesto") : null);
+                emp.setPuestoNombre(rs.getString("puesto_nombre"));
                 listaEmpleados.add(emp);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            mostrarError("Error al buscar empleados: " + e.getMessage());
         }
 
         lblTotal.setText("Total: " + listaEmpleados.size() + " empleado(s)");

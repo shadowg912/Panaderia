@@ -7,6 +7,7 @@ public class Empleado {
     private String apellido2;
     private String numeroTelefono;
     private Integer idPuesto;
+    private String puestoNombre;
 
     public Empleado() {}
 
@@ -42,6 +43,9 @@ public class Empleado {
 
     public Integer getIdPuesto() { return idPuesto; }
     public void setIdPuesto(Integer idPuesto) { this.idPuesto = idPuesto; }
+
+    public String getPuestoNombre() { return puestoNombre; }
+    public void setPuestoNombre(String puestoNombre) { this.puestoNombre = puestoNombre; }
 
     public String getNombreCompleto() {
         if (apellido2 != null && !apellido2.isEmpty()) {

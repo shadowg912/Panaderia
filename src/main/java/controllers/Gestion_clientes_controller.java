@@ -139,7 +139,7 @@ public class Gestion_clientes_controller {
                 ));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            mostrarError("Error al cargar datos: " + e.getMessage());
         }
     }
 

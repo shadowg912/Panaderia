@@ -5,11 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import model.CategoriaProducto;
 import model.Producto;
 import model.Unidad;
@@ -74,7 +70,7 @@ public class Inventario_controller {
                 listaCategorias.add(new CategoriaProducto(rs.getInt(1), rs.getString("nombre")));
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            mostrarError("Error al cargar datos: " + e.getMessage());
         }
 
         cmbCategoria.setItems(listaCategorias);
@@ -114,7 +110,7 @@ public class Inventario_controller {
                 listaProductos.add(producto);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            mostrarError("Error al cargar datos: " + e.getMessage());
         }
 
         tablaProductos.setItems(listaProductos);
@@ -202,10 +198,16 @@ public class Inventario_controller {
                 listaProductos.add(producto);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            mostrarError("Error al cargar datos: " + e.getMessage());
         }
 
         tablaProductos.setItems(listaProductos);
         actualizarTotal();
+    }
+
+    private void mostrarError(String m) {
+        Alert a = new Alert(Alert.AlertType.ERROR, m, ButtonType.OK);
+        a.setHeaderText(null);
+        a.showAndWait();
     }
 }

@@ -124,7 +124,7 @@ public class Ver_recetas_controller {
                 ));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            mostrarError("Error al cargar recetas: " + e.getMessage());
         }
 
         lblTotal.setText("Total: " + listaRecetas.size() + " receta(s)");

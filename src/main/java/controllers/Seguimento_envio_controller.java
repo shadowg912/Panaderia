@@ -120,7 +120,7 @@ public class Seguimento_envio_controller {
              PreparedStatement ps = con.prepareStatement(sqlEst);
              ResultSet rs = ps.executeQuery()) {
             while (rs.next()) estados.add(rs.getString("nombre"));
-        } catch (SQLException e) { e.printStackTrace(); }
+        } catch (SQLException e) { mostrarError("Error al cargar estados: " + e.getMessage()); }
         cmbEstado.setItems(estados);
         cmbEstado.getSelectionModel().selectFirst();
 
@@ -133,7 +133,7 @@ public class Seguimento_envio_controller {
              PreparedStatement ps = con.prepareStatement(sqlTr);
              ResultSet rs = ps.executeQuery()) {
             while (rs.next()) trans.add(new Empleado(rs.getInt("id_empleado"), rs.getString("nombre"), rs.getString("apellido1")));
-        } catch (SQLException e) { e.printStackTrace(); }
+        } catch (SQLException e) { mostrarError("Error al cargar transportistas: " + e.getMessage()); }
         cmbTransportista.setItems(trans);
         cmbTransportista.getSelectionModel().selectFirst();
     }
@@ -192,7 +192,7 @@ public class Seguimento_envio_controller {
                 env.setFechaEstimada(fe != null ? fe.toString() : "—");
                 listaEnvio.add(env);
             }
-        } catch (SQLException e) { e.printStackTrace(); }
+        } catch (SQLException e) { mostrarError("Error al cargar envíos: " + e.getMessage()); }
         lblTotal.setText("Total: " + listaEnvio.size() + " envío(s)");
     }
 
@@ -313,7 +313,7 @@ public class Seguimento_envio_controller {
              PreparedStatement ps = con.prepareStatement(sqlTr);
              ResultSet rs = ps.executeQuery()) {
             while (rs.next()) transportistas.add(new Empleado(rs.getInt("id_empleado"), rs.getString("nombre"), rs.getString("apellido1")));
-        } catch (SQLException e) { e.printStackTrace(); }
+        } catch (SQLException e) { mostrarError("Error al cargar transportistas: " + e.getMessage()); }
 
         ComboBox<Empleado> cmbTrans = new ComboBox<>(transportistas);
         cmbTrans.setPromptText("Seleccionar...");

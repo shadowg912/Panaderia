@@ -162,7 +162,7 @@ public class Ver_ordenes_produccion_controller {
                 listaPendientes.add(orden);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            mostrarError("Error al cargar órdenes: " + e.getMessage());
         }
 
         String filtro = cmbFiltro.getValue();
@@ -200,7 +200,7 @@ public class Ver_ordenes_produccion_controller {
                 listaOrden.add(orden);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            mostrarError("Error al cargar órdenes: " + e.getMessage());
         }
 
         lblTotal.setText("Total: " + listaOrden.size() + " órdenes");
