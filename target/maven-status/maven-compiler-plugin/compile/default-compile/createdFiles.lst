@@ -1,8 +1,14 @@
+model/CompraMaterial.class
+model/DetalleCompra.class
+controllers/Detalle_compra_controller.class
+controllers/Gestion_proveedores_controller.class
 controllers/Ver_ordenes_produccion_controller$2.class
 controllers/Inventario_controller.class
 controllers/Crear_empleado_controller.class
+model/CompraEstado.class
 model/Puesto.class
 controllers/Admin_usuarios_controller$1.class
+controllers/Nueva_compra_controller.class
 controllers/Ver_recetas_controller$1.class
 model/Cliente.class
 controllers/Admin_empleados_controller$1.class
@@ -16,6 +22,7 @@ utils/SesionUsuario.class
 controllers/Gestion_clientes_controller.class
 controllers/Ver_ordenes_produccion_controller$1.class
 controllers/Ver_recetas_controller$2.class
+controllers/Gestion_proveedores_controller$1.class
 controllers/Admin_empleados_controller.class
 controllers/Ver_recetas_controller.class
 model/RecetaDetalle.class

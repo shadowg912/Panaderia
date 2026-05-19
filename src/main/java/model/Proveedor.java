@@ -45,4 +45,9 @@ public class Proveedor {
 
     public CategoriaProveedor getCategoriaProveedor() { return categoriaProveedor; }
     public void setCategoriaProveedor(CategoriaProveedor categoriaProveedor) { this.categoriaProveedor = categoriaProveedor; }
+
+    @Override
+    public String toString() {
+        return nombre;
+    }
 }

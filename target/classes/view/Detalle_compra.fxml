@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="720" prefWidth="1280"
+            stylesheets="@Styles.css"
+            fx:controller="controllers.Detalle_compra_controller"
+            xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1">
+
+    <top>
+        <VBox styleClass="header-bar">
+            <Label styleClass="header-subtitle" text="PANADERÍA — COMPRAS"/>
+            <Label styleClass="header-title" text="Agregar Productos a la Compra"/>
+            <Label fx:id="lblInfoCompra" styleClass="text-accent" text="Compra #"/>
+        </VBox>
+    </top>
+
+    <center>
+        <VBox spacing="32" style="-fx-padding: 40;">
+            <HBox spacing="32" alignment="TOP_CENTER">
+                <VBox spacing="20" styleClass="card" style="-fx-min-width: 500;">
+                    <Label styleClass="card-title" text="Seleccionar Producto"/>
+                    <VBox spacing="12">
+                        <Label styleClass="form-label" text="Producto *"/>
+                        <ComboBox fx:id="cmbProducto" promptText="Seleccione un producto..." prefHeight="52" maxWidth="Infinity"/>
+                    </VBox>
+                    <HBox spacing="16">
+                        <VBox spacing="12" HBox.hgrow="ALWAYS">
+                            <Label styleClass="form-label" text="Cantidad *"/>
+                            <TextField fx:id="txtCantidad" promptText="0.00" prefHeight="52"/>
+                        </VBox>
+                        <VBox spacing="12" HBox.hgrow="ALWAYS">
+                            <Label styleClass="form-label" text="Costo Unitario *"/>
+                            <TextField fx:id="txtCostoUnitario" promptText="0.00" prefHeight="52"/>
+                        </VBox>
+                    </HBox>
+                    <Button fx:id="btnAgregar" onAction="#fnAgregar" prefHeight="52" maxWidth="Infinity" styleClass="btn, btn-success" text="Agregar Producto"/>
+                </VBox>
+
+                <VBox spacing="20" styleClass="card" style="-fx-min-width: 500;">
+                    <Label styleClass="card-title" text="Productos Agregados"/>
+                    <TableView fx:id="tblDetalle" prefHeight="300" styleClass="table-view">
+                        <columns>
+                            <TableColumn fx:id="colProducto" prefWidth="200" text="Producto"/>
+                            <TableColumn fx:id="colCantidad" prefWidth="100" text="Cantidad"/>
+                            <TableColumn fx:id="colCosto" prefWidth="120" text="Costo U."/>
+                            <TableColumn fx:id="colTotal" prefWidth="120" text="Total"/>
+                        </columns>
+                    </TableView>
+                    <VBox spacing="12" styleClass="card" style="-fx-padding: 20;">
+                        <HBox>
+                            <Label styleClass="card-title" text="Total:" HBox.hgrow="ALWAYS"/>
+                            <Label fx:id="lblTotal" styleClass="card-title" text="RD$ 0.00"/>
+                        </HBox>
+                    </VBox>
+                </VBox>
+            </HBox>
+
+            <HBox alignment="CENTER_RIGHT" spacing="20">
+                <Button fx:id="btnVolver" onAction="#fnVolver" prefHeight="52" text="Volver" styleClass="btn, btn-secondary"/>
+                <Button fx:id="btnConfirmar" onAction="#fnConfirmar" prefHeight="52" text="Confirmar Compra" styleClass="btn, btn-primary"/>
+            </HBox>
+        </VBox>
+    </center>
+
+    <bottom>
+        <HBox alignment="CENTER" styleClass="footer-bar"/>
+    </bottom>
+</BorderPane>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane stylesheets="@Styles.css" fx:controller="controllers.Nueva_compra_controller" prefHeight="720" prefWidth="1280" style="-fx-background-color: #f5f2eb;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+    <top>
+        <VBox style="-fx-background-color: #cdb08e; -fx-padding: 16 24; -fx-border-color: #c2baab; -fx-border-width: 0 0 1 0;">
+            <Label style="-fx-font-size: 10px; -fx-font-weight: bold; -fx-text-fill: #100e0a; -fx-letter-spacing: 2;" text="PANADERÍA — COMPRAS"/>
+            <Label style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #100e0a;" text="Nueva Compra a Proveedor"/>
+        </VBox>
+    </top>
+    <center>
+        <VBox spacing="32" style="-fx-padding: 40; -fx-background-color: #f5f2eb;">
+            <VBox spacing="24" style="-fx-background-color: #ffffff; -fx-padding: 32; -fx-border-color: #c2baab; -fx-border-width: 1; -fx-border-radius: 12; -fx-background-radius: 12;">
+                <Label style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #cdb08e;" text="Datos de la Compra"/>
+                <GridPane hgap="24" vgap="20">
+                    <columnConstraints>
+                        <ColumnConstraints halignment="RIGHT" hgrow="NEVER" minWidth="140"/>
+                        <ColumnConstraints hgrow="ALWAYS" minWidth="300"/>
+                        <ColumnConstraints halignment="RIGHT" hgrow="NEVER" minWidth="140"/>
+                        <ColumnConstraints hgrow="ALWAYS" minWidth="300"/>
+                    </columnConstraints>
+                    <Label style="-fx-text-fill: #535659; -fx-font-size: 15px;" text="Proveedor *" GridPane.rowIndex="0"/>
+                    <ComboBox fx:id="cmbProveedor" promptText="Seleccione un proveedor..." prefHeight="48" maxWidth="Infinity" style="-fx-background-color: #f5f2eb; -fx-border-color: #c2baab; -fx-border-width: 1; -fx-border-radius: 8; -fx-background-radius: 8; -fx-font-size: 14px;" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                    <Label style="-fx-text-fill: #535659; -fx-font-size: 15px;" text="Forma de Pago *" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+                    <ComboBox fx:id="cmbFormaPago" promptText="Seleccione..." prefHeight="48" maxWidth="Infinity" style="-fx-background-color: #f5f2eb; -fx-border-color: #c2baab; -fx-border-width: 1; -fx-border-radius: 8; -fx-background-radius: 8; -fx-font-size: 14px;" GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+                    <Label style="-fx-text-fill: #535659; -fx-font-size: 15px;" text="Fecha de la Compra" GridPane.rowIndex="1"/>
+                    <DatePicker fx:id="dpFecha" prefHeight="48" maxWidth="Infinity" style="-fx-background-color: #f5f2eb; -fx-border-color: #c2baab; -fx-control-inner-background: #f5f2eb; -fx-font-size: 14px;" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                    <Label style="-fx-text-fill: #535659; -fx-font-size: 15px;" text="Estado" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+                    <TextField fx:id="txtEstado" editable="false" text="PENDIENTE" prefHeight="48" style="-fx-background-color: #f5f2eb; -fx-text-fill: #cdb08e; -fx-border-color: #c2baab; -fx-border-width: 1; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 12; -fx-font-size: 14px;" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+                </GridPane>
+            </VBox>
+            <HBox alignment="CENTER_RIGHT" spacing="20">
+                <Button fx:id="btnVolver" onAction="#fnVolver" prefHeight="52" style="-fx-background-color: #ffffff; -fx-text-fill: #535659; -fx-font-size: 15px; -fx-border-color: #c2baab; -fx-border-width: 1; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 14 32;" text="Volver"/>
+                <Button fx:id="btnSiguiente" onAction="#fnSiguiente" prefHeight="52" style="-fx-background-color: #cdb08e; -fx-text-fill: #100e0a; -fx-font-size: 15px; -fx-font-weight: bold; -fx-background-radius: 10; -fx-padding: 14 32;" text="Siguiente →"/>
+            </HBox>
+        </VBox>
+    </center>
+    <bottom>
+        <HBox alignment="CENTER" style="-fx-background-color: #cdb08e; -fx-padding: 12; -fx-border-color: #c2baab; -fx-border-width: 1 0 0 0;"/>
+    </bottom>
+</BorderPane>

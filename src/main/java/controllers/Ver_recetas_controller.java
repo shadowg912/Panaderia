@@ -105,7 +105,7 @@ public class Ver_recetas_controller {
                    "WHERE p.tipo_producto = 'PRODUCTO_TERMINADO' ";
 
         if (!textoBusqueda.isEmpty()) {
-            sql += " AND p.nombre LIKE ? ";
+            sql += " AND LOWER(p.nombre) LIKE ? ";
         }
 
         sql += " GROUP BY p.id_producto, p.nombre ORDER BY p.nombre";
@@ -113,7 +113,7 @@ public class Ver_recetas_controller {
         try (Connection conn = conexion.establecerconexio();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             if (!textoBusqueda.isEmpty()) {
-                ps.setString(1, "%" + textoBusqueda + "%");
+                ps.setString(1, "%" + textoBusqueda.toLowerCase() + "%");
             }
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {

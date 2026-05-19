@@ -10,13 +10,16 @@
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/controllers/Crear_empleado_controller.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/controllers/Crear_ordenventa_controller.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/controllers/Crear_usuario_controller.java
+/home/shadowg912/IdeaProjects/Panaderia/src/main/java/controllers/Detalle_compra_controller.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/controllers/Detalle_orden_venta_controller.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/controllers/Direccion_entrega_controller.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/controllers/Gestion_clientes_controller.java
+/home/shadowg912/IdeaProjects/Panaderia/src/main/java/controllers/Gestion_proveedores_controller.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/controllers/Guardar_direccion_controller.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/controllers/Historial_ventas_controller.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/controllers/Inventario_controller.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/controllers/Login_controller.java
+/home/shadowg912/IdeaProjects/Panaderia/src/main/java/controllers/Nueva_compra_controller.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/controllers/Orden_produccion_controller.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/controllers/Reclamaciones_controller.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/controllers/Regisro_empresa_controller.java
@@ -33,6 +36,9 @@
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/Ciudad.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/Cliente.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/ClienteResumen.java
+/home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/CompraEstado.java
+/home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/CompraMaterial.java
+/home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/DetalleCompra.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/DetalleOrdenVenta.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/Direccion.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/Empleado.java

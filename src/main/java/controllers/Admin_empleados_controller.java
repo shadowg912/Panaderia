@@ -152,8 +152,8 @@ public class Admin_empleados_controller {
         List<Object> parametros = new ArrayList<>();
 
         if (!textoBusqueda.isEmpty()) {
-            sql.append(" AND (e.nombre LIKE ? OR e.apellido1 LIKE ? OR e.apellido2 LIKE ?) ");
-            String likeTexto = "%" + textoBusqueda + "%";
+            sql.append(" AND (LOWER(e.nombre) LIKE ? OR LOWER(e.apellido1) LIKE ? OR LOWER(e.apellido2) LIKE ?) ");
+            String likeTexto = "%" + textoBusqueda.toLowerCase() + "%";
             parametros.add(likeTexto);
             parametros.add(likeTexto);
             parametros.add(likeTexto);

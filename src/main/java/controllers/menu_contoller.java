@@ -12,28 +12,30 @@ import java.util.*;
 
 public class menu_contoller {
     @FXML private Button btnNuevaOrden, btnHistorialVenta, btnSeguimientroEnvio, btnGuardarDIrecciones;
-    @FXML private Button btnRegistroProducto, btnVerInventario, btnRegistroProveedores, btnRegistroRecetas;
+    @FXML private Button btnRegistroProducto, btnVerInventario, btnRegistroRecetas;
     @FXML private Button btnOrdenProduccion, btnVerOrdenesProduccion, btnVerRecetas;
     @FXML private Button btnRegistroCliente, btnGestionClientes, btnReclamaciones;
     @FXML private Button btnCrearUsuario, btnAdminUsuarios, btnAdminEmpleados, btnCrearEmpleado, btnCerrarSesion;
+    @FXML private Button btnNuevaCompra, btnRegistroProveedor, btnAdminProveedores;
     @FXML private Label lblUsuario;
-    @FXML private VBox cardVentas, cardInventario, cardProduccion, cardClientes, cardSistema;
-    
+    @FXML private VBox cardVentas, cardInventario, cardProduccion, cardCompras, cardClientes, cardSistema;
+
     AppNavigator appNavigator = new AppNavigator();
 
     private static final Map<String, Set<String>> PERMISOS = new HashMap<>();
     static {
         PERMISOS.put("Administrador", Set.of(
             "btnNuevaOrden", "btnHistorialVenta", "btnSeguimientroEnvio", "btnGuardarDIrecciones",
-            "btnRegistroProducto", "btnVerInventario", "btnRegistroProveedores", "btnRegistroRecetas",
+            "btnRegistroProducto", "btnVerInventario", "btnRegistroRecetas",
             "btnOrdenProduccion", "btnVerOrdenesProduccion", "btnVerRecetas",
+            "btnNuevaCompra", "btnRegistroProveedor", "btnAdminProveedores",
             "btnRegistroCliente", "btnGestionClientes", "btnReclamaciones",
             "btnCrearUsuario", "btnAdminUsuarios", "btnAdminEmpleados", "btnCrearEmpleado"
         ));
 
         PERMISOS.put("Encargado de Almacén", Set.of(
-            "btnRegistroProducto", "btnVerInventario", "btnRegistroProveedores",
-            "btnVerRecetas"
+            "btnRegistroProducto", "btnVerInventario", "btnVerRecetas",
+            "btnRegistroProveedor", "btnAdminProveedores"
         ));
 
         PERMISOS.put("Encargado de Área", Set.of(
@@ -50,16 +52,14 @@ public class menu_contoller {
         ));
 
         PERMISOS.put("Encargado de Compras", Set.of(
-            "btnVerInventario", "btnRegistroProveedores"
+            "btnVerInventario",
+            "btnNuevaCompra", "btnRegistroProveedor", "btnAdminProveedores"
         ));
 
         PERMISOS.put("Repartidor", Set.of(
             "btnSeguimientroEnvio"
         ));
     }
-
-    private static final Map<String, List<Button>> CARD_BOTONES = new LinkedHashMap<>();
-    private static final Map<String, VBox> CARDS = new LinkedHashMap<>();
 
     @FXML
     public void initialize() {
@@ -72,8 +72,9 @@ public class menu_contoller {
 
         List<Button> todos = Arrays.asList(
             btnNuevaOrden, btnHistorialVenta, btnSeguimientroEnvio, btnGuardarDIrecciones,
-            btnRegistroProducto, btnVerInventario, btnRegistroProveedores, btnRegistroRecetas,
+            btnRegistroProducto, btnVerInventario, btnRegistroRecetas,
             btnOrdenProduccion, btnVerOrdenesProduccion, btnVerRecetas,
+            btnNuevaCompra, btnRegistroProveedor, btnAdminProveedores,
             btnRegistroCliente, btnGestionClientes, btnReclamaciones,
             btnCrearUsuario, btnAdminUsuarios, btnAdminEmpleados, btnCrearEmpleado
         );
@@ -84,11 +85,11 @@ public class menu_contoller {
             b.setManaged(vis);
         }
 
-        // Hide cards with no visible buttons
         Map<VBox, List<Button>> cards = Map.of(
             cardVentas, Arrays.asList(btnNuevaOrden, btnHistorialVenta, btnSeguimientroEnvio, btnGuardarDIrecciones),
-            cardInventario, Arrays.asList(btnRegistroProducto, btnVerInventario, btnRegistroProveedores, btnRegistroRecetas),
+            cardInventario, Arrays.asList(btnRegistroProducto, btnVerInventario, btnRegistroRecetas),
             cardProduccion, Arrays.asList(btnOrdenProduccion, btnVerOrdenesProduccion, btnVerRecetas),
+            cardCompras, Arrays.asList(btnNuevaCompra, btnRegistroProveedor, btnAdminProveedores),
             cardClientes, Arrays.asList(btnRegistroCliente, btnGestionClientes, btnReclamaciones),
             cardSistema, Arrays.asList(btnCrearUsuario, btnAdminUsuarios, btnAdminEmpleados, btnCrearEmpleado)
         );
@@ -98,10 +99,6 @@ public class menu_contoller {
             e.getKey().setVisible(anyVisible);
             e.getKey().setManaged(anyVisible);
         }
-
-        // Sección title also hide if no cards visible
-        boolean hayCards = cards.values().stream()
-                .flatMap(Collection::stream).anyMatch(Button::isVisible);
     }
 
 
@@ -127,11 +124,14 @@ public class menu_contoller {
      }
     }
 
-    public void fnIrRegistroProveedores(ActionEvent actionEvent) {
-     try {
-      appNavigator.load("/view/Registrar_proveedor.fxml");
-     }catch (Exception e){
-     }
+    public void fnIrNuevaCompra(ActionEvent actionEvent) {
+        appNavigator.load("/view/Nueva_compra.fxml");
+    }
+    public void fnIrRegistroProveedor(ActionEvent actionEvent) {
+        appNavigator.load("/view/Registrar_proveedor.fxml");
+    }
+    public void fnIrAdminProveedores(ActionEvent actionEvent) {
+        appNavigator.load("/view/Gestion_proveedores.fxml");
     }
 
 public void fnIrRegistrarProducto(ActionEvent actionEvent) {
