@@ -19,6 +19,7 @@ Columnas:
 - id_categoria_ingrediente (PK, int)
 - nombre (varchar, NOT NULL, len &gt; 0)
 - descripcion (text, NULL)
+- estado (bit, NOT NULL, DEFAULT 1)
 
 ---
 
@@ -31,6 +32,7 @@ Columnas:
 - id_categoria_producto (PK, int)
 - nombre (varchar, NOT NULL, len &gt; 0)
 - descripcion (text, NULL)
+- estado (bit, NOT NULL, DEFAULT 1)
 
 ---
 
@@ -43,6 +45,7 @@ Columnas:
 - id_categoria_proveedor (PK, int)
 - nombre (varchar, NOT NULL, len &gt; 0)
 - descripcion (text, NULL)
+- estado (bit, NOT NULL, DEFAULT 1)
 
 ---
 
@@ -55,6 +58,7 @@ Columnas:
 - id_ciudad (PK, int)
 - nombre (varchar, NOT NULL, len &gt; 0)
 - id_provincia (FK -&gt; PROVINCIA.id_provincia, int, NOT NULL)
+- estado (bit, NOT NULL, DEFAULT 1)
 
 ---
 
@@ -70,6 +74,7 @@ Columnas:
 - id_direccion (FK -&gt; DIRECCION.id_direccion, int, NOT NULL)
 - telefono (varchar(30), NULL)
 - correo_electronico (varchar(150), NULL)
+- estado (bit, NOT NULL, DEFAULT 1)
 
 ---
 
@@ -168,6 +173,7 @@ Columnas:
 - apellido2 (varchar, NULL)
 - numero_telefono (varchar(30), NULL)
 - id_puesto (FK -&gt; PUESTO.id_puesto, int, NULL)
+- estado (bit, NOT NULL, DEFAULT 1)
 
 ---
 
@@ -247,6 +253,7 @@ Formas de pago disponibles.
 Columnas:
 - id_forma_pago (PK, int)
 - nombre (varchar, NOT NULL, len &gt; 0)
+- estado (bit, NOT NULL, DEFAULT 1)
 
 ---
 
@@ -315,6 +322,7 @@ Columnas:
 - nombre (varchar, NOT NULL, len &gt; 0)
 - unidad_medida (varchar, NOT NULL)
 - id_categoria_ingrediente (FK -&gt; CATEGORIA_INGREDIENTE.id_categoria_ingrediente, int, NOT NULL)
+- estado (bit, NOT NULL, DEFAULT 1)
 
 ---
 
@@ -403,6 +411,7 @@ Países para el sistema de direcciones.
 Columnas:
 - id_pais (PK, int)
 - nombre (varchar, NOT NULL, len &gt; 0)
+- estado (bit, NOT NULL, DEFAULT 1)
 
 ---
 
@@ -437,6 +446,7 @@ Columnas:
 - precio_unitario (money, NOT NULL, &gt;= 0)
 - id_unidad (FK -&gt; UNIDAD.id_unidad, int, NOT NULL)
 - tipo_producto (varchar(30), NOT NULL) — PRODUCTO_TERMINADO | MATERIA_PRIMA | MATERIAL_EMPAQUE
+- estado (bit, NOT NULL, DEFAULT 1)
 
 ---
 
@@ -452,6 +462,7 @@ Columnas:
 - correo_electronico (varchar(150), NULL)
 - numero_telefono (varchar(30), NULL)
 - id_categoria_proveedor (FK -&gt; CATEGORIA_PROVEEDOR.id_categoria_proveedor, int, NOT NULL)
+- estado (bit, NOT NULL, DEFAULT 1)
 
 ---
 
@@ -464,6 +475,7 @@ Columnas:
 - id_provincia (PK, int)
 - nombre (varchar, NOT NULL, len &gt; 0)
 - id_pais (FK -&gt; PAIS.id_pais, int, NOT NULL)
+- estado (bit, NOT NULL, DEFAULT 1)
 
 ---
 
@@ -536,6 +548,7 @@ Columnas:
 - id_rol (PK, int)
 - nombre_rol (varchar, NOT NULL)
 - descripcion (varchar(255), NULL)
+- estado (bit, NOT NULL, DEFAULT 1)
 
 ---
 
@@ -548,6 +561,7 @@ Columnas:
 - id_sector (PK, int)
 - nombre (varchar, NOT NULL, len &gt; 0)
 - id_ciudad (FK -&gt; CIUDAD.id_ciudad, int, NOT NULL)
+- estado (bit, NOT NULL, DEFAULT 1)
 
 ---
 
@@ -573,6 +587,7 @@ Columnas:
 - nombre (varchar, NOT NULL, len &gt; 0)
 - descripcion (text, NULL)
 - categoria (varchar(50), NULL)
+- estado (bit, NOT NULL, DEFAULT 1)
 
 ---
 
