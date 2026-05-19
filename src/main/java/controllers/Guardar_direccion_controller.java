@@ -10,6 +10,7 @@ import model.Provincia;
 import utils.AppNavigator;
 
 import java.sql.*;
+import static utils.AlertHelper.*;
 
 public class Guardar_direccion_controller {
 
@@ -172,7 +173,4 @@ public class Guardar_direccion_controller {
     @FXML
     public void fnVolverMenu(ActionEvent event) { appNavigator.volverMenu(); }
 
-    private void mostrarInfo(String m) { Alert a = new Alert(Alert.AlertType.INFORMATION, m, ButtonType.OK); a.setHeaderText(null); a.showAndWait(); }
-    private void mostrarError(String m) { Alert a = new Alert(Alert.AlertType.ERROR, m, ButtonType.OK); a.setHeaderText(null); a.showAndWait(); }
-    private void mostrarAdvertencia(String m) { Alert a = new Alert(Alert.AlertType.WARNING, m, ButtonType.OK); a.setHeaderText(null); a.showAndWait(); }
 }

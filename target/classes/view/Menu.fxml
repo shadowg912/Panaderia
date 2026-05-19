@@ -2,7 +2,6 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
 
 <BorderPane prefHeight="720" prefWidth="1280"
             stylesheets="@Styles.css"
@@ -11,82 +10,38 @@
             xmlns:fx="http://javafx.com/fxml/1">
 
     <top>
-        <HBox alignment="CENTER_LEFT" spacing="20" styleClass="header-bar" style="-fx-padding: 16 32;">
-            <children>
-                <VBox>
-                    <Label styleClass="header-title" text="Panel Principal"/>
-                </VBox>
-                <Region HBox.hgrow="ALWAYS"/>
-                <HBox alignment="CENTER" spacing="12">
-                    <Label fx:id="lblUsuario" styleClass="text-body" style="-fx-font-weight: bold;" text=""/>
-                    <Circle fill="#cdb08e" radius="18"/>
-                    <Button fx:id="btnCerrarSesion" text="Cerrar Sesión" onAction="#fnCerrarSesion" styleClass="btn, btn-danger"/>
-                </HBox>
-            </children>
+        <HBox alignment="CENTER_LEFT" spacing="16" styleClass="dashboard-header">
+            <Label styleClass="dashboard-header-title" text="PANADERÍA"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label fx:id="lblUserName" styleClass="dashboard-header-user"/>
+            <Label style="-fx-text-fill: #403d37;" text="|"/>
+            <Label fx:id="lblUserRole" styleClass="dashboard-header-user"/>
         </HBox>
     </top>
 
-    <center>
-        <ScrollPane fitToWidth="true" styleClass="scroll-pane">
-            <content>
-                <VBox spacing="32" style="-fx-padding: 40;">
-                    <children>
-                        <Label styleClass="section-title" text="MÓDULOS DEL SISTEMA"/>
-
-                        <FlowPane hgap="24" prefWrapLength="1100" vgap="24">
-                            <children>
-                                <VBox fx:id="cardVentas" spacing="15" styleClass="menu-card">
-                                     <Label styleClass="card-title" text="VENTAS"/>
-                                    <Button fx:id="btnNuevaOrden" maxWidth="Infinity" onAction="#fnIrCrearOrden" text="Nueva Orden" styleClass="btn, btn-primary"/>
-                                    <Button fx:id="btnHistorialVenta" maxWidth="Infinity" onAction="#fnIrHistorialVentas" text="Historial de Ventas" styleClass="btn, btn-ghost"/>
-                                    <Button fx:id="btnSeguimientroEnvio" maxWidth="Infinity" onAction="#fnIrSeguimientoEnvio" text="Seguimiento Envíos" styleClass="btn, btn-ghost"/>
-                                    <Button fx:id="btnGuardarDIrecciones" maxWidth="Infinity" onAction="#fnIrGuardarDIrecciones" text="Guardar Direcciones" styleClass="btn, btn-ghost"/>
-                                </VBox>
-
-                                <VBox fx:id="cardInventario" spacing="15" styleClass="menu-card">
-                                     <Label styleClass="card-title" text="INVENTARIO"/>
-                                    <Button fx:id="btnRegistroProducto" maxWidth="Infinity" onAction="#fnIrRegistrarProducto" text="Registro Producto" styleClass="btn, btn-primary"/>
-                                    <Button fx:id="btnVerInventario" maxWidth="Infinity" onAction="#fnIrVerInventario" text="Ver Inventario" styleClass="btn, btn-ghost"/>
-                                    <Button fx:id="btnRegistroRecetas" maxWidth="Infinity" onAction="#fnIrRegistroRecetas" text="Recetas" styleClass="btn, btn-ghost"/>
-                                </VBox>
-
-                                <VBox fx:id="cardProduccion" spacing="15" styleClass="menu-card">
-                                     <Label styleClass="card-title" text="PRODUCCIÓN"/>
-                                    <Button fx:id="btnOrdenProduccion" maxWidth="Infinity" onAction="#fnIrOrdenProduccion" text="Nueva Orden" styleClass="btn, btn-primary"/>
-                                    <Button fx:id="btnVerOrdenesProduccion" maxWidth="Infinity" onAction="#fnIrVerOrdenesProduccion" text="Ver Órdenes" styleClass="btn, btn-ghost"/>
-                                    <Button fx:id="btnVerRecetas" maxWidth="Infinity" onAction="#fnIrVerRecetas" text="Ver Recetas" styleClass="btn, btn-ghost"/>
-                                </VBox>
-
-                                <VBox fx:id="cardCompras" spacing="15" styleClass="menu-card">
-                                     <Label styleClass="card-title" text="COMPRAS"/>
-                                    <Button fx:id="btnNuevaCompra" maxWidth="Infinity" onAction="#fnIrNuevaCompra" text="Nueva Compra" styleClass="btn, btn-primary"/>
-                                    <Button fx:id="btnRegistroProveedor" maxWidth="Infinity" onAction="#fnIrRegistroProveedor" text="Registrar Proveedor" styleClass="btn, btn-ghost"/>
-                                    <Button fx:id="btnAdminProveedores" maxWidth="Infinity" onAction="#fnIrAdminProveedores" text="Administrar Proveedores" styleClass="btn, btn-ghost"/>
-                                </VBox>
-
-                                <VBox fx:id="cardClientes" spacing="15" styleClass="menu-card">
-                                     <Label styleClass="card-title" text="CLIENTES"/>
-                                    <Button fx:id="btnRegistroCliente" maxWidth="Infinity" onAction="#fnIrRegistroCliente" text="Registro Cliente" styleClass="btn, btn-primary"/>
-                                    <Button fx:id="btnGestionClientes" maxWidth="Infinity" onAction="#fnIrGestionClientes" text="Gestionar Clientes" styleClass="btn, btn-ghost"/>
-                                    <Button fx:id="btnReclamaciones" maxWidth="Infinity" onAction="#fnIrReclamaciones" text="Reclamaciones" styleClass="btn, btn-ghost"/>
-                                </VBox>
-
-                                <VBox fx:id="cardSistema" spacing="15" styleClass="menu-card">
-                                     <Label styleClass="card-title" text="SISTEMA"/>
-                                    <Button fx:id="btnCrearUsuario" maxWidth="Infinity" onAction="#fnIrCrearUsuario" text="Crear Usuario" styleClass="btn, btn-primary"/>
-                                    <Button fx:id="btnAdminUsuarios" maxWidth="Infinity" onAction="#fnIrAdminUsuarios" text="Administrar Usuarios" styleClass="btn, btn-ghost"/>
-                                    <Button fx:id="btnAdminEmpleados" maxWidth="Infinity" onAction="#fnIrAdminEmpleados" text="Administrar Empleados" styleClass="btn, btn-ghost"/>
-                                    <Button fx:id="btnCrearEmpleado" maxWidth="Infinity" onAction="#fnIrCrearEmpleado" text="Crear Empleado" styleClass="btn, btn-ghost"/>
-                                </VBox>
-                            </children>
-                        </FlowPane>
-                    </children>
+    <left>
+        <BorderPane styleClass="sidebar">
+            <top>
+                <VBox styleClass="sidebar-header" spacing="4">
+                    <Label styleClass="sidebar-logo" text="PANADERÍA"/>
+                    <Label style="-fx-text-fill: #c2baab; -fx-font-size: 18px; -fx-font-weight: bold;" text=""/>
                 </VBox>
-            </content>
-        </ScrollPane>
+            </top>
+            <center>
+                <ScrollPane styleClass="sidebar-scroll" fitToWidth="true">
+                    <VBox fx:id="sidebarModulos"/>
+                </ScrollPane>
+            </center>
+            <bottom>
+                <VBox styleClass="sidebar-footer">
+                    <Button fx:id="btnCerrarSesion" onAction="#fnCerrarSesion" maxWidth="Infinity" text="Cerrar Sesión"/>
+                </VBox>
+            </bottom>
+        </BorderPane>
+    </left>
+
+    <center>
+        <AnchorPane fx:id="contentArea" styleClass="dashboard-content"/>
     </center>
 
-    <bottom>
-        <HBox alignment="CENTER" styleClass="footer-bar"/>
-    </bottom>
 </BorderPane>

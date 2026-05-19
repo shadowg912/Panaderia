@@ -16,6 +16,7 @@ import utils.AppNavigator;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import static utils.AlertHelper.*;
 
 public class Admin_empleados_controller {
 
@@ -313,15 +314,5 @@ public class Admin_empleados_controller {
         appNavigator.volverMenu();
     }
 
-    private void mostrarInfo(String mensaje) {
-        Alert a = new Alert(Alert.AlertType.INFORMATION, mensaje, ButtonType.OK);
-        a.setHeaderText(null);
-        a.showAndWait();
-    }
 
-    private void mostrarError(String mensaje) {
-        Alert a = new Alert(Alert.AlertType.ERROR, mensaje, ButtonType.OK);
-        a.setHeaderText(null);
-        a.showAndWait();
-    }
 }

@@ -14,6 +14,7 @@ import utils.AppNavigator;
 
 import java.math.BigDecimal;
 import java.sql.*;
+import static utils.AlertHelper.*;
 
 public class Registro_producto_controller {
     @FXML private TextField txtEnergia, txtProteinas, txtCarbohidratos, txtGrasas, txtFibra, txtSodio;
@@ -149,7 +150,4 @@ public class Registro_producto_controller {
         return 0;
     }
 
-    private void mostrarInfo(String m) { Alert a = new Alert(Alert.AlertType.INFORMATION, m, ButtonType.OK); a.setHeaderText(null); a.showAndWait(); }
-    private void mostrarError(String m) { Alert a = new Alert(Alert.AlertType.ERROR, m, ButtonType.OK); a.setHeaderText(null); a.showAndWait(); }
-    private void mostrarAdvertencia(String m) { Alert a = new Alert(Alert.AlertType.WARNING, m, ButtonType.OK); a.setHeaderText(null); a.showAndWait(); }
 }

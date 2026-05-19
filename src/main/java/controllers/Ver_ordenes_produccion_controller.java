@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import static utils.AlertHelper.*;
 
 public class Ver_ordenes_produccion_controller {
 
@@ -236,18 +237,8 @@ public class Ver_ordenes_produccion_controller {
 
     @FXML
     public void fnVolver() {
-        AppNavigator.load("/view/Menu.fxml");
+        AppNavigator.cargarDashboard();
     }
 
-    private void mostrarInfo(String mensaje) {
-        Alert a = new Alert(Alert.AlertType.INFORMATION, mensaje, ButtonType.OK);
-        a.setHeaderText(null);
-        a.showAndWait();
-    }
 
-    private void mostrarError(String mensaje) {
-        Alert a = new Alert(Alert.AlertType.ERROR, mensaje, ButtonType.OK);
-        a.setHeaderText(null);
-        a.showAndWait();
-    }
 }

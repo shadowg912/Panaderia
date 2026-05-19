@@ -16,6 +16,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import static utils.AlertHelper.*;
 
 public class Admin_usuarios_controller {
 
@@ -209,17 +210,7 @@ public class Admin_usuarios_controller {
         }
     }
 
-    private void mostrarInfo(String mensaje) {
-        Alert a = new Alert(Alert.AlertType.INFORMATION, mensaje, ButtonType.OK);
-        a.setHeaderText(null);
-        a.showAndWait();
-    }
 
-    private void mostrarError(String mensaje) {
-        Alert a = new Alert(Alert.AlertType.ERROR, mensaje, ButtonType.OK);
-        a.setHeaderText(null);
-        a.showAndWait();
-    }
 
     public void fnVolverMenu() {
         appNavigator.volverMenu();

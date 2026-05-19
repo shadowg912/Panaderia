@@ -18,6 +18,7 @@ import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Locale;
+import static utils.AlertHelper.*;
 
 public class Confirmar_orden_controller {
 
@@ -258,17 +259,7 @@ public class Confirmar_orden_controller {
     }
 
 
-    private void mostrarError(String msg) {
-        Alert a = new Alert(Alert.AlertType.ERROR, msg, ButtonType.OK);
-        a.setHeaderText(null);
-        a.showAndWait();
-    }
 
-    private void mostrarInfo(String msg) {
-        Alert a = new Alert(Alert.AlertType.INFORMATION, msg, ButtonType.OK);
-        a.setHeaderText(null);
-        a.showAndWait();
-    }
     public void fnVolvermenu() {
         appNavigator.volverMenu();
     }

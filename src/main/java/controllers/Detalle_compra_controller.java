@@ -13,6 +13,7 @@ import java.math.BigDecimal;
 import java.net.URL;
 import java.sql.*;
 import java.util.*;
+import static utils.AlertHelper.*;
 
 public class Detalle_compra_controller implements Initializable {
 
@@ -254,7 +255,4 @@ public class Detalle_compra_controller implements Initializable {
         appNavigator.volverMenu();
     }
 
-    private void mostrarInfo(String m) { Alert a = new Alert(Alert.AlertType.INFORMATION, m, ButtonType.OK); a.setHeaderText(null); a.showAndWait(); }
-    private void mostrarError(String m) { Alert a = new Alert(Alert.AlertType.ERROR, m, ButtonType.OK); a.setHeaderText(null); a.showAndWait(); }
-    private void mostrarAdvertencia(String m) { Alert a = new Alert(Alert.AlertType.WARNING, m, ButtonType.OK); a.setHeaderText(null); a.showAndWait(); }
 }

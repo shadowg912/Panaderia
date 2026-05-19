@@ -1,6 +1,8 @@
+controllers/menu_contoller$SubItem.class
 model/CompraMaterial.class
 model/DetalleCompra.class
 controllers/Detalle_compra_controller.class
+utils/AlertHelper.class
 controllers/Gestion_proveedores_controller.class
 controllers/Ver_ordenes_produccion_controller$2.class
 controllers/Inventario_controller.class
@@ -19,6 +21,7 @@ model/ClienteResumen.class
 controllers/Admin_usuarios_controller.class
 model/EnvioResumen.class
 utils/SesionUsuario.class
+controllers/menu_contoller$Modulo.class
 controllers/Gestion_clientes_controller.class
 controllers/Ver_ordenes_produccion_controller$1.class
 controllers/Ver_recetas_controller$2.class

@@ -21,6 +21,7 @@ import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
+import static utils.AlertHelper.*;
 
 public class Detalle_orden_venta_controller implements Initializable {
 
@@ -242,7 +243,4 @@ public class Detalle_orden_venta_controller implements Initializable {
         }
     }
 
-    private void mostrarInfo(String m) { Alert a = new Alert(Alert.AlertType.INFORMATION, m, ButtonType.OK); a.setHeaderText(null); a.showAndWait(); }
-    private void mostrarError(String m) { Alert a = new Alert(Alert.AlertType.ERROR, m, ButtonType.OK); a.setHeaderText(null); a.showAndWait(); }
-    private void mostrarAdvertencia(String m) { Alert a = new Alert(Alert.AlertType.WARNING, m, ButtonType.OK); a.setHeaderText(null); a.showAndWait(); }
 }

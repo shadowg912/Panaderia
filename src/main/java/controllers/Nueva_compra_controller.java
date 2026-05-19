@@ -9,6 +9,7 @@ import javafx.scene.control.*;
 import model.*;
 import utils.AppNavigator;
 import java.sql.*;
+import static utils.AlertHelper.*;
 
 public class Nueva_compra_controller {
 
@@ -122,7 +123,4 @@ public class Nueva_compra_controller {
         appNavigator.volverMenu();
     }
 
-    private void mostrarInfo(String m) { Alert a = new Alert(Alert.AlertType.INFORMATION, m, ButtonType.OK); a.setHeaderText(null); a.showAndWait(); }
-    private void mostrarError(String m) { Alert a = new Alert(Alert.AlertType.ERROR, m, ButtonType.OK); a.setHeaderText(null); a.showAndWait(); }
-    private void mostrarAdvertencia(String m) { Alert a = new Alert(Alert.AlertType.WARNING, m, ButtonType.OK); a.setHeaderText(null); a.showAndWait(); }
 }

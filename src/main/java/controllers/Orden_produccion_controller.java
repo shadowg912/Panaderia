@@ -12,6 +12,7 @@ import utils.AppNavigator;
 
 import java.math.BigDecimal;
 import java.sql.*;
+import static utils.AlertHelper.*;
 
 public class Orden_produccion_controller {
 
@@ -190,21 +191,6 @@ public class Orden_produccion_controller {
         appNavigator.volverMenu();
     }
 
-    private void mostrarAdvertencia(String mensaje) {
-        Alert a = new Alert(Alert.AlertType.WARNING, mensaje, ButtonType.OK);
-        a.setHeaderText(null);
-        a.showAndWait();
-    }
 
-    private void mostrarError(String mensaje) {
-        Alert a = new Alert(Alert.AlertType.ERROR, mensaje, ButtonType.OK);
-        a.setHeaderText(null);
-        a.showAndWait();
-    }
 
-    private void mostrarInfo(String mensaje) {
-        Alert a = new Alert(Alert.AlertType.INFORMATION, mensaje, ButtonType.OK);
-        a.setHeaderText(null);
-        a.showAndWait();
-    }
 }

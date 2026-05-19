@@ -23,6 +23,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import static utils.AlertHelper.*;
 
 public class Ver_recetas_controller {
 
@@ -358,21 +359,6 @@ public class Ver_recetas_controller {
         appNavigator.volverMenu();
     }
 
-    private void mostrarAdvertencia(String mensaje) {
-        Alert a = new Alert(Alert.AlertType.WARNING, mensaje, ButtonType.OK);
-        a.setHeaderText(null);
-        a.showAndWait();
-    }
 
-    private void mostrarInfo(String mensaje) {
-        Alert a = new Alert(Alert.AlertType.INFORMATION, mensaje, ButtonType.OK);
-        a.setHeaderText(null);
-        a.showAndWait();
-    }
 
-    private void mostrarError(String mensaje) {
-        Alert a = new Alert(Alert.AlertType.ERROR, mensaje, ButtonType.OK);
-        a.setHeaderText(null);
-        a.showAndWait();
-    }
 }

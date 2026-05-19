@@ -14,6 +14,7 @@ import utils.AppNavigator;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import static utils.AlertHelper.*;
 
 public class Inventario_controller {
     @FXML
@@ -123,7 +124,7 @@ public class Inventario_controller {
     }
 
     public void fnVolverMenu(ActionEvent actionEvent) {
-        AppNavigator.load("/view/Menu.fxml");
+        AppNavigator.cargarDashboard();
     }
 
     public void fnFiltrarCategoria(ActionEvent actionEvent) {
@@ -205,9 +206,4 @@ public class Inventario_controller {
         actualizarTotal();
     }
 
-    private void mostrarError(String m) {
-        Alert a = new Alert(Alert.AlertType.ERROR, m, ButtonType.OK);
-        a.setHeaderText(null);
-        a.showAndWait();
-    }
 }

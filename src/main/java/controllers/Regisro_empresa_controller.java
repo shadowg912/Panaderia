@@ -11,6 +11,7 @@ import model.Provincia;
 import utils.AppNavigator;
 
 import java.sql.*;
+import static utils.AlertHelper.*;
 
 public class Regisro_empresa_controller {
 
@@ -178,7 +179,4 @@ public class Regisro_empresa_controller {
         return 0;
     }
 
-    private void mostrarInfo(String m) { Alert a = new Alert(Alert.AlertType.INFORMATION, m, ButtonType.OK); a.setHeaderText(null); a.showAndWait(); }
-    private void mostrarError(String m) { Alert a = new Alert(Alert.AlertType.ERROR, m, ButtonType.OK); a.setHeaderText(null); a.showAndWait(); }
-    private void mostrarAdvertencia(String m) { Alert a = new Alert(Alert.AlertType.WARNING, m, ButtonType.OK); a.setHeaderText(null); a.showAndWait(); }
 }

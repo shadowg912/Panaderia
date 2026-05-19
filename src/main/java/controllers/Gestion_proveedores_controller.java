@@ -15,6 +15,7 @@ import utils.AppNavigator;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import static utils.AlertHelper.*;
 
 public class Gestion_proveedores_controller {
 
@@ -210,6 +211,4 @@ public class Gestion_proveedores_controller {
 
     public void fnVolver() { appNavigator.volverMenu(); }
 
-    private void mostrarInfo(String m) { Alert a = new Alert(Alert.AlertType.INFORMATION, m, ButtonType.OK); a.setHeaderText(null); a.showAndWait(); }
-    private void mostrarError(String m) { Alert a = new Alert(Alert.AlertType.ERROR, m, ButtonType.OK); a.setHeaderText(null); a.showAndWait(); }
 }
