@@ -70,6 +70,7 @@ public class menu_contoller {
         MODULOS.put("COMPRAS", new Modulo("COMPRAS", "C",
             List.of(
                 new SubItem("btnNuevaCompra", "Nueva Compra", "Realizar una compra a proveedor", "/view/Nueva_compra.fxml"),
+                new SubItem("btnGestionCompras", "Gestionar Compras", "Administrar compras y entrada de stock", "/view/Gestion_compras.fxml"),
                 new SubItem("btnRegistroProveedor", "Registrar Proveedor", "Añadir un nuevo proveedor", "/view/Registrar_proveedor.fxml"),
                 new SubItem("btnAdminProveedores", "Administrar Proveedores", "Gestionar proveedores existentes", "/view/Gestion_proveedores.fxml")
             )));
@@ -94,13 +95,13 @@ public class menu_contoller {
             "btnNuevaOrden","btnHistorialVenta","btnSeguimientroEnvio","btnGuardarDIrecciones",
             "btnRegistroProducto","btnVerInventario","btnRegistroRecetas",
             "btnOrdenProduccion","btnVerOrdenesProduccion","btnVerRecetas",
-            "btnNuevaCompra","btnRegistroProveedor","btnAdminProveedores",
+            "btnNuevaCompra","btnGestionCompras","btnRegistroProveedor","btnAdminProveedores",
             "btnRegistroCliente","btnGestionClientes","btnReclamaciones",
             "btnCrearUsuario","btnAdminUsuarios","btnAdminEmpleados","btnCrearEmpleado"
         ));
         PERMISOS.put("Encargado de Almacén", Set.of(
             "btnRegistroProducto","btnVerInventario","btnVerRecetas",
-            "btnRegistroProveedor","btnAdminProveedores"
+            "btnGestionCompras","btnRegistroProveedor","btnAdminProveedores"
         ));
         PERMISOS.put("Encargado de Área", Set.of(
             "btnHistorialVenta","btnSeguimientroEnvio","btnVerInventario",
@@ -112,7 +113,7 @@ public class menu_contoller {
             "btnVerRecetas","btnRegistroRecetas"
         ));
         PERMISOS.put("Encargado de Compras", Set.of(
-            "btnVerInventario","btnNuevaCompra","btnRegistroProveedor","btnAdminProveedores"
+            "btnVerInventario","btnNuevaCompra","btnGestionCompras","btnRegistroProveedor","btnAdminProveedores"
         ));
         PERMISOS.put("Repartidor", Set.of("btnSeguimientroEnvio"));
     }

@@ -10,6 +10,7 @@ public class CompraMaterial {
     private int idProveedor;
     private String nombreProveedor;
     private String nombreFormaPago;
+    private double montoTotal;
 
     public CompraMaterial() {}
 
@@ -33,4 +34,7 @@ public class CompraMaterial {
 
     public String getNombreFormaPago() { return nombreFormaPago; }
     public void setNombreFormaPago(String v) { nombreFormaPago = v; }
+
+    public double getMontoTotal() { return montoTotal; }
+    public void setMontoTotal(double v) { montoTotal = v; }
 }

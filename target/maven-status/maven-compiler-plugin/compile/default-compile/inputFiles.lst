@@ -14,6 +14,7 @@
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/controllers/Detalle_orden_venta_controller.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/controllers/Direccion_entrega_controller.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/controllers/Gestion_clientes_controller.java
+/home/shadowg912/IdeaProjects/Panaderia/src/main/java/controllers/Gestion_compras_controller.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/controllers/Gestion_proveedores_controller.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/controllers/Guardar_direccion_controller.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/controllers/Historial_ventas_controller.java
@@ -45,6 +46,7 @@
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/EnvioResumen.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/Factura.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/FormaPago.java
+/home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/MovimientoInventario.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/OrdenProduccion.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/OrdenVenta.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/OrdenVentaEstado.java
@@ -58,6 +60,7 @@
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/Reclamaciones.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/Rol.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/Sector.java
+/home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/TipoMovimiento.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/Unidad.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/Usuario.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/ValorNutricional.java

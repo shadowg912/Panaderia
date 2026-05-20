@@ -7,11 +7,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import model.OrdenProduccion;
 import utils.AppNavigator;
+import utils.SesionUsuario;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import static utils.AlertHelper.*;
@@ -140,7 +142,7 @@ public class Ver_ordenes_produccion_controller {
         listaPendientes.clear();
         listaOrden.clear();
 
-        String sqlPendientes = "SELECT op.id_orden_produccion, p.nombre as producto, " +
+        String sqlPendientes = "SELECT op.id_orden_produccion, op.id_producto, p.nombre as producto, " +
                 "e.nombre + ' ' + e.apellido1 as empleado, op.cantidad_planificada, " +
                 "op.fecha_produccion, op.estado " +
                 "FROM ORDEN_PRODUCCION op " +
@@ -155,8 +157,10 @@ public class Ver_ordenes_produccion_controller {
             while (rs.next()) {
                 OrdenProduccion orden = new OrdenProduccion();
                 orden.setIdOrdenProduccion(rs.getInt("id_orden_produccion"));
+                orden.setIdProducto(rs.getInt("id_producto"));
                 orden.setNombreProducto(rs.getString("producto"));
                 orden.setNombreEmpleado(rs.getString("empleado"));
+                orden.setCantidadPlanificada(rs.getBigDecimal("cantidad_planificada") != null ? rs.getBigDecimal("cantidad_planificada").doubleValue() : 0);
                 orden.setCantidadTexto(rs.getBigDecimal("cantidad_planificada") != null ? rs.getBigDecimal("cantidad_planificada").toString() : "");
                 orden.setFechaTexto(rs.getDate("fecha_produccion") != null ? rs.getDate("fecha_produccion").toString() : "");
                 orden.setEstado(rs.getString("estado"));
@@ -168,7 +172,7 @@ public class Ver_ordenes_produccion_controller {
 
         String filtro = cmbFiltro.getValue();
         StringBuilder sqlOtros = new StringBuilder(
-                "SELECT op.id_orden_produccion, p.nombre as producto, " +
+                "SELECT op.id_orden_produccion, op.id_producto, p.nombre as producto, " +
                 "e.nombre + ' ' + e.apellido1 as empleado, op.cantidad_planificada, " +
                 "op.fecha_produccion, op.estado " +
                 "FROM ORDEN_PRODUCCION op " +
@@ -193,8 +197,10 @@ public class Ver_ordenes_produccion_controller {
             while (rs.next()) {
                 OrdenProduccion orden = new OrdenProduccion();
                 orden.setIdOrdenProduccion(rs.getInt("id_orden_produccion"));
+                orden.setIdProducto(rs.getInt("id_producto"));
                 orden.setNombreProducto(rs.getString("producto"));
                 orden.setNombreEmpleado(rs.getString("empleado"));
+                orden.setCantidadPlanificada(rs.getBigDecimal("cantidad_planificada") != null ? rs.getBigDecimal("cantidad_planificada").doubleValue() : 0);
                 orden.setCantidadTexto(rs.getBigDecimal("cantidad_planificada") != null ? rs.getBigDecimal("cantidad_planificada").toString() : "");
                 orden.setFechaTexto(rs.getDate("fecha_produccion") != null ? rs.getDate("fecha_produccion").toString() : "");
                 orden.setEstado(rs.getString("estado"));
@@ -208,26 +214,109 @@ public class Ver_ordenes_produccion_controller {
     }
 
     private void cambiarEstado(OrdenProduccion orden, String nuevoEstado) {
+        if (nuevoEstado == null) return;
+
+        if ("Cancelar".equals(nuevoEstado)) {
+            String sql = "UPDATE ORDEN_PRODUCCION SET estado = ? WHERE id_orden_produccion = ?";
+            try (Connection conn = conexion.establecerconexio();
+                 PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setString(1, nuevoEstado);
+                ps.setInt(2, orden.getIdOrdenProduccion());
+                ps.executeUpdate();
+                listaPendientes.remove(orden);
+                listaOrden.remove(orden);
+                mostrarInfo("Orden #" + orden.getIdOrdenProduccion() + " cancelada.");
+            } catch (SQLException e) {
+                mostrarError("Error al cancelar orden: " + e.getMessage());
+            }
+            return;
+        }
+
+        if ("Completada".equals(nuevoEstado)) {
+            try (Connection conn = conexion.establecerconexio()) {
+                conn.setAutoCommit(false);
+                try {
+                    actualizarEstadoOrden(conn, orden.getIdOrdenProduccion(), nuevoEstado);
+                    registrarProduccionStock(conn, orden);
+                    conn.commit();
+                    orden.setEstado(nuevoEstado);
+                    mostrarInfo("Orden #" + orden.getIdOrdenProduccion() + " completada. Stock actualizado.");
+                    cargarDatos();
+                } catch (SQLException e) {
+                    conn.rollback();
+                    mostrarError("Error al completar orden: " + e.getMessage());
+                }
+            } catch (SQLException e) {
+                mostrarError("Error de conexión: " + e.getMessage());
+            }
+            return;
+        }
+
         String sql = "UPDATE ORDEN_PRODUCCION SET estado = ? WHERE id_orden_produccion = ?";
         try (Connection conn = conexion.establecerconexio();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, nuevoEstado);
             ps.setInt(2, orden.getIdOrdenProduccion());
             ps.executeUpdate();
-
             orden.setEstado(nuevoEstado);
-
-            if ("Cancelar".equals(nuevoEstado)) {
-                listaPendientes.remove(orden);
-                listaOrden.remove(orden);
-            } else {
-                cargarDatos();
-            }
-
+            cargarDatos();
             mostrarInfo("Estado actualizado a: " + nuevoEstado);
         } catch (SQLException e) {
             mostrarError("Error al cambiar estado: " + e.getMessage());
         }
+    }
+
+    private void actualizarEstadoOrden(Connection conn, int idOrden, String estado) throws SQLException {
+        try (PreparedStatement ps = conn.prepareStatement("UPDATE ORDEN_PRODUCCION SET estado = ? WHERE id_orden_produccion = ?")) {
+            ps.setString(1, estado);
+            ps.setInt(2, idOrden);
+            ps.executeUpdate();
+        }
+    }
+
+    private void registrarProduccionStock(Connection conn, OrdenProduccion orden) throws SQLException {
+        int idTipoProduccion = obtenerTipoMovimientoProduccion(conn);
+        int idUsuario = SesionUsuario.getIdUsuario();
+        int idProducto = orden.getIdProducto();
+        double cantidad = orden.getCantidadPlanificada();
+
+        if (idProducto <= 0 || cantidad <= 0) return;
+
+        try (PreparedStatement ps = conn.prepareStatement(
+            "INSERT INTO MOVIMIENTO_INVENTARIO (id_producto, cantidad, id_usuario, fecha, id_tipo_movimiento) VALUES (?, ?, ?, GETDATE(), ?)")) {
+            ps.setInt(1, idProducto);
+            ps.setDouble(2, cantidad);
+            ps.setInt(3, idUsuario);
+            ps.setInt(4, idTipoProduccion);
+            ps.executeUpdate();
+        }
+
+        try (PreparedStatement ps = conn.prepareStatement(
+            "MERGE INTO INVENTARIO AS target " +
+            "USING (SELECT ? AS id_producto, ? AS cantidad) AS source " +
+            "ON target.id_producto = source.id_producto " +
+            "WHEN MATCHED THEN UPDATE SET stock_actual = stock_actual + source.cantidad, fecha_actualizacion = GETDATE() " +
+            "WHEN NOT MATCHED THEN INSERT (id_producto, stock_actual, fecha_actualizacion) VALUES (source.id_producto, source.cantidad, GETDATE());")) {
+            ps.setInt(1, idProducto);
+            ps.setDouble(2, cantidad);
+            ps.executeUpdate();
+        }
+    }
+
+    private int obtenerTipoMovimientoProduccion(Connection conn) throws SQLException {
+        String sql = "SELECT id_tipo FROM TIPO_MOVIMIENTO WHERE nombre = 'Producción'";
+        try (PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) return rs.getInt("id_tipo");
+        }
+        try (PreparedStatement ps = conn.prepareStatement(
+            "INSERT INTO TIPO_MOVIMIENTO (nombre, naturaleza) VALUES ('Producción', 'ENTRADA')",
+            Statement.RETURN_GENERATED_KEYS)) {
+            ps.executeUpdate();
+            ResultSet rs = ps.getGeneratedKeys();
+            if (rs.next()) return rs.getInt(1);
+        }
+        throw new SQLException("No se pudo obtener/crear tipo de movimiento 'Producción'");
     }
 
     @FXML

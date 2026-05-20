@@ -120,6 +120,15 @@ public class Detalle_orden_venta_controller implements Initializable {
         }
 
         BigDecimal cantidad = new BigDecimal(txtCantidad.getText().trim());
+
+        double stockDisponible = obtenerStockProducto(idProducto);
+        if (cantidad.doubleValue() > stockDisponible) {
+            mostrarAdvertencia("Stock insuficiente para \"" + producto.getNombre()
+                    + "\".\nDisponible: " + (int) stockDisponible
+                    + ", solicitado: " + cantidad.stripTrailingZeros().toPlainString());
+            return;
+        }
+
         double precioUnitario = producto.getPrecioUnitario().doubleValue();
         double subtotal = cantidad.doubleValue() * precioUnitario;
 
@@ -190,6 +199,19 @@ public class Detalle_orden_venta_controller implements Initializable {
             return false;
         }
         return true;
+    }
+
+    private double obtenerStockProducto(int idProducto) {
+        String sql = "SELECT COALESCE(stock_actual, 0) FROM INVENTARIO WHERE id_producto = ?";
+        try (Connection connection = conexion.establecerconexio();
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, idProducto);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) return rs.getDouble(1);
+        } catch (SQLException e) {
+            mostrarError("Error consultando stock: " + e.getMessage());
+        }
+        return 0;
     }
 
     private void limpiarCampos() {

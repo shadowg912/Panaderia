@@ -11,17 +11,20 @@ public class Producto {
     private BigDecimal precioUnitario;
     private Unidad unidad;
     private String tipoProducto;
+    private double stockActual;
 
     private final SimpleStringProperty nombreDisplay;
     private final SimpleStringProperty categoriaDisplay;
     private final SimpleStringProperty precioDisplay;
     private final SimpleStringProperty unidadDisplay;
+    private final SimpleStringProperty stockDisplay;
 
     public Producto() {
         this.nombreDisplay = new SimpleStringProperty("");
         this.categoriaDisplay = new SimpleStringProperty("");
         this.precioDisplay = new SimpleStringProperty("");
         this.unidadDisplay = new SimpleStringProperty("");
+        this.stockDisplay = new SimpleStringProperty("");
     }
 
     public Producto(int idProducto, String nombre) {
@@ -43,6 +46,14 @@ public class Producto {
         this.categoriaDisplay.set(categoriaProducto != null ? categoriaProducto.getNombre() : "");
         this.precioDisplay.set(precioUnitario != null ? String.format("%.2f", precioUnitario) : "");
         this.unidadDisplay.set(unidad != null ? unidad.getNombre() : "");
+        this.stockDisplay.set("0");
+    }
+
+    public Producto(int idProducto, String nombre, CategoriaProducto categoriaProducto,
+                    BigDecimal precioUnitario, Unidad unidad, double stockActual) {
+        this(idProducto, nombre, categoriaProducto, precioUnitario, unidad);
+        this.stockActual = stockActual;
+        this.stockDisplay.set(stockActual > 0 ? String.valueOf((int) stockActual) : "0");
     }
 
     public int getIdProducto() { return idProducto; }
@@ -62,6 +73,12 @@ public class Producto {
 
     public String getTipoProducto() { return tipoProducto; }
     public void setTipoProducto(String tipoProducto) { this.tipoProducto = tipoProducto; }
+
+    public double getStockActual() { return stockActual; }
+    public void setStockActual(double stockActual) {
+        this.stockActual = stockActual;
+        this.stockDisplay.set(stockActual > 0 ? String.valueOf((int) stockActual) : "0");
+    }
 
     public int getIdCategoriaProducto() {
         return categoriaProducto != null ? categoriaProducto.getIdCategoriaProducto() : 0;
@@ -86,6 +103,10 @@ public class Producto {
     public String getUnidadDisplay() { return unidadDisplay.get(); }
     public void setUnidadDisplay(String value) { unidadDisplay.set(value); }
     public SimpleStringProperty unidadDisplayProperty() { return unidadDisplay; }
+
+    public String getStockDisplay() { return stockDisplay.get(); }
+    public void setStockDisplay(String value) { stockDisplay.set(value); }
+    public SimpleStringProperty stockDisplayProperty() { return stockDisplay; }
 
     @Override
     public String toString() {

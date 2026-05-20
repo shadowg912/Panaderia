@@ -61,6 +61,6 @@ public class AppNavigator {
     }
 
     public static void irAConfirmarOrden() {
-        navigateTo("/view/Confirmar_orden.fxml");
+        load("/view/Confirmar_orden.fxml");
     }
 }

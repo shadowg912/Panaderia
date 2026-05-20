@@ -148,6 +148,12 @@ public class Confirmar_orden_controller {
             return;
         }
 
+        String sinStock = verificarStockSuficiente(detalles);
+        if (sinStock != null) {
+            mostrarAdvertencia("No se puede emitir la orden. Los siguientes productos no tienen stock suficiente:\n\n" + sinStock);
+            return;
+        }
+
         Alert confirm = new Alert(Alert.AlertType.CONFIRMATION,
                 "¿Confirmar y registrar la orden de venta?",
                 ButtonType.YES, ButtonType.NO);
@@ -235,8 +241,17 @@ public class Confirmar_orden_controller {
             }
 
             String estadoEnvio = idEmpleado != null ? "ASIGNADO" : "PENDIENTE";
-            String sqlEnvio = "INSERT INTO ENVIO (id_orden_venta, id_empleado_transportista, id_estado_envio, id_usuario_creacion) " +
-                            "VALUES (?, ?, (SELECT id_estado_envio FROM ESTADO_ENVIO WHERE nombre = ?), ?)";
+
+            Integer idDireccionCliente = null;
+            String sqlDir = "SELECT id_direccion FROM CLIENTE WHERE id_cliente = ?";
+            try (PreparedStatement psDir = con.prepareStatement(sqlDir)) {
+                psDir.setInt(1, orden.getIdCliente());
+                ResultSet rsDir = psDir.executeQuery();
+                if (rsDir.next()) idDireccionCliente = rsDir.getInt("id_direccion");
+            }
+
+            String sqlEnvio = "INSERT INTO ENVIO (id_orden_venta, id_empleado_transportista, id_estado_envio, id_usuario_creacion, id_direccion_entrega) " +
+                            "VALUES (?, ?, (SELECT id_estado_envio FROM ESTADO_ENVIO WHERE nombre = ?), ?, ?)";
             try (PreparedStatement psEnv = con.prepareStatement(sqlEnvio)) {
                 psEnv.setInt(1, idOrdenGenerado);
                 if (idEmpleado != null) {
@@ -246,6 +261,11 @@ public class Confirmar_orden_controller {
                 }
                 psEnv.setString(3, estadoEnvio);
                 psEnv.setInt(4, utils.SesionUsuario.getIdUsuario());
+                if (idDireccionCliente != null) {
+                    psEnv.setInt(5, idDireccionCliente);
+                } else {
+                    psEnv.setNull(5, Types.INTEGER);
+                }
                 psEnv.executeUpdate();
             }
 
@@ -258,7 +278,30 @@ public class Confirmar_orden_controller {
         }
     }
 
-
+    private String verificarStockSuficiente(List<DetalleOrdenVenta> detalles) {
+        StringBuilder faltantes = new StringBuilder();
+        String sql = "SELECT COALESCE(stock_actual, 0) FROM INVENTARIO WHERE id_producto = ?";
+        try (Connection con = conexion.establecerconexio();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            for (DetalleOrdenVenta d : detalles) {
+                ps.setInt(1, d.getIdProducto());
+                ResultSet rs = ps.executeQuery();
+                double stock = rs.next() ? rs.getDouble(1) : 0;
+                double solicitado = d.getCantidad().doubleValue();
+                if (solicitado > stock) {
+                    String nombre = d.getNombreProducto() != null ? d.getNombreProducto() : "Producto #" + d.getIdProducto();
+                    faltantes.append("• ").append(nombre)
+                            .append(" — disponible: ").append((int) stock)
+                            .append(", solicitado: ").append(d.getCantidad().stripTrailingZeros().toPlainString())
+                            .append("\n");
+                }
+            }
+        } catch (SQLException e) {
+            mostrarError("Error verificando stock: " + e.getMessage());
+            return "Error al verificar inventario.";
+        }
+        return faltantes.length() > 0 ? faltantes.toString() : null;
+    }
 
     public void fnVolvermenu() {
         appNavigator.volverMenu();
