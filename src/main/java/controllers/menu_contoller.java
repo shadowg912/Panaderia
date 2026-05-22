@@ -52,6 +52,7 @@ public class menu_contoller {
     static {
         MODULOS.put("VENTAS", new Modulo("VENTAS", "V",
             List.of(
+                new SubItem("btnDashboardVentas", "Dashboard", "Reportes y estadísticas de ventas", "/view/Dashboard_ventas.fxml"),
                 new SubItem("btnNuevaOrden", "Nueva Orden", "Crear una orden de venta para un cliente", "/view/Crear_ordenventa.fxml"),
                 new SubItem("btnHistorialVenta", "Historial de Ventas", "Consultar ventas realizadas", "/view/Historial_ventas.fxml"),
                 new SubItem("btnSeguimientroEnvio", "Seguimiento Envíos", "Rastrear estado de entregas", "/view/Seguimiento_envio.fxml"),
@@ -95,7 +96,7 @@ public class menu_contoller {
     private static final Map<String, Set<String>> PERMISOS = new HashMap<>();
     static {
         PERMISOS.put("Administrador", Set.of(
-            "btnNuevaOrden","btnHistorialVenta","btnSeguimientroEnvio","btnGuardarDIrecciones",
+            "btnDashboardVentas","btnNuevaOrden","btnHistorialVenta","btnSeguimientroEnvio","btnGuardarDIrecciones",
             "btnRegistroProducto","btnVerInventario","btnVerMovimientos","btnRegistroRecetas",
             "btnOrdenProduccion","btnVerOrdenesProduccion","btnVerRecetas",
             "btnNuevaCompra","btnGestionCompras","btnRegistroProveedor","btnAdminProveedores",
@@ -107,7 +108,7 @@ public class menu_contoller {
             "btnGestionCompras","btnRegistroProveedor","btnAdminProveedores"
         ));
         PERMISOS.put("Encargado de Área", Set.of(
-            "btnHistorialVenta","btnSeguimientroEnvio","btnVerInventario","btnVerMovimientos",
+            "btnDashboardVentas","btnHistorialVenta","btnSeguimientroEnvio","btnVerInventario","btnVerMovimientos",
             "btnVerOrdenesProduccion","btnVerRecetas",
             "btnGestionClientes","btnReclamaciones"
         ));

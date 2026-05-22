@@ -791,3 +791,215 @@
     -fx-text-fill: #c2baab;
     -fx-font-size: 13px;
 }
+
+/* ============================================
+   DASHBOARD VENTAS
+   ============================================ */
+
+/* Period toggle buttons */
+.toggle-period {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #535659;
+    -fx-border-color: #c2baab;
+    -fx-border-width: 1;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+    -fx-padding: 8 22;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.toggle-period:selected {
+    -fx-background-color: #cdb08e;
+    -fx-text-fill: #100e0a;
+    -fx-border-color: #cdb08e;
+}
+
+.toggle-period:hover {
+    -fx-background-color: #f5f2eb;
+}
+
+/* Period label */
+.period-label {
+    -fx-text-fill: #bfb6a6;
+    -fx-font-size: 12px;
+    -fx-font-style: italic;
+}
+
+/* KPI cards */
+.kpi-card {
+    -fx-background-color: #ffffff;
+    -fx-padding: 20;
+    -fx-background-radius: 12;
+    -fx-border-color: #c2baab;
+    -fx-border-radius: 12;
+    -fx-border-width: 1;
+    -fx-spacing: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.04), 8, 0, 0, 2);
+}
+
+.kpi-label {
+    -fx-font-size: 12px;
+    -fx-text-fill: #5c4a3a;
+    -fx-font-weight: bold;
+    -fx-letter-spacing: 1;
+}
+
+.kpi-value {
+    -fx-font-size: 26px;
+    -fx-text-fill: #100e0a;
+    -fx-font-weight: bold;
+}
+
+/* Chart styling */
+.chart {
+    -fx-background-color: transparent;
+}
+
+.chart-plot-background {
+    -fx-background-color: transparent;
+}
+
+.chart-vertical-grid-lines {
+    -fx-stroke: #e9e6de;
+}
+
+.chart-horizontal-grid-lines {
+    -fx-stroke: #e9e6de;
+}
+
+.chart-axis {
+    -fx-tick-label-fill: #535659;
+    -fx-tick-label-font-size: 11px;
+    -fx-axis-label-fill: #bfb6a6;
+    -fx-axis-label-font-size: 12px;
+}
+
+.chart-axis .axis-label {
+    -fx-text-fill: #bfb6a6;
+}
+
+.chart-pie {
+    -fx-pie-color: #cdb08e;
+}
+
+.chart-pie-label {
+    -fx-fill: #535659;
+    -fx-font-size: 11px;
+}
+
+.chart-legend {
+    -fx-background-color: transparent;
+    -fx-font-size: 12px;
+    -fx-text-fill: #535659;
+    -fx-padding: 12 0 0 0;
+}
+
+.chart-legend-item-symbol {
+    -fx-background-radius: 4;
+}
+
+.chart-title {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #535659;
+}
+
+/* Custom horizontal bars */
+.custom-bar-row {
+    -fx-padding: 0;
+}
+
+.custom-bar-date {
+    -fx-font-weight: bold;
+    -fx-text-fill: #535659;
+    -fx-font-size: 12px;
+    -fx-min-width: 55;
+}
+
+.custom-bar-track {
+    -fx-fill: #e9e6de;
+    -fx-arc-width: 4;
+    -fx-arc-height: 4;
+}
+
+.custom-bar-fill {
+    -fx-fill: #cdb08e;
+    -fx-arc-width: 4;
+    -fx-arc-height: 4;
+}
+
+.custom-bar-row:hover .custom-bar-fill {
+    -fx-fill: #b89a78;
+}
+
+.custom-bar-value {
+    -fx-font-weight: bold;
+    -fx-text-fill: #100e0a;
+    -fx-font-size: 13px;
+    -fx-min-width: 60;
+    -fx-alignment: center-right;
+}
+
+/* Pie colors by index */
+.default-color0.chart-pie { -fx-pie-color: #10b981; }
+.default-color1.chart-pie { -fx-pie-color: #ef4444; }
+.default-color2.chart-pie { -fx-pie-color: #f59e0b; }
+
+
+/* KPI accent bars */
+.kpi-accent-green {
+    -fx-min-height: 4;
+    -fx-max-height: 4;
+    -fx-background-color: #10b981;
+    -fx-background-radius: 3 3 0 0;
+}
+
+.kpi-accent-blue {
+    -fx-min-height: 4;
+    -fx-max-height: 4;
+    -fx-background-color: #38bdf8;
+    -fx-background-radius: 3 3 0 0;
+}
+
+.kpi-accent-purple {
+    -fx-min-height: 4;
+    -fx-max-height: 4;
+    -fx-background-color: #8b5cf6;
+    -fx-background-radius: 3 3 0 0;
+}
+
+.kpi-accent-orange {
+    -fx-min-height: 4;
+    -fx-max-height: 4;
+    -fx-background-color: #f59e0b;
+    -fx-background-radius: 3 3 0 0;
+}
+
+/* Mini progress bars for rankings */
+.mini-bar {
+    -fx-pref-height: 6;
+    -fx-min-height: 6;
+    -fx-max-height: 6;
+    -fx-background-color: #e9e6de;
+    -fx-background-radius: 3;
+    -fx-accent: #cdb08e;
+}
+
+.mini-bar > .bar {
+    -fx-background-radius: 3;
+    -fx-background-insets: 0;
+}
+
+.mini-bar > .track {
+    -fx-background-radius: 3;
+    -fx-background-color: #e9e6de;
+    -fx-background-insets: 0;
+}
+
+/* KPI card hover */
+.kpi-card:hover {
+    -fx-border-color: #cdb08e;
+    -fx-effect: dropshadow(gaussian, rgba(205,176,142,0.12), 12, 0, 0, 4);
+}

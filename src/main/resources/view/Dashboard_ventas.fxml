@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane stylesheets="@Styles.css" fx:controller="controllers.Dashboard_ventas_controller" prefHeight="720" prefWidth="1280" style="-fx-background-color: #f5f2eb;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+    <top>
+        <VBox style="-fx-background-color: #cdb08e; -fx-padding: 16 24; -fx-border-color: #c2baab; -fx-border-width: 0 0 1 0;">
+            <Label style="-fx-font-size: 10px; -fx-font-weight: bold; -fx-text-fill: #100e0a; -fx-letter-spacing: 2;" text="PANADERÍA — VENTAS"/>
+            <Label style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #100e0a;" text="Dashboard"/>
+        </VBox>
+    </top>
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-background: transparent;">
+            <VBox spacing="20" style="-fx-padding: 24 32;">
+                <HBox spacing="8" alignment="CENTER_LEFT">
+                    <ToggleButton fx:id="btnDia" text="Día" styleClass="toggle-period"/>
+                    <ToggleButton fx:id="btnSemana" text="Semana" styleClass="toggle-period"/>
+                    <ToggleButton fx:id="btnMes" text="Mes" styleClass="toggle-period"/>
+                    <ToggleButton fx:id="btnTrimestre" text="Trimestre" styleClass="toggle-period"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Label fx:id="lblPeriodo" styleClass="period-label"/>
+                </HBox>
+                <HBox spacing="24">
+                    <VBox spacing="20" HBox.hgrow="ALWAYS">
+                        <VBox styleClass="card">
+                            <Label text="Ventas por día" styleClass="card-title" style="-fx-padding: 0 0 12 0;"/>
+                            <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-background: transparent; -fx-border-color: transparent;">
+                                <VBox fx:id="vboxBarras" spacing="10" prefHeight="340" style="-fx-padding: 8 0;">
+                                </VBox>
+                            </ScrollPane>
+                        </VBox>
+                        <VBox styleClass="card">
+                            <Label text="Estado de órdenes" styleClass="card-title" style="-fx-padding: 0 0 8 0;"/>
+                            <PieChart fx:id="pieChart" labelsVisible="true" legendVisible="true" legendSide="BOTTOM" prefHeight="340" style="-fx-background-color: transparent;" animated="false"/>
+                        </VBox>
+                    </VBox>
+                    <VBox spacing="16" minWidth="380" maxWidth="440">
+                        <VBox styleClass="kpi-card" spacing="6">
+                            <Region styleClass="kpi-accent-green" VBox.vgrow="NEVER"/>
+                            <Label styleClass="kpi-label" style="-fx-padding: 4 0 0 0;" text="TOTAL GANANCIAS"/>
+                            <Label fx:id="lblTotalGanancias" text="RD$ 0.00" styleClass="kpi-value"/>
+                        </VBox>
+                        <VBox styleClass="kpi-card" spacing="8">
+                            <Region styleClass="kpi-accent-blue" VBox.vgrow="NEVER"/>
+                            <Label styleClass="kpi-label" style="-fx-padding: 4 0 0 0;" text="TOP 3 PRODUCTOS"/>
+                            <VBox fx:id="vboxTopProductos" spacing="6"/>
+                        </VBox>
+                        <VBox styleClass="kpi-card" spacing="8">
+                            <Region styleClass="kpi-accent-purple" VBox.vgrow="NEVER"/>
+                            <Label styleClass="kpi-label" style="-fx-padding: 4 0 0 0;" text="TOP 5 CLIENTES"/>
+                            <VBox fx:id="vboxTopClientes" spacing="6"/>
+                        </VBox>
+                        <VBox styleClass="kpi-card" spacing="10">
+                            <Region styleClass="kpi-accent-orange" VBox.vgrow="NEVER"/>
+                            <Label styleClass="kpi-label" style="-fx-padding: 4 0 0 0;" text="ENVÍOS"/>
+                            <HBox spacing="24" alignment="CENTER_LEFT">
+                                <HBox spacing="8" alignment="CENTER_LEFT">
+                                    <Label text="✅" style="-fx-font-size: 16px;"/>
+                                    <VBox spacing="1">
+                                        <Label style="-fx-text-fill: #535659; -fx-font-size: 11px;" text="Entregados"/>
+                                        <Label fx:id="lblEntregados" text="0" style="-fx-text-fill: #10b981; -fx-font-weight: bold; -fx-font-size: 18px;"/>
+                                    </VBox>
+                                </HBox>
+                                <Region prefWidth="1" style="-fx-background-color: #c2baab;" VBox.vgrow="NEVER"/>
+                                <HBox spacing="8" alignment="CENTER_LEFT">
+                                    <Label text="❌" style="-fx-font-size: 16px;"/>
+                                    <VBox spacing="1">
+                                        <Label style="-fx-text-fill: #535659; -fx-font-size: 11px;" text="Cancelados"/>
+                                        <Label fx:id="lblCancelados" text="0" style="-fx-text-fill: #ef4444; -fx-font-weight: bold; -fx-font-size: 18px;"/>
+                                    </VBox>
+                                </HBox>
+                            </HBox>
+                        </VBox>
+                    </VBox>
+                </HBox>
+            </VBox>
+        </ScrollPane>
+    </center>
+    <bottom>
+        <HBox alignment="CENTER_RIGHT" style="-fx-background-color: #cdb08e; -fx-padding: 12 24; -fx-border-color: #c2baab; -fx-border-width: 1 0 0 0;">
+            <Button onAction="#fnVolverMenu" text="Volver" styleClass="btn, btn-secondary"/>
+        </HBox>
+    </bottom>
+</BorderPane>

@@ -10,6 +10,7 @@
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/controllers/Crear_empleado_controller.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/controllers/Crear_ordenventa_controller.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/controllers/Crear_usuario_controller.java
+/home/shadowg912/IdeaProjects/Panaderia/src/main/java/controllers/Dashboard_ventas_controller.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/controllers/Detalle_compra_controller.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/controllers/Detalle_orden_venta_controller.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/controllers/Direccion_entrega_controller.java
