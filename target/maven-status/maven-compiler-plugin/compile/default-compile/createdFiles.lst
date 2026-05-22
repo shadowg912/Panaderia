@@ -29,6 +29,7 @@ controllers/Ver_ordenes_produccion_controller$1.class
 controllers/Ver_recetas_controller$2.class
 controllers/Gestion_proveedores_controller$1.class
 controllers/Admin_empleados_controller.class
+controllers/Movimientos_inventario_controller.class
 controllers/Ver_recetas_controller.class
 controllers/Inventario_controller$1.class
 model/MovimientoInventario.class

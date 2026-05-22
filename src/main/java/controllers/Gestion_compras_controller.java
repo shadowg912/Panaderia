@@ -235,18 +235,18 @@ public class Gestion_compras_controller implements Initializable {
     }
 
     private int obtenerTipoMovimientoCompra(Connection c) throws SQLException {
-        String sql = "SELECT id_tipo FROM TIPO_MOVIMIENTO WHERE nombre = 'Compra'";
+        String sql = "SELECT id_tipo FROM TIPO_MOVIMIENTO WHERE nombre = 'ENTRADA'";
         try (PreparedStatement ps = c.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
             if (rs.next()) return rs.getInt("id_tipo");
         }
-        String sqlInsert = "INSERT INTO TIPO_MOVIMIENTO (nombre, naturaleza) VALUES ('Compra', 'ENTRADA')";
+        String sqlInsert = "INSERT INTO TIPO_MOVIMIENTO (nombre, naturaleza) VALUES ('ENTRADA', 'ENTRADA')";
         try (PreparedStatement ps = c.prepareStatement(sqlInsert, Statement.RETURN_GENERATED_KEYS)) {
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) return rs.getInt(1);
         }
-        throw new SQLException("No se pudo obtener/crear tipo de movimiento 'Compra'");
+        throw new SQLException("No se pudo obtener/crear tipo de movimiento 'ENTRADA'");
     }
 
     public void fnVolverMenu(ActionEvent event) { AppNavigator.cargarDashboard(); }

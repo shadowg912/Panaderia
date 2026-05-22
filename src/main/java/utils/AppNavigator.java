@@ -2,6 +2,7 @@ package utils;
 
 import controllers.Confirmar_orden_controller;
 import controllers.Detalle_orden_venta_controller;
+import controllers.menu_contoller;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
@@ -48,7 +49,11 @@ public class AppNavigator {
     }
 
     public static void cargarDashboard() {
-        load("/view/Menu.fxml");
+        if (contentPane != null && contentPane.getScene() != null) {
+            menu_contoller.volverAlMenu();
+        } else {
+            load("/view/Menu.fxml");
+        }
     }
 
     public void volverMenu() {

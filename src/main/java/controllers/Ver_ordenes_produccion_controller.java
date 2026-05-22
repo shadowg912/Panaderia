@@ -304,19 +304,19 @@ public class Ver_ordenes_produccion_controller {
     }
 
     private int obtenerTipoMovimientoProduccion(Connection conn) throws SQLException {
-        String sql = "SELECT id_tipo FROM TIPO_MOVIMIENTO WHERE nombre = 'Producción'";
+        String sql = "SELECT id_tipo FROM TIPO_MOVIMIENTO WHERE nombre = 'ENTRADA'";
         try (PreparedStatement ps = conn.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
             if (rs.next()) return rs.getInt("id_tipo");
         }
         try (PreparedStatement ps = conn.prepareStatement(
-            "INSERT INTO TIPO_MOVIMIENTO (nombre, naturaleza) VALUES ('Producción', 'ENTRADA')",
+            "INSERT INTO TIPO_MOVIMIENTO (nombre, naturaleza) VALUES ('ENTRADA', 'ENTRADA')",
             Statement.RETURN_GENERATED_KEYS)) {
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) return rs.getInt(1);
         }
-        throw new SQLException("No se pudo obtener/crear tipo de movimiento 'Producción'");
+        throw new SQLException("No se pudo obtener/crear tipo de movimiento 'ENTRADA'");
     }
 
     @FXML

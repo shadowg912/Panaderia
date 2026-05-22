@@ -183,8 +183,8 @@ public class Detalle_compra_controller implements Initializable {
     }
 
     private boolean insertarDetalle(int idIngrediente, DetalleCompra detalle) {
-        String sql = "INSERT INTO DETALLE_COMPRA (id_compra_material, id_ingrediente, id_producto, cantidad, costo_unitario, monto_total) " +
-                   "VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO DETALLE_COMPRA (id_compra_material, id_ingrediente, id_producto, cantidad, costo_unitario) " +
+                   "VALUES (?, ?, ?, ?, ?)";
         try (Connection c = conexion.establecerconexio();
              PreparedStatement ps = c.prepareStatement(sql)) {
             ps.setInt(1, detalle.getIdCompraMaterial());
@@ -192,7 +192,6 @@ public class Detalle_compra_controller implements Initializable {
             ps.setInt(3, detalle.getIdProducto());
             ps.setDouble(4, detalle.getCantidad());
             ps.setDouble(5, detalle.getCostoUnitario());
-            ps.setDouble(6, detalle.getMontoTotal());
             ps.executeUpdate();
             return true;
         } catch (SQLException e) {

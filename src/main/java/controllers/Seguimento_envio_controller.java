@@ -12,11 +12,9 @@ import javafx.scene.layout.HBox;
 import model.Empleado;
 import model.EnvioResumen;
 import utils.AppNavigator;
+import utils.SesionUsuario;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.*;
 import static utils.AlertHelper.*;
 
@@ -290,9 +288,11 @@ public class Seguimento_envio_controller {
 
     private void sincronizarOrdenEnvio(int idOrden, String estadoEnvio) {
         String estadoOrden = null;
-        if ("ENTREGADO".equals(estadoEnvio)) estadoOrden = "FACTURADA";
-        else if ("CANCELADO".equals(estadoEnvio)) estadoOrden = "CANCELADA";
-        else return;
+        if ("ENTREGADO".equals(estadoEnvio)) {
+            estadoOrden = "FACTURADA";
+        } else if ("CANCELADO".equals(estadoEnvio)) {
+            estadoOrden = "CANCELADA";
+        } else return;
 
         String sql = "UPDATE ORDEN_VENTA SET estado = ? WHERE id_orden_venta = ?";
         try (Connection con = conexion.establecerconexio();
@@ -302,7 +302,133 @@ public class Seguimento_envio_controller {
             ps.executeUpdate();
         } catch (SQLException e) {
             mostrarError("Error sincronizando orden: " + e.getMessage());
+            return;
         }
+
+        if ("ENTREGADO".equals(estadoEnvio)) {
+            registrarSalidaStock(idOrden);
+        }
+    }
+
+    private void registrarSalidaStock(int idOrden) {
+        int idTipoVenta = obtenerTipoMovimientoVenta();
+        int idUsuario = SesionUsuario.getIdUsuario();
+
+        String sqlDetalles = "SELECT dov.id_producto, dov.cantidad, p.nombre " +
+                           "FROM DETALLE_ORDEN_VENTA dov " +
+                           "INNER JOIN PRODUCTO p ON dov.id_producto = p.id_producto " +
+                           "WHERE dov.id_orden_venta = ?";
+
+        List<int[]> productos = new ArrayList<>();
+        List<Double> cantidades = new ArrayList<>();
+        List<String> nombres = new ArrayList<>();
+
+        try (Connection con = conexion.establecerconexio();
+             PreparedStatement ps = con.prepareStatement(sqlDetalles)) {
+            ps.setInt(1, idOrden);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                productos.add(new int[]{rs.getInt("id_producto")});
+                cantidades.add(rs.getDouble("cantidad"));
+                nombres.add(rs.getString("nombre"));
+            }
+        } catch (SQLException e) {
+            mostrarError("Error consultando detalles de orden: " + e.getMessage());
+            return;
+        }
+
+        if (productos.isEmpty()) return;
+
+        StringBuilder erroresStock = new StringBuilder();
+        try (Connection con = conexion.establecerconexio()) {
+            for (int i = 0; i < productos.size(); i++) {
+                int idProducto = productos.get(i)[0];
+                double cantidad = cantidades.get(i);
+                double stock = 0;
+                String sqlStock = "SELECT COALESCE(stock_actual, 0) FROM INVENTARIO WHERE id_producto = ?";
+                try (PreparedStatement ps = con.prepareStatement(sqlStock)) {
+                    ps.setInt(1, idProducto);
+                    ResultSet rs = ps.executeQuery();
+                    if (rs.next()) stock = rs.getDouble(1);
+                }
+                if (stock < cantidad) {
+                    erroresStock.append("• ").append(nombres.get(i))
+                            .append(" — disponible: ").append((int) stock)
+                            .append(", requerido: ").append((int) cantidad)
+                            .append("\n");
+                }
+            }
+        } catch (SQLException e) {
+            mostrarError("Error verificando stock: " + e.getMessage());
+            return;
+        }
+
+        if (erroresStock.length() > 0) {
+            mostrarError("No se puede entregar el envío. Stock insuficiente:\n" + erroresStock.toString());
+            return;
+        }
+
+        try (Connection con = conexion.establecerconexio()) {
+            con.setAutoCommit(false);
+            try {
+                for (int i = 0; i < productos.size(); i++) {
+                    int idProducto = productos.get(i)[0];
+                    double cantidad = cantidades.get(i);
+
+                    try (PreparedStatement ps = con.prepareStatement(
+                        "INSERT INTO MOVIMIENTO_INVENTARIO (id_producto, cantidad, id_usuario, fecha, id_tipo_movimiento) VALUES (?, ?, ?, GETDATE(), ?)")) {
+                        ps.setInt(1, idProducto);
+                        ps.setDouble(2, cantidad);
+                        ps.setInt(3, idUsuario);
+                        ps.setInt(4, idTipoVenta);
+                        ps.executeUpdate();
+                    }
+
+                    try (PreparedStatement ps = con.prepareStatement(
+                        "UPDATE INVENTARIO SET stock_actual = stock_actual - ?, fecha_actualizacion = GETDATE() WHERE id_producto = ?")) {
+                        ps.setDouble(1, cantidad);
+                        ps.setInt(2, idProducto);
+                        int updated = ps.executeUpdate();
+                        if (updated == 0) {
+                            try (PreparedStatement psIns = con.prepareStatement(
+                                "INSERT INTO INVENTARIO (id_producto, stock_actual, fecha_actualizacion) VALUES (?, 0 - ?, GETDATE())")) {
+                                psIns.setInt(1, idProducto);
+                                psIns.setDouble(2, cantidad);
+                                psIns.executeUpdate();
+                            }
+                        }
+                    }
+                }
+                con.commit();
+            } catch (SQLException e) {
+                con.rollback();
+                mostrarError("Error registrando salida de stock: " + e.getMessage());
+            }
+        } catch (SQLException e) {
+            mostrarError("Error de conexión: " + e.getMessage());
+        }
+    }
+
+    private int obtenerTipoMovimientoVenta() {
+        String sql = "SELECT id_tipo FROM TIPO_MOVIMIENTO WHERE nombre = 'SALIDA'";
+        try (Connection con = conexion.establecerconexio();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) return rs.getInt("id_tipo");
+        } catch (SQLException e) {
+            mostrarError("Error consultando tipo de movimiento: " + e.getMessage());
+            return 0;
+        }
+        String sqlInsert = "INSERT INTO TIPO_MOVIMIENTO (nombre, naturaleza) VALUES ('SALIDA', 'SALIDA')";
+        try (Connection con = conexion.establecerconexio();
+             PreparedStatement ps = con.prepareStatement(sqlInsert, Statement.RETURN_GENERATED_KEYS)) {
+            ps.executeUpdate();
+            ResultSet rs = ps.getGeneratedKeys();
+            if (rs.next()) return rs.getInt(1);
+        } catch (SQLException e) {
+            mostrarError("Error creando tipo de movimiento: " + e.getMessage());
+        }
+        return 0;
     }
 
     private boolean fnAsignarEnvio(EnvioResumen env) {

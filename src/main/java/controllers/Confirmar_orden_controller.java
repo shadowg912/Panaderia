@@ -241,6 +241,7 @@ public class Confirmar_orden_controller {
             }
 
             String estadoEnvio = idEmpleado != null ? "ASIGNADO" : "PENDIENTE";
+            String numSeguimiento = "ENV-" + idOrdenGenerado + "-" + System.currentTimeMillis();
 
             Integer idDireccionCliente = null;
             String sqlDir = "SELECT id_direccion FROM CLIENTE WHERE id_cliente = ?";
@@ -250,8 +251,8 @@ public class Confirmar_orden_controller {
                 if (rsDir.next()) idDireccionCliente = rsDir.getInt("id_direccion");
             }
 
-            String sqlEnvio = "INSERT INTO ENVIO (id_orden_venta, id_empleado_transportista, id_estado_envio, id_usuario_creacion, id_direccion_entrega) " +
-                            "VALUES (?, ?, (SELECT id_estado_envio FROM ESTADO_ENVIO WHERE nombre = ?), ?, ?)";
+            String sqlEnvio = "INSERT INTO ENVIO (id_orden_venta, id_empleado_transportista, id_estado_envio, id_usuario_creacion, id_direccion_entrega, numero_seguimiento) " +
+                            "VALUES (?, ?, (SELECT id_estado_envio FROM ESTADO_ENVIO WHERE nombre = ?), ?, ?, ?)";
             try (PreparedStatement psEnv = con.prepareStatement(sqlEnvio)) {
                 psEnv.setInt(1, idOrdenGenerado);
                 if (idEmpleado != null) {
@@ -266,6 +267,7 @@ public class Confirmar_orden_controller {
                 } else {
                     psEnv.setNull(5, Types.INTEGER);
                 }
+                psEnv.setString(6, numSeguimiento);
                 psEnv.executeUpdate();
             }
 

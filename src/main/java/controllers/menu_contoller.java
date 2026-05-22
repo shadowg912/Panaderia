@@ -25,6 +25,8 @@ public class menu_contoller {
     @FXML private Button btnCerrarSesion;
 
     private static final Map<String, Modulo> MODULOS = new LinkedHashMap<>();
+    private static menu_contoller instancia;
+    private static String ultimoModuloNombre;
     private Modulo moduloActivo = null;
 
     private static class SubItem {
@@ -59,6 +61,7 @@ public class menu_contoller {
             List.of(
                 new SubItem("btnRegistroProducto", "Registrar Producto", "Añadir un nuevo producto al catálogo", "/view/Registrar_productos.fxml"),
                 new SubItem("btnVerInventario", "Ver Inventario", "Consultar stock actual de productos", "/view/Inventario.fxml"),
+                new SubItem("btnVerMovimientos", "Ver Movimientos", "Historial de entradas y salidas", "/view/Movimientos_inventario.fxml"),
                 new SubItem("btnRegistroRecetas", "Recetas", "Gestionar recetas de productos terminados", "/view/Registro_recetas.fxml")
             )));
         MODULOS.put("PRODUCCION", new Modulo("PRODUCCIÓN", "P",
@@ -93,15 +96,27 @@ public class menu_contoller {
     static {
         PERMISOS.put("Administrador", Set.of(
             "btnNuevaOrden","btnHistorialVenta","btnSeguimientroEnvio","btnGuardarDIrecciones",
-            "btnRegistroProducto","btnVerInventario","btnRegistroRecetas",
+            "btnRegistroProducto","btnVerInventario","btnVerMovimientos","btnRegistroRecetas",
             "btnOrdenProduccion","btnVerOrdenesProduccion","btnVerRecetas",
             "btnNuevaCompra","btnGestionCompras","btnRegistroProveedor","btnAdminProveedores",
             "btnRegistroCliente","btnGestionClientes","btnReclamaciones",
             "btnCrearUsuario","btnAdminUsuarios","btnAdminEmpleados","btnCrearEmpleado"
         ));
         PERMISOS.put("Encargado de Almacén", Set.of(
-            "btnRegistroProducto","btnVerInventario","btnVerRecetas",
+            "btnRegistroProducto","btnVerInventario","btnVerMovimientos","btnVerRecetas",
             "btnGestionCompras","btnRegistroProveedor","btnAdminProveedores"
+        ));
+        PERMISOS.put("Encargado de Área", Set.of(
+            "btnHistorialVenta","btnSeguimientroEnvio","btnVerInventario","btnVerMovimientos",
+            "btnVerOrdenesProduccion","btnVerRecetas",
+            "btnGestionClientes","btnReclamaciones"
+        ));
+        PERMISOS.put("Encargado de Producción", Set.of(
+            "btnVerInventario","btnVerMovimientos","btnOrdenProduccion","btnVerOrdenesProduccion",
+            "btnVerRecetas","btnRegistroRecetas"
+        ));
+        PERMISOS.put("Encargado de Compras", Set.of(
+            "btnVerInventario","btnVerMovimientos","btnNuevaCompra","btnGestionCompras","btnRegistroProveedor","btnAdminProveedores"
         ));
         PERMISOS.put("Encargado de Área", Set.of(
             "btnHistorialVenta","btnSeguimientroEnvio","btnVerInventario",
@@ -120,6 +135,8 @@ public class menu_contoller {
 
     @FXML
     public void initialize() {
+        instancia = this;
+
         String nombre = SesionUsuario.getNombreEmpleado() != null
                 ? SesionUsuario.getNombreEmpleado()
                 : SesionUsuario.getNombreUsuario();
@@ -227,6 +244,7 @@ public class menu_contoller {
     }
 
     private void mostrarSubmenu(Modulo m) {
+        ultimoModuloNombre = m.nombre;
         contentArea.getChildren().clear();
 
         VBox contenedor = new VBox(4);
@@ -290,6 +308,22 @@ public class menu_contoller {
                 mostrarSubmenu(m);
                 break;
             }
+        }
+    }
+
+    public static void volverAlMenu() {
+        if (instancia == null || instancia.contentArea == null) {
+            AppNavigator.load("/view/Menu.fxml");
+            return;
+        }
+        Modulo modulo = MODULOS.get(ultimoModuloNombre);
+        if (modulo == null) {
+            for (Modulo m : MODULOS.values()) {
+                if (m.sidebarHeader != null) { modulo = m; break; }
+            }
+        }
+        if (modulo != null) {
+            instancia.mostrarSubmenu(modulo);
         }
     }
 
