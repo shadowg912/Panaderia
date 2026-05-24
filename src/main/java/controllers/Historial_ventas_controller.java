@@ -28,6 +28,7 @@ public class Historial_ventas_controller implements Initializable {
     @FXML private TableColumn<VentaResumen, String> colCliente;
     @FXML private TableColumn<VentaResumen, Double> colTotal;
     @FXML private TableColumn<VentaResumen, String> colEstado;
+    @FXML private TableColumn<VentaResumen, Void> colAccion;
     @FXML private ComboBox<String> cmbEstado;
     @FXML private DatePicker dpDesde;
     @FXML private DatePicker dpHasta;
@@ -49,6 +50,22 @@ public class Historial_ventas_controller implements Initializable {
         colCliente.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().getNombreCliente()));
         colTotal.setCellValueFactory(cd -> new ReadOnlyObjectWrapper<>(cd.getValue().getTotal()));
         colEstado.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().getEstado()));
+
+        colAccion.setCellFactory(col -> new TableCell<>() {
+            private final Button btnFactura = new Button("Factura");
+            {
+                btnFactura.setStyle("-fx-background-color: #6366f1; -fx-text-fill: #ffffff; -fx-font-weight: bold; -fx-cursor: hand; -fx-background-radius: 6; -fx-padding: 6 12;");
+                btnFactura.setOnAction(e -> {
+                    VentaResumen v = getTableView().getItems().get(getIndex());
+                    FacturaController.mostrarFactura(v.getIdOrdenVenta());
+                });
+            }
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                setGraphic(empty ? null : btnFactura);
+            }
+        });
     }
 
     private void cargarFiltros() {

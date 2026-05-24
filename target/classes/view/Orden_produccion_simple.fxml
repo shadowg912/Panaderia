@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="720" prefWidth="1280"
+            stylesheets="@Styles.css"
+            fx:controller="controllers.Orden_produccion_simple_controller"
+            xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1">
+
+    <top>
+        <VBox styleClass="header-bar">
+            <children>
+                <Label styleClass="header-subtitle" text="PANADERÍA — PRODUCCIÓN"/>
+                <Label styleClass="header-title" text="Nueva Orden de Producción"/>
+                <Label styleClass="header-subtitle" text="Ingrese los datos básicos y luego agregue los productos a fabricar"/>
+            </children>
+        </VBox>
+    </top>
+
+    <center>
+        <ScrollPane fitToWidth="true" styleClass="bg-main">
+            <content>
+                <VBox spacing="32" style="-fx-padding: 40;">
+                    <children>
+                        <VBox spacing="20">
+                            <children>
+                                <Label styleClass="card-title" text="DATOS DE LA ORDEN"/>
+
+                                <GridPane styleClass="form-grid">
+                                    <columnConstraints>
+                                        <ColumnConstraints percentWidth="50"/>
+                                        <ColumnConstraints percentWidth="50"/>
+                                    </columnConstraints>
+
+                                    <children>
+                                        <VBox spacing="8" GridPane.columnIndex="0">
+                                            <Label styleClass="form-label" text="Empleado Responsable *"/>
+                                            <HBox spacing="12">
+                                                <TextField fx:id="txtIdEmpleado" promptText="ID" prefWidth="80"/>
+                                                <TextField fx:id="txtNombreEmpleado" editable="false" styleClass="text-readonly" HBox.hgrow="ALWAYS"/>
+                                                <Button onAction="#fnBuscarEmpleado" text="Buscar" styleClass="btn, btn-secondary"/>
+                                            </HBox>
+                                        </VBox>
+
+                                        <VBox spacing="8" GridPane.columnIndex="1">
+                                            <Label styleClass="form-label" text="Fecha de Producción *"/>
+                                            <HBox spacing="8" alignment="CENTER_LEFT">
+                                                <Spinner fx:id="spDia" prefWidth="80" editable="true"/>
+                                                <Label text="/"/>
+                                                <Spinner fx:id="spMes" prefWidth="80" editable="true"/>
+                                                <Label fx:id="lblAnio" styleClass="form-label"/>
+                                            </HBox>
+                                        </VBox>
+                                    </children>
+                                </GridPane>
+                            </children>
+                        </VBox>
+
+                        <HBox alignment="CENTER_RIGHT" spacing="16">
+                            <Button onAction="#fnVolverMenu" text="Volver" styleClass="btn, btn-secondary"/>
+                            <Button onAction="#fnContinuar" text="Continuar → Agregar Productos" styleClass="btn, btn-primary"/>
+                        </HBox>
+                    </children>
+                </VBox>
+            </content>
+        </ScrollPane>
+    </center>
+
+    <bottom>
+        <HBox alignment="CENTER" styleClass="footer-bar"/>
+    </bottom>
+</BorderPane>

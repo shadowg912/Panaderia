@@ -3,6 +3,7 @@ module com.example.panaderia {
     requires javafx.fxml;
     requires java.sql;
     requires java.desktop;
+    requires jasperreports;
 
     exports com.example.panaderia;
 

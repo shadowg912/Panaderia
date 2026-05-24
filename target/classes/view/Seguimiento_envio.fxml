@@ -20,17 +20,17 @@
     </top>
 
     <center>
-        <VBox spacing="24" style="-fx-padding: 32;">
+        <VBox spacing="16" style="-fx-padding: 24 32;">
+            <TabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE" styleClass="tab-pane" maxWidth="400">
+                <Tab fx:id="tabActivos" text="Activos"/>
+                <Tab fx:id="tabCompletados" text="Completados"/>
+            </TabPane>
+
             <HBox alignment="CENTER_LEFT" spacing="16" styleClass="card">
                 <children>
                     <VBox spacing="5" prefWidth="120">
                         <Label styleClass="label-small" text="ORDEN #"/>
                         <TextField fx:id="txtIdOrden" promptText="ID orden"/>
-                    </VBox>
-
-                    <VBox spacing="5">
-                        <Label styleClass="label-small" text="ESTADO"/>
-                        <ComboBox fx:id="cmbEstado" prefWidth="160" promptText="Todos los estados"/>
                     </VBox>
 
                     <VBox spacing="5">
@@ -49,11 +49,11 @@
                     <TableColumn fx:id="colId" prefWidth="60" text="ID"/>
                     <TableColumn fx:id="colOrden" prefWidth="80" text="ORDEN"/>
                     <TableColumn fx:id="colCliente" prefWidth="200" text="CLIENTE"/>
-                    <TableColumn fx:id="colTransportista" prefWidth="170" text="TRANSPORTISTA"/>
-                    <TableColumn fx:id="colEstado" prefWidth="120" text="ESTADO"/>
-                    <TableColumn fx:id="colSeguimiento" prefWidth="120" text="N° SEGUIMIENTO"/>
-                    <TableColumn fx:id="colFechaEst" prefWidth="110" text="FECHA EST."/>
-                    <TableColumn fx:id="colAccion" prefWidth="220" text="ACCIONES"/>
+                    <TableColumn fx:id="colTransportista" prefWidth="150" text="TRANSPORTISTA"/>
+                    <TableColumn fx:id="colEstado" prefWidth="110" text="ESTADO"/>
+                    <TableColumn fx:id="colSeguimiento" prefWidth="110" text="N° SEGUIMIENTO"/>
+                    <TableColumn fx:id="colFechaEst" prefWidth="100" text="FECHA EST."/>
+                    <TableColumn fx:id="colAccion" prefWidth="280" text="ACCIONES"/>
                 </columns>
                 <columnResizePolicy>
                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>

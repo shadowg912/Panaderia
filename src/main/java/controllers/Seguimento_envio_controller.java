@@ -30,7 +30,9 @@ public class Seguimento_envio_controller {
     @FXML private TableColumn<EnvioResumen, String> colFechaEst;
     @FXML private TableColumn<EnvioResumen, Void> colAccion;
     @FXML private TextField txtIdOrden;
-    @FXML private ComboBox<String> cmbEstado;
+    @FXML private TabPane tabPane;
+    @FXML private Tab tabActivos;
+    @FXML private Tab tabCompletados;
     @FXML private ComboBox<Empleado> cmbTransportista;
     @FXML private Label lblTotal;
 
@@ -58,6 +60,14 @@ public class Seguimento_envio_controller {
     public void initialize() {
         configurarColumnas();
         cargarFiltros();
+
+        if ("Repartidor".equals(SesionUsuario.getNombreRol())) {
+            cmbTransportista.setDisable(true);
+            cmbTransportista.setPromptText("Solo mis envíos");
+        }
+
+        tabPane.getSelectionModel().selectedItemProperty().addListener((obs, old, tab) -> cargarEnvios());
+
         cargarEnvios();
     }
 
@@ -72,17 +82,24 @@ public class Seguimento_envio_controller {
 
         colAccion.setCellFactory(col -> new TableCell<>() {
             private final Button btnVer = new Button("Ver");
+            private final Button btnFactura = new Button("Factura");
             private final ComboBox<String> cmbEst = new ComboBox<>();
             private final HBox cont = new HBox(6);
 
             {
                 btnVer.setStyle("-fx-background-color: #38bdf8; -fx-text-fill: #100e0a; -fx-font-weight: bold; -fx-cursor: hand; -fx-background-radius: 6; -fx-padding: 6 12;");
+                btnFactura.setStyle("-fx-background-color: #6366f1; -fx-text-fill: #ffffff; -fx-font-weight: bold; -fx-cursor: hand; -fx-background-radius: 6; -fx-padding: 6 12;");
                 cmbEst.setPromptText("Cambiar");
                 cmbEst.setPrefWidth(120);
 
                 btnVer.setOnAction(e -> {
                     EnvioResumen env = getTableView().getItems().get(getIndex());
                     fnVerEnvio(env);
+                });
+
+                btnFactura.setOnAction(e -> {
+                    EnvioResumen env = getTableView().getItems().get(getIndex());
+                    FacturaController.mostrarFactura(env.getIdOrden());
                 });
 
                 cmbEst.setOnAction(e -> {
@@ -103,7 +120,13 @@ public class Seguimento_envio_controller {
                 } else {
                     EnvioResumen env = getTableView().getItems().get(getIndex());
                     cmbEst.getItems().setAll(TRANSICIONES.getOrDefault(env.getEstado(), Collections.emptyList()));
-                    cont.getChildren().setAll(btnVer, cmbEst);
+                    String estado = env.getEstado();
+                    boolean completado = "ENTREGADO".equals(estado) || "CANCELADO".equals(estado);
+                    if (completado) {
+                        cont.getChildren().setAll(btnVer, btnFactura);
+                    } else {
+                        cont.getChildren().setAll(btnVer, cmbEst);
+                    }
                     setGraphic(cont);
                 }
             }
@@ -113,16 +136,6 @@ public class Seguimento_envio_controller {
     }
 
     private void cargarFiltros() {
-        ObservableList<String> estados = FXCollections.observableArrayList("Todos");
-        String sqlEst = "SELECT nombre FROM ESTADO_ENVIO ORDER BY id_estado_envio";
-        try (Connection con = conexion.establecerconexio();
-             PreparedStatement ps = con.prepareStatement(sqlEst);
-             ResultSet rs = ps.executeQuery()) {
-            while (rs.next()) estados.add(rs.getString("nombre"));
-        } catch (SQLException e) { mostrarError("Error al cargar estados: " + e.getMessage()); }
-        cmbEstado.setItems(estados);
-        cmbEstado.getSelectionModel().selectFirst();
-
         ObservableList<Empleado> trans = FXCollections.observableArrayList();
         trans.add(new Empleado(0, "Todos", ""));
         String sqlTr = "SELECT e.id_empleado, e.nombre, e.apellido1 FROM EMPLEADO e " +
@@ -139,9 +152,9 @@ public class Seguimento_envio_controller {
 
     private void cargarEnvios() {
         listaEnvio.clear();
-        String filtroEstado = cmbEstado.getValue();
         Empleado filtroTrans = cmbTransportista.getValue();
         String idTexto = txtIdOrden.getText().trim();
+        boolean activos = tabActivos.isSelected();
 
         StringBuilder sql = new StringBuilder(
             "SELECT e.id_envio, e.id_orden_venta, e.numero_seguimiento, e.fecha_entrega_estimada, e.fecha_asignacion, e.fecha_salida, e.fecha_entrega_real, " +
@@ -162,12 +175,22 @@ public class Seguimento_envio_controller {
             try { params.add(Integer.parseInt(idTexto)); sql.append(" AND e.id_orden_venta = ? "); }
             catch (NumberFormatException ignored) {}
         }
-        if (filtroEstado != null && !filtroEstado.equals("Todos")) {
-            sql.append(" AND ee.nombre = ? "); params.add(filtroEstado);
+
+        if (activos) {
+            sql.append(" AND ee.nombre NOT IN ('ENTREGADO', 'CANCELADO') ");
+        } else {
+            sql.append(" AND ee.nombre IN ('ENTREGADO', 'CANCELADO') ");
         }
+
         if (filtroTrans != null && filtroTrans.getIdEmpleado() > 0) {
             sql.append(" AND e.id_empleado_transportista = ? "); params.add(filtroTrans.getIdEmpleado());
         }
+
+        if ("Repartidor".equals(SesionUsuario.getNombreRol()) && SesionUsuario.getIdEmpleado() > 0) {
+            sql.append(" AND e.id_empleado_transportista = ? ");
+            params.add(SesionUsuario.getIdEmpleado());
+        }
+
         sql.append(" ORDER BY e.id_envio DESC");
 
         try (Connection con = conexion.establecerconexio();
@@ -207,14 +230,26 @@ public class Seguimento_envio_controller {
         info.append("N° Seguimiento: ").append(env.getNumeroSeguimiento()).append("\n");
         info.append("Fecha estimada: ").append(env.getFechaEstimada()).append("\n\n");
 
-        String sqlDir = "SELECT d.calle + ' #' + CAST(d.numero AS varchar) + ', ' + s.nombre + ', ' + c.nombre as direccion " +
-                      "FROM DIRECCION d INNER JOIN SECTOR s ON d.id_sector = s.id_sector " +
-                      "INNER JOIN CIUDAD c ON s.id_ciudad = c.id_ciudad WHERE d.id_direccion = ?";
+        String sqlDir = "SELECT d.calle, d.numero, d.referencia, s.nombre as sector, cd.nombre as ciudad, p.nombre as provincia " +
+                      "FROM ENVIO e " +
+                      "INNER JOIN DIRECCION d ON e.id_direccion_entrega = d.id_direccion " +
+                      "INNER JOIN SECTOR s ON d.id_sector = s.id_sector " +
+                      "INNER JOIN CIUDAD cd ON s.id_ciudad = cd.id_ciudad " +
+                      "INNER JOIN PROVINCIA p ON cd.id_provincia = p.id_provincia " +
+                      "WHERE e.id_envio = ?";
         try (Connection con = conexion.establecerconexio();
              PreparedStatement ps = con.prepareStatement(sqlDir)) {
             ps.setInt(1, env.getIdEnvio());
             ResultSet rs = ps.executeQuery();
-            // Simplified - fetch from ENVIO table if stored
+            if (rs.next()) {
+                info.append("\n--- Dirección de Entrega ---\n");
+                info.append("Calle ").append(rs.getString("calle")).append(" #").append(rs.getInt("numero")).append("\n");
+                info.append("Sector: ").append(rs.getString("sector")).append("\n");
+                info.append("Ciudad: ").append(rs.getString("ciudad")).append("\n");
+                info.append("Provincia: ").append(rs.getString("provincia")).append("\n");
+                String ref = rs.getString("referencia");
+                if (ref != null && !ref.isEmpty()) info.append("Referencia: ").append(ref).append("\n");
+            }
         } catch (SQLException ex) { /* ignore */ }
 
         info.append("\n--- Historial de Estados ---\n");
@@ -294,19 +329,24 @@ public class Seguimento_envio_controller {
             estadoOrden = "CANCELADA";
         } else return;
 
-        String sql = "UPDATE ORDEN_VENTA SET estado = ? WHERE id_orden_venta = ?";
-        try (Connection con = conexion.establecerconexio();
-             PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setString(1, estadoOrden);
-            ps.setInt(2, idOrden);
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            mostrarError("Error sincronizando orden: " + e.getMessage());
-            return;
-        }
+        try (Connection con = conexion.establecerconexio()) {
+            String sqlOrd = "UPDATE ORDEN_VENTA SET estado = ? WHERE id_orden_venta = ?";
+            try (PreparedStatement ps = con.prepareStatement(sqlOrd)) {
+                ps.setString(1, estadoOrden);
+                ps.setInt(2, idOrden);
+                ps.executeUpdate();
+            }
 
-        if ("ENTREGADO".equals(estadoEnvio)) {
-            registrarSalidaStock(idOrden);
+            if ("ENTREGADO".equals(estadoEnvio)) {
+                String sqlFac = "UPDATE FACTURA_VENTA SET estado = 'EMITIDA' WHERE id_orden_venta = ?";
+                try (PreparedStatement ps = con.prepareStatement(sqlFac)) {
+                    ps.setInt(1, idOrden);
+                    ps.executeUpdate();
+                }
+                registrarSalidaStock(idOrden);
+            }
+        } catch (SQLException e) {
+            mostrarError("Error sincronizando: " + e.getMessage());
         }
     }
 

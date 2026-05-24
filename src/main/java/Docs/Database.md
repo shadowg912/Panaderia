@@ -356,16 +356,29 @@ Columnas:
 ## ORDEN_PRODUCCION
 
 Descripción:
-Órdenes de producción planificadas.
+Órdenes de producción planificadas. Cuando `id_producto` es NULL, los productos se encuentran en `ORDEN_PRODUCCION_DETALLE`.
 
 Columnas:
-- id_orden_produccion (int, NOT NULL)
-- id_producto (int, NOT NULL)
-- id_empleado (int, NOT NULL)
-- cantidad_planificada (decimal, NOT NULL)
+- id_orden_produccion (PK, int)
+- id_producto (FK -> PRODUCTO.id_producto, int, NULL)
+- id_empleado (FK -> EMPLEADO.id_empleado, int, NOT NULL)
+- cantidad_planificada (decimal, NULL)
 - fecha_produccion (date, NOT NULL)
 - estado (varchar(50), NOT NULL)
 - fecha_registro (datetime, NULL)
+
+---
+
+## ORDEN_PRODUCCION_DETALLE
+
+Descripción:
+Productos a fabricar en una orden de producción multi-producto.
+
+Columnas:
+- id_detalle (PK, int)
+- id_orden_produccion (FK -> ORDEN_PRODUCCION.id_orden_produccion, int, NOT NULL)
+- id_producto (FK -> PRODUCTO.id_producto, int, NOT NULL)
+- cantidad_planificada (decimal, NOT NULL, &gt; 0)
 
 ---
 

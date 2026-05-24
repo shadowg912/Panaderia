@@ -154,6 +154,11 @@ public class Confirmar_orden_controller {
             return;
         }
 
+        if (orden.getIdFormaPago() == null) {
+            mostrarAdvertencia("Debe seleccionar una forma de pago antes de emitir la orden.");
+            return;
+        }
+
         Alert confirm = new Alert(Alert.AlertType.CONFIRMATION,
                 "¿Confirmar y registrar la orden de venta?",
                 ButtonType.YES, ButtonType.NO);
@@ -164,8 +169,22 @@ public class Confirmar_orden_controller {
         int idOrden = emitirEnBD(orden, detalles);
 
         if (idOrden > 0) {
+            int finalId = idOrden;
             OrdenVentaEstado.limpiar();
-            mostrarInfo("Orden #" + idOrden + " registrada exitosamente con estado PENDIENTE.");
+
+            Alert exito = new Alert(Alert.AlertType.INFORMATION);
+            exito.setTitle("Orden Emitida");
+            exito.setHeaderText(null);
+            exito.setContentText("Orden #" + finalId + " registrada exitosamente.\n\nFactura generada: FAC-" + finalId + "-" + java.time.Year.now().getValue());
+            ButtonType btnVerFactura = new ButtonType("Ver Factura");
+            ButtonType btnCerrar = new ButtonType("Cerrar");
+            exito.getButtonTypes().setAll(btnVerFactura, btnCerrar);
+            exito.showAndWait().ifPresent(r -> {
+                if (r == btnVerFactura) {
+                    FacturaController.mostrarFactura(finalId);
+                }
+            });
+
             appNavigator.volverMenu();
         }
     }
@@ -269,6 +288,20 @@ public class Confirmar_orden_controller {
                 }
                 psEnv.setString(6, numSeguimiento);
                 psEnv.executeUpdate();
+            }
+
+            String numFactura = "FAC-" + idOrdenGenerado + "-" + java.time.Year.now().getValue();
+            String sqlFactura = "INSERT INTO FACTURA_VENTA (id_orden_venta, id_empresa_cliente, id_forma_pago, numero_factura, fecha_emision, estado, subtotal, itbis, monto_total) " +
+                              "VALUES (?, ?, ?, ?, GETDATE(), 'EMITIDA', ?, ?, ?)";
+            try (PreparedStatement psFac = con.prepareStatement(sqlFactura)) {
+                psFac.setInt(1, idOrdenGenerado);
+                psFac.setInt(2, orden.getIdCliente());
+                psFac.setInt(3, orden.getIdFormaPago());
+                psFac.setString(4, numFactura);
+                psFac.setDouble(5, orden.getSubtotal() != null ? orden.getSubtotal() : 0.0);
+                psFac.setDouble(6, orden.getItbis() != null ? orden.getItbis() : 0.0);
+                psFac.setDouble(7, orden.getMontoTotal() != null ? orden.getMontoTotal() : 0.0);
+                psFac.executeUpdate();
             }
 
             con.commit();

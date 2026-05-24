@@ -69,7 +69,7 @@ public class menu_contoller {
         MODULOS.put("PRODUCCION", new Modulo("PRODUCCIÓN", "P",
             List.of(
                 new SubItem("btnDashboardProduccion", "Dashboard", "Resumen y estadísticas de producción", "/view/Dashboard_produccion.fxml"),
-                new SubItem("btnOrdenProduccion", "Nueva Orden de Producción", "Planificar una nueva producción", "/view/Orden_produccion.fxml"),
+                new SubItem("btnOrdenProduccion", "Nueva Orden de Producción", "Crear orden de producción con uno o varios productos", "/view/Orden_produccion_simple.fxml"),
                 new SubItem("btnVerOrdenesProduccion", "Ver Órdenes", "Consultar órdenes de producción", "/view/Ver_ordenes_produccion.fxml"),
                 new SubItem("btnVerRecetas", "Ver Recetas", "Consultar recetas disponibles", "/view/Ver_recetas.fxml")
             )));

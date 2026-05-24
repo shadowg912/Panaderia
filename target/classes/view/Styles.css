@@ -1017,3 +1017,59 @@
     -fx-border-color: #cdb08e;
     -fx-effect: dropshadow(gaussian, rgba(205,176,142,0.12), 12, 0, 0, 4);
 }
+
+/* ============================================
+   TABPANE
+   ============================================ */
+
+.tab-pane {
+    -fx-tab-min-width: 140;
+    -fx-tab-max-height: 40;
+}
+
+.tab-pane .tab-header-area {
+    -fx-padding: 0;
+}
+
+.tab-pane .tab-header-background {
+    -fx-background-color: transparent;
+}
+
+.tab-pane .tab {
+    -fx-background-color: #e9e6de;
+    -fx-background-radius: 8 8 0 0;
+    -fx-border-color: #c2baab;
+    -fx-border-width: 1 1 0 1;
+    -fx-border-radius: 8 8 0 0;
+    -fx-padding: 8 20;
+    -fx-cursor: hand;
+}
+
+.tab-pane .tab:selected {
+    -fx-background-color: #8B5E3C;
+    -fx-border-color: #8B5E3C;
+    -fx-border-width: 1 1 0 1;
+}
+
+.tab-pane .tab:selected .tab-label {
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+}
+
+.tab-pane .tab .tab-label {
+    -fx-text-fill: #535659;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+.tab-pane .tab:hover {
+    -fx-background-color: #d4c9b8;
+}
+
+.tab-pane .tab:selected:hover {
+    -fx-background-color: #7a5032;
+}
+
+.tab-pane .tab .focus-indicator {
+    -fx-border-color: transparent;
+}

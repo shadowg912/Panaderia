@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <rect width="100%" height="100%" fill="#f5f2eb" />
+
+  <g transform="translate(0, -20)">
+    <circle cx="250" cy="200" r="70" fill="none" stroke="#c2baab" stroke-width="2" stroke-dasharray="4 4" />
+    
+    <g stroke="#cdb08e" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="250" y1="150" x2="250" y2="250" />
+      <path d="M250,170 C235,160 230,175 250,190" />
+      <path d="M250,170 C265,160 270,175 250,190" />
+      <path d="M250,195 C235,185 230,200 250,215" />
+      <path d="M250,195 C265,185 270,200 250,215" />
+      <path d="M250,220 C235,210 230,225 250,240" />
+      <path d="M250,220 C265,210 270,225 250,240" />
+    </g>
+
+    <text x="250" y="340" 
+          font-family="'Montserrat', 'Helvetica', 'Arial', sans-serif" 
+          font-size="36" 
+          font-weight="700" 
+          letter-spacing="4" 
+          fill="#100e0a" 
+          text-anchor="middle">PAMSYSTEM</text>
+
+    <text x="250" y="375" 
+          font-family="'Montserrat', 'Helvetica', 'Arial', sans-serif" 
+          font-size="14" 
+          font-weight="400" 
+          letter-spacing="6" 
+          fill="#535659" 
+          text-anchor="middle">PANADERÍA DESDE 2026</text>
+
+    <line x1="210" y1="400" x2="290" y2="400" stroke="#cdb08e" stroke-width="2" stroke-linecap="round" />
+  </g>
+</svg>

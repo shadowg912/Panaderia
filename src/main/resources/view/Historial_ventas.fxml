@@ -44,6 +44,7 @@
                     <TableColumn fx:id="colCliente" prefWidth="350" text="CLIENTE"/>
                     <TableColumn fx:id="colTotal" prefWidth="150" text="TOTAL (RD$)"/>
                     <TableColumn fx:id="colEstado" prefWidth="150" text="ESTADO"/>
+                    <TableColumn fx:id="colAccion" prefWidth="120" text="ACCIÓN"/>
                 </columns>
                 <columnResizePolicy>
                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>

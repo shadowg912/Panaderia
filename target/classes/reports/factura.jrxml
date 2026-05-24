@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports
+                                  http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+              name="FacturaVenta" pageWidth="595" pageHeight="842" orientation="Portrait"
+              whenNoDataType="AllSectionsNoDetail" columnWidth="535"
+              leftMargin="30" rightMargin="30" topMargin="30" bottomMargin="30">
+
+    <parameter name="logoPath" class="java.io.InputStream"/>
+    <parameter name="nombreEmpresa" class="java.lang.String"/>
+    <parameter name="rncEmpresa" class="java.lang.String"/>
+    <parameter name="direccionEmpresa" class="java.lang.String"/>
+    <parameter name="numeroFactura" class="java.lang.String"/>
+    <parameter name="fechaEmision" class="java.lang.String"/>
+    <parameter name="estado" class="java.lang.String"/>
+    <parameter name="idOrden" class="java.lang.Integer"/>
+    <parameter name="nombreCliente" class="java.lang.String"/>
+    <parameter name="rncCliente" class="java.lang.String"/>
+    <parameter name="direccionCliente" class="java.lang.String"/>
+    <parameter name="subtotal" class="java.lang.Double"/>
+    <parameter name="itbis" class="java.lang.Double"/>
+    <parameter name="total" class="java.lang.Double"/>
+
+    <field name="nombreProducto" class="java.lang.String"/>
+    <field name="cantidad" class="java.math.BigDecimal"/>
+    <field name="precioUnitario" class="java.lang.Double"/>
+    <field name="subtotal" class="java.lang.Double"/>
+
+    <title>
+        <band height="160" splitType="Stretch">
+            <rectangle>
+                <reportElement x="0" y="0" width="535" height="160" backcolor="#8B5E3C"/>
+                <graphicElement>
+                    <pen lineWidth="0"/>
+                </graphicElement>
+            </rectangle>
+            <image>
+                <reportElement x="20" y="20" width="65" height="65"/>
+                <imageExpression><![CDATA[$P{logoPath}]]></imageExpression>
+            </image>
+            <textField>
+                <reportElement x="100" y="20" width="250" height="26" forecolor="#FFFFFF"/>
+                <textElement verticalAlignment="Middle">
+                    <font fontName="DejaVu Sans" size="18" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{nombreEmpresa}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="100" y="48" width="250" height="18" forecolor="#FFFFFF"/>
+                <textElement verticalAlignment="Middle">
+                    <font fontName="DejaVu Sans" size="11"/>
+                </textElement>
+                <textFieldExpression><![CDATA["RNC: " + $P{rncEmpresa}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="100" y="68" width="250" height="36" forecolor="#FFFFFF"/>
+                <textElement verticalAlignment="Top">
+                    <font fontName="DejaVu Sans" size="10"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{direccionEmpresa}]]></textFieldExpression>
+            </textField>
+            <line>
+                <reportElement x="370" y="15" width="1" height="130" forecolor="#D4A574"/>
+            </line>
+            <staticText>
+                <reportElement x="385" y="15" width="135" height="16" forecolor="#FFFFFF"/>
+                <textElement textAlignment="Right">
+                    <font fontName="DejaVu Sans" size="10" isBold="true" isItalic="true"/>
+                </textElement>
+                <text><![CDATA[FACTURA DE VENTA]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="385" y="38" width="135" height="18" forecolor="#FFFFFF"/>
+                <textElement textAlignment="Right">
+                    <font fontName="DejaVu Sans" size="14" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{numeroFactura}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="385" y="62" width="135" height="16" forecolor="#FFFFFF"/>
+                <textElement textAlignment="Right">
+                    <font fontName="DejaVu Sans" size="10"/>
+                </textElement>
+                <textFieldExpression><![CDATA["Orden #" + $P{idOrden}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="385" y="82" width="135" height="16" forecolor="#FFFFFF"/>
+                <textElement textAlignment="Right">
+                    <font fontName="DejaVu Sans" size="10"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{fechaEmision}]]></textFieldExpression>
+            </textField>
+            <rectangle>
+                <reportElement x="385" y="110" width="100" height="28" backcolor="#D4A574" />
+                <graphicElement>
+                    <pen lineWidth="0"/>
+                </graphicElement>
+            </rectangle>
+            <textField>
+                <reportElement x="385" y="110" width="100" height="28" forecolor="#FFFFFF"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="DejaVu Sans" size="12" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{estado}]]></textFieldExpression>
+            </textField>
+        </band>
+    </title>
+
+    <pageHeader>
+        <band height="90" splitType="Stretch">
+            <rectangle>
+                <reportElement x="0" y="0" width="535" height="90" backcolor="#F5EDE0"/>
+                <graphicElement>
+                    <pen lineWidth="0"/>
+                </graphicElement>
+            </rectangle>
+            <staticText>
+                <reportElement x="20" y="12" width="100" height="16" forecolor="#8B5E3C"/>
+                <textElement>
+                    <font fontName="DejaVu Sans" size="11" isBold="true"/>
+                </textElement>
+                <text><![CDATA[CLIENTE]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="20" y="36" width="85" height="14" forecolor="#4A4A4A"/>
+                <textElement>
+                    <font fontName="DejaVu Sans" size="9"/>
+                </textElement>
+                <text><![CDATA[Razón Social:]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="20" y="54" width="85" height="14" forecolor="#4A4A4A"/>
+                <textElement>
+                    <font fontName="DejaVu Sans" size="9"/>
+                </textElement>
+                <text><![CDATA[RNC:]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="20" y="72" width="85" height="14" forecolor="#4A4A4A"/>
+                <textElement>
+                    <font fontName="DejaVu Sans" size="9"/>
+                </textElement>
+                <text><![CDATA[Dirección:]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="110" y="36" width="400" height="14" forecolor="#4A4A4A"/>
+                <textElement>
+                    <font fontName="DejaVu Sans" size="9" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{nombreCliente}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="110" y="54" width="400" height="14" forecolor="#4A4A4A"/>
+                <textElement>
+                    <font fontName="DejaVu Sans" size="9" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{rncCliente}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="110" y="72" width="400" height="14" forecolor="#4A4A4A"/>
+                <textElement>
+                    <font fontName="DejaVu Sans" size="9" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{direccionCliente}]]></textFieldExpression>
+            </textField>
+        </band>
+    </pageHeader>
+
+    <columnHeader>
+        <band height="30" splitType="Stretch">
+            <rectangle>
+                <reportElement x="0" y="0" width="535" height="30" backcolor="#8B5E3C"/>
+                <graphicElement>
+                    <pen lineWidth="0"/>
+                </graphicElement>
+            </rectangle>
+            <staticText>
+                <reportElement x="15" y="0" width="60" height="30" forecolor="#FFFFFF"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="DejaVu Sans" size="10" isBold="true"/>
+                </textElement>
+                <text><![CDATA[CANT.]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="85" y="0" width="210" height="30" forecolor="#FFFFFF"/>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font fontName="DejaVu Sans" size="10" isBold="true"/>
+                </textElement>
+                <text><![CDATA[PRODUCTO]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="305" y="0" width="100" height="30" forecolor="#FFFFFF"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font fontName="DejaVu Sans" size="10" isBold="true"/>
+                </textElement>
+                <text><![CDATA[P/U (RD$)]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="415" y="0" width="110" height="30" forecolor="#FFFFFF"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font fontName="DejaVu Sans" size="10" isBold="true"/>
+                </textElement>
+                <text><![CDATA[SUBTOTAL]]></text>
+            </staticText>
+        </band>
+    </columnHeader>
+
+    <detail>
+        <band height="26" splitType="Stretch">
+            <rectangle>
+                <reportElement x="0" y="25" width="535" height="1" backcolor="#D4A574"/>
+                <graphicElement>
+                    <pen lineWidth="0"/>
+                </graphicElement>
+            </rectangle>
+            <textField>
+                <reportElement x="15" y="0" width="60" height="26" forecolor="#4A4A4A"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="DejaVu Sans" size="10"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{cantidad} != null ? $F{cantidad}.stripTrailingZeros().toPlainString() : ""]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="85" y="0" width="210" height="26" forecolor="#4A4A4A"/>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font fontName="DejaVu Sans" size="10"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{nombreProducto}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="305" y="0" width="100" height="26" forecolor="#4A4A4A"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font fontName="DejaVu Sans" size="10"/>
+                </textElement>
+                <textFieldExpression><![CDATA["RD$ " + new java.text.DecimalFormat("#,##0.00").format($F{precioUnitario})]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="415" y="0" width="110" height="26" forecolor="#4A4A4A"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font fontName="DejaVu Sans" size="10"/>
+                </textElement>
+                <textFieldExpression><![CDATA["RD$ " + new java.text.DecimalFormat("#,##0.00").format($F{subtotal})]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+
+    <summary>
+        <band height="140" splitType="Stretch">
+            <line>
+                <reportElement x="0" y="0" width="535" height="2" forecolor="#8B5E3C"/>
+            </line>
+            <rectangle>
+                <reportElement x="290" y="12" width="245" height="54" backcolor="#F5EDE0"/>
+                <graphicElement>
+                    <pen lineWidth="0"/>
+                </graphicElement>
+            </rectangle>
+            <staticText>
+                <reportElement x="300" y="18" width="100" height="20" forecolor="#4A4A4A"/>
+                <textElement verticalAlignment="Middle">
+                    <font fontName="DejaVu Sans" size="10"/>
+                </textElement>
+                <text><![CDATA[Subtotal:]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="400" y="18" width="125" height="20" forecolor="#4A4A4A"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font fontName="DejaVu Sans" size="10"/>
+                </textElement>
+                <textFieldExpression><![CDATA["RD$ " + new java.text.DecimalFormat("#,##0.00").format($P{subtotal})]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="300" y="40" width="100" height="20" forecolor="#4A4A4A"/>
+                <textElement verticalAlignment="Middle">
+                    <font fontName="DejaVu Sans" size="10"/>
+                </textElement>
+                <text><![CDATA[ITBIS (18%):]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="400" y="40" width="125" height="20" forecolor="#4A4A4A"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font fontName="DejaVu Sans" size="10"/>
+                </textElement>
+                <textFieldExpression><![CDATA["RD$ " + new java.text.DecimalFormat("#,##0.00").format($P{itbis})]]></textFieldExpression>
+            </textField>
+            <line>
+                <reportElement x="300" y="64" width="225" height="1" forecolor="#D4A574"/>
+            </line>
+            <rectangle>
+                <reportElement x="290" y="68" width="245" height="30" backcolor="#8B5E3C"/>
+                <graphicElement>
+                    <pen lineWidth="0"/>
+                </graphicElement>
+            </rectangle>
+            <staticText>
+                <reportElement x="300" y="68" width="100" height="30" forecolor="#FFFFFF"/>
+                <textElement verticalAlignment="Middle">
+                    <font fontName="DejaVu Sans" size="14" isBold="true"/>
+                </textElement>
+                <text><![CDATA[TOTAL:]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="400" y="68" width="125" height="30" forecolor="#FFFFFF"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font fontName="DejaVu Sans" size="15" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA["RD$ " + new java.text.DecimalFormat("#,##0.00").format($P{total})]]></textFieldExpression>
+            </textField>
+            <line>
+                <reportElement x="0" y="115" width="535" height="1" forecolor="#D4A574"/>
+            </line>
+            <staticText>
+                <reportElement x="15" y="120" width="300" height="18" forecolor="#8B5E3C"/>
+                <textElement>
+                    <font fontName="DejaVu Sans" size="10" isItalic="true"/>
+                </textElement>
+                <text><![CDATA[¡Gracias por su preferencia!]]></text>
+            </staticText>
+        </band>
+    </summary>
+
+</jasperReport>

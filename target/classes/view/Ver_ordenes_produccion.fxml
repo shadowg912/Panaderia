@@ -22,18 +22,17 @@
     <center>
         <ScrollPane fitToWidth="true" styleClass="scroll-pane">
             <VBox spacing="24" style="-fx-padding: 32;">
-
                 <VBox spacing="10" styleClass="card">
                     <Label styleClass="card-title" text="ÓRDENES PENDIENTES"/>
                     <TableView fx:id="tablaPendientes" prefHeight="250" styleClass="table-view">
                         <columns>
-                            <TableColumn fx:id="colIdP" text="ID" prefWidth="60"/>
-                            <TableColumn fx:id="colProductoP" text="PRODUCTO" prefWidth="200"/>
-                            <TableColumn fx:id="colEmpleadoP" text="EMPLEADO" prefWidth="200"/>
-                            <TableColumn fx:id="colCantidadP" text="CANTIDAD" prefWidth="100"/>
-                            <TableColumn fx:id="colFechaP" text="FECHA" prefWidth="120"/>
-                            <TableColumn fx:id="colEstadoP" text="ESTADO" prefWidth="100"/>
-                            <TableColumn fx:id="colAccionP" text="CAMBIAR" prefWidth="130"/>
+                            <TableColumn fx:id="colIdP" prefWidth="60" text="ID"/>
+                            <TableColumn fx:id="colProductoP" prefWidth="200" text="PRODUCTO"/>
+                            <TableColumn fx:id="colEmpleadoP" prefWidth="150" text="EMPLEADO"/>
+                            <TableColumn fx:id="colCantidadP" prefWidth="100" text="CANTIDAD"/>
+                            <TableColumn fx:id="colFechaP" prefWidth="120" text="FECHA"/>
+                            <TableColumn fx:id="colEstadoP" prefWidth="100" text="ESTADO"/>
+                            <TableColumn fx:id="colAccionP" prefWidth="200" text="ACCIONES"/>
                         </columns>
                         <columnResizePolicy>
                             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
@@ -45,18 +44,18 @@
                     <Label styleClass="card-title" text="OTRAS ÓRDENES"/>
                     <HBox spacing="12" alignment="CENTER_LEFT">
                         <Label styleClass="label-small" text="FILTRAR POR ESTADO"/>
-                        <ComboBox fx:id="cmbFiltro" prefWidth="140" styleClass="combo-box"/>
-                        <Button text="Filtrar" onAction="#fnFiltrar" styleClass="btn, btn-secondary"/>
+                        <ComboBox fx:id="cmbFiltro" prefWidth="140"/>
+                        <Button onAction="#fnFiltrar" text="Filtrar" styleClass="btn, btn-secondary"/>
                     </HBox>
                     <TableView fx:id="tablaOrden" prefHeight="300" styleClass="table-view">
                         <columns>
-                            <TableColumn fx:id="colId" text="ID" prefWidth="60"/>
-                            <TableColumn fx:id="colProducto" text="PRODUCTO" prefWidth="200"/>
-                            <TableColumn fx:id="colEmpleado" text="EMPLEADO" prefWidth="200"/>
-                            <TableColumn fx:id="colCantidad" text="CANTIDAD" prefWidth="100"/>
-                            <TableColumn fx:id="colFecha" text="FECHA" prefWidth="120"/>
-                            <TableColumn fx:id="colEstado" text="ESTADO" prefWidth="100"/>
-                            <TableColumn fx:id="colAccion" text="CAMBIAR" prefWidth="130"/>
+                            <TableColumn fx:id="colId" prefWidth="60" text="ID"/>
+                            <TableColumn fx:id="colProducto" prefWidth="200" text="PRODUCTO"/>
+                            <TableColumn fx:id="colEmpleado" prefWidth="150" text="EMPLEADO"/>
+                            <TableColumn fx:id="colCantidad" prefWidth="100" text="CANTIDAD"/>
+                            <TableColumn fx:id="colFecha" prefWidth="120" text="FECHA"/>
+                            <TableColumn fx:id="colEstado" prefWidth="100" text="ESTADO"/>
+                            <TableColumn fx:id="colAccion" prefWidth="200" text="ACCIONES"/>
                         </columns>
                         <columnResizePolicy>
                             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
@@ -65,10 +64,9 @@
                     <HBox alignment="CENTER_LEFT" spacing="15" style="-fx-padding: 10 0 0 0;">
                         <Label fx:id="lblTotal" styleClass="text-placeholder" text="Total: 0 órdenes"/>
                         <Region HBox.hgrow="ALWAYS"/>
-                        <Button text="← Volver" onAction="#fnVolver" styleClass="btn, btn-secondary"/>
+                        <Button onAction="#fnVolver" text="← Volver" styleClass="btn, btn-secondary"/>
                     </HBox>
                 </VBox>
-
             </VBox>
         </ScrollPane>
     </center>

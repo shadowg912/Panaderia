@@ -12,6 +12,7 @@ public class Producto {
     private Unidad unidad;
     private String tipoProducto;
     private double stockActual;
+    private boolean activo = true;
 
     private final SimpleStringProperty nombreDisplay;
     private final SimpleStringProperty categoriaDisplay;
@@ -79,6 +80,9 @@ public class Producto {
         this.stockActual = stockActual;
         this.stockDisplay.set(stockActual > 0 ? String.valueOf((int) stockActual) : "0");
     }
+
+    public boolean isActivo() { return activo; }
+    public void setActivo(boolean activo) { this.activo = activo; }
 
     public int getIdCategoriaProducto() {
         return categoriaProducto != null ? categoriaProducto.getIdCategoriaProducto() : 0;

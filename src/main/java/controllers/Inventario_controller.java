@@ -27,11 +27,15 @@ public class Inventario_controller implements Initializable {
     @FXML private TableColumn<Producto, String> colPrecio;
     @FXML private TableColumn<Producto, String> colUnidad;
     @FXML private TableColumn<Producto, String> colTipo;
+    @FXML private TableColumn<Producto, Void> colAccion;
     @FXML private ComboBox<CategoriaProducto> cmbCategoria;
     @FXML private ComboBox<String> cmbTipoProducto;
     @FXML private TextField txtBuscar;
     @FXML private Label lblTotalRegistros;
     @FXML private Label lblStockBajo;
+    @FXML private TabPane tabPane;
+    @FXML private Tab tabActivos;
+    @FXML private Tab tabInactivos;
 
     private CONEXION conexion = new CONEXION();
     private ObservableList<Producto> listaProductos = FXCollections.observableArrayList(
@@ -49,6 +53,7 @@ public class Inventario_controller implements Initializable {
         cargarCategorias();
         cargarTiposProducto();
         cargarProductos();
+        tabPane.getSelectionModel().selectedItemProperty().addListener((obs, old, nue) -> aplicarFiltros());
     }
 
     private void configurarColumnasProductos() {
@@ -63,19 +68,65 @@ public class Inventario_controller implements Initializable {
             return new javafx.beans.property.SimpleStringProperty(t);
         });
 
+        colAccion.setCellFactory(col -> new TableCell<>() {
+            private final Button btn = new Button();
+            {
+                btn.setStyle("-fx-cursor: hand; -fx-background-radius: 6; -fx-padding: 4 12; -fx-font-weight: bold;");
+                btn.setOnAction(e -> {
+                    Producto p = getTableView().getItems().get(getIndex());
+                    toggleEstado(p);
+                });
+            }
+            @Override
+            protected void updateItem(Void v, boolean empty) {
+                super.updateItem(v, empty);
+                if (empty || getIndex() < 0 || getIndex() >= getTableView().getItems().size()) {
+                    setGraphic(null);
+                } else {
+                    Producto p = getTableView().getItems().get(getIndex());
+                    if (p.isActivo()) {
+                        btn.setText("Desactivar");
+                        btn.setStyle("-fx-background-color: transparent; -fx-text-fill: #ef4444; -fx-border-color: #ef4444; -fx-border-radius: 6; -fx-background-radius: 6; -fx-cursor: hand; -fx-padding: 4 12; -fx-font-weight: bold;");
+                    } else {
+                        btn.setText("Activar");
+                        btn.setStyle("-fx-background-color: #22c55e; -fx-text-fill: white; -fx-cursor: hand; -fx-background-radius: 6; -fx-padding: 4 12; -fx-font-weight: bold;");
+                    }
+                    setGraphic(btn);
+                }
+            }
+        });
+
         tablaProductos.setRowFactory(tv -> new TableRow<Producto>() {
             @Override
             protected void updateItem(Producto item, boolean empty) {
                 super.updateItem(item, empty);
                 if (empty || item == null) {
                     setStyle("");
-                } else if (item.getStockActual() < STOCK_BAJO_UMBRAL) {
+                } else if (tabActivos.isSelected() && item.getStockActual() < STOCK_BAJO_UMBRAL) {
                     setStyle("-fx-background-color: #fef2f2;");
                 } else {
                     setStyle("");
                 }
             }
         });
+    }
+
+    private void toggleEstado(Producto p) {
+        String accion = p.isActivo() ? "desactivar" : "reactivar";
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION,
+                "¿Está seguro de " + accion + " \"" + p.getNombre() + "\"?", ButtonType.YES, ButtonType.NO);
+        confirm.setHeaderText(null);
+        if (confirm.showAndWait().orElse(ButtonType.NO) != ButtonType.YES) return;
+        int nuevoEstado = p.isActivo() ? 0 : 1;
+        String sql = "UPDATE PRODUCTO SET estado = ? WHERE id_producto = ?";
+        try (Connection c = conexion.establecerconexio();
+             PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setInt(1, nuevoEstado);
+            ps.setInt(2, p.getIdProducto());
+            ps.executeUpdate();
+            mostrarInfo("Producto \"" + p.getNombre() + "\" " + (p.isActivo() ? "desactivado" : "reactivado") + ".");
+            cargarProductos();
+        } catch (Exception e) { mostrarError("Error: " + e.getMessage()); }
     }
 
     private void cargarCategorias() {
@@ -101,7 +152,8 @@ public class Inventario_controller implements Initializable {
 
     private void cargarProductos() {
         listaProductos.clear();
-        String sql = "SELECT p.id_producto, p.nombre, p.precio_unitario, p.tipo_producto, " +
+        int estadoVal = tabActivos.isSelected() ? 1 : 0;
+        String sql = "SELECT p.id_producto, p.nombre, p.precio_unitario, p.tipo_producto, p.estado, " +
                     "cp.id_categoria_producto, cp.nombre as cat_nombre, " +
                     "u.id_unidad, u.nombre as und_nombre, " +
                     "COALESCE(i.stock_actual, 0) as stock_actual " +
@@ -109,10 +161,11 @@ public class Inventario_controller implements Initializable {
                     "LEFT JOIN CATEGORIA_PRODUCTO cp ON p.id_categoria_producto = cp.id_categoria_producto " +
                     "LEFT JOIN UNIDAD u ON p.id_unidad = u.id_unidad " +
                     "LEFT JOIN [dbo].[INVENTARIO] i ON p.id_producto = i.id_producto " +
-                    "WHERE p.estado = 1 ORDER BY p.nombre";
+                    "WHERE p.estado = ? ORDER BY p.nombre";
         try (Connection c = conexion.establecerconexio();
-             PreparedStatement ps = c.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
+             PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setInt(1, estadoVal);
+            ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Producto p = new Producto(
                     rs.getInt("id_producto"), rs.getString("nombre"),
@@ -122,6 +175,7 @@ public class Inventario_controller implements Initializable {
                     rs.getDouble("stock_actual")
                 );
                 p.setTipoProducto(rs.getString("tipo_producto"));
+                p.setActivo(rs.getBoolean("estado"));
                 listaProductos.add(p);
             }
         } catch (Exception e) { mostrarError("Error al cargar productos: " + e.getMessage()); }
@@ -157,9 +211,10 @@ public class Inventario_controller implements Initializable {
         boolean filtrarCat = idCat > 0;
         boolean filtrarTexto = !texto.isEmpty();
 
+        int estadoVal = tabActivos.isSelected() ? 1 : 0;
         listaProductos.clear();
         StringBuilder sql = new StringBuilder(
-            "SELECT p.id_producto, p.nombre, p.precio_unitario, p.tipo_producto, " +
+            "SELECT p.id_producto, p.nombre, p.precio_unitario, p.tipo_producto, p.estado, " +
                     "cp.id_categoria_producto, cp.nombre as cat_nombre, " +
                     "u.id_unidad, u.nombre as und_nombre, " +
                     "COALESCE(i.stock_actual, 0) as stock_actual " +
@@ -167,9 +222,10 @@ public class Inventario_controller implements Initializable {
                     "LEFT JOIN CATEGORIA_PRODUCTO cp ON p.id_categoria_producto = cp.id_categoria_producto " +
                     "LEFT JOIN UNIDAD u ON p.id_unidad = u.id_unidad " +
                     "LEFT JOIN [dbo].[INVENTARIO] i ON p.id_producto = i.id_producto " +
-                    "WHERE p.estado = 1"
+                    "WHERE p.estado = ?"
         );
         List<Object> params = new ArrayList<>();
+        params.add(estadoVal);
         if (filtrarCat) { sql.append(" AND p.id_categoria_producto = ?"); params.add(idCat); }
         if (filtrarTipo) { sql.append(" AND p.tipo_producto = ?"); params.add(tipo); }
         if (filtrarTexto) { sql.append(" AND LOWER(p.nombre) LIKE ?"); params.add("%" + texto.toLowerCase() + "%"); }
@@ -180,13 +236,16 @@ public class Inventario_controller implements Initializable {
             for (int i = 0; i < params.size(); i++) ps.setObject(i + 1, params.get(i));
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                listaProductos.add(new Producto(
+                Producto p = new Producto(
                     rs.getInt("id_producto"), rs.getString("nombre"),
                     new CategoriaProducto(rs.getInt("id_categoria_producto"), rs.getString("cat_nombre")),
                     rs.getBigDecimal("precio_unitario"),
                     new Unidad(rs.getInt("id_unidad"), rs.getString("und_nombre")),
                     rs.getDouble("stock_actual")
-                ));
+                );
+                p.setTipoProducto(rs.getString("tipo_producto"));
+                p.setActivo(rs.getBoolean("estado"));
+                listaProductos.add(p);
             }
         } catch (Exception e) { mostrarError("Error al filtrar: " + e.getMessage()); }
         tablaProductos.setItems(listaProductos);
