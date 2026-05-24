@@ -1,7 +1,6 @@
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/Data_base/CONEXION.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/Data_base/main.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/com/example/panaderia/HelloApplication.java
-/home/shadowg912/IdeaProjects/Panaderia/src/main/java/com/example/panaderia/HelloController.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/com/example/panaderia/Launcher.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/com/example/panaderia/Main.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/controllers/Admin_empleados_controller.java
@@ -69,6 +68,7 @@
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/Unidad.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/Usuario.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/ValorNutricional.java
+/home/shadowg912/IdeaProjects/Panaderia/src/main/java/model/VentaResumen.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/module-info.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/utils/AlertHelper.java
 /home/shadowg912/IdeaProjects/Panaderia/src/main/java/utils/AppNavigator.java

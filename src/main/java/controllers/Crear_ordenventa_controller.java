@@ -18,6 +18,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import static utils.AlertHelper.*;
 
@@ -26,7 +27,9 @@ public class Crear_ordenventa_controller {
     @FXML private ComboBox<Cliente> cmbCliente;
     @FXML private ComboBox<FormaPago> cmbFormaPago;
     @FXML private ComboBox<Empleado> cmbEmpleado;
-    @FXML private DatePicker dpFechaEntrega;
+    @FXML private Spinner<Integer> spDia;
+    @FXML private Spinner<Integer> spMes;
+    @FXML private Label lblAnio;
     @FXML private TextField txtEstado;
     @FXML private Button btnCancelar;
     @FXML private Button btnCrearOrden;
@@ -87,6 +90,24 @@ public class Crear_ordenventa_controller {
         cmbFormaPago.setItems(cargarFormasPago());
         cargarEmpleados();
         txtEstado.setText("PENDIENTE");
+        configurarSpinners();
+    }
+
+    private void configurarSpinners() {
+        LocalDate hoy = LocalDate.now();
+        spDia.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 31, hoy.getDayOfMonth()));
+        spDia.setEditable(true);
+        spMes.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 12, hoy.getMonthValue()));
+        spMes.setEditable(true);
+        lblAnio.setText(String.valueOf(hoy.getYear()));
+    }
+
+    private LocalDate obtenerFechaSpinners() {
+        try {
+            return LocalDate.of(LocalDate.now().getYear(), spMes.getValue(), spDia.getValue());
+        } catch (DateTimeException e) {
+            return null;
+        }
     }
 
     @FXML
@@ -95,8 +116,17 @@ public class Crear_ordenventa_controller {
 
         int idCliente = cmbCliente.getValue().getIdCliente();
         int idFormaPago = cmbFormaPago.getValue().getIdFormaPago();
-        Date fechaEntrega = dpFechaEntrega.getValue() != null ? Date.valueOf(dpFechaEntrega.getValue()) : null;
+        LocalDate fechaEntrega = obtenerFechaSpinners();
         Integer idEmpleado = cmbEmpleado.getValue() != null ? cmbEmpleado.getValue().getIdEmpleado() : null;
+
+        if (fechaEntrega == null) {
+            mostrarAdvertencia("La fecha de entrega no es válida.");
+            return;
+        }
+        if (fechaEntrega.isBefore(LocalDate.now())) {
+            mostrarAdvertencia("La fecha de entrega no puede ser anterior a hoy.");
+            return;
+        }
 
         int idOrden = insertarOrden(idCliente, idFormaPago, fechaEntrega, idEmpleado);
 
@@ -115,7 +145,7 @@ public class Crear_ordenventa_controller {
             mostrarError("Error al crear la orden.");
         }
     }
-    private int insertarOrden(int idCliente, int idFormaPago, Date fechaEntrega, Integer idEmpleado) {
+    private int insertarOrden(int idCliente, int idFormaPago, LocalDate fechaEntrega, Integer idEmpleado) {
         String sql = "INSERT INTO ORDEN_VENTA (id_cliente, id_empleado, estado, fecha_orden, id_forma_pago, fecha_entrega) VALUES (?, ?, 'PENDIENTE', GETDATE(), ?, ?)";
         try (Connection connection = conexion.establecerconexio();
              PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -127,7 +157,7 @@ public class Crear_ordenventa_controller {
             }
             ps.setInt(3, idFormaPago);
             if (fechaEntrega != null) {
-                ps.setDate(4, fechaEntrega);
+                ps.setDate(4, Date.valueOf(fechaEntrega));
             } else {
                 ps.setNull(4, java.sql.Types.DATE);
             }

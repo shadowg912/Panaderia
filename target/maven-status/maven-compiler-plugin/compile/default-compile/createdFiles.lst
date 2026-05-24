@@ -26,7 +26,6 @@ controllers/Crear_usuario_controller.class
 model/Puesto.class
 model/Sector.class
 controllers/Dashboard_produccion_controller.class
-com/example/panaderia/HelloController.class
 model/CategoriaIngrediente.class
 module-info.class
 controllers/Dashboard_inventario_controller.class
@@ -81,6 +80,7 @@ controllers/Direccion_entrega_controller.class
 controllers/Admin_empleados_controller.class
 controllers/Movimientos_inventario_controller.class
 controllers/Registro_proveedor_controller.class
+model/VentaResumen.class
 controllers/Reclamaciones_controller.class
 controllers/Ver_recetas_controller.class
 controllers/Confirmar_orden_controller$1.class

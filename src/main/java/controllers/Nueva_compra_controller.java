@@ -9,13 +9,17 @@ import javafx.scene.control.*;
 import model.*;
 import utils.AppNavigator;
 import java.sql.*;
+import java.time.DateTimeException;
+import java.time.LocalDate;
 import static utils.AlertHelper.*;
 
 public class Nueva_compra_controller {
 
     @FXML private ComboBox<Proveedor> cmbProveedor;
     @FXML private ComboBox<FormaPago> cmbFormaPago;
-    @FXML private DatePicker dpFecha;
+    @FXML private Spinner<Integer> spDia;
+    @FXML private Spinner<Integer> spMes;
+    @FXML private Label lblAnio;
     @FXML private TextField txtEstado;
     @FXML private Button btnVolver;
     @FXML private Button btnSiguiente;
@@ -29,8 +33,25 @@ public class Nueva_compra_controller {
     public void initialize() {
         cmbProveedor.setItems(cargarProveedores());
         cmbFormaPago.setItems(cargarFormasPago());
-        dpFecha.setValue(java.time.LocalDate.now());
         txtEstado.setText("PENDIENTE");
+        configurarSpinners();
+    }
+
+    private void configurarSpinners() {
+        LocalDate hoy = LocalDate.now();
+        spDia.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 31, hoy.getDayOfMonth()));
+        spDia.setEditable(true);
+        spMes.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 12, hoy.getMonthValue()));
+        spMes.setEditable(true);
+        lblAnio.setText(String.valueOf(hoy.getYear()));
+    }
+
+    private LocalDate obtenerFechaSpinners() {
+        try {
+            return LocalDate.of(LocalDate.now().getYear(), spMes.getValue(), spDia.getValue());
+        } catch (DateTimeException e) {
+            return null;
+        }
     }
 
     private ObservableList<Proveedor> cargarProveedores() {
@@ -70,9 +91,17 @@ public class Nueva_compra_controller {
 
         int idProveedor = cmbProveedor.getValue().getIdProveedor();
         int idFormaPago = cmbFormaPago.getValue().getIdFormaPago();
-        java.sql.Date fecha = java.sql.Date.valueOf(dpFecha.getValue());
+        LocalDate fecha = obtenerFechaSpinners();
+        if (fecha == null) {
+            mostrarAdvertencia("La fecha no es válida.");
+            return;
+        }
+        if (fecha.isBefore(LocalDate.now())) {
+            mostrarAdvertencia("La fecha no puede ser anterior a hoy.");
+            return;
+        }
 
-        int idCompra = insertarCompra(idProveedor, idFormaPago, fecha);
+        int idCompra = insertarCompra(idProveedor, idFormaPago, java.sql.Date.valueOf(fecha));
 
         if (idCompra > 0) {
             CompraEstado.idCompraMaterial = idCompra;
@@ -111,8 +140,8 @@ public class Nueva_compra_controller {
             mostrarAdvertencia("Debe seleccionar una forma de pago.");
             return false;
         }
-        if (dpFecha.getValue() == null) {
-            mostrarAdvertencia("Debe seleccionar una fecha.");
+        if (obtenerFechaSpinners() == null) {
+            mostrarAdvertencia("La fecha ingresada no es válida.");
             return false;
         }
         return true;

@@ -26,7 +26,13 @@
                     <Label style="-fx-text-fill: #535659; -fx-font-size: 15px;" text="Forma de Pago *" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
                     <ComboBox fx:id="cmbFormaPago" promptText="Seleccione..." prefHeight="48" maxWidth="Infinity" style="-fx-background-color: #f5f2eb; -fx-border-color: #c2baab; -fx-border-width: 1; -fx-border-radius: 8; -fx-background-radius: 8; -fx-font-size: 14px;" GridPane.columnIndex="3" GridPane.rowIndex="0"/>
                     <Label style="-fx-text-fill: #535659; -fx-font-size: 15px;" text="Fecha de la Compra" GridPane.rowIndex="1"/>
-                    <DatePicker fx:id="dpFecha" prefHeight="48" maxWidth="Infinity" style="-fx-background-color: #f5f2eb; -fx-border-color: #c2baab; -fx-control-inner-background: #f5f2eb; -fx-font-size: 14px;" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                    <HBox spacing="8" alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <Spinner fx:id="spDia" prefWidth="90" prefHeight="48" style="-fx-background-color: #f5f2eb; -fx-border-color: #c2baab; -fx-border-width: 1; -fx-border-radius: 8; -fx-background-radius: 8;"/>
+                        <Label text="/" style="-fx-font-size: 18; -fx-text-fill: #535659;"/>
+                        <Spinner fx:id="spMes" prefWidth="90" prefHeight="48" style="-fx-background-color: #f5f2eb; -fx-border-color: #c2baab; -fx-border-width: 1; -fx-border-radius: 8; -fx-background-radius: 8;"/>
+                        <Label text="/" style="-fx-font-size: 18; -fx-text-fill: #535659;"/>
+                        <Label fx:id="lblAnio" style="-fx-font-size: 16; -fx-text-fill: #888; -fx-font-weight: bold;"/>
+                    </HBox>
                     <Label style="-fx-text-fill: #535659; -fx-font-size: 15px;" text="Estado" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
                     <TextField fx:id="txtEstado" editable="false" text="PENDIENTE" prefHeight="48" style="-fx-background-color: #f5f2eb; -fx-text-fill: #cdb08e; -fx-border-color: #c2baab; -fx-border-width: 1; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 12; -fx-font-size: 14px;" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
                 </GridPane>
