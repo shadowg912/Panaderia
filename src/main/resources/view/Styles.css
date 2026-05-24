@@ -977,6 +977,13 @@
     -fx-background-radius: 3 3 0 0;
 }
 
+.kpi-accent-yellow {
+    -fx-min-height: 4;
+    -fx-max-height: 4;
+    -fx-background-color: #f59e0b;
+    -fx-background-radius: 3 3 0 0;
+}
+
 .kpi-accent-orange {
     -fx-min-height: 4;
     -fx-max-height: 4;

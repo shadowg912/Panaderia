@@ -68,12 +68,14 @@ public class menu_contoller {
             )));
         MODULOS.put("PRODUCCION", new Modulo("PRODUCCIÓN", "P",
             List.of(
+                new SubItem("btnDashboardProduccion", "Dashboard", "Resumen y estadísticas de producción", "/view/Dashboard_produccion.fxml"),
                 new SubItem("btnOrdenProduccion", "Nueva Orden de Producción", "Planificar una nueva producción", "/view/Orden_produccion.fxml"),
                 new SubItem("btnVerOrdenesProduccion", "Ver Órdenes", "Consultar órdenes de producción", "/view/Ver_ordenes_produccion.fxml"),
                 new SubItem("btnVerRecetas", "Ver Recetas", "Consultar recetas disponibles", "/view/Ver_recetas.fxml")
             )));
         MODULOS.put("COMPRAS", new Modulo("COMPRAS", "C",
             List.of(
+                new SubItem("btnDashboardCompras", "Dashboard", "Resumen y estadísticas de compras", "/view/Dashboard_compras.fxml"),
                 new SubItem("btnNuevaCompra", "Nueva Compra", "Realizar una compra a proveedor", "/view/Nueva_compra.fxml"),
                 new SubItem("btnGestionCompras", "Gestionar Compras", "Administrar compras y entrada de stock", "/view/Gestion_compras.fxml"),
                 new SubItem("btnRegistroProveedor", "Registrar Proveedor", "Añadir un nuevo proveedor", "/view/Registrar_proveedor.fxml"),
@@ -99,8 +101,8 @@ public class menu_contoller {
         PERMISOS.put("Administrador", Set.of(
             "btnDashboardVentas","btnNuevaOrden","btnHistorialVenta","btnSeguimientroEnvio","btnGuardarDIrecciones",
             "btnDashboardInventario","btnRegistroProducto","btnVerInventario","btnVerMovimientos","btnRegistroRecetas",
-            "btnOrdenProduccion","btnVerOrdenesProduccion","btnVerRecetas",
-            "btnNuevaCompra","btnGestionCompras","btnRegistroProveedor","btnAdminProveedores",
+            "btnDashboardProduccion","btnOrdenProduccion","btnVerOrdenesProduccion","btnVerRecetas",
+            "btnDashboardCompras","btnNuevaCompra","btnGestionCompras","btnRegistroProveedor","btnAdminProveedores",
             "btnRegistroCliente","btnGestionClientes","btnReclamaciones",
             "btnCrearUsuario","btnAdminUsuarios","btnAdminEmpleados","btnCrearEmpleado"
         ));
@@ -110,27 +112,15 @@ public class menu_contoller {
         ));
         PERMISOS.put("Encargado de Área", Set.of(
             "btnDashboardVentas","btnHistorialVenta","btnSeguimientroEnvio","btnVerInventario","btnVerMovimientos",
-            "btnVerOrdenesProduccion","btnVerRecetas",
+            "btnDashboardProduccion","btnVerOrdenesProduccion","btnVerRecetas",
             "btnGestionClientes","btnReclamaciones"
         ));
         PERMISOS.put("Encargado de Producción", Set.of(
-            "btnVerInventario","btnVerMovimientos","btnOrdenProduccion","btnVerOrdenesProduccion",
+            "btnDashboardProduccion","btnVerInventario","btnVerMovimientos","btnOrdenProduccion","btnVerOrdenesProduccion",
             "btnVerRecetas","btnRegistroRecetas"
         ));
         PERMISOS.put("Encargado de Compras", Set.of(
-            "btnVerInventario","btnVerMovimientos","btnNuevaCompra","btnGestionCompras","btnRegistroProveedor","btnAdminProveedores"
-        ));
-        PERMISOS.put("Encargado de Área", Set.of(
-            "btnDashboardInventario","btnHistorialVenta","btnSeguimientroEnvio","btnVerInventario",
-            "btnVerOrdenesProduccion","btnVerRecetas",
-            "btnGestionClientes","btnReclamaciones"
-        ));
-        PERMISOS.put("Encargado de Producción", Set.of(
-            "btnVerInventario","btnVerMovimientos","btnOrdenProduccion","btnVerOrdenesProduccion",
-            "btnVerRecetas","btnRegistroRecetas"
-        ));
-        PERMISOS.put("Encargado de Compras", Set.of(
-            "btnVerInventario","btnVerMovimientos","btnNuevaCompra","btnGestionCompras","btnRegistroProveedor","btnAdminProveedores"
+            "btnDashboardCompras","btnVerInventario","btnVerMovimientos","btnNuevaCompra","btnGestionCompras","btnRegistroProveedor","btnAdminProveedores"
         ));
         PERMISOS.put("Repartidor", Set.of("btnSeguimientroEnvio"));
     }

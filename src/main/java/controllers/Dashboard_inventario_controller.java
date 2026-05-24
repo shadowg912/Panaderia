@@ -182,8 +182,8 @@ public class Dashboard_inventario_controller {
 
     private void cargarStockBajo() {
         String sql = "SELECT COUNT(*) as bajo FROM PRODUCTO p "
-                    + "INNER JOIN [dbo].[INVENTARIO] i ON p.id_producto = i.id_producto "
-                   + "WHERE p.estado = 1 AND i.stock_actual < 5";
+                    + "LEFT JOIN [dbo].[INVENTARIO] i ON p.id_producto = i.id_producto "
+                   + "WHERE p.estado = 1 AND COALESCE(i.stock_actual, 0) < 5";
         try (Connection c = conexion.establecerconexio();
              PreparedStatement ps = c.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
@@ -198,8 +198,8 @@ public class Dashboard_inventario_controller {
     }
 
     private void cargarValorInventario() {
-        String sql = "SELECT COALESCE(SUM(p.precio_unitario * i.stock_actual), 0) as valor "
-                    + "FROM PRODUCTO p INNER JOIN [dbo].[INVENTARIO] i ON p.id_producto = i.id_producto "
+        String sql = "SELECT COALESCE(SUM(p.precio_unitario * COALESCE(i.stock_actual, 0)), 0) as valor "
+                    + "FROM PRODUCTO p LEFT JOIN [dbo].[INVENTARIO] i ON p.id_producto = i.id_producto "
                    + "WHERE p.estado = 1";
         try (Connection c = conexion.establecerconexio();
              PreparedStatement ps = c.prepareStatement(sql);

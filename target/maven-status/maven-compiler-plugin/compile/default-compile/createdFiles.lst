@@ -25,6 +25,7 @@ model/Ciudad.class
 controllers/Crear_usuario_controller.class
 model/Puesto.class
 model/Sector.class
+controllers/Dashboard_produccion_controller.class
 com/example/panaderia/HelloController.class
 model/CategoriaIngrediente.class
 module-info.class
@@ -51,6 +52,7 @@ model/Cliente.class
 controllers/Gestion_compras_controller.class
 controllers/Admin_empleados_controller$1.class
 model/Producto.class
+controllers/Dashboard_compras_controller.class
 controllers/Ver_ordenes_produccion_controller.class
 model/RecetaResumen.class
 controllers/Seguimento_envio_controller.class

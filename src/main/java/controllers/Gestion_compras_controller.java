@@ -68,7 +68,7 @@ public class Gestion_compras_controller implements Initializable {
 
     private void cargarFiltros() {
         cmbFiltroEstado.setItems(FXCollections.observableArrayList(
-                "Todos", "PENDIENTE", "ENTREGADA", "CANCELADA"
+                "Todos", "PENDIENTE", "PAGADA", "CANCELADA"
         ));
         cmbFiltroEstado.getSelectionModel().selectFirst();
 
@@ -152,7 +152,7 @@ public class Gestion_compras_controller implements Initializable {
         try (Connection c = conexion.establecerconexio()) {
             c.setAutoCommit(false);
             try {
-                cambiarEstadoCompra(c, compra.getIdCompraMaterial(), "ENTREGADA");
+                cambiarEstadoCompra(c, compra.getIdCompraMaterial(), "PAGADA");
                 registrarMovimientosStock(c, compra.getIdCompraMaterial());
                 c.commit();
                 mostrarInfo("Compra #" + compra.getIdCompraMaterial() + " entregada y stock actualizado.");
