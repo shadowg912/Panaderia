@@ -125,7 +125,12 @@ public class Ver_ordenes_produccion_controller {
             @Override
             protected void updateItem(Void v, boolean empty) {
                 super.updateItem(v, empty);
-                setGraphic(empty ? null : cmbEstado);
+                if (empty || getIndex() < 0 || getIndex() >= getTableView().getItems().size()) {
+                    setGraphic(null);
+                } else {
+                    OrdenProduccion orden = getTableView().getItems().get(getIndex());
+                    setGraphic("Completada".equals(orden.getEstado()) ? null : cmbEstado);
+                }
             }
         });
 
@@ -292,14 +297,18 @@ public class Ver_ordenes_produccion_controller {
         }
 
         try (PreparedStatement ps = conn.prepareStatement(
-            "MERGE INTO INVENTARIO AS target " +
-            "USING (SELECT ? AS id_producto, ? AS cantidad) AS source " +
-            "ON target.id_producto = source.id_producto " +
-            "WHEN MATCHED THEN UPDATE SET stock_actual = stock_actual + source.cantidad, fecha_actualizacion = GETDATE() " +
-            "WHEN NOT MATCHED THEN INSERT (id_producto, stock_actual, fecha_actualizacion) VALUES (source.id_producto, source.cantidad, GETDATE());")) {
-            ps.setInt(1, idProducto);
-            ps.setDouble(2, cantidad);
-            ps.executeUpdate();
+            "UPDATE INVENTARIO SET stock_actual = stock_actual + ?, fecha_actualizacion = GETDATE() WHERE id_producto = ?")) {
+            ps.setDouble(1, cantidad);
+            ps.setInt(2, idProducto);
+            int updated = ps.executeUpdate();
+            if (updated == 0) {
+                try (PreparedStatement psIns = conn.prepareStatement(
+                    "INSERT INTO INVENTARIO (id_producto, stock_actual, fecha_actualizacion) VALUES (?, ?, GETDATE())")) {
+                    psIns.setInt(1, idProducto);
+                    psIns.setDouble(2, cantidad);
+                    psIns.executeUpdate();
+                }
+            }
         }
     }
 

@@ -28,6 +28,7 @@ model/Sector.class
 com/example/panaderia/HelloController.class
 model/CategoriaIngrediente.class
 module-info.class
+controllers/Dashboard_inventario_controller.class
 model/CategoriaProveedor.class
 model/OrdenProduccion.class
 controllers/Dashboard_ventas_controller.class

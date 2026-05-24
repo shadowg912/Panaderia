@@ -202,7 +202,7 @@ public class Detalle_orden_venta_controller implements Initializable {
     }
 
     private double obtenerStockProducto(int idProducto) {
-        String sql = "SELECT COALESCE(stock_actual, 0) FROM INVENTARIO WHERE id_producto = ?";
+         String sql = "SELECT COALESCE(stock_actual, 0) FROM [dbo].[INVENTARIO] WHERE id_producto = ?";
         try (Connection connection = conexion.establecerconexio();
              PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setInt(1, idProducto);

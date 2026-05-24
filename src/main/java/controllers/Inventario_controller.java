@@ -28,6 +28,7 @@ public class Inventario_controller implements Initializable {
     @FXML private TableColumn<Producto, String> colUnidad;
     @FXML private TableColumn<Producto, String> colTipo;
     @FXML private ComboBox<CategoriaProducto> cmbCategoria;
+    @FXML private ComboBox<String> cmbTipoProducto;
     @FXML private TextField txtBuscar;
     @FXML private Label lblTotalRegistros;
     @FXML private Label lblStockBajo;
@@ -46,6 +47,7 @@ public class Inventario_controller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         configurarColumnasProductos();
         cargarCategorias();
+        cargarTiposProducto();
         cargarProductos();
     }
 
@@ -90,17 +92,24 @@ public class Inventario_controller implements Initializable {
         cmbCategoria.getSelectionModel().selectFirst();
     }
 
+    private void cargarTiposProducto() {
+        cmbTipoProducto.setItems(FXCollections.observableArrayList(
+            "Todos los tipos", "PRODUCTO_TERMINADO", "MATERIA_PRIMA", "MATERIAL_EMPAQUE"
+        ));
+        cmbTipoProducto.getSelectionModel().selectFirst();
+    }
+
     private void cargarProductos() {
         listaProductos.clear();
         String sql = "SELECT p.id_producto, p.nombre, p.precio_unitario, p.tipo_producto, " +
-                   "cp.id_categoria_producto, cp.nombre as cat_nombre, " +
-                   "u.id_unidad, u.nombre as und_nombre, " +
-                   "COALESCE(i.stock_actual, 0) as stock_actual " +
-                   "FROM PRODUCTO p " +
-                   "LEFT JOIN CATEGORIA_PRODUCTO cp ON p.id_categoria_producto = cp.id_categoria_producto " +
-                   "LEFT JOIN UNIDAD u ON p.id_unidad = u.id_unidad " +
-                   "LEFT JOIN INVENTARIO i ON p.id_producto = i.id_producto " +
-                   "WHERE p.estado = 1 ORDER BY p.nombre";
+                    "cp.id_categoria_producto, cp.nombre as cat_nombre, " +
+                    "u.id_unidad, u.nombre as und_nombre, " +
+                    "COALESCE(i.stock_actual, 0) as stock_actual " +
+                    "FROM PRODUCTO p " +
+                    "LEFT JOIN CATEGORIA_PRODUCTO cp ON p.id_categoria_producto = cp.id_categoria_producto " +
+                    "LEFT JOIN UNIDAD u ON p.id_unidad = u.id_unidad " +
+                    "LEFT JOIN [dbo].[INVENTARIO] i ON p.id_producto = i.id_producto " +
+                    "WHERE p.estado = 1 ORDER BY p.nombre";
         try (Connection c = conexion.establecerconexio();
              PreparedStatement ps = c.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
@@ -132,32 +141,40 @@ public class Inventario_controller implements Initializable {
         }
     }
 
-    public void fnFiltrarCategoria(ActionEvent event) {
+    public void fnFiltrarCategoria(ActionEvent event) { aplicarFiltros(); }
+
+    public void fnFiltrarTipoProducto(ActionEvent event) { aplicarFiltros(); }
+
+    public void fnBuscar(ActionEvent event) { aplicarFiltros(); }
+
+    private void aplicarFiltros() {
         CategoriaProducto cat = cmbCategoria.getValue();
-        if (cat == null || cat.getIdCategoriaProducto() == 0) {
-            cargarProductos();
-            return;
-        }
+        String tipo = cmbTipoProducto.getValue();
         String texto = txtBuscar.getText().trim();
+
+        int idCat = cat != null ? cat.getIdCategoriaProducto() : 0;
+        boolean filtrarTipo = tipo != null && !"Todos los tipos".equals(tipo);
+        boolean filtrarCat = idCat > 0;
+        boolean filtrarTexto = !texto.isEmpty();
+
         listaProductos.clear();
         StringBuilder sql = new StringBuilder(
             "SELECT p.id_producto, p.nombre, p.precio_unitario, p.tipo_producto, " +
-            "cp.id_categoria_producto, cp.nombre as cat_nombre, " +
-            "u.id_unidad, u.nombre as und_nombre, " +
-            "COALESCE(i.stock_actual, 0) as stock_actual " +
-            "FROM PRODUCTO p " +
-            "LEFT JOIN CATEGORIA_PRODUCTO cp ON p.id_categoria_producto = cp.id_categoria_producto " +
-            "LEFT JOIN UNIDAD u ON p.id_unidad = u.id_unidad " +
-            "LEFT JOIN INVENTARIO i ON p.id_producto = i.id_producto " +
-            "WHERE p.estado = 1 AND p.id_categoria_producto = ?"
+                    "cp.id_categoria_producto, cp.nombre as cat_nombre, " +
+                    "u.id_unidad, u.nombre as und_nombre, " +
+                    "COALESCE(i.stock_actual, 0) as stock_actual " +
+                    "FROM PRODUCTO p " +
+                    "LEFT JOIN CATEGORIA_PRODUCTO cp ON p.id_categoria_producto = cp.id_categoria_producto " +
+                    "LEFT JOIN UNIDAD u ON p.id_unidad = u.id_unidad " +
+                    "LEFT JOIN [dbo].[INVENTARIO] i ON p.id_producto = i.id_producto " +
+                    "WHERE p.estado = 1"
         );
         List<Object> params = new ArrayList<>();
-        params.add(cat.getIdCategoriaProducto());
-        if (!texto.isEmpty()) {
-            sql.append(" AND LOWER(p.nombre) LIKE ? ");
-            params.add("%" + texto.toLowerCase() + "%");
-        }
+        if (filtrarCat) { sql.append(" AND p.id_categoria_producto = ?"); params.add(idCat); }
+        if (filtrarTipo) { sql.append(" AND p.tipo_producto = ?"); params.add(tipo); }
+        if (filtrarTexto) { sql.append(" AND LOWER(p.nombre) LIKE ?"); params.add("%" + texto.toLowerCase() + "%"); }
         sql.append(" ORDER BY p.nombre");
+
         try (Connection c = conexion.establecerconexio();
              PreparedStatement ps = c.prepareStatement(sql.toString())) {
             for (int i = 0; i < params.size(); i++) ps.setObject(i + 1, params.get(i));
@@ -172,44 +189,6 @@ public class Inventario_controller implements Initializable {
                 ));
             }
         } catch (Exception e) { mostrarError("Error al filtrar: " + e.getMessage()); }
-        tablaProductos.setItems(listaProductos);
-        actualizarTotales();
-    }
-
-    public void fnBuscar(ActionEvent event) {
-        CategoriaProducto cat = cmbCategoria.getValue();
-        int idCat = cat != null ? cat.getIdCategoriaProducto() : 0;
-        String texto = txtBuscar.getText().trim();
-        listaProductos.clear();
-        StringBuilder sql = new StringBuilder(
-            "SELECT p.id_producto, p.nombre, p.precio_unitario, p.tipo_producto, " +
-            "cp.id_categoria_producto, cp.nombre as cat_nombre, " +
-            "u.id_unidad, u.nombre as und_nombre, " +
-            "COALESCE(i.stock_actual, 0) as stock_actual " +
-            "FROM PRODUCTO p " +
-            "LEFT JOIN CATEGORIA_PRODUCTO cp ON p.id_categoria_producto = cp.id_categoria_producto " +
-            "LEFT JOIN UNIDAD u ON p.id_unidad = u.id_unidad " +
-            "LEFT JOIN INVENTARIO i ON p.id_producto = i.id_producto " +
-            "WHERE p.estado = 1"
-        );
-        List<Object> params = new ArrayList<>();
-        if (idCat > 0) { sql.append(" AND p.id_categoria_producto = ? "); params.add(idCat); }
-        if (!texto.isEmpty()) { sql.append(" AND LOWER(p.nombre) LIKE ? "); params.add("%" + texto.toLowerCase() + "%"); }
-        sql.append(" ORDER BY p.nombre");
-        try (Connection c = conexion.establecerconexio();
-             PreparedStatement ps = c.prepareStatement(sql.toString())) {
-            for (int i = 0; i < params.size(); i++) ps.setObject(i + 1, params.get(i));
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                listaProductos.add(new Producto(
-                    rs.getInt("id_producto"), rs.getString("nombre"),
-                    new CategoriaProducto(rs.getInt("id_categoria_producto"), rs.getString("cat_nombre")),
-                    rs.getBigDecimal("precio_unitario"),
-                    new Unidad(rs.getInt("id_unidad"), rs.getString("und_nombre")),
-                    rs.getDouble("stock_actual")
-                ));
-            }
-        } catch (Exception e) { mostrarError("Error al buscar: " + e.getMessage()); }
         tablaProductos.setItems(listaProductos);
         actualizarTotales();
     }

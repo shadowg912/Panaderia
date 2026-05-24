@@ -345,7 +345,7 @@ public class Seguimento_envio_controller {
                 int idProducto = productos.get(i)[0];
                 double cantidad = cantidades.get(i);
                 double stock = 0;
-                String sqlStock = "SELECT COALESCE(stock_actual, 0) FROM INVENTARIO WHERE id_producto = ?";
+                 String sqlStock = "SELECT COALESCE(stock_actual, 0) FROM [dbo].[INVENTARIO] WHERE id_producto = ?";
                 try (PreparedStatement ps = con.prepareStatement(sqlStock)) {
                     ps.setInt(1, idProducto);
                     ResultSet rs = ps.executeQuery();
@@ -385,13 +385,13 @@ public class Seguimento_envio_controller {
                     }
 
                     try (PreparedStatement ps = con.prepareStatement(
-                        "UPDATE INVENTARIO SET stock_actual = stock_actual - ?, fecha_actualizacion = GETDATE() WHERE id_producto = ?")) {
+                                                 "UPDATE [dbo].[INVENTARIO] SET stock_actual = stock_actual - ?, fecha_actualizacion = GETDATE() WHERE id_producto = ?")) {
                         ps.setDouble(1, cantidad);
                         ps.setInt(2, idProducto);
                         int updated = ps.executeUpdate();
                         if (updated == 0) {
                             try (PreparedStatement psIns = con.prepareStatement(
-                                "INSERT INTO INVENTARIO (id_producto, stock_actual, fecha_actualizacion) VALUES (?, 0 - ?, GETDATE())")) {
+                                                                 "INSERT INTO [dbo].[INVENTARIO] (id_producto, stock_actual, fecha_actualizacion) VALUES (?, 0 - ?, GETDATE())")) {
                                 psIns.setInt(1, idProducto);
                                 psIns.setDouble(2, cantidad);
                                 psIns.executeUpdate();

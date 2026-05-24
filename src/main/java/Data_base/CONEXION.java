@@ -10,7 +10,7 @@ public class CONEXION {
 
     Connection connection = null;
     String usuario = "sa";
-    String db = "PAMSYSTEM";
+    String db = "PANADERIA";
     String puerto = "1433";
 
     //String contrasena = "J3sk0912"; String ip = "Localhost";

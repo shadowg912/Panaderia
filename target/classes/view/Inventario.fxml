@@ -25,6 +25,10 @@
                     <ComboBox fx:id="cmbCategoria" onAction="#fnFiltrarCategoria" prefWidth="200" promptText="Todas las categorías"/>
                 </VBox>
                 <VBox spacing="5">
+                    <Label styleClass="label-small" text="TIPO"/>
+                    <ComboBox fx:id="cmbTipoProducto" onAction="#fnFiltrarTipoProducto" prefWidth="170" promptText="Todos los tipos"/>
+                </VBox>
+                <VBox spacing="5">
                     <Label styleClass="label-small" text="BUSCAR"/>
                     <TextField fx:id="txtBuscar" onAction="#fnBuscar" prefWidth="250" promptText="Buscar por nombre..."/>
                 </VBox>

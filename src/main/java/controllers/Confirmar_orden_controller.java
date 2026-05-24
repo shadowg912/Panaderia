@@ -282,7 +282,7 @@ public class Confirmar_orden_controller {
 
     private String verificarStockSuficiente(List<DetalleOrdenVenta> detalles) {
         StringBuilder faltantes = new StringBuilder();
-        String sql = "SELECT COALESCE(stock_actual, 0) FROM INVENTARIO WHERE id_producto = ?";
+         String sql = "SELECT COALESCE(stock_actual, 0) FROM [dbo].[INVENTARIO] WHERE id_producto = ?";
         try (Connection con = conexion.establecerconexio();
              PreparedStatement ps = con.prepareStatement(sql)) {
             for (DetalleOrdenVenta d : detalles) {

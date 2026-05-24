@@ -220,15 +220,19 @@ public class Gestion_compras_controller implements Initializable {
                     psMov.executeUpdate();
                 }
 
-                try (PreparedStatement psInv = c.prepareStatement(
-                    "MERGE INTO INVENTARIO AS target " +
-                    "USING (SELECT ? AS id_producto, ? AS cantidad) AS source " +
-                    "ON target.id_producto = source.id_producto " +
-                    "WHEN MATCHED THEN UPDATE SET stock_actual = stock_actual + source.cantidad, fecha_actualizacion = GETDATE() " +
-                    "WHEN NOT MATCHED THEN INSERT (id_producto, stock_actual, fecha_actualizacion) VALUES (source.id_producto, source.cantidad, GETDATE());")) {
-                    psInv.setInt(1, idProducto);
-                    psInv.setDouble(2, cantidad);
-                    psInv.executeUpdate();
+                 try (PreparedStatement psInv = c.prepareStatement(
+                     "UPDATE [dbo].[INVENTARIO] SET stock_actual = stock_actual + ?, fecha_actualizacion = GETDATE() WHERE id_producto = ?")) {
+                    psInv.setDouble(1, cantidad);
+                    psInv.setInt(2, idProducto);
+                    int updated = psInv.executeUpdate();
+                    if (updated == 0) {
+                        try (PreparedStatement psIns = c.prepareStatement(
+                            "INSERT INTO [dbo].[INVENTARIO] (id_producto, stock_actual, fecha_actualizacion) VALUES (?, ?, GETDATE())")) {
+                            psIns.setInt(1, idProducto);
+                            psIns.setDouble(2, cantidad);
+                            psIns.executeUpdate();
+                        }
+                    }
                 }
             }
         }
