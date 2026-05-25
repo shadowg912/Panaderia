@@ -326,14 +326,20 @@ public class Seguimento_envio_controller {
             estadoOrden = "FACTURADA";
         } else if ("CANCELADO".equals(estadoEnvio)) {
             estadoOrden = "CANCELADA";
-        } else return;
+        }
 
         try (Connection con = conexion.establecerconexio()) {
-            String sqlOrd = "UPDATE ORDEN_VENTA SET estado = ? WHERE id_orden_venta = ?";
-            try (PreparedStatement ps = con.prepareStatement(sqlOrd)) {
-                ps.setString(1, estadoOrden);
-                ps.setInt(2, idOrden);
-                ps.executeUpdate();
+            if (estadoOrden != null) {
+                String sqlOrd = "UPDATE ORDEN_VENTA SET estado = ? WHERE id_orden_venta = ?";
+                try (PreparedStatement ps = con.prepareStatement(sqlOrd)) {
+                    ps.setString(1, estadoOrden);
+                    ps.setInt(2, idOrden);
+                    ps.executeUpdate();
+                }
+            }
+
+            if ("EN_RUTA".equals(estadoEnvio)) {
+                registrarSalidaStock(idOrden);
             }
 
             if ("ENTREGADO".equals(estadoEnvio)) {
@@ -342,7 +348,6 @@ public class Seguimento_envio_controller {
                     ps.setInt(1, idOrden);
                     ps.executeUpdate();
                 }
-                registrarSalidaStock(idOrden);
             }
         } catch (SQLException e) {
             mostrarError("Error sincronizando: " + e.getMessage());
