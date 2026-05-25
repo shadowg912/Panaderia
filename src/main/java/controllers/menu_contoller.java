@@ -50,6 +50,10 @@ public class menu_contoller {
     }
 
     static {
+        MODULOS.put("DASHBOARD", new Modulo("DASHBOARD", "D",
+            List.of(
+                new SubItem("btnDashboardPrincipal", "Dashboard Principal", "Resumen general del negocio", "/view/Dashboard_principal.fxml")
+            )));
         MODULOS.put("VENTAS", new Modulo("VENTAS", "V",
             List.of(
                 new SubItem("btnDashboardVentas", "Dashboard", "Reportes y estadísticas de ventas", "/view/Dashboard_ventas.fxml"),
@@ -92,37 +96,45 @@ public class menu_contoller {
                 new SubItem("btnCrearUsuario", "Crear Usuario", "Crear un nuevo usuario del sistema", "/view/Creacio_usuario.fxml"),
                 new SubItem("btnAdminUsuarios", "Administrar Usuarios", "Gestionar usuarios del sistema", "/view/Admin_usuarios.fxml"),
                 new SubItem("btnCrearEmpleado", "Crear Empleado", "Registrar un nuevo empleado", "/view/Crear_empleado.fxml"),
-                new SubItem("btnAdminEmpleados", "Administrar Empleados", "Gestionar empleados", "/view/Admin_empleados.fxml")
+                new SubItem("btnAdminEmpleados", "Administrar Empleados", "Gestionar empleados", "/view/Admin_empleados.fxml"),
+                new SubItem("btnCambiarPassword", "Cambiar Contraseña", "Actualizar su contraseña de acceso", "/view/Cambiar_password.fxml"),
+                new SubItem("btnGestionCatalogos", "Gestión de Catálogos", "Administrar tablas de referencia", "/view/Gestion_catalogos.fxml")
             )));
     }
 
     private static final Map<String, Set<String>> PERMISOS = new HashMap<>();
     static {
         PERMISOS.put("Administrador", Set.of(
+            "btnDashboardPrincipal",
             "btnDashboardVentas","btnNuevaOrden","btnHistorialVenta","btnSeguimientroEnvio","btnGuardarDIrecciones",
             "btnDashboardInventario","btnRegistroProducto","btnVerInventario","btnVerMovimientos","btnRegistroRecetas",
             "btnDashboardProduccion","btnOrdenProduccion","btnVerOrdenesProduccion","btnVerRecetas",
             "btnDashboardCompras","btnNuevaCompra","btnGestionCompras","btnRegistroProveedor","btnAdminProveedores",
             "btnRegistroCliente","btnGestionClientes","btnReclamaciones",
-            "btnCrearUsuario","btnAdminUsuarios","btnAdminEmpleados","btnCrearEmpleado"
+            "btnCrearUsuario","btnAdminUsuarios","btnAdminEmpleados","btnCrearEmpleado","btnCambiarPassword",
+            "btnGestionCatalogos"
         ));
         PERMISOS.put("Encargado de Almacén", Set.of(
+            "btnDashboardPrincipal",
             "btnDashboardInventario","btnRegistroProducto","btnVerInventario","btnVerMovimientos","btnVerRecetas",
-            "btnGestionCompras","btnRegistroProveedor","btnAdminProveedores"
+            "btnGestionCompras","btnRegistroProveedor","btnAdminProveedores","btnCambiarPassword"
         ));
         PERMISOS.put("Encargado de Área", Set.of(
+            "btnDashboardPrincipal",
             "btnDashboardVentas","btnHistorialVenta","btnSeguimientroEnvio","btnVerInventario","btnVerMovimientos",
             "btnDashboardProduccion","btnVerOrdenesProduccion","btnVerRecetas",
-            "btnGestionClientes","btnReclamaciones"
+            "btnGestionClientes","btnReclamaciones","btnCambiarPassword"
         ));
         PERMISOS.put("Encargado de Producción", Set.of(
+            "btnDashboardPrincipal",
             "btnDashboardProduccion","btnVerInventario","btnVerMovimientos","btnOrdenProduccion","btnVerOrdenesProduccion",
-            "btnVerRecetas","btnRegistroRecetas"
+            "btnVerRecetas","btnRegistroRecetas","btnCambiarPassword"
         ));
         PERMISOS.put("Encargado de Compras", Set.of(
-            "btnDashboardCompras","btnVerInventario","btnVerMovimientos","btnNuevaCompra","btnGestionCompras","btnRegistroProveedor","btnAdminProveedores"
+            "btnDashboardPrincipal",
+            "btnDashboardCompras","btnVerInventario","btnVerMovimientos","btnNuevaCompra","btnGestionCompras","btnRegistroProveedor","btnAdminProveedores","btnCambiarPassword"
         ));
-        PERMISOS.put("Repartidor", Set.of("btnSeguimientroEnvio"));
+        PERMISOS.put("Repartidor", Set.of("btnDashboardPrincipal","btnSeguimientroEnvio","btnCambiarPassword"));
     }
 
     @FXML
@@ -138,7 +150,7 @@ public class menu_contoller {
         AppNavigator.setContentPane(contentArea);
 
         construirSidebar();
-        mostrarPrimerModuloDisponible();
+        AppNavigator.navigateTo("/view/Dashboard_principal.fxml");
     }
 
     private void construirSidebar() {

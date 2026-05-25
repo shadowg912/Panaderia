@@ -52,8 +52,8 @@ public class Inventario_controller implements Initializable {
         configurarColumnasProductos();
         cargarCategorias();
         cargarTiposProducto();
-        cargarProductos();
-        tabPane.getSelectionModel().selectedItemProperty().addListener((obs, old, nue) -> aplicarFiltros());
+        cargarProductos(1);
+        tabPane.getSelectionModel().selectedItemProperty().addListener((obs, old, tab) -> cargarProductos(tab == tabActivos ? 1 : 0));
     }
 
     private void configurarColumnasProductos() {
@@ -125,7 +125,7 @@ public class Inventario_controller implements Initializable {
             ps.setInt(2, p.getIdProducto());
             ps.executeUpdate();
             mostrarInfo("Producto \"" + p.getNombre() + "\" " + (p.isActivo() ? "desactivado" : "reactivado") + ".");
-            cargarProductos();
+            cargarProductos(tabActivos.isSelected() ? 1 : 0);
         } catch (Exception e) { mostrarError("Error: " + e.getMessage()); }
     }
 
@@ -150,9 +150,8 @@ public class Inventario_controller implements Initializable {
         cmbTipoProducto.getSelectionModel().selectFirst();
     }
 
-    private void cargarProductos() {
+    private void cargarProductos(int estadoVal) {
         listaProductos.clear();
-        int estadoVal = tabActivos.isSelected() ? 1 : 0;
         String sql = "SELECT p.id_producto, p.nombre, p.precio_unitario, p.tipo_producto, p.estado, " +
                     "cp.id_categoria_producto, cp.nombre as cat_nombre, " +
                     "u.id_unidad, u.nombre as und_nombre, " +
@@ -160,7 +159,7 @@ public class Inventario_controller implements Initializable {
                     "FROM PRODUCTO p " +
                     "LEFT JOIN CATEGORIA_PRODUCTO cp ON p.id_categoria_producto = cp.id_categoria_producto " +
                     "LEFT JOIN UNIDAD u ON p.id_unidad = u.id_unidad " +
-                    "LEFT JOIN [dbo].[INVENTARIO] i ON p.id_producto = i.id_producto " +
+                    "LEFT JOIN INVENTARIO i ON p.id_producto = i.id_producto " +
                     "WHERE p.estado = ? ORDER BY p.nombre";
         try (Connection c = conexion.establecerconexio();
              PreparedStatement ps = c.prepareStatement(sql)) {
@@ -221,7 +220,7 @@ public class Inventario_controller implements Initializable {
                     "FROM PRODUCTO p " +
                     "LEFT JOIN CATEGORIA_PRODUCTO cp ON p.id_categoria_producto = cp.id_categoria_producto " +
                     "LEFT JOIN UNIDAD u ON p.id_unidad = u.id_unidad " +
-                    "LEFT JOIN [dbo].[INVENTARIO] i ON p.id_producto = i.id_producto " +
+                    "LEFT JOIN INVENTARIO i ON p.id_producto = i.id_producto " +
                     "WHERE p.estado = ?"
         );
         List<Object> params = new ArrayList<>();

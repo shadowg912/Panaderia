@@ -19,7 +19,7 @@
 
     <center>
         <VBox spacing="16" style="-fx-padding: 24 32;">
-            <TabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE" styleClass="tab-pane" maxWidth="300">
+            <TabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE" styleClass="tab-pane">
                 <Tab fx:id="tabActivos" text="Activos"/>
                 <Tab fx:id="tabInactivos" text="Inactivos"/>
             </TabPane>

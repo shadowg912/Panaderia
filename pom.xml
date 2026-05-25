@@ -47,6 +47,11 @@
       <artifactId>jasperreports</artifactId>
       <version>6.21.5</version>
     </dependency>
+    <dependency>
+      <groupId>org.mindrot</groupId>
+      <artifactId>jbcrypt</artifactId>
+      <version>0.4</version>
+    </dependency>
   </dependencies>
 
   <build>
@@ -69,7 +74,7 @@
             <!-- Default configuration for running with: mvn clean javafx:run -->
             <id>default-cli</id>
             <configuration>
-              <mainClass>controllers.Main</mainClass>
+              <mainClass>com.example.panaderia.Main</mainClass>
               <launcher>app</launcher>
               <jlinkZipName>app</jlinkZipName>
               <jlinkImageName>app</jlinkImageName>

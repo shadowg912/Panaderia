@@ -66,9 +66,9 @@ public class Seguimento_envio_controller {
             cmbTransportista.setPromptText("Solo mis envíos");
         }
 
-        tabPane.getSelectionModel().selectedItemProperty().addListener((obs, old, tab) -> cargarEnvios());
+        tabPane.getSelectionModel().selectedItemProperty().addListener((obs, old, tab) -> cargarEnvios(tab == tabActivos));
 
-        cargarEnvios();
+        cargarEnvios(true);
     }
 
     private void configurarColumnas() {
@@ -150,11 +150,10 @@ public class Seguimento_envio_controller {
         cmbTransportista.getSelectionModel().selectFirst();
     }
 
-    private void cargarEnvios() {
+    private void cargarEnvios(boolean activos) {
         listaEnvio.clear();
         Empleado filtroTrans = cmbTransportista.getValue();
         String idTexto = txtIdOrden.getText().trim();
-        boolean activos = tabActivos.isSelected();
 
         StringBuilder sql = new StringBuilder(
             "SELECT e.id_envio, e.id_orden_venta, e.numero_seguimiento, e.fecha_entrega_estimada, e.fecha_asignacion, e.fecha_salida, e.fecha_entrega_real, " +
@@ -219,7 +218,7 @@ public class Seguimento_envio_controller {
     }
 
     @FXML
-    public void fnBuscar(ActionEvent e) { cargarEnvios(); }
+    public void fnBuscar(ActionEvent e) { cargarEnvios(tabActivos.isSelected()); }
 
     private void fnVerEnvio(EnvioResumen env) {
         StringBuilder info = new StringBuilder();
@@ -316,7 +315,7 @@ public class Seguimento_envio_controller {
         }
         if (success) {
             sincronizarOrdenEnvio(env.getIdOrden(), nuevoEstado);
-            cargarEnvios();
+            cargarEnvios(tabActivos.isSelected());
             mostrarInfo("Estado actualizado a: " + nuevoEstado);
         }
     }

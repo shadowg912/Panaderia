@@ -69,7 +69,7 @@ public class Seleccionar_productos_produccion_controller {
 
     private ObservableList<Producto> cargarProductos() {
         ObservableList<Producto> lista = FXCollections.observableArrayList();
-        String sql = "SELECT id_producto, nombre FROM PRODUCTO WHERE tipo_producto = 'PRODUCTO_TERMINADO' ORDER BY nombre";
+        String sql = "SELECT id_producto, nombre FROM PRODUCTO WHERE tipo_producto = 'PRODUCTO_TERMINADO' AND estado = 1 ORDER BY nombre";
         try (Connection conn = conexion.establecerconexio();
              PreparedStatement ps = conn.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {

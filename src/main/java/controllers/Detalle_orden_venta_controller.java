@@ -65,7 +65,7 @@ public class Detalle_orden_venta_controller implements Initializable {
     private static int idOrdenEstatico = 0;
 
     public ObservableList cargarProductos() {
-        String sql = "SELECT id_producto, nombre, precio_unitario FROM PRODUCTO WHERE tipo_producto = 'PRODUCTO_TERMINADO' ORDER BY nombre";
+        String sql = "SELECT id_producto, nombre, precio_unitario FROM PRODUCTO WHERE tipo_producto = 'PRODUCTO_TERMINADO' AND estado = 1 ORDER BY nombre";
         try (Connection connection = conexion.establecerconexio();
              PreparedStatement ps = connection.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();

@@ -7,8 +7,10 @@ import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.view.JasperViewer;
 
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.sql.*;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -17,6 +19,7 @@ public class FacturaController {
     private static final String EMPRESA_NOMBRE = "Panadería El Horno de Oro";
     private static final String EMPRESA_RNC = "131-456789-0";
     private static final String EMPRESA_DIRECCION = "Calle Principal #123, Zona Colonial, Santo Domingo";
+    private static final DecimalFormat FMT = new DecimalFormat("#,##0.00");
 
     public static void mostrarFactura(int idOrdenVenta) {
         try (Connection conn = new CONEXION().establecerconexio()) {
@@ -78,9 +81,12 @@ public class FacturaController {
                 if (provincia != null) dir.append(", ").append(provincia);
                 params.put("direccionCliente", dir.length() > 0 ? dir.toString() : "—");
 
-                params.put("subtotal", rs.getDouble("subtotal"));
-                params.put("itbis", rs.getDouble("itbis"));
-                params.put("total", rs.getDouble("monto_total"));
+                double sub = rs.getBigDecimal("subtotal") != null ? rs.getBigDecimal("subtotal").doubleValue() : 0.0;
+                double itb = rs.getBigDecimal("itbis") != null ? rs.getBigDecimal("itbis").doubleValue() : 0.0;
+                double tot = rs.getBigDecimal("monto_total") != null ? rs.getBigDecimal("monto_total").doubleValue() : 0.0;
+                params.put("subtotalStr", "RD$ " + FMT.format(sub));
+                params.put("itbisStr",    "RD$ " + FMT.format(itb));
+                params.put("totalStr",    "RD$ " + FMT.format(tot));
             }
 
             String sqlDetalle = "SELECT p.nombre as producto, dov.cantidad, dov.precio_unitario, dov.subtotal " +
@@ -94,9 +100,12 @@ public class FacturaController {
                 while (rs.next()) {
                     Map<String, Object> row = new HashMap<>();
                     row.put("nombreProducto", rs.getString("producto"));
-                    row.put("cantidad", rs.getBigDecimal("cantidad"));
-                    row.put("precioUnitario", rs.getDouble("precio_unitario"));
-                    row.put("subtotal", rs.getDouble("subtotal"));
+                    double cant = rs.getBigDecimal("cantidad") != null ? rs.getBigDecimal("cantidad").doubleValue() : 0;
+                    double pu = rs.getDouble("precio_unitario");
+                    double st = rs.getDouble("subtotal");
+                    row.put("cantidadStr", cant == (int) cant ? String.valueOf((int) cant) : String.valueOf(cant));
+                    row.put("precioStr", "RD$ " + FMT.format(pu));
+                    row.put("subtotalStr", "RD$ " + FMT.format(st));
                     detalles.add(row);
                 }
             }
@@ -108,7 +117,8 @@ public class FacturaController {
 
             JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(detalles);
 
-            JasperReport jasperReport = JasperCompileManager.compileReport(jrxml);
+            byte[] jrxmlBytes = jrxml.readAllBytes();
+            JasperReport jasperReport = JasperCompileManager.compileReport(new ByteArrayInputStream(jrxmlBytes));
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, dataSource);
 
             JasperViewer.viewReport(jasperPrint, false);

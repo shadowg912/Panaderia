@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import model.Empleado;
 import model.Rol;
+import org.mindrot.jbcrypt.BCrypt;
 import utils.AppNavigator;
 
 import java.sql.Connection;
@@ -123,7 +124,7 @@ private Empleado buscarEmpleadoPorId(int idEmpleado) {
         try (Connection connection = conexion.establecerconexio();
              PreparedStatement ps = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, nombreUsuario);
-            ps.setString(2, password);
+            ps.setString(2, BCrypt.hashpw(password, BCrypt.gensalt()));
             ps.setInt(3, idRol);
             ps.setInt(4, idEmpleado);
             ps.executeUpdate();

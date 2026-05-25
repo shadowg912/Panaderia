@@ -62,7 +62,7 @@ public class AppNavigator {
 
     public static void irADetalleOrden(int idOrden) {
         Detalle_orden_venta_controller.setIdOrden(idOrden);
-        navigateTo("/view/Detalle_orden.fxml");
+        navigateTo("/view/Detalle_Venta.fxml");
     }
 
     public static void irAConfirmarOrden() {

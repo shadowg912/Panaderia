@@ -4,6 +4,7 @@ module com.example.panaderia {
     requires java.sql;
     requires java.desktop;
     requires jasperreports;
+    requires jbcrypt;
 
     exports com.example.panaderia;
 

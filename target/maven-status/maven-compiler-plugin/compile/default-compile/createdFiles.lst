@@ -14,7 +14,7 @@ controllers/Gestion_proveedores_controller.class
 controllers/Historial_ventas_controller.class
 controllers/Inventario_controller.class
 model/ValorNutricional.class
-Data_base/main.class
+controllers/Cambiar_password_controller.class
 controllers/Registro_recetas_controller$1.class
 Data_base/CONEXION.class
 model/Factura.class
@@ -37,11 +37,12 @@ controllers/Detalle_orden_venta_controller.class
 controllers/Admin_usuarios_controller$1.class
 model/Empleado.class
 controllers/Nueva_compra_controller.class
+controllers/Gestion_catalogos_controller.class
 model/Proveedor.class
 controllers/Seleccionar_productos_produccion_controller$1.class
-com/example/panaderia/Launcher.class
 controllers/menu_contoller.class
 model/Provincia.class
+controllers/Gestion_catalogos_controller$CatalogoConf.class
 controllers/Registro_recetas_controller$2.class
 model/DetalleOrdenVenta.class
 model/CategoriaProducto.class
@@ -49,11 +50,13 @@ model/Reclamaciones.class
 controllers/Regisro_empresa_controller.class
 controllers/Ver_recetas_controller$1.class
 model/FacturaVenta.class
+controllers/Dashboard_principal_controller$ProductoResumen.class
 model/Cliente.class
 controllers/Gestion_compras_controller.class
 controllers/Admin_empleados_controller$1.class
 model/Producto.class
 controllers/Dashboard_compras_controller.class
+controllers/Dashboard_principal_controller.class
 controllers/Ver_ordenes_produccion_controller.class
 model/RecetaResumen.class
 controllers/Seguimento_envio_controller.class
@@ -61,7 +64,6 @@ model/OrdenVenta.class
 controllers/Historial_ventas_controller$1.class
 controllers/Seguimento_envio_controller$1.class
 controllers/Ver_ordenes_produccion_controller$OrdenProdRow.class
-com/example/panaderia/HelloApplication.class
 model/DetalleProduccion.class
 model/ClienteResumen.class
 controllers/Admin_usuarios_controller.class
@@ -73,6 +75,7 @@ controllers/FacturaController.class
 controllers/Confirmar_orden_controller$3.class
 controllers/menu_contoller$Modulo.class
 model/FormaPago.class
+controllers/Gestion_catalogos_controller$CatalogoItem.class
 controllers/Gestion_clientes_controller.class
 controllers/Confirmar_orden_controller$2.class
 controllers/Inventario_controller$2.class
@@ -85,7 +88,6 @@ controllers/Ver_recetas_controller$2.class
 controllers/Gestion_proveedores_controller$1.class
 model/Unidad.class
 model/DetalleOrdenProduccion.class
-controllers/Direccion_entrega_controller.class
 controllers/Admin_empleados_controller.class
 controllers/Movimientos_inventario_controller.class
 controllers/Registro_proveedor_controller.class
@@ -93,9 +95,11 @@ model/VentaResumen.class
 controllers/Reclamaciones_controller.class
 controllers/Ver_recetas_controller.class
 controllers/Confirmar_orden_controller$1.class
+controllers/Gestion_catalogos_controller$1.class
 controllers/Registro_recetas_controller$3.class
 controllers/Inventario_controller$1.class
 controllers/Confirmar_orden_controller.class
 model/MovimientoInventario.class
+model/Ingrediente.class
 model/RecetaDetalle.class
 utils/AppNavigator.class
