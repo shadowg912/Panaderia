@@ -55,7 +55,7 @@ public class Crear_ordenventa_controller {
     }
 
     public ObservableList cargarFormasPago() {
-        String sql = "SELECT id_forma_pago, nombre FROM FORMA_PAGO ORDER BY nombre";
+        String sql = "SELECT id_forma_pago, nombre FROM FORMA_PAGO WHERE estado = 1 ORDER BY nombre";
         try (Connection connection = conexion.establecerconexio();
              PreparedStatement ps = connection.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();

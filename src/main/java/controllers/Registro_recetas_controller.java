@@ -124,7 +124,7 @@ public class Registro_recetas_controller {
 
     private void cargarUnidades() {
         listaUnidades.clear();
-        String sql = "SELECT id_unidad, nombre FROM UNIDAD ORDER BY nombre";
+        String sql = "SELECT id_unidad, nombre FROM UNIDAD WHERE estado = 1 ORDER BY nombre";
         try (Connection con = conexion.establecerconexio();
              PreparedStatement ps = con.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {

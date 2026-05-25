@@ -72,7 +72,7 @@ public class Gestion_proveedores_controller {
     private void cargarCategorias() {
         ObservableList<CategoriaProveedor> cats = FXCollections.observableArrayList();
         cats.add(new CategoriaProveedor(0, "Todas las categorías"));
-        String sql = "SELECT id_categoria_proveedor, nombre FROM CATEGORIA_PROVEEDOR ORDER BY nombre";
+        String sql = "SELECT id_categoria_proveedor, nombre FROM CATEGORIA_PROVEEDOR WHERE estado = 1 ORDER BY nombre";
         try (Connection c = conexion.establecerconexio();
              PreparedStatement ps = c.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {

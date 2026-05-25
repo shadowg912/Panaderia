@@ -42,7 +42,7 @@ public class Registro_producto_controller {
     public void fnVolerMenu(ActionEvent actionEvent) { appNavigator.volverMenu(); }
 
     public ObservableList cargarUnidad() {
-        String sql = "SELECT id_unidad,nombre FROM UNIDAD";
+        String sql = "SELECT id_unidad,nombre FROM UNIDAD WHERE estado = 1";
         try (Connection connection = conexion.establecerconexio();
              PreparedStatement ps = connection.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
@@ -54,7 +54,7 @@ public class Registro_producto_controller {
     }
 
     public ObservableList CargarCategoria() {
-        String sql = "SELECT id_categoria_producto,nombre FROM CATEGORIA_PRODUCTO";
+        String sql = "SELECT id_categoria_producto,nombre FROM CATEGORIA_PRODUCTO WHERE estado = 1";
         try (Connection connection = conexion.establecerconexio();
              PreparedStatement ps = connection.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();

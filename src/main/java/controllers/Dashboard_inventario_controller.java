@@ -97,7 +97,8 @@ public class Dashboard_inventario_controller {
         String sql = "SELECT cp.nombre, COALESCE(SUM(i.stock_actual), 0) as stock "
                    + "FROM CATEGORIA_PRODUCTO cp "
                    + "LEFT JOIN PRODUCTO p ON cp.id_categoria_producto = p.id_categoria_producto AND p.estado = 1 "
-                    + "LEFT JOIN [dbo].[INVENTARIO] i ON p.id_producto = i.id_producto "
+                   + "LEFT JOIN [dbo].[INVENTARIO] i ON p.id_producto = i.id_producto "
+                   + "WHERE cp.estado = 1 "
                    + "GROUP BY cp.id_categoria_producto, cp.nombre "
                    + "ORDER BY stock DESC";
 

@@ -72,7 +72,7 @@ public class Nueva_compra_controller {
     }
 
     private ObservableList<FormaPago> cargarFormasPago() {
-        String sql = "SELECT id_forma_pago, nombre FROM FORMA_PAGO ORDER BY nombre";
+        String sql = "SELECT id_forma_pago, nombre FROM FORMA_PAGO WHERE estado = 1 ORDER BY nombre";
         try (Connection c = conexion.establecerconexio();
              PreparedStatement ps = c.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {

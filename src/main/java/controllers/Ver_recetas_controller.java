@@ -234,7 +234,7 @@ public class Ver_recetas_controller {
 
         ComboBox<Unidad> cmbUnidadNueva = new ComboBox<>();
         ObservableList<Unidad> unidades = FXCollections.observableArrayList();
-        String sqlU = "SELECT id_unidad, nombre FROM UNIDAD ORDER BY nombre";
+        String sqlU = "SELECT id_unidad, nombre FROM UNIDAD WHERE estado = 1 ORDER BY nombre";
         try (Connection conn = conexion.establecerconexio();
              PreparedStatement ps = conn.prepareStatement(sqlU);
              ResultSet rs = ps.executeQuery()) {

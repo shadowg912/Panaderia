@@ -36,7 +36,7 @@ public class Registro_proveedor_controller {
     ObservableList<Provincia> Provincias = FXCollections.observableArrayList();
 
     public ObservableList cargarCategorias() {
-        String sql = "SELECT id_categoria_proveedor, nombre FROM CATEGORIA_PROVEEDOR ORDER BY nombre";
+        String sql = "SELECT id_categoria_proveedor, nombre FROM CATEGORIA_PROVEEDOR WHERE estado = 1 ORDER BY nombre";
         try (Connection connection = conexion.establecerconexio();
              PreparedStatement ps = connection.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
