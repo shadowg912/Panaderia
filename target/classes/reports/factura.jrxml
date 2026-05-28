@@ -249,7 +249,7 @@
     </detail>
 
     <summary>
-        <band height="140" splitType="Stretch">
+        <band height="210" splitType="Stretch">
             <line>
                 <reportElement x="0" y="0" width="535" height="2" forecolor="#8B5E3C"/>
             </line>

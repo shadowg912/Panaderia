@@ -1,4 +1,5 @@
 controllers\Gestion_catalogos_controller.class
+controllers\Facturas_pagadas_controller$3.class
 controllers\Ver_recetas_controller$1.class
 model\Rol.class
 controllers\Seguimento_envio_controller$1.class
@@ -31,6 +32,7 @@ controllers\Inventario_controller$1.class
 model\CompraMaterial.class
 controllers\Admin_usuarios_controller$1.class
 controllers\Registro_recetas_controller$1.class
+controllers\Facturas_pagadas_controller$FacturaPagada.class
 controllers\Dashboard_principal_controller.class
 model\ValorNutricional.class
 controllers\Movimientos_inventario_controller.class
@@ -48,6 +50,7 @@ model\Sector.class
 model\ClienteResumen.class
 model\TipoMovimiento.class
 controllers\Ventana_pagos_controller$2.class
+controllers\Facturas_pagadas_controller$4.class
 model\DetalleOrdenVenta.class
 controllers\Ver_recetas_controller$2.class
 controllers\Orden_produccion_simple_controller.class
@@ -71,6 +74,7 @@ Data_base\CONEXION.class
 controllers\Dashboard_compras_controller.class
 controllers\Seguimento_envio_controller.class
 model\Producto.class
+controllers\Facturas_pagadas_controller.class
 controllers\menu_contoller$SubItem.class
 model\Direccion.class
 controllers\Ver_ordenes_produccion_controller.class
@@ -99,6 +103,7 @@ model\Ingrediente.class
 model\DetalleOrdenProduccion.class
 model\Pais.class
 controllers\Historial_ventas_controller.class
+controllers\Facturas_pagadas_controller$2.class
 controllers\Admin_empleados_controller$1.class
 controllers\Guardar_direccion_controller.class
 controllers\Ventana_pagos_controller$4.class
@@ -107,6 +112,8 @@ controllers\Detalle_compra_controller.class
 controllers\Admin_usuarios_controller.class
 model\CategoriaProducto.class
 controllers\Confirmar_orden_controller.class
+controllers\Facturas_pagadas_controller$1.class
 com\example\panaderia\Main.class
+controllers\Facturas_pagadas_controller$PagoRow.class
 controllers\Admin_empleados_controller.class
 controllers\Regisro_empresa_controller.class

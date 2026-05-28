@@ -61,7 +61,8 @@ public class menu_contoller {
                 new SubItem("btnHistorialVenta", "Historial de Ventas", "Consultar ventas realizadas", "/view/Historial_ventas.fxml"),
                 new SubItem("btnSeguimientroEnvio", "Seguimiento Envíos", "Rastrear estado de entregas", "/view/Seguimiento_envio.fxml"),
                 new SubItem("btnGuardarDIrecciones", "Guardar Direcciones", "Administrar direcciones de entrega", "/view/Guardar_Direccion.fxml"),
-                new SubItem("btnRegistroPagos", "Registro de Pagos", "Registrar pagos de facturas pendientes", "/view/Ventana_pagos.fxml")
+                new SubItem("btnRegistroPagos", "Registro de Pagos", "Registrar pagos de facturas pendientes", "/view/Ventana_pagos.fxml"),
+                new SubItem("btnFacturasPagadas", "Facturas Pagadas", "Consultar facturas pagadas y sus pagos", "/view/Facturas_pagadas.fxml")
             )));
         MODULOS.put("INVENTARIO", new Modulo("INVENTARIO", "I",
             List.of(
@@ -107,7 +108,7 @@ public class menu_contoller {
     static {
         PERMISOS.put("Administrador", Set.of(
             "btnDashboardPrincipal",
-            "btnDashboardVentas","btnNuevaOrden","btnHistorialVenta","btnRegistroPagos","btnSeguimientroEnvio","btnGuardarDIrecciones",
+            "btnDashboardVentas","btnNuevaOrden","btnHistorialVenta","btnRegistroPagos","btnFacturasPagadas","btnSeguimientroEnvio","btnGuardarDIrecciones",
             "btnDashboardInventario","btnRegistroProducto","btnVerInventario","btnVerMovimientos","btnRegistroRecetas",
             "btnDashboardProduccion","btnOrdenProduccion","btnVerOrdenesProduccion","btnVerRecetas",
             "btnDashboardCompras","btnNuevaCompra","btnGestionCompras","btnRegistroProveedor","btnAdminProveedores",
@@ -122,7 +123,7 @@ public class menu_contoller {
         ));
         PERMISOS.put("Encargado de Área", Set.of(
             "btnDashboardPrincipal",
-            "btnDashboardVentas","btnHistorialVenta","btnRegistroPagos","btnSeguimientroEnvio","btnVerInventario","btnVerMovimientos",
+            "btnDashboardVentas","btnHistorialVenta","btnRegistroPagos","btnFacturasPagadas","btnSeguimientroEnvio","btnVerInventario","btnVerMovimientos",
             "btnDashboardProduccion","btnVerOrdenesProduccion","btnVerRecetas",
             "btnGestionClientes","btnReclamaciones","btnCambiarPassword"
         ));
