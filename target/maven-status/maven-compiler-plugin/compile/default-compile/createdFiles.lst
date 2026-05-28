@@ -25,6 +25,7 @@ model\Factura.class
 model\Provincia.class
 controllers\Gestion_catalogos_controller$CatalogoConf.class
 controllers\menu_contoller$Modulo.class
+controllers\Facturas_pagadas_controller$6.class
 controllers\Registro_recetas_controller$2.class
 controllers\Seleccionar_productos_produccion_controller$1.class
 controllers\Gestion_compras_controller.class
@@ -34,6 +35,7 @@ controllers\Admin_usuarios_controller$1.class
 controllers\Registro_recetas_controller$1.class
 controllers\Facturas_pagadas_controller$FacturaPagada.class
 controllers\Dashboard_principal_controller.class
+controllers\Facturas_pagadas_controller$5.class
 model\ValorNutricional.class
 controllers\Movimientos_inventario_controller.class
 model\Usuario.class

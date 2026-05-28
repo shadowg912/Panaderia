@@ -6,7 +6,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import model.Cliente;
 import utils.AppNavigator;
 
@@ -20,10 +19,12 @@ public class Facturas_pagadas_controller {
 
     @FXML private ComboBox<Cliente> cmbCliente;
     @FXML private TableView<FacturaPagada> tblFacturas;
+    @FXML private TableColumn<FacturaPagada, Integer> colIdFactura;
     @FXML private TableColumn<FacturaPagada, String> colNumFactura;
     @FXML private TableColumn<FacturaPagada, String> colCliente;
     @FXML private TableColumn<FacturaPagada, String> colFecha;
     @FXML private TableColumn<FacturaPagada, Double> colTotal;
+    @FXML private TableColumn<FacturaPagada, Double> colUltimoPago;
     @FXML private TableColumn<FacturaPagada, Double> colPagado;
     @FXML private TableColumn<FacturaPagada, Void> colAccion;
     @FXML private TableView<PagoRow> tblPagos;
@@ -46,18 +47,36 @@ public class Facturas_pagadas_controller {
     }
 
     private void configurarColumnas() {
+        colIdFactura.setCellValueFactory(cd -> cd.getValue().idFacturaProperty().asObject());
         colNumFactura.setCellValueFactory(cd -> cd.getValue().numeroFacturaProperty());
         colCliente.setCellValueFactory(cd -> cd.getValue().clienteProperty());
         colFecha.setCellValueFactory(cd -> cd.getValue().fechaProperty());
         colTotal.setCellValueFactory(cd -> cd.getValue().montoTotalProperty().asObject());
+        colUltimoPago.setCellValueFactory(cd -> cd.getValue().ultimoPagoProperty().asObject());
         colPagado.setCellValueFactory(cd -> cd.getValue().totalPagadoProperty().asObject());
 
+        TableCell<FacturaPagada, Double> rightAlign = new TableCell<>() {
+            @Override
+            protected void updateItem(Double val, boolean empty) {
+                super.updateItem(val, empty);
+                setText(empty || val == null ? null : FMT.format(val));
+                setStyle("-fx-alignment: CENTER_RIGHT;");
+            }
+        };
         colTotal.setCellFactory(col -> new TableCell<>() {
             @Override
             protected void updateItem(Double val, boolean empty) {
                 super.updateItem(val, empty);
                 setText(empty || val == null ? null : FMT.format(val));
                 setStyle("-fx-alignment: CENTER_RIGHT;");
+            }
+        });
+        colUltimoPago.setCellFactory(col -> new TableCell<>() {
+            @Override
+            protected void updateItem(Double val, boolean empty) {
+                super.updateItem(val, empty);
+                setText(empty || val == null ? null : FMT.format(val));
+                setStyle("-fx-alignment: CENTER_RIGHT; -fx-font-weight: bold;");
             }
         });
         colPagado.setCellFactory(col -> new TableCell<>() {
@@ -134,11 +153,14 @@ public class Facturas_pagadas_controller {
         StringBuilder sql = new StringBuilder(
             "SELECT fv.id_factura_venta, fv.numero_factura, fv.id_orden_venta, " +
             "fv.monto_total, fv.fecha_emision, c.razon_social, " +
-            "COALESCE(pg.total_pagado, 0) as total_pagado " +
+            "COALESCE(pg.total_pagado, 0) as total_pagado, " +
+            "COALESCE(ult.ultimo_pago, 0) as ultimo_pago " +
             "FROM FACTURA_VENTA fv " +
             "INNER JOIN CLIENTE c ON fv.id_empresa_cliente = c.id_cliente " +
             "LEFT JOIN (SELECT id_orden_venta, SUM(monto) as total_pagado FROM PAGO GROUP BY id_orden_venta) pg " +
             "ON fv.id_orden_venta = pg.id_orden_venta " +
+            "LEFT JOIN (SELECT id_orden_venta, monto as ultimo_pago, ROW_NUMBER() OVER (PARTITION BY id_orden_venta ORDER BY fecha DESC) as rn FROM PAGO) ult " +
+            "ON ult.id_orden_venta = fv.id_orden_venta AND ult.rn = 1 " +
             "WHERE fv.estado = 'PAGADA'"
         );
 
@@ -160,6 +182,7 @@ public class Facturas_pagadas_controller {
                 f.setIdOrdenVenta(rs.getInt("id_orden_venta"));
                 f.setCliente(rs.getString("razon_social"));
                 f.setMontoTotal(rs.getDouble("monto_total"));
+                f.setUltimoPago(rs.getDouble("ultimo_pago"));
                 f.setTotalPagado(rs.getDouble("total_pagado"));
                 Date fecha = rs.getDate("fecha_emision");
                 f.setFecha(fecha != null ? fecha.toLocalDate().toString() : "");
@@ -209,6 +232,7 @@ public class Facturas_pagadas_controller {
         private final SimpleStringProperty cliente = new SimpleStringProperty();
         private final SimpleStringProperty fecha = new SimpleStringProperty();
         private final SimpleDoubleProperty montoTotal = new SimpleDoubleProperty();
+        private final SimpleDoubleProperty ultimoPago = new SimpleDoubleProperty();
         private final SimpleDoubleProperty totalPagado = new SimpleDoubleProperty();
 
         public int getIdFactura() { return idFactura.get(); }
@@ -229,6 +253,9 @@ public class Facturas_pagadas_controller {
         public double getMontoTotal() { return montoTotal.get(); }
         public void setMontoTotal(double v) { montoTotal.set(v); }
         public SimpleDoubleProperty montoTotalProperty() { return montoTotal; }
+        public double getUltimoPago() { return ultimoPago.get(); }
+        public void setUltimoPago(double v) { ultimoPago.set(v); }
+        public SimpleDoubleProperty ultimoPagoProperty() { return ultimoPago; }
         public double getTotalPagado() { return totalPagado.get(); }
         public void setTotalPagado(double v) { totalPagado.set(v); }
         public SimpleDoubleProperty totalPagadoProperty() { return totalPagado; }
