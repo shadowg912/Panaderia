@@ -21,6 +21,9 @@
     <parameter name="subtotalStr" class="java.lang.String"/>
     <parameter name="itbisStr" class="java.lang.String"/>
     <parameter name="totalStr" class="java.lang.String"/>
+    <parameter name="totalPagadoStr" class="java.lang.String"/>
+    <parameter name="ultimoPagoStr" class="java.lang.String"/>
+    <parameter name="saldoPendienteStr" class="java.lang.String"/>
 
     <field name="nombreProducto" class="java.lang.String"/>
     <field name="cantidadStr" class="java.lang.String"/>
@@ -308,10 +311,68 @@
                 <textFieldExpression><![CDATA[$P{totalStr}]]></textFieldExpression>
             </textField>
             <line>
-                <reportElement x="0" y="115" width="535" height="1" forecolor="#D4A574"/>
+                <reportElement x="0" y="100" width="535" height="1" forecolor="#D4A574"/>
+            </line>
+            <rectangle>
+                <reportElement x="15" y="105" width="505" height="72" backcolor="#FFF8F0"/>
+                <graphicElement>
+                    <pen lineWidth="1" lineColor="#D4A574"/>
+                </graphicElement>
+            </rectangle>
+            <staticText>
+                <reportElement x="25" y="108" width="470" height="14" forecolor="#8B5E3C"/>
+                <textElement>
+                    <font fontName="DejaVu Sans" size="10" isBold="true"/>
+                </textElement>
+                <text><![CDATA[INFORMACIÓN DE PAGOS]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="25" y="126" width="150" height="14" forecolor="#4A4A4A"/>
+                <textElement>
+                    <font fontName="DejaVu Sans" size="9"/>
+                </textElement>
+                <text><![CDATA[Total pagado:]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="180" y="126" width="120" height="14" forecolor="#4A4A4A"/>
+                <textElement>
+                    <font fontName="DejaVu Sans" size="9" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{totalPagadoStr}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="25" y="144" width="150" height="14" forecolor="#4A4A4A"/>
+                <textElement>
+                    <font fontName="DejaVu Sans" size="9"/>
+                </textElement>
+                <text><![CDATA[Último pago:]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="180" y="144" width="120" height="14" forecolor="#4A4A4A"/>
+                <textElement>
+                    <font fontName="DejaVu Sans" size="9" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{ultimoPagoStr}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="320" y="126" width="100" height="14" forecolor="#4A4A4A"/>
+                <textElement>
+                    <font fontName="DejaVu Sans" size="9"/>
+                </textElement>
+                <text><![CDATA[Saldo pendiente:]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="420" y="126" width="90" height="14" forecolor="#4A4A4A"/>
+                <textElement textAlignment="Right">
+                    <font fontName="DejaVu Sans" size="9" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{saldoPendienteStr}]]></textFieldExpression>
+            </textField>
+            <line>
+                <reportElement x="0" y="182" width="535" height="1" forecolor="#D4A574"/>
             </line>
             <staticText>
-                <reportElement x="15" y="120" width="300" height="18" forecolor="#8B5E3C"/>
+                <reportElement x="15" y="188" width="300" height="18" forecolor="#8B5E3C"/>
                 <textElement>
                     <font fontName="DejaVu Sans" size="10" isItalic="true"/>
                 </textElement>

@@ -83,10 +83,33 @@ public class FacturaController {
 
                 double sub = rs.getBigDecimal("subtotal") != null ? rs.getBigDecimal("subtotal").doubleValue() : 0.0;
                 double itb = rs.getBigDecimal("itbis") != null ? rs.getBigDecimal("itbis").doubleValue() : 0.0;
-                double tot = rs.getBigDecimal("monto_total") != null ? rs.getBigDecimal("monto_total").doubleValue() : 0.0;
                 params.put("subtotalStr", "RD$ " + FMT.format(sub));
                 params.put("itbisStr",    "RD$ " + FMT.format(itb));
-                params.put("totalStr",    "RD$ " + FMT.format(tot));
+            }
+
+            String sqlPagos = "SELECT fv.monto_total, " +
+                              "COALESCE(pg.total_pagado, 0) as total_pagado, " +
+                              "COALESCE(ult.ultimo_pago, 0) as ultimo_pago " +
+                              "FROM FACTURA_VENTA fv " +
+                              "LEFT JOIN (SELECT id_orden_venta, SUM(monto) as total_pagado FROM PAGO GROUP BY id_orden_venta) pg " +
+                              "ON fv.id_orden_venta = pg.id_orden_venta " +
+                              "LEFT JOIN (SELECT id_orden_venta, monto as ultimo_pago, ROW_NUMBER() OVER (PARTITION BY id_orden_venta ORDER BY fecha DESC) as rn FROM PAGO) ult " +
+                              "ON ult.id_orden_venta = fv.id_orden_venta AND ult.rn = 1 " +
+                              "WHERE fv.id_orden_venta = ?";
+            try (PreparedStatement ps = conn.prepareStatement(sqlPagos)) {
+                ps.setInt(1, idOrdenVenta);
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    double tot = rs.getDouble("monto_total");
+                    double totalPagado = rs.getDouble("total_pagado");
+                    double ultimoPago = rs.getDouble("ultimo_pago");
+                    double saldoPendiente = tot - totalPagado;
+                    if (saldoPendiente < 0) saldoPendiente = 0;
+                    params.put("totalStr", "RD$ " + FMT.format(tot));
+                    params.put("totalPagadoStr", "RD$ " + FMT.format(totalPagado));
+                    params.put("ultimoPagoStr", "RD$ " + FMT.format(ultimoPago));
+                    params.put("saldoPendienteStr", "RD$ " + FMT.format(saldoPendiente));
+                }
             }
 
             String sqlDetalle = "SELECT p.nombre as producto, dov.cantidad, dov.precio_unitario, dov.subtotal " +
