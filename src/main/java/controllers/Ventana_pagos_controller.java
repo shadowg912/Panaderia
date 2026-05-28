@@ -216,7 +216,7 @@ public class Ventana_pagos_controller {
         for (FacturaPendiente f : seleccionadas) {
             if (facturasList.length() > 0) facturasList.append("\n");
             facturasList.append("  • ").append(f.getNumeroFactura())
-                        .append(" — Saldo: ").append(FMT.format(f.getSaldoPendiente()));
+                        .append(" — Saldo pendiente: ").append(FMT.format(f.getSaldoPendiente()));
         }
 
         Label lblFacturasTitle = new Label("FACTURAS A PAGAR (" + seleccionadas.size() + ")");
@@ -301,6 +301,7 @@ public class Ventana_pagos_controller {
         double restante = montoPagar;
         StringBuilder resultado = new StringBuilder();
         double totalPagado = 0;
+        List<Integer> ordenesPagadas = new ArrayList<>();
 
         try (Connection conn = conexion.establecerconexio()) {
             conn.setAutoCommit(false);
@@ -333,20 +334,21 @@ public class Ventana_pagos_controller {
                     }
                 }
 
+                ordenesPagadas.add(f.getIdOrdenVenta());
                 resultado.append("  • ").append(f.getNumeroFactura())
                          .append(" — Abonado: ").append(FMT.format(abono));
                 if (pagoCompleto) {
                     resultado.append(" (PAGADA)");
                 } else {
                     double nuevoSaldo = f.getMontoTotal() - nuevoPagado;
-                    resultado.append(" — Saldo restante: ").append(FMT.format(nuevoSaldo));
+                    resultado.append(" — Saldo pendiente: ").append(FMT.format(nuevoSaldo));
                 }
                 resultado.append("\n");
             }
 
             conn.commit();
 
-            mostrarResultadoPago(montoPagar, totalPagado, resultado.toString());
+            mostrarResultadoPago(montoPagar, totalPagado, resultado.toString(), ordenesPagadas);
             cargarFacturasPendientes();
 
         } catch (SQLException e) {
@@ -366,7 +368,7 @@ public class Ventana_pagos_controller {
         return -1;
     }
 
-    private void mostrarResultadoPago(double montoSolicitado, double montoPagado, String detalle) {
+    private void mostrarResultadoPago(double montoSolicitado, double montoPagado, String detalle, List<Integer> ordenesPagadas) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Pago Registrado");
         alert.setHeaderText(null);
@@ -379,7 +381,21 @@ public class Ventana_pagos_controller {
         contenido.append(detalle);
 
         alert.setContentText(contenido.toString());
-        alert.showAndWait();
+
+        if (!ordenesPagadas.isEmpty()) {
+            ButtonType btnVerFactura = new ButtonType("Ver Factura");
+            ButtonType btnCerrar = new ButtonType("Cerrar");
+            alert.getButtonTypes().setAll(btnVerFactura, btnCerrar);
+            alert.showAndWait().ifPresent(r -> {
+                if (r == btnVerFactura) {
+                    for (int idOrden : ordenesPagadas) {
+                        FacturaController.mostrarFactura(idOrden);
+                    }
+                }
+            });
+        } else {
+            alert.showAndWait();
+        }
     }
 
     @FXML

@@ -60,7 +60,8 @@ public class menu_contoller {
                 new SubItem("btnNuevaOrden", "Nueva Orden", "Crear una orden de venta para un cliente", "/view/Crear_ordenventa.fxml"),
                 new SubItem("btnHistorialVenta", "Historial de Ventas", "Consultar ventas realizadas", "/view/Historial_ventas.fxml"),
                 new SubItem("btnSeguimientroEnvio", "Seguimiento Envíos", "Rastrear estado de entregas", "/view/Seguimiento_envio.fxml"),
-                new SubItem("btnGuardarDIrecciones", "Guardar Direcciones", "Administrar direcciones de entrega", "/view/Guardar_Direccion.fxml")
+                new SubItem("btnGuardarDIrecciones", "Guardar Direcciones", "Administrar direcciones de entrega", "/view/Guardar_Direccion.fxml"),
+                new SubItem("btnRegistroPagos", "Registro de Pagos", "Registrar pagos de facturas pendientes", "/view/Ventana_pagos.fxml")
             )));
         MODULOS.put("INVENTARIO", new Modulo("INVENTARIO", "I",
             List.of(
@@ -106,7 +107,7 @@ public class menu_contoller {
     static {
         PERMISOS.put("Administrador", Set.of(
             "btnDashboardPrincipal",
-            "btnDashboardVentas","btnNuevaOrden","btnHistorialVenta","btnSeguimientroEnvio","btnGuardarDIrecciones",
+            "btnDashboardVentas","btnNuevaOrden","btnHistorialVenta","btnRegistroPagos","btnSeguimientroEnvio","btnGuardarDIrecciones",
             "btnDashboardInventario","btnRegistroProducto","btnVerInventario","btnVerMovimientos","btnRegistroRecetas",
             "btnDashboardProduccion","btnOrdenProduccion","btnVerOrdenesProduccion","btnVerRecetas",
             "btnDashboardCompras","btnNuevaCompra","btnGestionCompras","btnRegistroProveedor","btnAdminProveedores",
@@ -121,7 +122,7 @@ public class menu_contoller {
         ));
         PERMISOS.put("Encargado de Área", Set.of(
             "btnDashboardPrincipal",
-            "btnDashboardVentas","btnHistorialVenta","btnSeguimientroEnvio","btnVerInventario","btnVerMovimientos",
+            "btnDashboardVentas","btnHistorialVenta","btnRegistroPagos","btnSeguimientroEnvio","btnVerInventario","btnVerMovimientos",
             "btnDashboardProduccion","btnVerOrdenesProduccion","btnVerRecetas",
             "btnGestionClientes","btnReclamaciones","btnCambiarPassword"
         ));

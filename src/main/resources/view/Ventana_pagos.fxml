@@ -37,7 +37,7 @@
                     <TableColumn fx:id="colFecha" prefWidth="130" text="FECHA"/>
                     <TableColumn fx:id="colTotal" prefWidth="160" text="TOTAL (RD$)"/>
                     <TableColumn fx:id="colPagado" prefWidth="160" text="PAGADO (RD$)"/>
-                    <TableColumn fx:id="colSaldo" prefWidth="160" text="SALDO (RD$)"/>
+                    <TableColumn fx:id="colSaldo" prefWidth="160" text="SALDO PENDIENTE (RD$)"/>
                 </columns>
                 <columnResizePolicy>
                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
